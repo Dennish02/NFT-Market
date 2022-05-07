@@ -350,7 +350,8 @@ html {
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
+  background-color: #1d1e3e;
+  font-family: "Ubuntu", sans-serif;
   font-size: 1.6rem;
 }
 body.fijar-body {
@@ -398,41 +399,19 @@ img {
   display: block;
 }
 
-.contenedor_nav {
-  background-color: aqua;
-  width: 90%;
-  margin: 0 auto;
-}
-.contenedor_nav p {
-  color: #FFF;
-  font-weight: 900;
-  font-size: 2.5rem;
-}
-
-.div {
-  background-color: black;
-  height: 200px;
-}
-.div .div_1 {
-  background-color: rgb(158, 158, 52);
-  height: 150px;
-}
-.div .div_1 .div_2 {
-  background-color: rgb(247, 86, 86);
-  height: 100px;
-}
-.div .div_1:hover {
-  background-color: red;
-}
-
 .contLanding {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 0fr));
+  height: 100vh;
+  display: flex;
   align-items: center;
-  width: 800px;
-  margin: 0 auto;
+  justify-content: center;
 }
 
-.app {
-  color: red;
+@media (min-width: 992px) {
+  .contLandingOne {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    align-items: center;
+    width: 800px;
+  }
 }

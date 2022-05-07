@@ -1,8 +1,18 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
 .contLanding{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 
-            minmax(400px,0fr));
+    height: 100vh;
+    display: flex;
     align-items: center;
-    width: 800px;
-    margin: 0 auto;
+    justify-content: center;
 }
+.contLandingOne{
+
+    @include m.desktop{
+        @include m.grid(2, 1rem);
+        align-items: center;
+        width: 800px;
+    }
+}
+

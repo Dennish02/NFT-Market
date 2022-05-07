@@ -4,12 +4,15 @@ import Formulario from '../componentes/landing/Formulario'
 
 
 export default function LnadingPage() {
-  return (
-      <div className='contLanding'>
-          
-              <Formulario/>  
-              <Carrusel/>
-          
-      </div>
-  )
+    return (
+        <div className='contLanding'>
+            <div className='contLandingOne'>
+
+                <Formulario />
+                <Carrusel />
+
+            </div>
+        </div>
+
+    )
 }
