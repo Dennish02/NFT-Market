@@ -11,7 +11,7 @@ export default function Formulario() {
                  </p>
                 </div>
                 <button className='buttonPrimary'>
-                    LOGUIN TO GOOGLE
+                    Explore
                 </button>
             </div>
         </div>
