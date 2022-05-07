@@ -3,17 +3,14 @@ import React from 'react'
 export default function Formulario() {
     return (
         <div>
-            <h1 className='tituloPagina'>NFT Martket</h1>
-            <div>
+            <h1 className='tituloPagina'> <span>NFT</span>  Martket</h1>
+            <div className='contDescription'>
                 <div>
-                    <button>
-                        LOGUIN
-                    </button>
-                    <button>
-                        REGISTER
-                    </button>
+                 <p>
+                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad 
+                 </p>
                 </div>
-                <button>
+                <button className='buttonPrimary'>
                     LOGUIN TO GOOGLE
                 </button>
             </div>

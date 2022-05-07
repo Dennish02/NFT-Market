@@ -1,4 +1,7 @@
 @use 'variables' as v;
+
+
+
 @mixin telefono {
     @media (min-width: v.$telefono) {
         @content;
@@ -33,4 +36,15 @@
     margin: 0;
     padding: 0;
     list-style: none;
+}
+@mixin buttonPrimary {
+    width: fit-content;
+    background-color: v.$verde;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: v.$grisclaro;
+    font-weight: 700;;
 }

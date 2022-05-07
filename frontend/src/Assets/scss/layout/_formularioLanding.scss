@@ -1,3 +1,21 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
 
+.tituloPagina{
+    font-size: 10rem;
+    margin: 0;
+    font-family: v.$fuente_principal;
+    font-weight: 400;
+    color: v.$grisclaro;
+    span{
+        font-weight: 700;
+        color: v.$naranja;
+        font-size: 12rem;
+    }
+}
+.contDescription{
+    color: v.$grisclaro;
+}
+.buttonPrimary{
+    @include m.buttonPrimary;
+}

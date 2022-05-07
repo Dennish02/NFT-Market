@@ -415,3 +415,32 @@ img {
     width: 800px;
   }
 }
+
+.tituloPagina {
+  font-size: 10rem;
+  margin: 0;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  color: #e1e1e1;
+}
+.tituloPagina span {
+  font-weight: 700;
+  color: #f28b12;
+  font-size: 12rem;
+}
+
+.contDescription {
+  color: #e1e1e1;
+}
+
+.buttonPrimary {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+}
