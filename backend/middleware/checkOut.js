@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import Usuario from "../models/Usiarios.js";
+import Usuario from "../models/Usuarios.js";
 
 //custom middleware para proteger las rutas
 const checkOut = async (req, res, next)=>{
@@ -19,7 +19,7 @@ const checkOut = async (req, res, next)=>{
    }
    if(!token){
        const error = new Error('Token No Válido')
-       res.status(404).json({msg: error.message})
+      return res.status(404).json({msg: error.message})
    }
 
     next()

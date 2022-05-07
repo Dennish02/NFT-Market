@@ -8,7 +8,8 @@ const usuarioSchema = mongoose.Schema({
         type: String,
         require: true,
         trim: true,
-    },
+        unique:true,
+    }, 
     password:{
         type: String,
         require: true,
