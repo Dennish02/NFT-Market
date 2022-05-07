@@ -1,10 +1,10 @@
-import LnadingPage from "./componentes/LnadingPage"
+import LandingPage from "./pages/LandingPage.jsx"
 
 function App() {
   
   return (
     <div>
-     <LnadingPage/>
+     <LandingPage/>
     </div>
   )
 }

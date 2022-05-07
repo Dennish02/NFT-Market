@@ -1,0 +1,8 @@
+.contLanding{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 
+            minmax(400px,0fr));
+    align-items: center;
+    width: 800px;
+    margin: 0 auto;
+}
