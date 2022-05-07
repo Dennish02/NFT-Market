@@ -26,9 +26,7 @@ export default function LnadingPage() {
                     <img src={image} alt="nft" width="300px" height="500px"/>
                 </div>
             </div>
-            <div>
-
-            </div>
+            
         </div>
 
     </div>
