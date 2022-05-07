@@ -3,7 +3,7 @@ import React from 'react'
 export default function Formulario() {
     return (
         <div>
-            <h1>NFT Martket</h1>
+            <h1 className='tituloPagina'>NFT Martket</h1>
             <div>
                 <div>
                     <button>
