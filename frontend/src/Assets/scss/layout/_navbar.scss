@@ -1,3 +1,30 @@
 @use '../base/variables' as v;
 
-
+.contentNav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    margin: 2rem auto;
+    .logo{
+        width: 220px;
+        height: 55px;
+    }
+    .perfil{
+        width: 20%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        p{
+            color: v.$grisclaro;
+            span{
+                color: v.$naranja;
+                font-weight: 700;
+            }
+        }
+        img{
+            width: 50px;
+            height: 50px;
+        }
+    }
+}

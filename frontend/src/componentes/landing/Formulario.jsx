@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+
 
 export default function Formulario() {
     return (
@@ -10,9 +12,14 @@ export default function Formulario() {
                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad 
                  </p>
                 </div>
-                <button className='buttonPrimary'>
-                    Explore
+              <Link to='/home'>
+              <button className='buttonPrimary'>
+                    view more
                 </button>
+              </Link>
+               
+               
+               
             </div>
         </div>
     )

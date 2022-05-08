@@ -399,6 +399,34 @@ img {
   display: block;
 }
 
+.contentNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem auto;
+}
+.contentNav .logo {
+  width: 220px;
+  height: 55px;
+}
+.contentNav .perfil {
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contentNav .perfil p {
+  color: #e1e1e1;
+}
+.contentNav .perfil p span {
+  color: #f28b12;
+  font-weight: 700;
+}
+.contentNav .perfil img {
+  width: 50px;
+  height: 50px;
+}
+
 .landing {
   height: 100vh;
 }
@@ -424,6 +452,7 @@ img {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    align-items: center;
     align-items: center;
     width: 800px;
   }
@@ -462,29 +491,103 @@ img {
   border-radius: 0.5rem;
   color: #e1e1e1;
   font-weight: 700;
+  margin: 1rem 0;
 }
 .buttonPrimary:hover {
   cursor: pointer;
 }
 
 .contLogin {
+  position: relative;
   width: 600px;
   background-color: #3a3a3a;
   color: #e1e1e1;
   border-radius: 0.5rem;
   padding: 2rem;
 }
-.contLogin input {
+.contLogin .close {
+  position: absolute;
+  right: 18px;
+  top: 10px;
+  background: none;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.contLogin .close:hover {
+  cursor: pointer;
+  background-color: #e1e1e1;
+}
+.contLogin .contLogin-content {
+  width: 70%;
+  margin: 0 auto;
+}
+.contLogin .contLogin-content input {
   font-family: "Ubuntu", sans-serif;
   display: block;
-  margin: 2rem auto;
+  margin: 1rem auto;
   padding: 2rem;
   width: 100%;
   border-radius: 0.5rem;
   background-color: #e1e1e1;
   border: none;
 }
-.contLogin .contLogin-content {
+.contLogin .contLogin-content .buttonPrimary {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+.contLogin .contLogin-content .buttonPrimary:hover {
+  cursor: pointer;
+}
+.contLogin .contLogin-content .buttonSecondary {
+  width: fit-content;
+  background-color: #e1e1e1;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #3a3a3a;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+.contLogin .contLogin-content .buttonSecondary:hover {
+  cursor: pointer;
+}
+
+.contentSearchBar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1fr;
+  align-items: center;
+  justify-content: space-between;
+}
+.contentSearchBar input {
+  font-family: "Ubuntu", sans-serif;
+  display: block;
+  margin: 1rem auto;
+  padding: 2rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: #e1e1e1;
+  border: none;
   width: 70%;
+  margin: 0;
+}
+.contentSearchBar .contentSearchBar-select {
+  display: flex;
+  justify-content: space-around;
+}
+
+.contentHome {
+  width: 90%;
   margin: 0 auto;
 }
