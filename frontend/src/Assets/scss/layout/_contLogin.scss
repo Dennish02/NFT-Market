@@ -1,0 +1,18 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.contLogin{
+    width: 600px;
+    
+    background-color: v.$grisoscuro ;
+    color: v.$grisclaro;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    input{
+       @include m.inputs
+    }
+    .contLogin-content{
+        width: 70%;
+        margin: 0 auto;
+    }
+}

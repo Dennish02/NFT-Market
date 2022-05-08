@@ -7,10 +7,12 @@
     font-family: v.$fuente_principal;
     font-weight: 400;
     color: v.$grisclaro;
+    line-height: 0.85;
     span{
         font-weight: 700;
         color: v.$naranja;
         font-size: 12rem;
+        margin: 0;
     }
 }
 .contDescription{
@@ -18,4 +20,7 @@
 }
 .buttonPrimary{
     @include m.buttonPrimary;
+    &:hover{
+        cursor: pointer;
+    }
 }

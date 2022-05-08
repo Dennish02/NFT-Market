@@ -46,5 +46,15 @@
     border: none;
     border-radius: 0.5rem;
     color: v.$grisclaro;
-    font-weight: 700;;
+    font-weight: 700;
 }
+ @mixin inputs{
+     font-family: v.$fuente_principal;
+    display: block;
+    margin: 2rem auto;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 00.5rem;
+    background-color: v.$grisclaro;
+    border: none;
+ }
