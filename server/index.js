@@ -21,7 +21,6 @@ const USER = process.env.USER; // SI ACABAN DE CLONAR EL REPO TIENEN QUE CREAR S
 const PASSWORD = process.env.PASSWORD;
 const CONNECTION_URL = `mongodb+srv://${USER}:${PASSWORD}@cluster0.fnmuo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority` // Conectamos con nuestro usuario de Atlas
 
-
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true}) // Conectamos con la DB y nos prevenimos de algunos errores
 .then(() => app.listen(PORT, () => console.log(`Server running on Port: ${PORT}`))) // Nos devuelve una promesa así que hacemos un .then
 .catch((error) => console.log(error.message)) // Manejo de error
