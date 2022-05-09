@@ -1,8 +1,20 @@
+import NftCreated from "../models/nft.js"
+
 const obtenerAllNft = async (req, res)=>{
 
 }
 const crearNft = async (req, res)=>{
-     res.json(req.body)   
+    //con req.usuario vamos a saber que usuario realizo el NFT
+    const newNft= new NftCreated(req.body)//inatanciar nuevo nft  con la info que llega
+    newNft.creatorId = req.usuario._id//agrego el id del isuario al nft
+    newNft.ownerId =req.usuario._id//el creador es el primer poseedor
+    try {
+        const nftSave = await newNft.save()
+        res.json(nftSave) //para regresar la info creada y sincronizar
+        
+    } catch (error) {
+        console,log(error)
+    }  
 }
 const editarNft = async (req, res)=>{
 
