@@ -1,9 +1,21 @@
+import { useState } from "react";
 
 
 
 
 export default function Loguin({handleChangeModal}) {
-  
+  const [ usuario, setUsuario ]= useState({
+    email:'',
+    password:''
+  })
+
+  function  handleChange(e){
+    setUsuario({
+      ...usuario,
+      [e.target.name]: e.target.value
+    })
+  }
+
 
     const handleSubmit =(e)=>{
       e.preventDefault();
@@ -17,9 +29,21 @@ export default function Loguin({handleChangeModal}) {
       <h3>Login</h3>
         <form onSubmit={handleSubmit}>
             <label htmlFor="email">email</label>
-            <input id="email" type="text" placeholder="Your email"/>
+            <input 
+                id="email"
+                value={usuario.email}
+                type="text" 
+                name="email"
+                onChange={(e)=>handleChange(e)}
+                placeholder="Your email"/>
             <label htmlFor="password">password</label>
-            <input id="password" type="password" placeholder="Your password"/>
+            <input 
+                id="password" 
+                type="password" 
+                value={usuario.password}
+                name="password"
+                onChange={(e)=>handleChange(e)}
+                placeholder="Your password"/>
             <button
             type="submit"
             className="buttonPrimary"
