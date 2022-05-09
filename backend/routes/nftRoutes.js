@@ -8,14 +8,17 @@ import {  obtenerAllNft,
     regalarNft,
     comprarNft,
     venderNft,
-    añadirFavNft} from '../controladores/nftController.js'
+    añadirFavNft,
+    allNftUser,
+    obtenerNft} from '../controladores/nftController.js'
 
 router.route('/')
-    .get(checkOut, obtenerAllNft)
+    .get(obtenerAllNft)
     .post(checkOut, crearNft)
-   
+router.get('/portfolio',checkOut, allNftUser)   
 
 router.route('/:id')
+    .get(checkOut, obtenerNft)
     .get(checkOut, regalarNft)
     .put(checkOut, editarNft)
     .post(checkOut, comprarNft)
