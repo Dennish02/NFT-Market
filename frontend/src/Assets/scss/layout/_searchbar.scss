@@ -1,3 +1,16 @@
-.app{
-    color: red;
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.contentSearchBar{
+    @include m.grid(2, 1fr);
+    justify-content: space-between;
+    input {
+        @include m.inputs;
+        width:70%;
+        margin: 0;
+    }
+    .contentSearchBar-select{
+        display: flex;
+        justify-content: space-around;
+    }
 }

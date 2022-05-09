@@ -350,7 +350,8 @@ html {
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
+  background-color: #1d1e3e;
+  font-family: "Ubuntu", sans-serif;
   font-size: 1.6rem;
 }
 body.fijar-body {
@@ -398,33 +399,195 @@ img {
   display: block;
 }
 
-.contenedor_nav {
-  background-color: aqua;
+.contentNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem auto;
+}
+.contentNav .logo {
+  width: 220px;
+  height: 55px;
+}
+.contentNav .perfil {
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contentNav .perfil p {
+  color: #e1e1e1;
+}
+.contentNav .perfil p span {
+  color: #f28b12;
+  font-weight: 700;
+}
+.contentNav .perfil img {
+  width: 50px;
+  height: 50px;
+}
+
+.landing {
+  height: 100vh;
+}
+
+.contentbutton {
   width: 90%;
+  margin: 6rem auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 2rem;
+}
+
+.contLanding {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 992px) {
+  .contLandingOne {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    align-items: center;
+    align-items: center;
+    width: 800px;
+  }
+}
+
+.carr img {
+  transition-duration: 1s;
+}
+
+.tituloPagina {
+  font-size: 10rem;
+  margin: 0;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  color: #e1e1e1;
+  line-height: 0.85;
+}
+.tituloPagina span {
+  font-weight: 700;
+  color: #f28b12;
+  font-size: 12rem;
+  margin: 0;
+}
+
+.contDescription {
+  color: #e1e1e1;
+}
+
+.buttonPrimary {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+.buttonPrimary:hover {
+  cursor: pointer;
+}
+
+.contLogin {
+  position: relative;
+  width: 600px;
+  background-color: #3a3a3a;
+  color: #e1e1e1;
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+.contLogin .close {
+  position: absolute;
+  right: 18px;
+  top: 10px;
+  background: none;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.contLogin .close:hover {
+  cursor: pointer;
+  background-color: #e1e1e1;
+}
+.contLogin .contLogin-content {
+  width: 70%;
   margin: 0 auto;
 }
-.contenedor_nav p {
-  color: #FFF;
-  font-weight: 900;
-  font-size: 2.5rem;
+.contLogin .contLogin-content input {
+  font-family: "Ubuntu", sans-serif;
+  display: block;
+  margin: 1rem auto;
+  padding: 2rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: #e1e1e1;
+  border: none;
+}
+.contLogin .contLogin-content .buttonPrimary {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+.contLogin .contLogin-content .buttonPrimary:hover {
+  cursor: pointer;
+}
+.contLogin .contLogin-content .buttonSecondary {
+  width: fit-content;
+  background-color: #e1e1e1;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #3a3a3a;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+.contLogin .contLogin-content .buttonSecondary:hover {
+  cursor: pointer;
 }
 
-.div {
-  background-color: black;
-  height: 200px;
+.contentSearchBar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1fr;
+  align-items: center;
+  justify-content: space-between;
 }
-.div .div_1 {
-  background-color: rgb(158, 158, 52);
-  height: 150px;
+.contentSearchBar input {
+  font-family: "Ubuntu", sans-serif;
+  display: block;
+  margin: 1rem auto;
+  padding: 2rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: #e1e1e1;
+  border: none;
+  width: 70%;
+  margin: 0;
 }
-.div .div_1 .div_2 {
-  background-color: rgb(247, 86, 86);
-  height: 100px;
-}
-.div .div_1:hover {
-  background-color: red;
+.contentSearchBar .contentSearchBar-select {
+  display: flex;
+  justify-content: space-around;
 }
 
-.app {
-  color: red;
+.contentHome {
+  width: 90%;
+  margin: 0 auto;
 }

@@ -21,12 +21,21 @@ const usuarioSchema = mongoose.Schema({
         trim: true,
         unique:true,
     },
+    image:{
+        type: String,
+        require: true,
+        trim: true
+    },
     token:{
         type: String,
     },
     confirmado:{
         type: Boolean,
         default: false,
+    },
+    coins:{
+        type: Number,
+        trim: true
     }
 }, {
     timestamps: true,

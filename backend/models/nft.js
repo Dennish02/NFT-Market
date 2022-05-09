@@ -19,10 +19,23 @@ const nftSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Usuario",
     },
+    image:{
+        type: String,
+        require: true,
+        trim: true
+    },
     price:{
         type: Number,
         trim: true,
         required: true,
+    },
+    likes:{
+        type: Number,
+        trim: true,
+    },
+    avaliable:{
+        type: Boolean,
+        trim: true,
     }
 },{
     timestamps: true,
