@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Carrusel from '../componentes/landing/Carrusel'
 import Formulario from '../componentes/landing/Formulario'
 import Loguin from '../componentes/landing/Loguin'
 import Modal from 'react-modal';
 import Register from '../componentes/landing/Register';
+import { useDispatch } from 'react-redux';
 
 
 const customStyles = {
@@ -21,6 +22,7 @@ const customStyles = {
   Modal.setAppElement('#root');
 
 export default function LnadingPage() {
+   // const dispatch = useDispatch()
     const [modal, setModal]= useState(false)
     const [modalRegister, setModalRegister] = useState(false)  
 
@@ -33,6 +35,8 @@ export default function LnadingPage() {
     setModal(!modal)
     }
    
+   
+
     return (
         <div className='landing'>
             <div className='contentbutton'>

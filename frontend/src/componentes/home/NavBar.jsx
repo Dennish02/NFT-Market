@@ -7,7 +7,7 @@ export default function NavBar() {
     <div className='contentNav'>
         <img className='logo' src={logo} alt="Logo Perfil" />
         <div className='perfil'>
-            <p>banalce: <span>1000</span> </p>
+            <p>balance: <span>1000</span> </p>
             <img src={profile} alt="Profile User" />
         </div>
     </div>

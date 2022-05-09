@@ -1,10 +1,19 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom'
 import App from './App'
 import '../src/Assets/build/css/app.css'
+import axios from 'axios';
+import {Provider} from "react-redux";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+import {store}  from "../redux/store/index.js";
+
+
+
+ReactDOM.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);

@@ -7,7 +7,13 @@ const allNftUser= async (req, res)=>{
 }
 const obtenerAllNft = async (req, res)=>{
     const nftAlldb = await NftCreated.find()//trae todos los nf de la base de datos
-    res.json(nftAlldb)
+    try {
+        console.log(nftAlldb)
+       return nftAlldb
+    } catch (error) {
+        return res.status(404).json({msg: error.message})
+    }
+    
 }
 const crearNft = async (req, res)=>{
     //con req.usuario vamos a saber que usuario realizo el NFT
