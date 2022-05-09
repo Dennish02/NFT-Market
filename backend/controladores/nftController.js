@@ -45,7 +45,7 @@ const editarNft = async (req, res)=>{
         return res.status(401).json({msg: error.message})
     }
 
-
+//cambo
 }
 const obtenerNft = async (req, res)=>{
     const { id } = req.params
