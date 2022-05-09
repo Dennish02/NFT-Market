@@ -5,7 +5,6 @@ export function allNftMarket(){
     return async function(dispatch){
         try {
             var json = await axios.get("http://localhost:3001/api/nft/");
-            console.log('json')
             return dispatch({
                 type: 'ALL_NFT_MARKET',
                 payload: json.data

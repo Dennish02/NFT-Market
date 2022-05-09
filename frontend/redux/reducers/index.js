@@ -13,7 +13,6 @@ function rootReducer (state= initialState, action){
         switch(action.type){
            
             case ALL_NFT_MARKET:
-                console.log('action.payload')
                 return {
                     ...state,
                     allNft: action.payload,
