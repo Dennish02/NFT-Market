@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { validateUser } from '../../redux/actions/actionUSER'
-
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { validateUser } from "../../redux/actions/actionUSER";
 
 export default function ConfirmarCuenta() {
-    const dispatch = useDispatch()
-    const params = useParams()
-    const { id } = params
+  const dispatch = useDispatch();
+  const params = useParams();
+  const { id } = params;
 
-    useEffect(()=>{
-        dispatch(validateUser(id))
-    },[])
+  useEffect(() => {
+    dispatch(validateUser(id));
+  }, []);
 
   return (
-    <div className='contConfirmar'>
-        <h2>Bienvenido a <span>NFT</span> Market</h2>
+    <div className="contConfirmar">
+      <h2>
+        Bienvenido a <span>NFT</span> Market
+      </h2>
     </div>
-  )
+  );
 }

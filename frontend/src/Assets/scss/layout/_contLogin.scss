@@ -28,6 +28,9 @@
     input {
       @include m.inputs;
     }
+    select {
+      @include m.inputs;
+    }
     .buttonPrimary {
       @include m.buttonPrimary;
       &:hover {
