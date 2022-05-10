@@ -16,7 +16,7 @@ app.use(cors());
 const DB_PORT = process.env.DB_PORT || 5000; // Puerto que vamos a usar
 const DB_USER = process.env.DB_USER; // SI ACABAN DE CLONAR EL REPO TIENEN QUE CREAR SU .env CON LAS VARIABLES USER Y PASSWORD, AHÍ TIENEN QUE PONER LAS QUE TIENEN EN MONGO ATLAS
 const DB_PASSWORD = process.env.DB_PASSWORD;
-const CONNECTION_URL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.fnmuo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority` // Conectamos con nuestro usuario de Atlas
+const CONNECTION_URL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.fnmuo.mongodb.net/NFT-Market?retryWrites=true&w=majority` // Conectamos con nuestro usuario de Atlas
 
 mongoose.connection.on('connecting', _ => {
     console.log('\x1b[33m%s\x1b[0m', 'Connecting to the Database') // Avisamos que nos estamos conectando a la DB
