@@ -1,55 +1,53 @@
 import mongoose from "mongoose";
 
-const nftSchema = mongoose.Schema(
-  {
-    id: {
-      type: String,
-      trim: true,
-      require: true,
+const nftSchema = mongoose.Schema({
+    id:{
+        type: String,
+        trim: true,
+        required: true,
     },
-    colection: {
-      type: String,
-      trim: true,
-      required: true,
+    colection:{
+        type: String,
+        trim: true,
+        required: true,
     },
-    category: {
-      type: String,
-      trim: true,
-      required: true,
+    category:{
+        type: String,
+        trim: true,
+        required: true,
     },
-    creatorId: {
-      type: mongoose.Schema.Types.String,
-      ref: "Usuario",
+    creatorId:{
+        type: mongoose.Schema.Types.String,
+        ref: "Usuario",
     },
-    ownerId: {
-      type: mongoose.Schema.Types.String,
-      ref: "Usuario",
+    ownerId:{
+        type: mongoose.Schema.Types.String,
+        ref: "Usuario",
     },
-    image: {
-      type: String,
-      require: true,
-      trim: true,
+    image:{
+        type: String,
+        require: true,
+        trim: true
     },
-    priceBase: {
-      type: Number,
-      trim: true,
-      required: true,
+    priceBase:{
+        type: Number,
+        trim: true,
+        required: true,
     },
-    price: {
-      type: Number,
-      trim: true,
-      required: true,
+    price:{
+        type: Number,
+        trim: true,
+        required: true,
     },
-    likes: {
-      type: Number,
-      trim: true,
+    likes:{
+        type: Number,
+        trim: true,
     },
-    avaliable: {
-      type: Boolean,
-      trim: true,
-    },
-  },
-  {
+    avaliable:{
+        type: Boolean,
+        trim: true,
+    }
+},{
     timestamps: true,
   }
 );

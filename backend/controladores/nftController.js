@@ -1,5 +1,6 @@
-import NftCreated from "../models/nft.js";
-import makeGeneratorIDRandom from "../middleware/idGenerator.js";
+
+import makeGeneratorIDRandom from "../middleware/idGenerator.js"
+import NftCreated from "../models/nft.js"
 
 const allNftUser = async (req, res) => {
   const nftUserdb = await NftCreated.find()
@@ -30,30 +31,30 @@ const crearNft = async (req, res) => {
   }
 };
 
-const editarNft = async (req, res) => {
-  const { id } = req.params;
-  const { price } = req.body;
-  const oneNft = await NftCreated.findById(id);
-  if (!oneNft) {
-    const error = new Error("No existe NFT");
-    return res.status(401).json({ msg: error.message });
-  }
-  if (oneNft.creatorId.toString() === req.usuario._id.toString()) {
-    //si es el creador hay que dejarlo editar
-    oneNft.price = price || oneNft.price;
-    try {
-      const nftActualizado = await oneNft.save();
-      res.json({ msg: "NFT actualizado" });
-    } catch (error) {
-      console.log(error);
+const editarNft = async (req, res)=>{
+    const { id } = req.params
+    const {price}= req.body
+    const oneNft = await NftCreated.findById(id)
+    if(!oneNft){
+        const error = new Error('No existe NFT')
+        return res.status(401).json({msg: error.message})
     }
-  } else {
-    const error = new Error("No puedes esitar este NFT");
-    return res.status(401).json({ msg: error.message });
-  }
+    if(oneNft.creatorId.toString()=== req.usuario._id.toString()){
+        //si es el creador hay que dejarlo editar
+        oneNft.price = price  || oneNft.price
+        try {
+           const nftActualizado =  await oneNft.save()   
+            res.json({msg: 'NFT actualizado'})
+        } catch (error) {
+            console.log(error)
+        }
+    }else{
+        const error = new Error('No puedes esitar este NFT')
+        return res.status(401).json({msg: error.message})
+    }
 
-  //cambo
-};
+//cambo
+}
 const obtenerNft = async (req, res) => {
   const { id } = req.params;
 
