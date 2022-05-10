@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const nftSchema = mongoose.Schema({
+    id:{
+        type: String,
+        trim: true,
+        required: true,
+    },
     colection:{
         type: String,
         trim: true,
@@ -12,17 +17,22 @@ const nftSchema = mongoose.Schema({
         required: true,
     },
     creatorId:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.String,
         ref: "Usuario",
     },
     ownerId:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.String,
         ref: "Usuario",
     },
     image:{
         type: String,
         require: true,
         trim: true
+    },
+    priceBase:{
+        type: Number,
+        trim: true,
+        required: true,
     },
     price:{
         type: Number,

@@ -1,3 +1,4 @@
+import makeGeneratorIDRandom from "../middleware/idGenerator.js"
 import NftCreated from "../models/nft.js"
 
 
@@ -18,14 +19,17 @@ const obtenerAllNft = async (req, res)=>{
 const crearNft = async (req, res)=>{
     //con req.usuario vamos a saber que usuario realizo el NFT
     const newNft= new NftCreated(req.body)//inatanciar nuevo nft  con la info que llega
-    newNft.creatorId = req.usuario._id//agrego el id del isuario al nft
-    newNft.ownerId =req.usuario._id//el creador es el primer poseedor
+    
+    newNft.id= makeGeneratorIDRandom(4)
+    newNft.creatorId = req.usuario.nombre//agrego el id del isuario al nft
+    newNft.ownerId =req.usuario.nombre//el creador es el primer poseedor
+    newNft.priceBase = req.body.price
     try {
         const nftSave = await newNft.save()
         res.json(nftSave) //para regresar la info creada y sincronizar
         
     } catch (error) {
-        console,log(error)
+        console.log(error)
     }  
 }
 
