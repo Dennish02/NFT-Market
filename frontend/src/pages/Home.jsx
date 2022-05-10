@@ -1,3 +1,4 @@
+
 import React, { useEffect }  from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { allNftMarket } from '../../redux/actions/actionNFT';
@@ -15,8 +16,8 @@ export default function Home() {
       dispatch(allNftMarket())
   },[dispatch])
 
-
   return (
+
     <div className='contentHome'>
         <NavBar/>
         <div>
@@ -44,5 +45,5 @@ export default function Home() {
           }): <div>y difo wow</div>}
         </main>
     </div>
-  )
+  );
 }

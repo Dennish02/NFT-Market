@@ -1,3 +1,4 @@
+
 export default function makeGeneratorIDRandom(length){
     let result= '#';
     const caracteres= 'ABCDEFGHIJKLMN3456OPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012789';
@@ -7,3 +8,4 @@ export default function makeGeneratorIDRandom(length){
     result.toUpperCase()
      return result;
   }
+

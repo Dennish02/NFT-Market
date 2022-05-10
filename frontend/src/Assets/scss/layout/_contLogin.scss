@@ -1,45 +1,56 @@
-@use '../base/variables' as v;
-@use '../base/mixins' as m;
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
 
-.contLogin{
-    position: relative;
-    width: 600px;
-    background-color: v.$grisoscuro ;
-    color: v.$grisclaro;
+.contLogin {
+  position: relative;
+  width: 600px;
+  background-color: v.$grisoscuro;
+  color: v.$grisclaro;
+  @include m.borderRadius;
+  padding: 2rem;
+
+  .close {
+    position: absolute;
+    right: 18px;
+    top: 10px;
+    background: none;
+    border: none;
+    padding: 1rem;
     @include m.borderRadius;
-    padding: 2rem;
-   
-    .close{
-        position: absolute;
-        right: 18px;
-        top: 10px;
-        background: none;
-        border: none;
-        padding: 1rem;
-        @include m.borderRadius;
-        &:hover{
-            cursor: pointer;
-            background-color: v.$grisclaro;
-        }
+    &:hover {
+      cursor: pointer;
+      background-color: v.$grisclaro;
     }
-    .contLogin-content{
-        width: 70%;
-        margin: 0 auto;
-        input{
-            @include m.inputs
-         }
-        .buttonPrimary{
-            @include m.buttonPrimary;
-            &:hover{
-                cursor: pointer;
-            }
-        }
-        .buttonSecondary{
-            @include m.buttonSecondary;
-            &:hover{
-                cursor: pointer;
-            }
-        }
+  }
+  .contLogin-content {
+    width: 70%;
+    margin: 0 auto;
+    input {
+      @include m.inputs;
     }
-    
+    .buttonPrimary {
+      @include m.buttonPrimary;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .buttonSecondary {
+      @include m.buttonSecondary;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.error {
+  @include m.error;
+}
+
+.input {
+  @include m.input;
+}
+
+.inputError {
+  @include m.inputError;
 }

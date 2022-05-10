@@ -1,67 +1,90 @@
-@use 'variables' as v;
-
-
+@use "variables" as v;
 
 @mixin telefono {
-    @media (min-width: v.$telefono) {
-        @content;
-    }
+  @media (min-width: v.$telefono) {
+    @content;
+  }
 }
 
 @mixin tablet {
-    @media (min-width: v.$tablet) {
-        @content;
-    }
+  @media (min-width: v.$tablet) {
+    @content;
+  }
 }
 
 @mixin desktop {
-    @media (min-width: v.$desktop) {
-        @content;
-    }
+  @media (min-width: v.$desktop) {
+    @content;
+  }
 }
 
 @mixin desktopxl {
-    @media (min-width: v.$desktopxl) {
-        @content;
-    }
+  @media (min-width: v.$desktopxl) {
+    @content;
+  }
 }
 
 @mixin grid($columnas, $espaciado) {
-    display: grid;
-    grid-template-columns: repeat($columnas, 1fr);
-    gap: $espaciado;
-    align-items: center;
+  display: grid;
+  grid-template-columns: repeat($columnas, 1fr);
+  gap: $espaciado;
+  align-items: center;
 }
 
 @mixin resetear-lista {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 @mixin buttonPrimary {
-    width: fit-content;
-    background-color: v.$verde;
-    padding: 1rem;
-    text-align: center;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 0.5rem;
-    color: v.$grisclaro;
-    font-weight: 700;
-    margin: 1rem 0;
+  width: fit-content;
+  background-color: v.$verde;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: v.$grisclaro;
+  font-weight: 700;
+  margin: 1rem 0;
 }
 @mixin buttonSecondary {
-    width: fit-content;
-    background-color: v.$grisclaro;
-    padding: 1rem;
-    text-align: center;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 0.5rem;
-    color: v.$grisoscuro;
-    font-weight: 700;
-    margin: 1rem 0;
+  width: fit-content;
+  background-color: v.$grisclaro;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: v.$grisoscuro;
+  font-weight: 700;
+  margin: 1rem 0;
 }
+@mixin inputs {
+  font-family: v.$fuente_principal;
+  display: block;
+  margin: 1rem auto 2rem auto;
+  padding: 2rem;
+  width: 100%;
+  border-radius: 00.5rem;
+  background-color: v.$grisclaro;
+}
+@mixin borderRadius {
+  border-radius: 0.5rem;
+}
+
+@mixin error {
+  color: v.$rojo;
+}
+
+@mixin input {
+  border: none;
+}
+
+@mixin inputError {
+  border: 3px solid v.$rojo;
+}
+
 @mixin buttonTrade {
     width: fit-content;
     background-color: v.$morado;
@@ -77,16 +100,3 @@
         cursor: pointer;
     }
 }
- @mixin inputs{
-    font-family: v.$fuente_principal;
-    display: block;
-    margin: 1rem auto;
-    padding: 2rem;
-    width: 100%;
-    border-radius: 00.5rem;
-    background-color: v.$grisclaro;
-    border: none;
- }
- @mixin borderRadius{
-     border-radius: 0.5rem;
- }

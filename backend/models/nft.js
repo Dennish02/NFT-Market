@@ -49,7 +49,8 @@ const nftSchema = mongoose.Schema({
     }
 },{
     timestamps: true,
-})
+  }
+);
 
-const NftCreated = mongoose.model("NftCreated", nftSchema)
+const NftCreated = mongoose.model("NftCreated", nftSchema);
 export default NftCreated;
