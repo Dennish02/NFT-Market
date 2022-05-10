@@ -2,6 +2,7 @@ import axios from "axios";
 import profile1 from "../../src/img/profile1.png";
 import profile2 from "../../src/img/profile2.png";
 import profile3 from "../../src/img/profile3.png";
+import { LOGUIN_USER, VALIDATE_USER } from "../constantes"
 
 // export function allNftMarket() {
 //   return async function (dispatch) {
@@ -49,3 +50,17 @@ export function registroUsuario({ nombre, email, password }) {
 }
 
 // export function nftWithUser() {}
+export function login (payload) {
+  return async function(dispatch){
+    try {
+      let json = await axios.post(`http://localhost:3001/api/usuario/login`, payload)
+      console.log(json)
+      return dispatch({
+        type: LOGUIN_USER,
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error.response.data.msg)
+    }
+}
+}

@@ -1,10 +1,12 @@
-import { ALL_NFT_MARKET } from "../constantes";
+import { ALL_NFT_MARKET, LOGUIN_USER } from "../constantes";
 
 const initialState = {
   allNft: [],
   backUpAllNft: [],
   nftUser: [],
   backUpNftUser: [],
+  usuario: [],
+  allUsuarios: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -15,6 +17,12 @@ function rootReducer(state = initialState, action) {
         allNft: action.payload,
         backUpAllNft: action.payload,
       };
+    case LOGUIN_USER: 
+
+      return {
+        ...state, 
+        usuario: action.payload
+      }
     default:
       return state;
   }
