@@ -531,6 +531,15 @@ img {
   border-radius: 0.5rem;
   background-color: #e1e1e1;
 }
+.contLogin .contLogin-content select {
+  font-family: "Ubuntu", sans-serif;
+  display: block;
+  margin: 1rem auto 2rem auto;
+  padding: 2rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: #e1e1e1;
+}
 .contLogin .contLogin-content .buttonPrimary {
   width: fit-content;
   background-color: #29a237;
