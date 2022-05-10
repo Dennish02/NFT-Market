@@ -663,3 +663,32 @@ img {
 .contNFT .buttonTrade:hover {
   cursor: pointer;
 }
+
+.contConfirmar {
+  width: 800px;
+  margin: 5rem auto;
+  color: #e1e1e1;
+  font-weight: 400;
+}
+.contConfirmar h2 {
+  font-size: 4rem;
+}
+.contConfirmar h2 span {
+  color: #f28b12;
+  font-size: 4.5rem;
+  font-weight: bold;
+}
+.contConfirmar .buttonPrimary {
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.flex .contREsetPassword-content h3 {
+  width: 4rem;
+  color: #e1e1e1;
+}
