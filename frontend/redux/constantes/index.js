@@ -16,6 +16,8 @@ export const BUY_NFT = 'BUY_NFT'
 export const EDIT_NFT = 'EDIT'
 
 //USER
+export const RESET_PASSWORD = 'RESET_PASSWORD'
+export const RESET_ERROR = 'RESET_ERROR'
 export const LOGUIN_USER = 'LOGUIN_USER'
 export const REGISTER_USER = 'REGISTER_USER'
 export const LOGIN_TO_GOOGLE = 'GOOGLE_TO_GOOGLE'
