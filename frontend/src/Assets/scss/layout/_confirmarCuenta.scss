@@ -1,0 +1,20 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.contConfirmar{
+    width: 800px;
+    margin: 5rem auto;
+    color: v.$grisclaro;
+    font-weight: 400;
+    h2{
+       font-size: 4rem;
+       span{
+           color: v.$naranja;
+           font-size: 4.5rem;
+           font-weight: bold;
+       } 
+    }
+    .buttonPrimary{
+        margin: 0 auto;
+    }
+}

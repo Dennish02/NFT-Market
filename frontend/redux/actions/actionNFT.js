@@ -14,4 +14,28 @@ export function allNftMarket() {
   };
 }
 
+export function crearNFT(payload) {
+  return async function () {
+    const body = {
+      category: payload.category,
+      colection: payload.colection,
+      price: Number(payload.price),
+      image: payload.image,
+    };
+    const id = payload.id;
+    // console.log(body);
+    // console.log(id);
+    const config = {
+      headers: { Authorization: `Bearer ${id}` },
+    };
+
+    let json = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/nft`,
+      body,
+      config
+    );
+    console.log(json);
+  };
+}
+
 export function nftWithUser() {}
