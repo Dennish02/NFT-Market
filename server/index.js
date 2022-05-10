@@ -46,3 +46,5 @@ mongoose.connection.once('close', _ => {
 mongoose.connection.on('reconnected', _ => {
     console.log('\x1b[32m%s\x1b[0m', 'Database successfully reconnected') // Avisamos cuando nos reconectamos a la DB luego de haber perdido la conexión
 })
+
+// Creo nueva rama "Model-WALLET"
