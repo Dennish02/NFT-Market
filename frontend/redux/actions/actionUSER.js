@@ -2,7 +2,7 @@ import axios from "axios";
 import profile1 from "../../src/img/profile1.png";
 import profile2 from "../../src/img/profile2.png";
 import profile3 from "../../src/img/profile3.png";
-import { VALIDATE_USER } from '../constantes'
+import { VALIDATE_USER, RESET_PASSWORD,RESET_ERROR } from '../constantes'
 // export function allNftMarket() {
 //   return async function (dispatch) {
 //     try {
@@ -50,16 +50,55 @@ export function registroUsuario({ nombre, email, password }) {
 
 export function validateUser(id) {
 
-    return async function(){
-      var json = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/confirmar/${id}`);
-      alert(json.data.msg)
-      console.log(json.data);
-      return ({
+    return async function(dispatch){
+    
+      try {
+        var json = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/confirmar/${id}`);
+        console.log(json)
+        return dispatch({
           type: VALIDATE_USER,
           payload: json.data
       })
+      } catch (error) {
+        return dispatch({
+          type: VALIDATE_USER,
+          payload: error.response.data
+      })
+      }
+      
+      
+      
   }
  
   
+}
+
+export function resetPassword(data){
+ 
+  return async function(dispatch){
+    try {
+      let json = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/olvide-password/`,{email: data})
+      return dispatch({
+        type: RESET_PASSWORD,
+        payload: json.data
+      })
+    } catch (error) {
+     return dispatch({
+      type: RESET_PASSWORD,
+      payload: {error: error.response.data.msg}
+    })
+    }
+  }
+}
+export function setStateEmail(){
+  
+  return async function(dispatch){
+      let reseet = []
+      return dispatch({
+        type: RESET_ERROR,
+        payload: reseet
+      })
+   
+  }
 }
 // export function nftWithUser() {}

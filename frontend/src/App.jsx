@@ -5,6 +5,7 @@ import { BrowserRouter as Router,
 import Home from "./pages/Home.jsx";
 import ConfirmarCuenta from './pages/ConfirmarCuenta.jsx'
 import ResetPassword from "./pages/ResetPassword.jsx";
+import OlvidePassword from "./pages/OlvidePassword.jsx";
 
 function App() {
   
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route  path='/' element={<LandingPage/>}/> 
         <Route path='/home' element={<Home/>}/>
+        <Route path='/olvide-password/' element={<OlvidePassword/>}/> 
         <Route path='/olvide-password/:token' element={<ResetPassword/>}/>  
         <Route path='/confirmar/:id' element={<ConfirmarCuenta/>}/>  
         

@@ -64,34 +64,40 @@ const autenticar = async (req, res) => {
 const confimrar = async (req, res) => {
   const { token } = req.params;
   const usuarioConfirmar = await Usuario.findOne({ token }); //buscar el usuario por el token
-  if (!usuarioConfirmar) {
-    const error = new Error("Hubo un error");
-    res.status(404).json({ msg: error.message });
+  if(!usuarioConfirmar) {
+    const error = new Error("EL usuario ya se confirmó o el token es inválido");
+   return res.status(404).json({ msg: error.message });
   }
-  try {
-    usuarioConfirmar.confirmado = true; //cambiando estado para que esté confirmado
-    usuarioConfirmar.token = ""; //elimianr token porque se usa una vez
-    await usuarioConfirmar.save(); //almacenar con los cambios
-    res.json({ msg: "Usuario confirmado correctamente" });
-  } catch (error) {
-    console.log(error);
-  }
+    try {
+      usuarioConfirmar.confirmado = true; //cambiando estado para que esté confirmado
+      usuarioConfirmar.token = ""; //elimianr token porque se usa una vez
+      await usuarioConfirmar.save(); //almacenar con los cambios
+      res.json({ msg: "Usuario confirmado correctamente" });
+    } catch (error) {
+      console.log(error);
+    }
+  
+  
 };
 const olvidePassword = async (req, res) => {
   const { email } = req.body;
-  const usuario = await Usuario.findOne({ email });
+  
+  const usuario = await Usuario.findOne({email});
+  
   if (!usuario) {
     const error = new Error("EL USUARIO NO EXISTE");
     res.status(404).json({ msg: error.message });
+  }else{
+    try {
+      usuario.token = generarID();
+      await usuario.save();
+      res.json({ msg: "Eviamos un correo con las instrucciones" });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  try {
-    usuario.token = generarID();
-    await usuario.save();
-    res.json({ msg: "Eviamos un correo con las instrucciones" });
-  } catch (error) {
-    console.log(error);
-  }
+
 };
 
 //validar token para cambiar su password

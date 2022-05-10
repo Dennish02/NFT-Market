@@ -26,7 +26,7 @@ export default function ResetPassword() {
         setErrores({ ...errores, error: "Las contraseñas no coinciden" });
       else {
         setErrores({ ...errores, error: "" });
-        dispatch(registroUsuario(estado));
+        dispatch((estado));
       }
     };
   
@@ -44,7 +44,7 @@ export default function ResetPassword() {
               onChange={handleChange}
               id="password"
               type="password"
-              placeholder="Your password"
+              placeholder="Reset password"
             />
             <label htmlFor="password">enter password again</label>
             <input
