@@ -2,16 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+
+const routes = require('./routes/routes.js')
 
 dotenv.config();
 const app = express(); // Express Middleware 
 
-// app.use('/ruta', ruta) Esto es para que las rutas arranquen con /ruta (es un ejemplo)
 
+//middlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}));
 app.use(cors());
+
+app.use(morgan('dev'));  //muestra las peticiones en consola
+
+//coneccion con rutas
+app.use('/', routes );
 
 const DB_PORT = process.env.DB_PORT || 5000; // Puerto que vamos a usar
 const DB_USER = process.env.DB_USER; // SI ACABAN DE CLONAR EL REPO TIENEN QUE CREAR SU .env CON LAS VARIABLES USER Y PASSWORD, AHÍ TIENEN QUE PONER LAS QUE TIENEN EN MONGO ATLAS
