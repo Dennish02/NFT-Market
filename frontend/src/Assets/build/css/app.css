@@ -525,12 +525,11 @@ img {
 .contLogin .contLogin-content input {
   font-family: "Ubuntu", sans-serif;
   display: block;
-  margin: 1rem auto;
+  margin: 1rem auto 2rem auto;
   padding: 2rem;
   width: 100%;
   border-radius: 0.5rem;
   background-color: #e1e1e1;
-  border: none;
 }
 .contLogin .contLogin-content .buttonPrimary {
   width: fit-content;
@@ -563,6 +562,18 @@ img {
   cursor: pointer;
 }
 
+.error {
+  color: #c53838;
+}
+
+.input {
+  border: none;
+}
+
+.inputError {
+  border: 3px solid #c53838;
+}
+
 .contentSearchBar {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -573,12 +584,11 @@ img {
 .contentSearchBar input {
   font-family: "Ubuntu", sans-serif;
   display: block;
-  margin: 1rem auto;
+  margin: 1rem auto 2rem auto;
   padding: 2rem;
   width: 100%;
   border-radius: 0.5rem;
   background-color: #e1e1e1;
-  border: none;
   width: 70%;
   margin: 0;
 }

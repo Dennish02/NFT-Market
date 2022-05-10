@@ -1,40 +1,35 @@
-import  express  from 'express';
-import dotenv from 'dotenv';
-import conectarCB from './config/db.js';
-import router from './routes/usuarioRoutes.js';
-import nft from './routes/nftRoutes.js'
-import cors from 'cors';
+import express from "express";
+import dotenv from "dotenv";
+import conectarCB from "./config/db.js";
+import router from "./routes/usuarioRoutes.js";
+import nft from "./routes/nftRoutes.js";
+import cors from "cors";
 
 const app = express();
 
-
-
 dotenv.config();
-conectarCB()
-app.use(express.json())
+conectarCB();
+app.use(express.json());
 //cors
-const whiteList =['http://localhost:3000'];
 
-const corsOptions = {
-    origin: function (origin, callback){
-        if(whiteList.includes(origin)){
-            //consulta api
-            callback(null, true)
-        }else{
-            //no permite el request
-            callback(new Error('error de cors'))
-        }
-    }
-}
-app.use(cors(corsOptions))
+app.use(cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
+});
+
 //ROUTNG
-app.use('/api/usuario', router)
-app.use('/api/nft', nft)
+app.use("/api/usuario", router);
+app.use("/api/nft", nft);
 
+const PORT = process.env.PORT || 3001;
 
-
-const PORT = process.env.PORT || 3001
-
-app.listen(PORT, ()=>{
-    console.log(`Server en ${PORT}`)
+app.listen(PORT, () => {
+  console.log(`Server en ${PORT}`);
 });
