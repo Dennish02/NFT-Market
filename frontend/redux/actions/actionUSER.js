@@ -2,7 +2,7 @@ import axios from "axios";
 import profile1 from "../../src/img/profile1.png";
 import profile2 from "../../src/img/profile2.png";
 import profile3 from "../../src/img/profile3.png";
-
+import { VALIDATE_USER } from '../constantes'
 // export function allNftMarket() {
 //   return async function (dispatch) {
 //     try {
@@ -34,12 +34,11 @@ export function registroUsuario({ nombre, email, password }) {
             : profile3.toString(),
         coins: 1000,
       };
-      console.log(body);
+      
       const response = await axios.post(
-        "http://localhost:3001/api/usuario",
+        `${import.meta.env.VITE_BACKEND_URL}/api/usuario`,
         body
       );
-      console.log(response.data);
       alert(response.data);
     } catch (e) {
       //   console.log(e);
@@ -48,4 +47,19 @@ export function registroUsuario({ nombre, email, password }) {
   };
 }
 
+
+export function validateUser(id) {
+
+    return async function(){
+      var json = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/confirmar/${id}`);
+      alert(json.data.msg)
+      console.log(json.data);
+      return ({
+          type: VALIDATE_USER,
+          payload: json.data
+      })
+  }
+ 
+  
+}
 // export function nftWithUser() {}

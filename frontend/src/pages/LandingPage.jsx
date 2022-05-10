@@ -64,8 +64,7 @@ export default function LnadingPage() {
                     </Modal>
                     <Modal
                         isOpen={modalRegister}
-                        style={customStyles}
-                        
+                        style={customStyles}  
                         setModalRegister={setModalRegister}
                     >
                          <Register handleChangeModalRegister={handleChangeModalRegister}/>
