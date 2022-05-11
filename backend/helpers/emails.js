@@ -3,26 +3,20 @@ import nodemailer from "nodemailer";
 export const emailRegistro = async (datos) => {
   const { email, nombre, token } = datos;
 
-  //Todo: MOVER HACIA VARIABLE DE ENTORNO
-  // //dennis
-  // const transport = nodemailer.createTransport({
-  //      host: "smtp.mailtrap.io",
-  //     port: 2525,
-  //     auth: {
-  //       user: "2f58e0c7fd907f",
-  //       pass: "71657311e72728"
-  //     }
-  //   });
 
-  //pablo
-  var transport = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
-    auth: {
-      user: "bd939024e7b851",
-      pass: "bd66a92987b5ce",
-    },
-  });
+
+  
+  //dennis
+  const transport = nodemailer.createTransport({
+       host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    });
+
+
 
   //INFORMACION EMAIL
 
@@ -42,24 +36,19 @@ export const emailRegistro = async (datos) => {
 export const emailOlvidePassword = async (datos) => {
   const { email, nombre, token } = datos;
 
-  // Todo:MOVER HACIA VARIABLE DE ENTORNO
+
+
   const transport = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     auth: {
-      user: "2f58e0c7fd907f",
-      pass: "71657311e72728",
-    },
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+
   });
 
-  // var transport = nodemailer.createTransport({
-  //   host: "smtp.mailtrap.io",
-  //   port: 2525,
-  //   auth: {
-  //     user: "bd939024e7b851",
-  //     pass: "bd66a92987b5ce",
-  //   },
-  // });
+ 
 
   //INFORMACION EMAIL
   const info = await transport.sendMail({

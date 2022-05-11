@@ -372,8 +372,12 @@ p {
   margin: 0 auto;
 }
 
-a {
+.a {
   text-decoration: none;
+  color: #e1e1e1;
+}
+.a:hover {
+  cursor: pointer;
 }
 
 h1, h2, h3 {

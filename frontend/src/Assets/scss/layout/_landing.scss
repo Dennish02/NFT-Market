@@ -21,6 +21,7 @@
 .contLandingOne{
 
     @include m.desktop{
+        
         @include m.grid(2, 1rem);
         align-items: center;
         width: 700px;
