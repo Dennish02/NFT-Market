@@ -1,66 +1,69 @@
 @use "../base/variables" as v; 
+@use '../base/mixins' as m;
 
+.contButton{
+  display: block;
+  margin: 0 auto;
+}
+.contButton{
+    @include m.desktop{
+       @include m.grid(3, 1fr)
+    }
+    
+}
+.contTittle{
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    @include m.desktop{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    h2{
+        margin: 1rem 0;
+    }
+}
 .coleccion {
-    position: relative;
-    left: 1350px;
-    bottom: 90px;
+    @include m.borderRadius;
     cursor: pointer;
     background-color: v.$naranja;
-    padding: 10px;
-    border-radius: 20px;
-    border: 5px solid v.$fondo;
-   
+    border:none;
+    margin: 1rem 0;
+    padding: 1rem;
+    color: v.$grisclaro;
 }
 
 .portfolioCreateNft {
-    position: relative;
-    left: 700px;
-    bottom: 20px;
-    cursor: pointer;
-    width: fit-content;
-    background-color: v.$verde;
-    padding: 1rem;
-    text-align: center;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 0.5rem;
-    color: v.$grisclaro;
-    font-weight: 700;
-    margin: 1rem 0;
+   @include m.buttonPrimary;
+   width: 90%;
+   margin: 1rem auto;
+   display: block;
+   @include m.desktop{
+       width: fit-content;
+   }
 }
 
 .portfolioCreateColection {
-    position: relative;
-    left: 800px;
-    bottom: 20px;
-    cursor: pointer;
-    background-color: v.$naranja;
-    padding: 1rem;
-    text-align: center;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 0.5rem;
-    color: v.$grisclaro;
-    font-weight: 700;
-    margin: 1rem 0;
+    @include m.buttonOrange;
+    display: block;
+    width: 90%;
+    margin: 1rem auto;
+    @include m.desktop{
+        width: fit-content;
+    }
 }
-
+.portfolioFavoritos{
+    @include m.buttonMorado;
+    display: block;
+    width: 90%;
+    margin: 1rem auto;
+    @include m.desktop{
+        width: fit-content;
+    }
+}
 .tuPortfolio{
     color: v.$grisclaro
 }
 
-.portfolioFavoritos{
-    position: relative;
-    left: 860px;
-    bottom: 20px;
-    cursor: pointer;
-    background-color: v.$morado;
-    padding: 1rem;
-    text-align: center;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 0.5rem;
-    color: v.$grisclaro;
-    font-weight: 700;
-    margin: 1rem 0;
-}
