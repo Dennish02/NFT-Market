@@ -673,6 +673,47 @@ img {
   cursor: pointer;
 }
 
+
+.perfil {
+  position: relative;
+}
+
+.image-click {
+  cursor: pointer;
+}
+
+.boton {
+  background-color: red;
+  cursor: pointer;
+}
+
+.profileModal {
+  background-color: #1d1e3e;
+  color: #e1e1e1;
+  min-height: 35vh;
+  min-width: 25vh;
+  padding: 5px;
+}
+
+.divPortfolio {
+  border-style: solid;
+  height: 100%;
+  border-color: #3a3a3a;
+  color: #3a3a3a;
+  background-color: #e1e1e1;
+}
+
+.font-size {
+  font-size: medium;
+  position: relative;
+  top: 40px;
+  color: #3a3a3a;
+}
+
+.icon {
+  position: relative;
+  left: 80px;
+=======
 .contConfirmar {
   width: 800px;
   margin: 5rem auto;
