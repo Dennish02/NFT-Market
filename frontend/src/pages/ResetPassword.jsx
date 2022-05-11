@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { resetPassword } from '../../redux/actions/actionUSER.js';
+
+
+
+import validatePassword from '../middleware/validarPassword';
 
 
 export default function ResetPassword() {
@@ -23,8 +28,21 @@ export default function ResetPassword() {
         ...estado,
         [e.target.name]: e.target.value,
       });
+      if(validatePassword(e.target.value)){
+         if(e.target.value.length < 8){
+          setErrores({
+            ...errores,
+            error: "Your password must be at least 8 characters"
+          })
+        }else{
+          setErrores({
+            ...errores,
+            error: ""
+          })
+        }
+      }
     };
-  
+    
     const handleSubmit = (e) => {
       e.preventDefault();
       if (estado.password !== estado.password2)
