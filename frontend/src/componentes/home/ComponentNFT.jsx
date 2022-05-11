@@ -6,7 +6,6 @@ export default function ComponentNFT(props) {
     const { id, image, colection, category ,price, creatorId , ownerId} = props
    // let imagen = {`../../img/${image}.png`}
     
-    console.log(`../img/${image}.png`);
   return (
 
     <div className='contNFT'>
