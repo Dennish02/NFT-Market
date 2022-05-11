@@ -1,7 +1,7 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
 .main{
-    @include m.grid(5, 1fr);
+    @include m.mediaGrid(300px, 1fr);
     width: 90%;
     margin: 2rem auto;
 }

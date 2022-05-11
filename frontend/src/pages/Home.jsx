@@ -42,7 +42,7 @@ export default function Home() {
                   }
                 </div>
               )
-          }): <div>y difo wow</div>}
+          }): <div>y digo wow</div>}
         </main>
     </div>
   );
