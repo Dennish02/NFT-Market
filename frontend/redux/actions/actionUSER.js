@@ -1,14 +1,17 @@
-import axios from "axios";
+
 import profile1 from "../../src/img/profile1.png";
 import profile2 from "../../src/img/profile2.png";
 import profile3 from "../../src/img/profile3.png";
+import clienteAxios from "../../src/config/clienteAxios";
+
 
 import { LOGUIN_USER } from "../constantes"
 import { 
   VALIDATE_USER, 
   RESET_PASSWORD,
   RESET_ERROR, 
-  SEND_EMAIL_TO_RESET_PASSWORD } from '../constantes'
+  SEND_EMAIL_TO_RESET_PASSWORD,
+  RESET_ERROR_LOGUIN_USER } from '../constantes'
 // export function allNftMarket() {
 //   return async function (dispatch) {
 //     try {
@@ -41,10 +44,7 @@ export function registroUsuario({ nombre, email, password }) {
         
       };
       
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/usuario`,
-        body
-      );
+      const response = await clienteAxios.post(`/usuario`,body);
       alert(response.data);
     } catch (e) {
       //   console.log(e);
@@ -59,7 +59,7 @@ export function validateUser(id) {
     return async function(dispatch){
     
       try {
-        var json = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/confirmar/${id}`);
+        var json = await clienteAxios(`/usuario/confirmar/${id}`);
         console.log(json)
         return dispatch({
           type: VALIDATE_USER,
@@ -83,7 +83,7 @@ export function sedEmailToResetPassword(data){
  
   return async function(dispatch){
     try {
-      let json = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/olvide-password/`,{email: data})
+      let json = await clienteAxios.post(`/usuario/olvide-password/`,{email: data})
       return dispatch({
         type: SEND_EMAIL_TO_RESET_PASSWORD,
         payload: json.data
@@ -100,7 +100,7 @@ export function resetPassword(data){
   const { token, password}= data
   return async function(dispatch){
     try {
-      let json = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/olvide-password/${token}`,{password})
+      let json = await clienteAxios.post(`/usuario/olvide-password/${token}`,{password})
       //console.log(json.data);
       return dispatch({
         type: RESET_PASSWORD,
@@ -126,18 +126,26 @@ export function setStateEmail(){
    
   }
 }
-// export function nftWithUser() {}
+
 export function login (payload) {
   return async function(dispatch){
     try {
-      let json = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/login`, payload)
-      console.log(json)
+     
+      let json = await clienteAxios.post(`/usuario/login`, payload)
+      localStorage.setItem('token', json.data.token)
       return dispatch({
         type: LOGUIN_USER,
         payload: json.data
       })
     } catch (error) {
-      console.log(error.response.data.msg)
+      alert(error.response.data.msg)
     }
 }
+}
+export function resetErrorLoguinUser(){
+  let nada=[];
+  return{
+    type: RESET_ERROR_LOGUIN_USER,
+    payload: nada
+  }
 }

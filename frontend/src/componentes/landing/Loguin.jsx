@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { login } from "../../../redux/actions/actionUSER";
+import { useEffect, useState } from "react";
+import { login, resetErrorLoguinUser } from "../../../redux/actions/actionUSER";
 import { useDispatch, useSelector} from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import validarEmail from "../../middleware/validarEmail";
 import validatePassword from "../../middleware/validarPassword";
 // import { Link } from "react-router-dom"
 
 
 export default function Loguin({handleChangeModal}) {
+  const infoUser = useSelector(state=> state.usuario);
 
   const dispatch = useDispatch()
-  // const navigate = useNavigate();
+ const navigate = useNavigate();
   // const user = useSelector(state => state.usuario)
 
   const [ usuario, setUsuario ]= useState({
@@ -19,6 +20,13 @@ export default function Loguin({handleChangeModal}) {
   })
   const [errors, setErrors] = useState({})
   
+  useEffect(()=>{
+    infoUser.length !== 0 ? navigate('/home') : null
+    return(()=>{
+      dispatch(resetErrorLoguinUser())
+    })
+  },[infoUser])
+
   function  handleChangeEmail(e){
     setUsuario({
       ...usuario,
@@ -36,7 +44,6 @@ export default function Loguin({handleChangeModal}) {
         email: ""
       })
     }
-    console.log(usuario)
   }
   const handleChangePassword = (e) => {
     setUsuario({
@@ -73,7 +80,7 @@ export default function Loguin({handleChangeModal}) {
         setUsuario("")
       }
     }
-
+//console.log(infoUser);
   return (
     <div className="contLogin">
       <button className="close" onClick={handleChangeModal}>❌</button>
@@ -108,6 +115,7 @@ export default function Loguin({handleChangeModal}) {
                 <p className="error">{errors.password}</p>
               </div>
             )}
+           
             <button
             type="submit"
             className="buttonPrimary"
@@ -119,8 +127,9 @@ export default function Loguin({handleChangeModal}) {
             type="submit"
             className="buttonSecondary"
             >LOGIN WITH GOOGLE</button>
+             <Link to='/olvide-password/' className="a" > <h4>Olvide Password</h4></Link> 
       </div>
-      
+    
     </div>
   )
 }

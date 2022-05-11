@@ -32,8 +32,12 @@ p {
     max-width: 120rem;
     margin: 0 auto;
 }
-a {
+.a {
     text-decoration: none;
+    color: v.$grisclaro;
+    &:hover{
+        cursor: pointer;
+    }
 }
 h1, h2, h3 {
     margin: 0 0 5rem 0;
