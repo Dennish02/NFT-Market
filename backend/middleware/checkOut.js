@@ -12,6 +12,7 @@ const checkOut = async (req, res, next)=>{
             const decoded = jwt.verify(token, process.env.JWT_SECRET)//se usa la variable de entornno que s eunso para verificar
 
             req.usuario = await Usuario.findById(decoded.id).select('-password -confirmado -token -createdAt -updatedAt -__v')//saca del modleo tood loq eu esta en el parentesis 
+            console.log(req.usuario);
             return next()
         } catch (error) {
             return res.status(404).json({msg: 'Hubo un error'})

@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { resetPassword } from '../../redux/actions/actionUSER.js';
 
 
 export default function ResetPassword() {
+  const params = useParams()
+  const respuesta = useSelector(state => state.errorEmail)
+  const { token }= params
     const [estado, setEstado] = useState({
       password: "",
       password2: "",
@@ -26,7 +31,9 @@ export default function ResetPassword() {
         setErrores({ ...errores, error: "Las contraseñas no coinciden" });
       else {
         setErrores({ ...errores, error: "" });
-        dispatch((estado));
+        dispatch(resetPassword({
+          token: token,
+          password: estado.password}));
       }
     };
   
@@ -56,10 +63,14 @@ export default function ResetPassword() {
               type="password"
               placeholder="enter password again"
             />
+             {respuesta.error ? <p className='error'>{respuesta.error}</p> : <p>{respuesta.msg}</p> }
             {errores.error && <p className="error">{errores.error}</p>}
-            <button type="submit" className="buttonPrimary">
-              Reset password
-            </button>
+            
+            {respuesta.msg? <Link to='/'> <button type="submit" className="buttonPrimary">
+                Volver a inicio
+              </button> </Link> :  <button type="submit" className="buttonPrimary">
+                Reset password
+              </button>}
           </form>
         </div>
       </div>

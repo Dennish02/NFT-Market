@@ -4,8 +4,7 @@
 .contNFT{
     padding: 1rem;
     width: 250px;
-    
-    margin: 1rem;
+    margin: 1rem auto;
     border: solid v.$naranja 1px ;
     @include m.borderRadius;
    

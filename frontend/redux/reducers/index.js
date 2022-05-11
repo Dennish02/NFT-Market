@@ -1,5 +1,10 @@
 
-import { ALL_NFT_MARKET, VALIDATE_USER, RESET_PASSWORD, RESET_ERROR, LOGUIN_USER } from "../constantes";
+import { ALL_NFT_MARKET,
+   VALIDATE_USER, 
+   RESET_PASSWORD, 
+   RESET_ERROR, 
+   LOGUIN_USER,
+   SEND_EMAIL_TO_RESET_PASSWORD } from "../constantes";
 
 
 const initialState = {
@@ -10,8 +15,8 @@ const initialState = {
   usuario: [],
   allUsuarios: [],
   confirmacion:{},
-  errorEmail:[]
-
+  errorEmail:[],
+  invalidToken:true
 };
 
 function rootReducer(state = initialState, action) {
@@ -35,7 +40,15 @@ function rootReducer(state = initialState, action) {
           ...state,
           confirmacion: action.payload,
         };
-      case RESET_PASSWORD:
+        case SEND_EMAIL_TO_RESET_PASSWORD:
+          
+          return {
+            ...state,
+            errorEmail: action.payload,
+        };
+        
+        case RESET_PASSWORD:
+          console.log(action.payload.error)
           return {
             ...state,
             errorEmail: action.payload,

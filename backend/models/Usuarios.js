@@ -35,6 +35,7 @@ const usuarioSchema = mongoose.Schema(
     coins: {
       type: Number,
       trim: true,
+      default:1000,
     },
   },
   {

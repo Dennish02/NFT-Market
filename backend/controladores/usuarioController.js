@@ -1,10 +1,13 @@
 import Usuario from "../models/Usuarios.js";
 import { generarID } from "../helpers/generarId.js";
 import generarJWT from "../helpers/generarJWT.js";
-import { emailRegistro } from "../helpers/emails.js";
+import { emailRegistro, emailOlvidePassword } from "../helpers/emails.js";
 
 const registrar = async (req, res) => {
   //Evitar registros dupicados
+
+  //* * Este controlador esta termiando
+
   const { email, nombre } = req.body;
   const usuarioRepetido = await Usuario.findOne({ nombre });
   const exiteUsiario = await Usuario.findOne({ email }); //busca si existe
@@ -32,6 +35,9 @@ const registrar = async (req, res) => {
 };
 
 const autenticar = async (req, res) => {
+
+   //* * Este controlador esta termiando
+
   const { email, password } = req.body;
 
   //comprobar si existe
@@ -62,6 +68,9 @@ const autenticar = async (req, res) => {
 };
 
 const confimrar = async (req, res) => {
+
+   //* * Este controlador esta termiando
+
   const { token } = req.params;
   const usuarioConfirmar = await Usuario.findOne({ token }); //buscar el usuario por el token
   if(!usuarioConfirmar) {
@@ -80,6 +89,9 @@ const confimrar = async (req, res) => {
   
 };
 const olvidePassword = async (req, res) => {
+
+   //* * Este controlador esta termiando
+
   const { email } = req.body;
   
   const usuario = await Usuario.findOne({email});
@@ -91,6 +103,15 @@ const olvidePassword = async (req, res) => {
     try {
       usuario.token = generarID();
       await usuario.save();
+
+      //enviar el email 
+
+      emailOlvidePassword({
+        email: usuario.email,
+        nombre: usuario.nombre,
+        token: usuario.token,
+      })
+
       res.json({ msg: "Eviamos un correo con las instrucciones" });
     } catch (error) {
       console.log(error);
@@ -102,6 +123,9 @@ const olvidePassword = async (req, res) => {
 
 //validar token para cambiar su password
 const comporbarToken = async (req, res) => {
+
+   //* * Este controlador esta termiando
+
   const { token } = req.params;
 
   const tokenValido = await Usuario.findOne({ token });
@@ -115,9 +139,12 @@ const comporbarToken = async (req, res) => {
 };
 //resetar constraseña
 const nuevoPassword = async (req, res) => {
+
+   //todo: dennis teminado
+
   const { token } = req.params;
   const { password } = req.body;
-
+  console.log({token, password});
   const usuario = await Usuario.findOne({ token });
 
   if (usuario) {
@@ -137,8 +164,12 @@ const nuevoPassword = async (req, res) => {
 };
 
 const perfil = async (req, res) => {
+
+  //todo: acceder al perfil y los datos. 
+
   const { usuario } = req; // se lee del server
-  req.json(usuario);
+  res.json(usuario);
+
 };
 
 export {

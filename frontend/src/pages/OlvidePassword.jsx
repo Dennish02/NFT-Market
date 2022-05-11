@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 //import { navigate } from 'react-router-dom';
-import { resetPassword, setStateEmail } from '../../redux/actions/actionUSER';
+import { sedEmailToResetPassword, setStateEmail } from '../../redux/actions/actionUSER';
 
 export default function OlvidePassword() {
     const [email, setEmail]= useState('')
@@ -22,7 +22,7 @@ export default function OlvidePassword() {
     
       const handleSubmit = (e) => {
        e.preventDefault()
-       dispatch(resetPassword(email))
+       dispatch(sedEmailToResetPassword(email))
       };
      
       return (
@@ -41,7 +41,7 @@ export default function OlvidePassword() {
                 type="email"
                 placeholder="Reset email"
               />
-              {respuesta.error ? <p>HEY HEY HEY</p> : <p>{respuesta.msg}</p> }
+              {respuesta.error ? <p  className='error'>{respuesta.error}</p> : <p>{respuesta.msg}</p> }
              
              {respuesta.msg? <Link to='/'> <button type="submit" className="buttonPrimary">
                 Volver a inicio

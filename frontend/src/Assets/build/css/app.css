@@ -623,7 +623,7 @@ img {
 .contNFT {
   padding: 1rem;
   width: 250px;
-  margin: 1rem;
+  margin: 1rem auto;
   border: solid #f28b12 1px;
   border-radius: 0.5rem;
 }
