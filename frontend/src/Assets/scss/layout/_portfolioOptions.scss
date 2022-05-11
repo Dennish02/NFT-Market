@@ -1,0 +1,66 @@
+@use "../base/variables" as v; 
+
+.coleccion {
+    position: relative;
+    left: 1350px;
+    bottom: 90px;
+    cursor: pointer;
+    background-color: v.$naranja;
+    padding: 10px;
+    border-radius: 20px;
+    border: 5px solid v.$fondo;
+   
+}
+
+.portfolioCreateNft {
+    position: relative;
+    left: 700px;
+    bottom: 20px;
+    cursor: pointer;
+    width: fit-content;
+    background-color: v.$verde;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: v.$grisclaro;
+    font-weight: 700;
+    margin: 1rem 0;
+}
+
+.portfolioCreateColection {
+    position: relative;
+    left: 800px;
+    bottom: 20px;
+    cursor: pointer;
+    background-color: v.$naranja;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: v.$grisclaro;
+    font-weight: 700;
+    margin: 1rem 0;
+}
+
+.tuPortfolio{
+    color: v.$grisclaro
+}
+
+.portfolioFavoritos{
+    position: relative;
+    left: 860px;
+    bottom: 20px;
+    cursor: pointer;
+    background-color: v.$morado;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: v.$grisclaro;
+    font-weight: 700;
+    margin: 1rem 0;
+}
