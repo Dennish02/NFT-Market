@@ -7,6 +7,7 @@ import ResetPassword from "./pages/ResetPassword.jsx";
 import OlvidePassword from "./pages/OlvidePassword.jsx";
 
 import CrearNFT from "./pages/CrearNFT.jsx";
+import Portfolio from "./pages/Portfolio.jsx";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/olvide-password/:token' element={<ResetPassword/>}/>  
         <Route path="/confirmar/:id" element={<ConfirmarCuenta />} />
         <Route path="/nft/crear" element={<CrearNFT />} />
+        <Route path="/usuario/portfolio" element={<Portfolio/>}/>
       </Routes>
     </Router>
   );

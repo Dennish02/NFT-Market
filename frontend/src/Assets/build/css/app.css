@@ -613,7 +613,7 @@ img {
 
 .main {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1fr;
   align-items: center;
   width: 90%;
@@ -673,7 +673,6 @@ img {
   cursor: pointer;
 }
 
-
 .perfil {
   position: relative;
 }
@@ -688,32 +687,47 @@ img {
 }
 
 .profileModal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
   background-color: #1d1e3e;
   color: #e1e1e1;
-  min-height: 35vh;
-  min-width: 25vh;
-  padding: 5px;
+  padding: 2rem 0;
 }
 
 .divPortfolio {
-  border-style: solid;
-  height: 100%;
-  border-color: #3a3a3a;
+  border: none;
   color: #3a3a3a;
   background-color: #e1e1e1;
+  height: 80px;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  padding: 1rem;
 }
-
-.font-size {
-  font-size: medium;
-  position: relative;
-  top: 40px;
+.divPortfolio a {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1fr;
+  align-items: center;
+  align-content: center;
+}
+.divPortfolio h3 {
+  grid-column: 1/3;
+  margin: 0;
   color: #3a3a3a;
 }
 
 .icon {
-  position: relative;
-  left: 80px;
-=======
+  height: 60px;
+  width: 60px;
+  grid-column: 3/4;
+  color: #f28b12;
+  display: inline-block;
+}
+
 .contConfirmar {
   width: 800px;
   margin: 5rem auto;

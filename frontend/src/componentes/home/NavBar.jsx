@@ -5,14 +5,14 @@ import Modal from 'react-modal'
 import ProfileSettings from '../modalProfile/profileSettings'
 const customStyles = {
   content: {
-    top: '28%',
-    left: '92%',
+    top: '32%',
+    left: '80%',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     padding:'0',
-    
+    width: '400px',
   },
 };
 
@@ -23,19 +23,24 @@ export default function NavBar() {
     
   }
   function closeModal(){
-    setShowModal(false)
+   showModal && setShowModal(false)
   }
+  
   return (
-    <div className='contentNav'>
+    <div className='contentNav'  onClick={closeModal}>
         <img className='logo' src={logo} alt="Logo Perfil" />
         <div className='perfil'>
             <p>balance: <span>1000</span> </p>
-            <img  src={profile} alt="Profile User" onClick={handleButton}  className="image-click" />
+            <img  
+            src={profile} 
+            alt="Profile User" 
+            onClick={handleButton}  
+            className="image-click" />
            <Modal
            isOpen={showModal}
            style={customStyles}
            > 
-           <ProfileSettings closeModal={closeModal}/>
+           <ProfileSettings/>
 
        
            

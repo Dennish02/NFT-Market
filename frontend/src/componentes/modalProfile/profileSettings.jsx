@@ -1,31 +1,54 @@
 import React, { useEffect, useRef } from 'react'
-import {FcHeatMap} from "react-icons/fc"
+import { MdSource, MdLogout, MdMonetizationOn, MdSettingsApplications } from "react-icons/md"
+import { Link } from 'react-router-dom';
+
+
+
 export default function ProfileSettings({closeModal}) {
-    let menuRef = useRef('')
-   useEffect(() => {
-    document.addEventListener('click', (event) => {
-        if(!menuRef.current.contains(event.target)){
-            closeModal()
-        }
-       
-  
-      });
-   }, [])
+    
+ 
    
     return (
       
-        <div   ref={menuRef} className='profileModal'>
+        <div className='profileModal'>
          
             <div className='divPortfolio'>
-                
-               <a href="/portfolio"> <h1 className='font-size' >portfolio {<FcHeatMap className='icon'/>} </h1> </a>
+                <Link to='/usuario/portfolio'>
+               <h3>portfolio</h3> 
+                <MdSource className='icon'/>
+                </Link>
+    
             </div>
-            
-                <h1>wallet</h1>
-           
-                <h1>settings</h1>
-            
-                <h1>logout</h1>
+
+
+            <div className='divPortfolio'>
+                <Link to='/usuario/wallet'>
+                <h3>wallet</h3>
+                <MdMonetizationOn className='icon'/>
+                </Link>
+               
+            </div>
+
+
+            <div className='divPortfolio'>
+                <Link to='/usuario/setting'>
+                <h3>settings</h3>
+                <MdSettingsApplications className='icon'/>
+                </Link>
+                
+            </div>
+
+
+            <div className='divPortfolio'>
+                <Link to='/' >
+                <h3>logout</h3>
+                <MdLogout className='icon'/>
+                </Link>
+                
+            </div>
+
+
+              
             </div>
 
         

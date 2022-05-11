@@ -30,7 +30,12 @@
   gap: $espaciado;
   align-items: center;
 }
-
+@mixin mediaGrid($ancho, $espaciado){  
+  display: grid;
+  grid-template-columns: repeat(auto-fit , minmax($ancho, 1fr));
+  gap: $espaciado;
+  align-items: center;
+}
 @mixin resetear-lista {
   margin: 0;
   padding: 0;

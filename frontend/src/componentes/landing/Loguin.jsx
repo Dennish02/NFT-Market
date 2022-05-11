@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { login } from "../../../redux/actions/actionUSER";
 import { useDispatch, useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom"
+import validarEmail from "../../middleware/validarEmail";
 // import { Link } from "react-router-dom"
 
 
@@ -16,7 +17,7 @@ export default function Loguin({handleChangeModal}) {
     password:''
   })
   const [errors, setErrors] = useState({})
-  const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+
   const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
 
   function  handleChangeEmail(e){
@@ -24,7 +25,7 @@ export default function Loguin({handleChangeModal}) {
       ...usuario,
       [e.target.name]: e.target.value,
     })
-    if(!regexEmail.exec(e.target.value)){
+    if(!validarEmail(e.target.value)){
       e.target.value.length > 40 ? setErrors({
         email: "invalid length"
       })
