@@ -27,6 +27,10 @@ const crearNft = async (req, res) => {
   newNft.creatorId = req.usuario.nombre; //agrego el id del isuario al nft
   newNft.ownerId = req.usuario.nombre; //el creador es el primer poseedor
   newNft.priceBase = req.body.price;
+
+  req.usuario.nfts.push(newNft); // Guardo el nft en el usuario
+  await req.usuario.save();
+  
   try {
     const nftSave = await newNft.save();
     res.json(nftSave); //para regresar la info creada y sincronizar

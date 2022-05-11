@@ -37,6 +37,9 @@ const usuarioSchema = mongoose.Schema(
       trim: true,
       default:1000,
     },
+    nfts: {
+      type: Array,
+    }
   },
   {
     timestamps: true,
