@@ -400,22 +400,43 @@ img {
 }
 
 .contentNav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: block;
+  width: 90%;
+  margin: 0 auto;
   margin: 2rem auto;
 }
+@media (min-width: 768px) {
+  .contentNav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1fr;
+    align-items: center;
+  }
+}
 .contentNav .logo {
-  width: 220px;
-  height: 55px;
+  width: 90%;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .contentNav .logo {
+    width: 220px;
+    height: 55px;
+  }
 }
 .contentNav .perfil {
-  width: 20%;
+  grid-column: 4/5;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .contentNav .perfil {
+    justify-content: space-between;
+  }
 }
 .contentNav .perfil p {
+  width: 70%;
   color: #e1e1e1;
 }
 .contentNav .perfil p span {
@@ -423,6 +444,7 @@ img {
   font-weight: 700;
 }
 .contentNav .perfil img {
+  display: inline-block;
   width: 50px;
   height: 50px;
 }
@@ -447,14 +469,14 @@ img {
   justify-content: center;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .contLandingOne {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     align-items: center;
     align-items: center;
-    width: 800px;
+    width: 700px;
   }
 }
 
@@ -492,6 +514,9 @@ img {
   color: #e1e1e1;
   font-weight: 700;
   margin: 1rem 0;
+}
+.buttonPrimary:hover {
+  cursor: pointer;
 }
 .buttonPrimary:hover {
   cursor: pointer;
@@ -555,6 +580,9 @@ img {
 .contLogin .contLogin-content .buttonPrimary:hover {
   cursor: pointer;
 }
+.contLogin .contLogin-content .buttonPrimary:hover {
+  cursor: pointer;
+}
 .contLogin .contLogin-content .buttonSecondary {
   width: fit-content;
   background-color: #e1e1e1;
@@ -566,6 +594,9 @@ img {
   color: #3a3a3a;
   font-weight: 700;
   margin: 1rem 0;
+}
+.contLogin .contLogin-content .buttonSecondary:hover {
+  cursor: pointer;
 }
 .contLogin .contLogin-content .buttonSecondary:hover {
   cursor: pointer;
@@ -757,22 +788,47 @@ img {
   color: #e1e1e1;
 }
 
+.contButton {
+  display: block;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .contButton {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1fr;
+    align-items: center;
+  }
+}
+
+.contTittle {
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+}
+@media (min-width: 768px) {
+  .contTittle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.contTittle h2 {
+  margin: 1rem 0;
+}
+
 .coleccion {
-  position: relative;
-  left: 1350px;
-  bottom: 90px;
+  border-radius: 0.5rem;
   cursor: pointer;
   background-color: #f28b12;
-  padding: 10px;
-  border-radius: 20px;
-  border: 5px solid #1d1e3e;
+  border: none;
+  margin: 1rem 0;
+  padding: 1rem;
+  color: #e1e1e1;
 }
 
 .portfolioCreateNft {
-  position: relative;
-  left: 700px;
-  bottom: 20px;
-  cursor: pointer;
   width: fit-content;
   background-color: #29a237;
   padding: 1rem;
@@ -783,13 +839,21 @@ img {
   color: #e1e1e1;
   font-weight: 700;
   margin: 1rem 0;
+  width: 90%;
+  margin: 1rem auto;
+  display: block;
+}
+.portfolioCreateNft:hover {
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .portfolioCreateNft {
+    width: fit-content;
+  }
 }
 
 .portfolioCreateColection {
-  position: relative;
-  left: 800px;
-  bottom: 20px;
-  cursor: pointer;
+  width: fit-content;
   background-color: #f28b12;
   padding: 1rem;
   text-align: center;
@@ -798,18 +862,22 @@ img {
   border-radius: 0.5rem;
   color: #e1e1e1;
   font-weight: 700;
-  margin: 1rem 0;
+  margin: 1rem auto;
+  display: block;
+  width: 90%;
+  margin: 1rem auto;
 }
-
-.tuPortfolio {
-  color: #e1e1e1;
+.portfolioCreateColection:hover {
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .portfolioCreateColection {
+    width: fit-content;
+  }
 }
 
 .portfolioFavoritos {
-  position: relative;
-  left: 860px;
-  bottom: 20px;
-  cursor: pointer;
+  width: fit-content;
   background-color: #663a8f;
   padding: 1rem;
   text-align: center;
@@ -818,5 +886,20 @@ img {
   border-radius: 0.5rem;
   color: #e1e1e1;
   font-weight: 700;
-  margin: 1rem 0;
+  margin: 1rem auto;
+  display: block;
+  width: 90%;
+  margin: 1rem auto;
+}
+.portfolioFavoritos:hover {
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .portfolioFavoritos {
+    width: fit-content;
+  }
+}
+
+.tuPortfolio {
+  color: #e1e1e1;
 }
