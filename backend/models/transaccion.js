@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const TransaccionSchema = mongoose.Schema({
-    owner_Id:{
+    actual_owner_Id:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Usuario",
         required: true
