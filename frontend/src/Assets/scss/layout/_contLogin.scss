@@ -31,6 +31,9 @@
     select {
       @include m.inputs;
     }
+    .file {
+      @include m.file;
+    }
     .buttonPrimary {
       @include m.buttonPrimary;
       &:hover {

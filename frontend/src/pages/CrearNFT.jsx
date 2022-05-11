@@ -8,7 +8,7 @@ export default function CrearNFT() {
     category: "",
     price: "",
     image: "",
-    id: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzkxYTRiOGQ4ZWVjYmQwOGYzZDVlOSIsImlhdCI6MTY1MjE5MTkxOCwiZXhwIjoxNjUyMjc4MzE4fQ.CzOxXPQ1d37NtC3GG8QgznB1OCYvcIQqhfBXpmOWv1g",
+    id: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyN2MyMTk0Y2IxNTUzOWIwMzAzM2ZkOSIsImlhdCI6MTY1MjMwMjQzOCwiZXhwIjoxNjUyMzg4ODM4fQ.0jv41aQvCdJT5aWq2S5PGw4SfJ2UeC01Geth5kgePlo",
   });
 
   const [errores, setErrores] = useState({
@@ -52,9 +52,9 @@ export default function CrearNFT() {
               <option selected disabled>
                 select
               </option>
-              <option value="coleccion 1">coleccion 1</option>
-              <option value="coleccion 2">coleccion 2</option>
-              <option value="coleccion 3">coleccion 3</option>
+              <option value="col1">coleccion 1</option>
+              <option value="col2">coleccion 2</option>
+              <option value="col3">coleccion 3</option>
             </select>
 
             <label htmlFor="category">Category</label>
@@ -62,9 +62,9 @@ export default function CrearNFT() {
               <option selected disabled>
                 select
               </option>
-              <option value="categoria 1">categoria 1</option>
-              <option value="categoria 2">categoria 2</option>
-              <option value="categoria 3">categoria 3</option>
+              <option value="cat1">categoria 1</option>
+              <option value="cat2">categoria 2</option>
+              <option value="cat3">categoria 3</option>
             </select>
 
             <label htmlFor="price">Price</label>
@@ -80,12 +80,12 @@ export default function CrearNFT() {
 
             <label htmlFor="image">Image</label>
             <input
+              className="file"
               name="image"
               value={estado.image}
               onChange={handleChange}
               id="image"
-              type="text"
-              placeholder="Enter image url"
+              type="file"
             ></input>
 
             {errores.error && <p className="error">{errores.error}</p>}
