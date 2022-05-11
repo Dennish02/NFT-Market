@@ -4,7 +4,11 @@ import profile2 from "../../src/img/profile2.png";
 import profile3 from "../../src/img/profile3.png";
 
 import { LOGUIN_USER } from "../constantes"
-import { VALIDATE_USER, RESET_PASSWORD,RESET_ERROR } from '../constantes'
+import { 
+  VALIDATE_USER, 
+  RESET_PASSWORD,
+  RESET_ERROR, 
+  SEND_EMAIL_TO_RESET_PASSWORD } from '../constantes'
 // export function allNftMarket() {
 //   return async function (dispatch) {
 //     try {
@@ -34,7 +38,7 @@ export function registroUsuario({ nombre, email, password }) {
             : n === 1
             ? profile2.toString()
             : profile3.toString(),
-        coins: 1000,
+        
       };
       
       const response = await axios.post(
@@ -75,23 +79,42 @@ export function validateUser(id) {
   
 }
 
-export function resetPassword(data){
+export function sedEmailToResetPassword(data){
  
   return async function(dispatch){
     try {
       let json = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/olvide-password/`,{email: data})
       return dispatch({
+        type: SEND_EMAIL_TO_RESET_PASSWORD,
+        payload: json.data
+      })
+    } catch (error) {
+     return dispatch({
+      type: SEND_EMAIL_TO_RESET_PASSWORD,
+      payload: {error: error.response.data.msg}
+    })
+    }
+  }
+}
+export function resetPassword(data){
+  const { token, password}= data
+  return async function(dispatch){
+    try {
+      let json = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/olvide-password/${token}`,{password})
+      //console.log(json.data);
+      return dispatch({
         type: RESET_PASSWORD,
         payload: json.data
       })
     } catch (error) {
+      //console.log(error.response.data);
      return dispatch({
       type: RESET_PASSWORD,
       payload: {error: error.response.data.msg}
     })
     }
   }
-}
+} 
 export function setStateEmail(){
   
   return async function(dispatch){
@@ -107,7 +130,7 @@ export function setStateEmail(){
 export function login (payload) {
   return async function(dispatch){
     try {
-      let json = await axios.post(`http://localhost:3001/api/usuario/login`, payload)
+      let json = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/login`, payload)
       console.log(json)
       return dispatch({
         type: LOGUIN_USER,

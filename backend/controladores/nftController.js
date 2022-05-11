@@ -18,7 +18,9 @@ const obtenerAllNft = async (req, res) => {
 };
 
 const crearNft = async (req, res) => {
-  //con req.usuario vamos a saber que usuario realizo el NFT
+  //con req.u
+
+  //todo: realionar la categoria de req.body con el modleo de categorias
 
   const newNft = new NftCreated(req.body); //inatanciar nuevo nft  con la info que llega
   newNft.id = makeGeneratorIDRandom(4);
