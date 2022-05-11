@@ -36,15 +36,17 @@ const usuarioSchema = mongoose.Schema(
       type: Number,
       trim: true,
       default:1000,
-    },
-    nfts: {
-      type: Array,
     }
   },
   {
     timestamps: true,
   }
 );
+
+//virtual
+usuarioSchema.virtual('nfts').get(() => {
+  return mongoose.model('NftCreated').find({ownerId: this.nombre})
+});
 
 //antes de almacenar
 usuarioSchema.pre("save", async function (next) {
