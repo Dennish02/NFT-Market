@@ -165,8 +165,6 @@ const nuevoPassword = async (req, res) => {
 
 const perfil = async (req, res) => {
 
-  //todo: acceder al perfil y los datos. 
-
   const { usuario } = req; // se lee del server
   res.json(usuario);
 

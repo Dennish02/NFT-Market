@@ -4,6 +4,7 @@ export const emailRegistro = async (datos) => {
   const { email, nombre, token } = datos;
 
 
+
   
   //dennis
   const transport = nodemailer.createTransport({
@@ -14,6 +15,8 @@ export const emailRegistro = async (datos) => {
         pass: process.env.EMAIL_PASS
       }
     });
+
+
 
   //INFORMACION EMAIL
 
@@ -30,8 +33,6 @@ export const emailRegistro = async (datos) => {
   });
 };
 
-
-
 export const emailOlvidePassword = async (datos) => {
   const { email, nombre, token } = datos;
 
@@ -44,12 +45,12 @@ export const emailOlvidePassword = async (datos) => {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     }
+
   });
 
  
 
   //INFORMACION EMAIL
-
   const info = await transport.sendMail({
     from: '"NFT Market" <cuentas@nftmarket.com>',
     to: email,

@@ -7,14 +7,12 @@ const nftSchema = mongoose.Schema({
         required: true,
     },
     colection:{
-        type: String,
-        trim: true,
-        required: true,
+        type: mongoose.Schema.Types.String,
+        ref: "Coleccion"
     },
     category:{
-        type: String,
-        trim: true,
-        required: true,
+        type: mongoose.Schema.Types.String,
+        ref: "Categorias"
     },
     creatorId:{
         type: mongoose.Schema.Types.String,

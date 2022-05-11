@@ -3,6 +3,7 @@ import logo from '../../img/logo.png'
 import profile from '../../img/profile.png'
 import Modal from 'react-modal'
 import ProfileSettings from '../modalProfile/profileSettings'
+import { Link } from 'react-router-dom'
 const customStyles = {
   content: {
     top: '32%',
@@ -28,7 +29,8 @@ export default function NavBar() {
   
   return (
     <div className='contentNav'  onClick={closeModal}>
-        <img className='logo' src={logo} alt="Logo Perfil" />
+       <Link to='/home'> <img className='logo' src={logo} alt="Logo Perfil" /></Link>
+       
         <div className='perfil'>
             <p>balance: <span>1000</span> </p>
             <img  
