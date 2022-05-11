@@ -3,26 +3,26 @@ import nodemailer from "nodemailer";
 export const emailRegistro = async (datos) => {
   const { email, nombre, token } = datos;
 
-
   //Todo: MOVER HACIA VARIABLE DE ENTORNO
-  //dennis
-  const transport = nodemailer.createTransport({
-       host: "smtp.mailtrap.io",
-      port: 2525,
-      auth: {
-        user: "2f58e0c7fd907f",
-        pass: "71657311e72728"
-      }
-    });
-//pablo
-  /*var transport = nodemailer.createTransport({
+  // //dennis
+  // const transport = nodemailer.createTransport({
+  //      host: "smtp.mailtrap.io",
+  //     port: 2525,
+  //     auth: {
+  //       user: "2f58e0c7fd907f",
+  //       pass: "71657311e72728"
+  //     }
+  //   });
+
+  //pablo
+  var transport = nodemailer.createTransport({
     host: "smtp.mailtrap.io",
     port: 2525,
     auth: {
       user: "bd939024e7b851",
       pass: "bd66a92987b5ce",
     },
-  });*/
+  });
 
   //INFORMACION EMAIL
 
@@ -39,21 +39,18 @@ export const emailRegistro = async (datos) => {
   });
 };
 
-
-
 export const emailOlvidePassword = async (datos) => {
   const { email, nombre, token } = datos;
 
-
-// Todo:MOVER HACIA VARIABLE DE ENTORNO
+  // Todo:MOVER HACIA VARIABLE DE ENTORNO
   const transport = nodemailer.createTransport({
-      host: "smtp.mailtrap.io",
-      port: 2525,
-      auth: {
-        user: "2f58e0c7fd907f",
-        pass: "71657311e72728"
-      }
-    });
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: "2f58e0c7fd907f",
+      pass: "71657311e72728",
+    },
+  });
 
   // var transport = nodemailer.createTransport({
   //   host: "smtp.mailtrap.io",
@@ -65,7 +62,6 @@ export const emailOlvidePassword = async (datos) => {
   // });
 
   //INFORMACION EMAIL
-
   const info = await transport.sendMail({
     from: '"NFT Market" <cuentas@nftmarket.com>',
     to: email,

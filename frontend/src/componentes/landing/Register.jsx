@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registroUsuario } from "../../../redux/actions/actionUSER";
+import validatePassword from "../../middleware/validarPassword";
+import validarEmail from "../../middleware/validarEmail";
 
 export default function Register({ handleChangeModalRegister }) {
   const [estado, setEstado] = useState({
     email: "",
     nombre: "",
-    password: "",
+    password1: "",
     password2: "",
   });
-  const [errores, setErrores] = useState({
-    error: "",
-  });
+  const [errores, setErrores] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -24,17 +24,25 @@ export default function Register({ handleChangeModalRegister }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (estado.password !== estado.password2)
-      setErrores({ ...errores, error: "Las contraseñas no coinciden" });
-    else if (
+
+    if (
       !estado.email ||
       !estado.nombre ||
-      !estado.password ||
+      !estado.password1 ||
       !estado.password2
     )
-      setErrores({ ...errores, error: "Faltan valores" });
+      setErrores([0, "faltan valores"]);
+    else if (estado.nombre.length < 3)
+      setErrores([1, "Longitud incorrecta username"]);
+    else if (validarEmail(estado.email)) setErrores([2, "Email incorrecto"]);
+    else if (validatePassword(estado.password1))
+      setErrores([3, "Password incorrecto"]);
+    else if (validatePassword(estado.password2))
+      setErrores([4, "Password incorrecto"]);
+    else if (estado.password1 !== estado.password2)
+      setErrores([5, "Los passwords son distintos"]);
     else {
-      setErrores({ ...errores, error: "" });
+      setErrores([]);
       dispatch(registroUsuario(estado));
     }
   };
@@ -49,6 +57,7 @@ export default function Register({ handleChangeModalRegister }) {
         <form onSubmit={handleSubmit}>
           <label htmlFor="user">username</label>
           <input
+            className={errores[0] === 1 ? "inputError" : "input"}
             name="nombre"
             value={estado.username}
             onChange={handleChange}
@@ -58,6 +67,7 @@ export default function Register({ handleChangeModalRegister }) {
           />
           <label htmlFor="email">email</label>
           <input
+            className={errores[0] === 2 ? "inputError" : "input"}
             name="email"
             value={estado.email}
             onChange={handleChange}
@@ -67,8 +77,8 @@ export default function Register({ handleChangeModalRegister }) {
           />
           <label htmlFor="password">password</label>
           <input
-            className={errores.error ? "inputError" : "input"}
-            name="password"
+            className={errores[0] === 3 || errores[0] === 5 ? "inputError" : ""}
+            name="password1"
             value={estado.password}
             onChange={handleChange}
             id="password"
@@ -77,7 +87,7 @@ export default function Register({ handleChangeModalRegister }) {
           />
           <label htmlFor="password">enter password again</label>
           <input
-            className={errores.error ? "inputError" : "input"}
+            className={errores[0] === 4 || errores[0] === 5 ? "inputError" : ""}
             name="password2"
             value={estado.password2}
             onChange={handleChange}
@@ -85,7 +95,8 @@ export default function Register({ handleChangeModalRegister }) {
             type="password"
             placeholder="enter password again"
           />
-          {errores.error && <p className="error">{errores.error}</p>}
+          {errores.length !== 0 && <p className="error">{errores[1]}</p>}
+
           <button type="submit" className="buttonPrimary">
             Register
           </button>
