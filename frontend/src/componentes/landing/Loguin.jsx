@@ -1,31 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { login } from "../../../redux/actions/actionUSER";
 import { useDispatch, useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom"
 import validarEmail from "../../middleware/validarEmail";
+import validatePassword from "../../middleware/validarPassword";
 // import { Link } from "react-router-dom"
 
 
 export default function Loguin({handleChangeModal}) {
 
   const dispatch = useDispatch()
-  const navigate = useNavigate();
-  const user = useSelector(state => state.usuario)
+  // const navigate = useNavigate();
+  // const user = useSelector(state => state.usuario)
 
   const [ usuario, setUsuario ]= useState({
     email:'',
     password:''
   })
   const [errors, setErrors] = useState({})
-
-  const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
-
+  
   function  handleChangeEmail(e){
     setUsuario({
       ...usuario,
       [e.target.name]: e.target.value,
     })
-    if(!validarEmail(e.target.value)){
+    if(validarEmail(e.target.value)){
       e.target.value.length > 40 ? setErrors({
         email: "invalid length"
       })
@@ -44,18 +43,20 @@ export default function Loguin({handleChangeModal}) {
       ...usuario,
       [e.target.name]: e.target.value,
     })
-    // if(!regexPassword.exec(e.target.value)){
-    //   e.target.value.length > 16 ? setErrors({
-    //     password: "invalid length"
-    //   })
-    //   : setErrors({
-    //     password: "invalid characters"
-    //   })
-    // }else{
-    //   setErrors({
-    //     password: ""
-    //   })
-    // }
+
+    if(validatePassword(e.target.value)){
+      if(e.target.value.length < 8){
+        setErrors({
+         ...errors,
+         password: "Your password must be at least 8 characters"
+       })
+     }else{
+      setErrors({
+         ...errors,
+         password: ""
+       })
+     }
+   }
   }
     const handleSubmit =(e)=>{
       e.preventDefault();
@@ -71,17 +72,7 @@ export default function Loguin({handleChangeModal}) {
         dispatch(login(usuario))
         setUsuario("")
       }
-      if(user)return
-      navigate("/home")
     }
-
-    // const handleClickValidation = (e) => {
-    //   if(user){
-    //     alert("Bienvenido a MarketNFT")
-    //   }else{
-    //     alert ("No es un usuario valido")
-    //   }
-    // }
 
   return (
     <div className="contLogin">
@@ -91,6 +82,7 @@ export default function Loguin({handleChangeModal}) {
         <form onSubmit={handleSubmit}>
             <label htmlFor="email">email</label>
             <input 
+                className={errors.email ? "inputError" : "input"}
                 id="email"
                 value={usuario.email}
                 type="text" 
@@ -104,6 +96,7 @@ export default function Loguin({handleChangeModal}) {
                )} 
             <label htmlFor="password">password</label>
             <input 
+                className={errors.password ? "inputError" : "input"}
                 id="password" 
                 type="password" 
                 value={usuario.password}
@@ -112,21 +105,15 @@ export default function Loguin({handleChangeModal}) {
                 placeholder="Your password"/>
             {errors.password && (
               <div>
-                <p>{errors.password}</p>
+                <p className="error">{errors.password}</p>
               </div>
             )}
             <button
             type="submit"
             className="buttonPrimary"
-            // onClick={handleClickValidation}
             >LOGIN
             </button>
-            {/* {user.token ? 
-            <Link to="/home">
-              
-            </Link>
-            : null
-            } */}
+    
         </form>
         <button
             type="submit"
