@@ -1,0 +1,45 @@
+@use "../base/variables" as v;
+
+.perfil{
+    position: relative;
+    
+}
+.image-click{
+    cursor: pointer;
+}
+.boton {
+    background-color: red;
+    cursor: pointer;
+  }
+
+.profileModal{
+    background-color: v.$fondo;
+    color: v.$grisclaro;
+    min-height: 35vh;
+    min-width: 25vh;
+    padding: 5px;
+   
+}
+
+.divPortfolio{
+    border-style: solid;
+    height:100%;
+    border-color: v.$grisoscuro;
+    color: v.$grisoscuro;
+    background-color: v.$grisclaro;
+    
+    
+   
+}
+.font-size{
+    font-size: medium;
+    position: relative;
+    top: 40px;
+    color: v.$grisoscuro;
+    
+}
+.icon{
+    position: relative;
+    left: 80px;
+    
+}
