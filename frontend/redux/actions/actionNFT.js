@@ -1,5 +1,9 @@
 import axios from "axios";
+
+import { SEARCH_NFT } from '../constantes'
+
 import { Form } from "formik";
+
 
 export function allNftMarket() {
   return async function (dispatch) {
@@ -49,4 +53,10 @@ export function crearNFT(payload) {
   };
 }
 
-export function nftWithUser() {}
+export function NFTSearch(payload) {
+ return {
+    type: SEARCH_NFT,
+    payload
+ }
+}
+

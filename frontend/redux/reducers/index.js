@@ -5,7 +5,7 @@ import { ALL_NFT_MARKET,
    RESET_ERROR, 
    LOGUIN_USER,
    SEND_EMAIL_TO_RESET_PASSWORD,
-   RESET_ERROR_LOGUIN_USER } from "../constantes";
+   RESET_ERROR_LOGUIN_USER, SEARCH_NFT } from "../constantes";
 
 
 const initialState = {
@@ -64,7 +64,19 @@ function rootReducer(state = initialState, action) {
             ...state,
             errorEmail: [],
         };    
+      case  SEARCH_NFT:
+        //logic reducer
+        let nftSearch = state.backUpAllNft
+        let filterBySearch = nftSearch.filter(el => el.id.toUpperCase().includes(action.payload.toUpperCase()))
+       
         
+        // let wewe = filterByQuery.includes(action.payload)? console.log('si') : console.log('no')
+        
+        return {
+
+          ...state,
+          allNft : filterBySearch
+        }
 
     default:
       return state;

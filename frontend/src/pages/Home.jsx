@@ -10,7 +10,7 @@ export default function Home() {
   const dispatch= useDispatch()
   const todosLosNFT = useSelector((state)=> state.allNft)
 
-  console.log(todosLosNFT);
+  console.log('soy el estado de los nft', todosLosNFT);
 
   useEffect(()=>{
       dispatch(allNftMarket())
@@ -21,7 +21,7 @@ export default function Home() {
     <div className='contentHome'>
         <NavBar/>
         <div>
-            <SearchBar/>
+            <SearchBar />
         </div>
         <main className='main'>
          
@@ -42,7 +42,7 @@ export default function Home() {
                   }
                 </div>
               )
-          }): <div>y digo wow</div>}
+          }): <div>no existe el nft</div>}
         </main>
     </div>
   );
