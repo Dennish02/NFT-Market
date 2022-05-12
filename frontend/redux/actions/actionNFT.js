@@ -1,10 +1,5 @@
 import axios from "axios";
 
-import { SEARCH_NFT } from '../constantes'
-
-import { Form } from "formik";
-
-
 export function allNftMarket() {
   return async function (dispatch) {
     try {
@@ -27,36 +22,20 @@ export function crearNFT(payload) {
       price: Number(payload.price),
       image: payload.image,
     };
-    let form = new FormData();
-
-    for (let key in body) {
-      console.log(key);
-      console.log(body[key]);
-      form.append(key, body[key]);
-    }
-
     const id = payload.id;
-
+    // console.log(body);
+    // console.log(id);
     const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${id}`,
-      },
+      headers: { Authorization: `Bearer ${id}` },
     };
 
     let json = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/api/nft`,
-      form,
+      body,
       config
     );
     console.log(json);
   };
 }
 
-export function NFTSearch(payload) {
- return {
-    type: SEARCH_NFT,
-    payload
- }
-}
-
+export function nftWithUser() {}

@@ -1,9 +1,14 @@
 @use "../base/variables" as v;
 @use "../base/mixins" as m;
 
+
+.contRegister{
+  margin: 4rem auto;
+}
 .contLogin {
   position: relative;
   width: 600px;
+  max-height: 700px;
   background-color: v.$grisoscuro;
   color: v.$grisclaro;
   @include m.borderRadius;
