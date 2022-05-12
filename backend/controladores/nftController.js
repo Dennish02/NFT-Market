@@ -1,5 +1,7 @@
 import makeGeneratorIDRandom from "../middleware/idGenerator.js";
 import NftCreated from "../models/nft.js";
+import Usuario from "../models/Usuarios.js";
+import Transaccion from "../models/transaccion.js";
 import { uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 
@@ -86,8 +88,76 @@ const obtenerNft = async (req, res) => {
   res.send(nft);
 };
 const regalarNft = async (req, res) => {};
-const comprarNft = async (req, res) => {};
-const venderNft = async (req, res) => {};
+
+const comprarNft = async (req, res) => {
+  const { id } = req.params;
+  const NFT = await NftCreated.findById(id);
+
+    if (!NFT) {
+      return res.status(401).json({ msg: "No existe NFT"});
+    }
+    else if (NFT.avaliable === false) {
+      return res.status(401).json({ msg: "El NFT no esta a la venta" });
+    }
+    else if(req.usuario.coins < NFT.price) {
+      return res.status(401).json({ msg: "No tienes CL suficientes para comprar este NFT" });
+    }
+    else if((req.usuario.coins >= NFT.price) && (NFT.avaliable === true)) {
+      const precio = NFT.price;
+      const vendedor_nombre = NFT.ownerId; //nombre
+      const comprador_coins = req.usuario.coins;
+      const vendedor =  await Usuario.findOne({ nombre: vendedor_nombre });  
+      const vendedor_coins = vendedor.coins;
+      const comprador = await Usuario.findOne({ nombre: req.usuario.nombre });
+     //falta asociar con transacciones
+     
+      try {
+          
+           vendedor.coins = vendedor.coins + precio;
+           const nftFiltrados = vendedor.nfts.filter((nft) => (nft.id !== NFT.id));
+           vendedor.nfts = nftFiltrados;
+           await vendedor.save();
+           NFT.ownerId = comprador.nombre;
+           await NFT.save();
+           comprador.coins = comprador.coins - precio;
+           comprador.nfts.push(NFT)
+           await comprador.save();
+           
+           res.json({ msg: "Su compra fue realizada" });
+      } catch (error) {
+           vendedor.coins = vendedor_coins;
+           await vendedor.save();
+           NFT.ownerId = vendedor.nombre;
+           await NFT.save();
+           comprador.coins = comprador_coins;
+           await comprador.save();
+  
+           return res.status(401).json({ msg: "Lo sentimos, su compra no pudo realizarse" });
+      } 
+    }
+  
+};
+
+const venderNft = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const Nft = await NftCreated.findById(id);
+    if (!Nft) {
+       return res.status(401).json({msg: "No existe NFT" });
+    }
+    else if (Nft.ownerId === req.usuario.nombre) {
+       Nft.avaliable = !Nft.avaliable
+       await Nft.save();
+       res.json({ msg: "NFT actualizado" });
+    }
+    else {
+      return res.status(401).json({ msg: "No puedes editar este NFT" });
+    }
+  } catch (error) {
+    console.log(error);
+  }  
+};
+
 const añadirFavNft = async (req, res) => {};
 const obtenerVentas = async (req, res) => {};
 

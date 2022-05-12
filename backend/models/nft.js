@@ -44,6 +44,7 @@ const nftSchema = mongoose.Schema(
     avaliable: {
       type: Boolean,
       trim: true,
+      default: false
     },
   },
   {

@@ -22,8 +22,9 @@ router
   .get(checkOut, obtenerNft)
   .get(checkOut, regalarNft)
   .put(checkOut, editarNft)
-  .post(checkOut, comprarNft)
-  .post(checkOut, venderNft)
   .post(checkOut, añadirFavNft);
+
+router.route("/vender/:id").put(checkOut, venderNft);
+router.route("/comprar/:id").post(checkOut, comprarNft);
 
 export default router;
