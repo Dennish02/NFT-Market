@@ -21,7 +21,6 @@ const obtenerAllNft = async (req, res) => {
 };
 
 const crearNft = async (req, res) => {
-
   const newNft = new NftCreated(req.body); //inatanciar nuevo nft  con la info que llega
   newNft.id = makeGeneratorIDRandom(4);
   newNft.creatorId = req.usuario.nombre; //agrego el id del isuario al nft
@@ -29,7 +28,7 @@ const crearNft = async (req, res) => {
   newNft.priceBase = req.body.price;
 
   if (newNft.colection.length > 8) {
-    res.status(400).send('Las colecciones no pueden tener más de 8 caracteres')
+    res.status(400).send("Las colecciones no pueden tener más de 8 caracteres");
   }
 
   req.usuario.nfts.push(newNft);
@@ -37,13 +36,14 @@ const crearNft = async (req, res) => {
 
   try {
     if (req.files.image) {
+      console.log(req.files.image);
       const res = await uploadImage(req.files.image.tempFilePath);
       await fs.remove(req.files.image.tempFilePath);
-      // console.log(res);
       const image = {
         url: res.secure_url,
         public_id: res.public_id,
       };
+
       newNft.image = image;
     }
 

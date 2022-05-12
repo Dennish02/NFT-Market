@@ -26,8 +26,6 @@ export function crearNFT(payload) {
     let form = new FormData();
 
     for (let key in body) {
-      console.log(key);
-      console.log(body[key]);
       form.append(key, body[key]);
     }
 

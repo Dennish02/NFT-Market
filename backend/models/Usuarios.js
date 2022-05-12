@@ -38,9 +38,8 @@ const usuarioSchema = mongoose.Schema(
       default: 1000,
     },
     nfts: {
-      type: Array
-    }
-
+      type: Array,
+    },
   },
   {
     timestamps: true,
@@ -62,7 +61,6 @@ usuarioSchema.pre("save", async function (next) {
 });
 
 usuarioSchema.methods.comprobarPassword = async function (passwordFormulario) {
- 
   return await bcrypt.compare(passwordFormulario, this.password); //compara las pasword
 };
 

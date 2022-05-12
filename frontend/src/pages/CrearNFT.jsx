@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { crearNFT } from "../../redux/actions/actionNFT";
+import { useNavigate } from "react-router-dom";
 
 function validate(value) {
   let errores = {};
@@ -17,6 +18,7 @@ function validate(value) {
 }
 export default function CrearNFT() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [estado, setEstado] = useState({
     colection: "",
     category: "",
@@ -36,11 +38,13 @@ export default function CrearNFT() {
             onSubmit={(values) => {
               // console.log(values);
               dispatch(crearNFT(values));
+              navigate("/home");
             }}
           >
             {({ setFieldValue }) => (
               <Form>
                 <label>Coleccion</label>
+
                 <Field name="colection" as="select">
                   <option value="" disabled>
                     -- select --
