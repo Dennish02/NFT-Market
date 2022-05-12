@@ -119,16 +119,16 @@ export function setStateEmail() {
   };
 }
 
-export function login(payload) {
-  return async function (dispatch) {
-    try {
-      let json = await clienteAxios.post(`/usuario/login`, payload);
 
-      localStorage.setItem("token", json.data.token);
-      return dispatch({
-        type: LOGUIN_USER,
-        payload: json.data,
-      });
+export function login (payload) {
+  return async function(){
+    try {
+     //?dennis: saque el return porque no hace falta que devuelta nada.
+      let json = await clienteAxios.post(`/usuario/login`, payload)
+      console.log(json);
+      localStorage.setItem('token', json.data.token)
+      
+
     } catch (error) {
       alert(error.response.data.msg);
     }
@@ -138,6 +138,26 @@ export function resetErrorLoguinUser() {
   let nada = [];
   return {
     type: RESET_ERROR_LOGUIN_USER,
-    payload: nada,
-  };
+    payload: nada
+  }
 }
+export function autenticarUser (config) {
+  return async function(dispatch){
+    try {
+    
+      let json = await clienteAxios(`/usuario/perfil`, config)
+      console.log(json);
+      return dispatch({
+        type: LOGUIN_USER,
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error.response.data.msg)
+    }
+}
+}
+
+export function userLogout(){
+ return localStorage.setItem('token', '')
+}
+

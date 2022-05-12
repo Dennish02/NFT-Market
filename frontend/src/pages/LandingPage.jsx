@@ -5,6 +5,8 @@ import Loguin from '../componentes/landing/Loguin'
 import Modal from 'react-modal';
 import Register from '../componentes/landing/Register';
 import { useDispatch } from 'react-redux';
+import { autenticarUser } from '../../redux/actions/actionUSER';
+import { useNavigate } from 'react-router';
 
 
 const customStyles = {
@@ -22,7 +24,8 @@ const customStyles = {
   Modal.setAppElement('#root');
 
 export default function LnadingPage() {
-   // const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [modal, setModal]= useState(false)
     const [modalRegister, setModalRegister] = useState(false)  
 
@@ -35,6 +38,24 @@ export default function LnadingPage() {
     setModal(!modal)
     }
    
+    /*Dennis: puse este useEfect para que vea si el ususario dejó la sesion activa
+    ?o si cerró sesion, caso de que tenga activa
+    lo redirecciona*/
+    useEffect(()=>{
+        
+        const token = localStorage.getItem('token')
+        if(!token){
+            return
+        }
+        const config = {
+            headers : {
+                "Content-Type": "application/json",
+                Authorization :`Bearer ${token}`
+            }
+        }
+       const verificacion =  dispatch(autenticarUser(config))
+       verificacion && navigate('/home')
+    },[])
    
 
     return (
