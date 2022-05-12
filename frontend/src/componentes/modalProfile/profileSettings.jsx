@@ -4,16 +4,12 @@ import { MdSource, MdLogout, MdMonetizationOn, MdSettingsApplications } from "re
 import { Link } from 'react-router-dom';
 import { userLogout } from '../../../redux/actions/actionUSER';
 
-
-
 export default function ProfileSettings({closeModal}) {
     const token = localStorage.getItem('token')
     const navigate = useNavigate()
     if(!token){
         navigate('/')
-    }
- 
-   
+    }  
     return (
       
         <div className='profileModal'>
@@ -25,7 +21,6 @@ export default function ProfileSettings({closeModal}) {
                 </Link>
     
             </div>
-
 
             <div className='divPortfolio'>
                 <Link to='/usuario/wallet'>
@@ -53,15 +48,10 @@ export default function ProfileSettings({closeModal}) {
                 <h3>logout</h3>
                 <MdLogout className='icon'/>
                 </Link>
-                
-                
-                
+           
             </div>
 
-
-              
             </div>
 
-        
     )
 }

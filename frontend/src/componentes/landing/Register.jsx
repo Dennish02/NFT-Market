@@ -8,7 +8,7 @@ export default function Register({ handleChangeModalRegister }) {
   const [estado, setEstado] = useState({
     email: "",
     nombre: "",
-    password1: "",
+    password: "",
     password2: "",
   });
   const [errores, setErrores] = useState([]);
@@ -28,18 +28,18 @@ export default function Register({ handleChangeModalRegister }) {
     if (
       !estado.email ||
       !estado.nombre ||
-      !estado.password1 ||
+      !estado.password ||
       !estado.password2
     )
       setErrores([0, "faltan valores"]);
     else if (estado.nombre.length < 3)
       setErrores([1, "Longitud incorrecta username"]);
     else if (validarEmail(estado.email)) setErrores([2, "Email incorrecto"]);
-    else if (validatePassword(estado.password1))
+    else if (validatePassword(estado.password))
       setErrores([3, "Password incorrecto"]);
     else if (validatePassword(estado.password2))
       setErrores([4, "Password incorrecto"]);
-    else if (estado.password1 !== estado.password2)
+    else if (estado.password !== estado.password2)
       setErrores([5, "Los passwords son distintos"]);
     else {
       setErrores([]);
@@ -78,7 +78,7 @@ export default function Register({ handleChangeModalRegister }) {
           <label htmlFor="password">password</label>
           <input
             className={errores[0] === 3 || errores[0] === 5 ? "inputError" : ""}
-            name="password1"
+            name="password"
             value={estado.password}
             onChange={handleChange}
             id="password"

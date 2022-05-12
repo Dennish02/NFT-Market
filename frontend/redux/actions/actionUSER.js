@@ -27,8 +27,10 @@ import { useNavigate } from "react-router";
 // }
 
 
+
 export function registroUsuario({ nombre, email, password1 }) {
   
+
   const n = Math.floor(Math.random() * 10) % 3;
 
   return async function () {
@@ -36,7 +38,7 @@ export function registroUsuario({ nombre, email, password1 }) {
       const body = {
         nombre,
         email,
-        password: password1,
+        password,
         image:
           n === 0
             ? profile1.toString()
