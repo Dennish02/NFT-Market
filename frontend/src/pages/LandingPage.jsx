@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Carrusel from '../componentes/landing/Carrusel'
 import Formulario from '../componentes/landing/Formulario'
-import Loguin from '../componentes/landing/Loguin'
+
 import Modal from 'react-modal';
-import Register from '../componentes/landing/Register';
+
 import { useDispatch } from 'react-redux';
-import { autenticarUser } from '../../redux/actions/actionUSER';
+import { autenticarUser, resetErrorLoginUser } from '../../redux/actions/actionUSER';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 const customStyles = {
@@ -24,28 +25,17 @@ const customStyles = {
   Modal.setAppElement('#root');
 
 export default function LnadingPage() {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [modal, setModal]= useState(false)
-    const [modalRegister, setModalRegister] = useState(false)  
-
-    
-    const handleChangeModalRegister = ()=>{
-        setModalRegister(!modalRegister)
-        }
-  
-    const handleChangeModal = ()=>{
-    setModal(!modal)
-    }
-   
-    /*Dennis: puse este useEfect para que vea si el ususario dejó la sesion activa
+    const navigate = useNavigate()
+      /*Dennis: puse este useEfect para que vea si el ususario dejó la sesion activa
     ?o si cerró sesion, caso de que tenga activa
     lo redirecciona*/
     useEffect(()=>{
         
         const token = localStorage.getItem('token')
         if(!token){
-            return
+            
+            return 
         }
         const config = {
             headers : {
@@ -53,43 +43,31 @@ export default function LnadingPage() {
                 Authorization :`Bearer ${token}`
             }
         }
-       const verificacion =  dispatch(autenticarUser(config))
-       verificacion && navigate('/home')
+       let usuarioA = dispatch(autenticarUser(config))
+       usuarioA ? navigate('/home'): null
     },[])
-   
 
     return (
         <div className='landing'>
             <div className='contentbutton'>
-                <button 
-                    className='buttonPrimary'
-                    onClick={handleChangeModal}
+                <Link to='/login'>
+                    <button
+                        className='buttonPrimary'
+
                     >LOGIN</button>
+                </Link>  
+                <Link to='/register'>
                 <button 
                 className='buttonPrimary'
-                onClick={handleChangeModalRegister}
                 >REGISTER</button>
+                </Link> 
+                
             </div>
             <div className='contLanding'>
                 <div className='contLandingOne'>
 
                     <Formulario />
                     <Carrusel />
-                    <Modal
-                        isOpen={modal}
-                        style={customStyles}
-                        
-                        setModalRegister={setModalRegister}
-                    >
-                         <Loguin handleChangeModal={handleChangeModal}/>
-                    </Modal>
-                    <Modal
-                        isOpen={modalRegister}
-                        style={customStyles}  
-                        setModalRegister={setModalRegister}
-                    >
-                         <Register handleChangeModalRegister={handleChangeModalRegister}/>
-                    </Modal>
                 </div>
             </div>
 

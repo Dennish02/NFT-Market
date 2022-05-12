@@ -4,26 +4,31 @@ import { MdSource, MdLogout, MdMonetizationOn, MdSettingsApplications } from "re
 import { Link } from 'react-router-dom';
 import { userLogout } from '../../../redux/actions/actionUSER';
 
+
+
 export default function ProfileSettings({closeModal}) {
     const token = localStorage.getItem('token')
     const navigate = useNavigate()
     if(!token){
         navigate('/')
-    }  
+    }
+ 
+   
     return (
       
         <div className='profileModal'>
          
             <div className='divPortfolio'>
-                <Link to='/usuario/portfolio'>
+                <Link to='/home/usuario/portfolio'>
                <h3>portfolio</h3> 
                 <MdSource className='icon'/>
                 </Link>
     
             </div>
 
+
             <div className='divPortfolio'>
-                <Link to='/usuario/wallet'>
+                <Link to='/home/usuario/wallet'>
                 <h3>wallet</h3>
                 <MdMonetizationOn className='icon'/>
                 </Link>
@@ -32,26 +37,33 @@ export default function ProfileSettings({closeModal}) {
 
 
             <div className='divPortfolio'>
-                <Link to='/usuario/setting'>
+                <Link to='/home/usuario/setting'>
                 <h3>settings</h3>
                 <MdSettingsApplications className='icon'/>
                 </Link>
                 
             </div>
 
-
-            <div 
-            onClick={()=>userLogout()}
+        
+        <div 
+           onClick={userLogout}
             className='divPortfolio'>
                
                 <Link to='/' >
                 <h3>logout</h3>
                 <MdLogout className='icon'/>
                 </Link>
-           
+                
+                
+                
+            </div>
+        
+       
+
+
+              
             </div>
 
-            </div>
-
+        
     )
 }

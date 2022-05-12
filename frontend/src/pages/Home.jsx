@@ -9,8 +9,7 @@ import SearchBar from '../componentes/home/SearchBar'
 export default function Home() {
   const dispatch= useDispatch()
   const todosLosNFT = useSelector((state)=> state.allNft)
-
-  console.log('soy el estado de los nft', todosLosNFT);
+  const usuario = useSelector((state)=> state.usuario)
 
   useEffect(()=>{
       dispatch(allNftMarket())
@@ -21,7 +20,7 @@ export default function Home() {
     <div className='contentHome'>
         <NavBar/>
         <div>
-            <SearchBar />
+            <SearchBar/>
         </div>
         <main className='main'>
          
@@ -42,7 +41,7 @@ export default function Home() {
                   }
                 </div>
               )
-          }): <div>no existe el nft</div>}
+          }): <div>No hay NFT</div>}
         </main>
     </div>
   );

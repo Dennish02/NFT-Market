@@ -1,15 +1,11 @@
 import makeGeneratorIDRandom from "../middleware/idGenerator.js";
 import NftCreated from "../models/nft.js";
-import { uploadImage } from "../libs/cloudinary.js";
-import fs from "fs-extra";
-import Usuario from "../models/Usuarios.js";
 
 const allNftUser = async (req, res) => {
-  const { usuario } = req;
-
-  let nfts = await usuario.nfts;
-
-  res.json(nfts);
+  const nftUserdb = await NftCreated.find()
+    .where("creatorId")
+    .equals(req.usuario); //trae todos los nf de la base de datos del usuario logueado
+  res.json(nftUserdb);
 };
 
 const obtenerAllNft = async (req, res) => {
@@ -35,19 +31,8 @@ const crearNft = async (req, res) => {
 
   req.usuario.nfts.push(newNft);
   req.usuario.save();
-
+  
   try {
-    if (req.files.image) {
-      const res = await uploadImage(req.files.image.tempFilePath);
-      await fs.remove(req.files.image.tempFilePath);
-      // console.log(res);
-      const image = {
-        url: res.secure_url,
-        public_id: res.public_id,
-      };
-      newNft.image = image;
-    }
-
     const nftSave = await newNft.save();
     res.json(nftSave); //para regresar la info creada y sincronizar
   } catch (error) {
@@ -86,42 +71,10 @@ const obtenerNft = async (req, res) => {
   if (!nft) return res.status(404).json({ msg: "No encontrado" });
   res.send(nft);
 };
-const regalarNft = async (req, res) => {
-  try {
-    const { idnft, iduser, colection } = req.body
-    const { usuario } = req
-  
-    let nft;
-    usuario.nfts.forEach((currentValue, id) => {
-      if (currentValue.id === idnft && currentValue.colection === colection) {
-        nft = usuario.nfts[id];
-        usuario.nfts = usuario.nfts.filter(item => {
-        return item.id !== idnft
-        })
-      }
-    });
-  
-    await usuario.save()
-  
-    const giftTo = await Usuario.findById(iduser);
-  
-    if (nft) {
-      giftTo.nfts.push(nft);
-      giftTo.save();
-
-      res.status(200).json(giftTo.nfts);
-    } else {
-      res.status(404).send('this NFT does not exist')
-    }  
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
+const regalarNft = async (req, res) => {};
 const comprarNft = async (req, res) => {};
 const venderNft = async (req, res) => {};
-const añadirFavNft = async (req, res) => {
-
-};
+const añadirFavNft = async (req, res) => {};
 const obtenerVentas = async (req, res) => {};
 
 export {

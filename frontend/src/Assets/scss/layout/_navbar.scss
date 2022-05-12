@@ -12,15 +12,7 @@
     
     
     margin: 2rem auto;
-    .logo{
-        width: 90%;
-        margin: 0 auto;
-        @include m.desktop{
-            width: 220px;
-            height: 55px;
-        }   
-       
-    }
+   
     .perfil{
         grid-column: 4/5;
         display: flex;
@@ -48,4 +40,14 @@
             
         }
     }
+}
+
+.logo{
+    width: 90%;
+    margin: 0 auto;
+    @include m.desktop{
+        width: 220px;
+        height: 55px;
+    }   
+   
 }
