@@ -9,22 +9,32 @@ import validatePassword from "../../middleware/validarPassword";
 export default function Loguin({ handleChangeModal }) {
   const infoUser = useSelector((state) => state.usuario);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // const user = useSelector(state => state.usuario)
 
-  const [usuario, setUsuario] = useState({
-    email: "",
-    password: "",
-  });
-  const [errors, setErrors] = useState({});
+export default function Loguin({handleChangeModal}) {
+  const infoUser = useSelector(state=> state.usuario);
+  let token = localStorage.getItem('token')
+  const dispatch = useDispatch()
+ const navigate = useNavigate();
 
-  useEffect(() => {
-    infoUser.length !== 0 ? navigate("/home") : null;
-    return () => {
-      dispatch(resetErrorLoguinUser());
-    };
-  }, [infoUser]);
+
+  const [ usuario, setUsuario ]= useState({
+    email:'',
+    password:''
+  })
+  const [errors, setErrors] = useState({})
+  
+  useEffect(()=>{
+    infoUser.length !== 0 ? navigate('/home') : null
+    return(()=>{
+      dispatch(resetErrorLoguinUser())
+    })
+  },[])
+
+ 
+ 
+
+
+
 
   function handleChangeEmail(e) {
     setUsuario({
@@ -52,40 +62,45 @@ export default function Loguin({ handleChangeModal }) {
     });
 
     if (validatePassword(e.target.value)) {
-      if (e.target.value.length < 8) {
+      setErrors({
+        ...errors,
+        password: "Your password must be at least 8 characters"
+      })
+    }
+    else {
+      setErrors({
+        ...errors,
+        password: ""
+      })
+    }
+  }
+    const handleSubmit =(e)=>{
+      e.preventDefault();
+      if(usuario.email === ""){
+
         setErrors({
           ...errors,
           password: "Your password must be at least 8 characters",
         });
       } else {
         setErrors({
-          ...errors,
-          password: "",
-        });
+
+          password: "this field is required"
+        })
+      }else {
+        
+        dispatch(login(usuario))
+        setUsuario({
+          email:'',
+          password:''
+        })
+        navigate('/home') 
       }
     }
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (usuario.email === "") {
-      setErrors({
-        email: "this field is required",
-      });
-    } else if (usuario.password === "") {
-      setErrors({
-        password: "this field is required",
-      });
-    } else {
-      dispatch(login(usuario));
-      setUsuario("");
-    }
-  };
-  //console.log(infoUser);
+  
   return (
-    <div className="contLogin">
-      <button className="close" onClick={handleChangeModal}>
-        ❌
-      </button>
+  <> {!token ? <div className="contLogin">
+      <button className="close" onClick={handleChangeModal}>❌</button>
       <div className="contLogin-content">
         <h3>Login</h3>
         <form onSubmit={handleSubmit}>
@@ -133,5 +148,9 @@ export default function Loguin({ handleChangeModal }) {
         </Link>
       </div>
     </div>
-  );
+    : navigate('/home')
+  }
+    </>
+  )
+
 }

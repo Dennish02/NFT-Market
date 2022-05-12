@@ -31,7 +31,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case LOGUIN_USER: 
-        console.log(action.payload)
+        //console.log(action.payload)
       return {
         ...state, 
         usuario: action.payload 
@@ -48,7 +48,6 @@ function rootReducer(state = initialState, action) {
           confirmacion: action.payload,
         };
         case SEND_EMAIL_TO_RESET_PASSWORD:
-          
           return {
             ...state,
             errorEmail: action.payload,
