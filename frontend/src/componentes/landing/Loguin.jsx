@@ -52,17 +52,15 @@ export default function Loguin({ handleChangeModal }) {
     });
 
     if (validatePassword(e.target.value)) {
-      if (e.target.value.length < 8) {
-        setErrors({
-          ...errors,
-          password: "Your password must be at least 8 characters",
-        });
-      } else {
-        setErrors({
-          ...errors,
-          password: "",
-        });
-      }
+      setErrors({
+        ...errors,
+        password: "Your password must be at least 8 characters",
+      });
+    } else {
+      setErrors({
+        ...errors,
+        password: "",
+      });
     }
   };
   const handleSubmit = (e) => {
@@ -101,7 +99,7 @@ export default function Loguin({ handleChangeModal }) {
           />
           {errors.email && (
             <div>
-              <p>{errors.email}</p>
+              <p className="error">{errors.email}</p>
             </div>
           )}
           <label htmlFor="password">password</label>

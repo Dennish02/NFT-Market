@@ -1,5 +1,7 @@
 import makeGeneratorIDRandom from "../middleware/idGenerator.js";
 import NftCreated from "../models/nft.js";
+import { uploadImage } from "../libs/cloudinary.js";
+import fs from "fs-extra";
 
 const allNftUser = async (req, res) => {
   const nftUserdb = await NftCreated.find()
@@ -27,12 +29,23 @@ const crearNft = async (req, res) => {
   newNft.creatorId = req.usuario.nombre; //agrego el id del isuario al nft
   newNft.ownerId = req.usuario.nombre; //el creador es el primer poseedor
   newNft.priceBase = req.body.price;
-  
+
   try {
+    if (req.files.image) {
+      const res = await uploadImage(req.files.image.tempFilePath);
+      await fs.remove(req.files.image.tempFilePath);
+      // console.log(res);
+      const image = {
+        url: res.secure_url,
+        public_id: res.public_id,
+      };
+      newNft.image = image;
+    }
+
     const nftSave = await newNft.save();
     res.json(nftSave); //para regresar la info creada y sincronizar
   } catch (error) {
-    console, log(error);
+    console.log(error);
   }
 };
 

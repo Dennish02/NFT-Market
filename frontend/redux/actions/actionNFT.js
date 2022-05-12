@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Form } from "formik";
 
 export function allNftMarket() {
   return async function (dispatch) {
@@ -22,16 +23,26 @@ export function crearNFT(payload) {
       price: Number(payload.price),
       image: payload.image,
     };
+    let form = new FormData();
+
+    for (let key in body) {
+      console.log(key);
+      console.log(body[key]);
+      form.append(key, body[key]);
+    }
+
     const id = payload.id;
-    // console.log(body);
-    // console.log(id);
+
     const config = {
-      headers: { Authorization: `Bearer ${id}` },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${id}`,
+      },
     };
 
     let json = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/api/nft`,
-      body,
+      form,
       config
     );
     console.log(json);
