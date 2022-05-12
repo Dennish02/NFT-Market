@@ -1,14 +1,11 @@
 import makeGeneratorIDRandom from "../middleware/idGenerator.js";
 import NftCreated from "../models/nft.js";
-import { uploadImage } from "../libs/cloudinary.js";
-import fs from "fs-extra";
 
 const allNftUser = async (req, res) => {
-  const { usuario } = req;
-
-  let nfts = await usuario.nfts;
-
-  res.json(nfts);
+  const nftUserdb = await NftCreated.find()
+    .where("creatorId")
+    .equals(req.usuario); //trae todos los nf de la base de datos del usuario logueado
+  res.json(nftUserdb);
 };
 
 const obtenerAllNft = async (req, res) => {
@@ -33,10 +30,11 @@ const crearNft = async (req, res) => {
 
   req.usuario.nfts.push(newNft);
   req.usuario.save();
-
+  
   try {
+
     if (req.files.image) {
-      console.log(req.files.image);
+      
       const res = await uploadImage(req.files.image.tempFilePath);
       await fs.remove(req.files.image.tempFilePath);
       const image = {
