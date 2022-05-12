@@ -6,8 +6,6 @@ import validarEmail from "../../middleware/validarEmail";
 import validatePassword from "../../middleware/validarPassword";
 // import { Link } from "react-router-dom"
 
-export default function Loguin({ handleChangeModal }) {
-  const infoUser = useSelector((state) => state.usuario);
 
 
 export default function Loguin({handleChangeModal}) {
@@ -80,11 +78,11 @@ export default function Loguin({handleChangeModal}) {
 
         setErrors({
           ...errors,
-          password: "Your password must be at least 8 characters",
+          email: "Your password must be at least 8 characters",
         });
-      } else {
+      } else if (usuario.password ==='') {
         setErrors({
-
+          ...errors,
           password: "this field is required"
         })
       }else {
