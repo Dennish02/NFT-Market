@@ -35,8 +35,9 @@ const usuarioSchema = mongoose.Schema(
     coins: {
       type: Number,
       trim: true,
-      default:1000,
+      default: 1000,
     }
+
   },
   {
     timestamps: true,
@@ -58,6 +59,7 @@ usuarioSchema.pre("save", async function (next) {
 });
 
 usuarioSchema.methods.comprobarPassword = async function (passwordFormulario) {
+ 
   return await bcrypt.compare(passwordFormulario, this.password); //compara las pasword
 };
 
