@@ -2,10 +2,11 @@ import makeGeneratorIDRandom from "../middleware/idGenerator.js";
 import NftCreated from "../models/nft.js";
 
 const allNftUser = async (req, res) => {
-  const nftUserdb = await NftCreated.find()
-    .where("creatorId")
-    .equals(req.usuario); //trae todos los nf de la base de datos del usuario logueado
-  res.json(nftUserdb);
+  const { usuario } = req;
+
+  let nfts = await usuario.nfts;
+
+  res.json(nfts);
 };
 
 const obtenerAllNft = async (req, res) => {
