@@ -159,7 +159,7 @@ const nuevoPassword = async (req, res) => {
 
 const perfil = async (req, res) => {
   const { usuario } = req; // se lee del server
-
+  
   res.json(usuario);
 };
 
