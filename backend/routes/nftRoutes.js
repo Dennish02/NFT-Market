@@ -16,11 +16,11 @@ import {
 
 router.route("/").get(obtenerAllNft).post(checkOut, crearNft);
 router.get("/portfolio", checkOut, allNftUser);
+router.put("/gift", checkOut, regalarNft);
 
 router
   .route("/:id")
   .get(checkOut, obtenerNft)
-  .get(checkOut, regalarNft)
   .put(checkOut, editarNft)
   .post(checkOut, añadirFavNft);
 
