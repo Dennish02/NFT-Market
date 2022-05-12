@@ -11,7 +11,7 @@ export default function SearchBar() {
  }
 
 
-
+//manito
 
   return (
     <div className='contentSearchBar'>
