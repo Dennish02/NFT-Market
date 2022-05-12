@@ -11,6 +11,7 @@ import {
   SEND_EMAIL_TO_RESET_PASSWORD,
   RESET_ERROR_LOGUIN_USER,
 } from "../constantes";
+import { useNavigate } from "react-router";
 // export function allNftMarket() {
 //   return async function (dispatch) {
 //     try {
@@ -25,7 +26,9 @@ import {
 //   };
 // }
 
+
 export function registroUsuario({ nombre, email, password1 }) {
+  
   const n = Math.floor(Math.random() * 10) % 3;
 
   return async function () {
@@ -121,13 +124,15 @@ export function setStateEmail() {
 
 
 export function login (payload) {
+
   return async function(){
     try {
+      
      //?dennis: saque el return porque no hace falta que devuelta nada.
       let json = await clienteAxios.post(`/usuario/login`, payload)
       console.log(json);
       localStorage.setItem('token', json.data.token)
-      
+     
 
     } catch (error) {
       alert(error.response.data.msg);
