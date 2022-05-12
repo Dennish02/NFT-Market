@@ -26,22 +26,24 @@ const registrar = async (req, res) => {
       email: usuario.email,
       nombre: usuario.nombre,
       token: usuario.token,
-    })
+    });
 
-    res.status(200).send("Usuario creado, Revisa tu email para confirmar tu cuenta");
+    res
+      .status(200)
+      .send("Usuario creado, Revisa tu email para confirmar tu cuenta");
   } catch (error) {
     console.log(error);
   }
 };
 
 const autenticar = async (req, res) => {
-
-   //* * Este controlador esta termiando
+  //* * Este controlador esta termiando
 
   const { email, password } = req.body;
-
+  console.log(req.body);
   //comprobar si existe
   const usuario = await Usuario.findOne({ email });
+  console.log(usuario);
 
   if (!usuario) {
     const error = new Error("EL USUARIO NO EXISTE");
@@ -53,7 +55,7 @@ const autenticar = async (req, res) => {
     return res.status(403).json({ msg: error.message });
   }
   //consifmar su password
-
+  // console.log(password);
   if (await usuario.comprobarPassword(password)) {
     res.json({
       _id: usuario._id,
@@ -68,63 +70,56 @@ const autenticar = async (req, res) => {
 };
 
 const confimrar = async (req, res) => {
-
-   //* * Este controlador esta termiando
+  //* * Este controlador esta termiando
 
   const { token } = req.params;
   const usuarioConfirmar = await Usuario.findOne({ token }); //buscar el usuario por el token
-  if(!usuarioConfirmar) {
+  if (!usuarioConfirmar) {
     const error = new Error("EL usuario ya se confirmó o el token es inválido");
-   return res.status(404).json({ msg: error.message });
+    return res.status(404).json({ msg: error.message });
   }
-    try {
-      usuarioConfirmar.confirmado = true; //cambiando estado para que esté confirmado
-      usuarioConfirmar.token = ""; //elimianr token porque se usa una vez
-      await usuarioConfirmar.save(); //almacenar con los cambios
-      res.json({ msg: "Usuario confirmado correctamente" });
-    } catch (error) {
-      console.log(error);
-    }
-  
-  
+  try {
+    usuarioConfirmar.confirmado = true; //cambiando estado para que esté confirmado
+    usuarioConfirmar.token = ""; //elimianr token porque se usa una vez
+    await usuarioConfirmar.save(); //almacenar con los cambios
+    res.json({ msg: "Usuario confirmado correctamente" });
+  } catch (error) {
+    console.log(error);
+  }
 };
 const olvidePassword = async (req, res) => {
-
-   //* * Este controlador esta termiando
+  //* * Este controlador esta termiando
 
   const { email } = req.body;
-  
-  const usuario = await Usuario.findOne({email});
-  
+
+  const usuario = await Usuario.findOne({ email });
+
   if (!usuario) {
     const error = new Error("EL USUARIO NO EXISTE");
     res.status(404).json({ msg: error.message });
-  }else{
+  } else {
     try {
       usuario.token = generarID();
       await usuario.save();
 
-      //enviar el email 
+      //enviar el email
 
       emailOlvidePassword({
         email: usuario.email,
         nombre: usuario.nombre,
         token: usuario.token,
-      })
+      });
 
       res.json({ msg: "Eviamos un correo con las instrucciones" });
     } catch (error) {
       console.log(error);
     }
   }
-
-
 };
 
 //validar token para cambiar su password
 const comporbarToken = async (req, res) => {
-
-   //* * Este controlador esta termiando
+  //* * Este controlador esta termiando
 
   const { token } = req.params;
 
@@ -139,12 +134,11 @@ const comporbarToken = async (req, res) => {
 };
 //resetar constraseña
 const nuevoPassword = async (req, res) => {
-
-   //todo: dennis teminado
+  //todo: dennis teminado
 
   const { token } = req.params;
   const { password } = req.body;
-  console.log({token, password});
+  console.log({ token, password });
   const usuario = await Usuario.findOne({ token });
 
   if (usuario) {
@@ -164,10 +158,8 @@ const nuevoPassword = async (req, res) => {
 };
 
 const perfil = async (req, res) => {
-
   const { usuario } = req; // se lee del server
   res.json(usuario);
-
 };
 
 export {
