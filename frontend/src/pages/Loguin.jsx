@@ -1,38 +1,33 @@
 import { useEffect, useState } from "react";
-import { login, resetErrorLoguinUser } from "../../../redux/actions/actionUSER";
+import logo from '../img/logo.png';
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import validarEmail from "../../middleware/validarEmail";
-import validatePassword from "../../middleware/validarPassword";
+import { Link } from "react-router-dom";
+import {useNavigate} from "react-router";
+import { login, resetErrorLoginUser } from "../../redux/actions/actionUSER";
+import validarEmail from "../middleware/validarEmail";
+import validatePassword from "../middleware/validarPassword";
 // import { Link } from "react-router-dom"
 
 
 
-export default function Loguin({handleChangeModal}) {
-  const infoUser = useSelector(state=> state.usuario);
-  let token = localStorage.getItem('token')
+export default function Loguin() {
+  const errorEmail = useSelector(state=> state.errorEmail);
   const dispatch = useDispatch()
- const navigate = useNavigate();
-
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token')
 
   const [ usuario, setUsuario ]= useState({
     email:'',
     password:''
   })
   const [errors, setErrors] = useState({})
-  
+
   useEffect(()=>{
-    infoUser.length !== 0 ? navigate('/home') : null
-    return(()=>{
-      dispatch(resetErrorLoguinUser())
-    })
-  },[])
-
- 
- 
-
-
-
+   token ? navigate('/home'): null
+   return(()=>{
+    dispatch(resetErrorLoginUser())
+   })   
+  },[token])
 
   function handleChangeEmail(e) {
     setUsuario({
@@ -72,33 +67,42 @@ export default function Loguin({handleChangeModal}) {
       })
     }
   }
-    const handleSubmit =(e)=>{
-      if(usuario.email === ""){
-
-        setErrors({
-          ...errors,
-          email: "Your password must be at least 8 characters",
-        });
-      } else if (usuario.password ==='') {
-        setErrors({
-          ...errors,
-          password: "this field is required"
-        })
-      }else {
-        
-        dispatch(login(usuario))
-        setUsuario({
-          email:'',
-          password:''
-        })
-        navigate('/home') 
-      }
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+   
+    if (usuario.email === "") {
+      setErrors({
+        email: "Your password must be at least 8 characters",
+      });
+    } else if (usuario.password === '') {
+      setErrors({
+        password: "this field is required"
+      })
     }
-  
+     else {
+      
+      dispatch(login(usuario))
+      setUsuario({
+        email: '',
+        password: ''
+      })
+      if(errorEmail){
+        e.preventDefault()
+      }else{ 
+        dispatch(resetErrorLoginUser()) 
+        navigate('/home')
+      }
+    }
+  }
+
+
+
+
   return (
-  <> {!token ? <div className="contLogin">
-      <button className="close" onClick={handleChangeModal}>❌</button>
+    <div className="contRegister">
+        <Link to='/'><img className="logo" src={logo} alt="Logo Corporation" /> </Link> 
+        <div className="flex">
+    <div className="contLogin">
       <div className="contLogin-content">
         <h3>Login</h3>
         <form onSubmit={handleSubmit}>
@@ -114,7 +118,7 @@ export default function Loguin({handleChangeModal}) {
           />
           {errors.email && (
             <div>
-              <p className="error">{errors.email}</p>
+              <p>{errors.email}</p>
             </div>
           )}
           <label htmlFor="password">password</label>
@@ -132,12 +136,12 @@ export default function Loguin({handleChangeModal}) {
               <p className="error">{errors.password}</p>
             </div>
           )}
-
+          {errorEmail ? <p className="error">{ errorEmail} </p> : null}
           <button type="submit" className="buttonPrimary">
             LOGIN
           </button>
         </form>
-        <button type="submit" className="buttonSecondary">
+        <button type="button" className="buttonSecondary">
           LOGIN WITH GOOGLE
         </button>
         <Link to="/olvide-password/" className="a">
@@ -146,9 +150,9 @@ export default function Loguin({handleChangeModal}) {
         </Link>
       </div>
     </div>
-    : navigate('/home')
-  }
-    </>
+    </div>
+    </div>
+  
   )
 
 }

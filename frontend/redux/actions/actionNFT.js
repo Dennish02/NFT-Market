@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SEARCH_NFT } from '../constantes'
+
 export function allNftMarket() {
   return async function (dispatch) {
     try {
@@ -38,10 +38,4 @@ export function crearNFT(payload) {
   };
 }
 
-export function NFTSearch(payload) {
- return {
-    type: SEARCH_NFT,
-    payload
- }
-}
-
+export function nftWithUser() {}

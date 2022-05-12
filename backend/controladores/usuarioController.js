@@ -41,10 +41,10 @@ const autenticar = async (req, res) => {
   //* * Este controlador esta termiando
 
   const { email, password } = req.body;
-
+  
   //comprobar si existe
   const usuario = await Usuario.findOne({ email });
-  console.log(usuario);
+  
 
   if (!usuario) {
     const error = new Error("EL USUARIO NO EXISTE");

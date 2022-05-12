@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registroUsuario } from "../../../redux/actions/actionUSER";
-import validatePassword from "../../middleware/validarPassword";
-import validarEmail from "../../middleware/validarEmail";
+import { registroUsuario } from "../../redux/actions/actionUSER";
 
-export default function Register({ handleChangeModalRegister }) {
+import validarEmail from "../middleware/validarEmail";
+import validatePassword from "../middleware/validarPassword";
+import logo from '../img/logo.png';
+import { Link } from "react-router-dom";
+
+export default function Register() {
+
   const [estado, setEstado] = useState({
     email: "",
     nombre: "",
-    password: "",
+    password1: "",
     password2: "",
   });
   const [errores, setErrores] = useState([]);
@@ -28,18 +32,18 @@ export default function Register({ handleChangeModalRegister }) {
     if (
       !estado.email ||
       !estado.nombre ||
-      !estado.password ||
+      !estado.password1 ||
       !estado.password2
     )
       setErrores([0, "faltan valores"]);
     else if (estado.nombre.length < 3)
       setErrores([1, "Longitud incorrecta username"]);
     else if (validarEmail(estado.email)) setErrores([2, "Email incorrecto"]);
-    else if (validatePassword(estado.password))
+    else if (validatePassword(estado.password1))
       setErrores([3, "Password incorrecto"]);
     else if (validatePassword(estado.password2))
       setErrores([4, "Password incorrecto"]);
-    else if (estado.password !== estado.password2)
+    else if (estado.password1 !== estado.password2)
       setErrores([5, "Los passwords son distintos"]);
     else {
       setErrores([]);
@@ -48,10 +52,11 @@ export default function Register({ handleChangeModalRegister }) {
   };
 
   return (
-    <div className="contLogin">
-      <button className="close" onClick={handleChangeModalRegister}>
-        ❌
-      </button>
+    <div className="contRegister">
+     <Link to='/'><img className="logo" src={logo} alt="Logo Corporation" /> </Link> 
+        <div className=" flex ">
+     
+        <div className="contLogin">
       <div className="contLogin-content">
         <h3>Register</h3>
         <form onSubmit={handleSubmit}>
@@ -78,7 +83,7 @@ export default function Register({ handleChangeModalRegister }) {
           <label htmlFor="password">password</label>
           <input
             className={errores[0] === 3 || errores[0] === 5 ? "inputError" : ""}
-            name="password"
+            name="password1"
             value={estado.password}
             onChange={handleChange}
             id="password"
@@ -103,5 +108,9 @@ export default function Register({ handleChangeModalRegister }) {
         </form>
       </div>
     </div>
+    </div>
+    
+    </div>
+    
   );
 }

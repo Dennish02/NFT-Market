@@ -3,15 +3,17 @@ import profile2 from "../../src/img/profile2.png";
 import profile3 from "../../src/img/profile3.png";
 import clienteAxios from "../../src/config/clienteAxios";
 
-import { LOGUIN_USER } from "../constantes";
+
 import {
   VALIDATE_USER,
   RESET_PASSWORD,
   RESET_ERROR,
   SEND_EMAIL_TO_RESET_PASSWORD,
   RESET_ERROR_LOGUIN_USER,
+  AUTH_USER,
+  LOGIN_USER,
+  LOGOUT_USER
 } from "../constantes";
-import { useNavigate } from "react-router";
 // export function allNftMarket() {
 //   return async function (dispatch) {
 //     try {
@@ -26,9 +28,7 @@ import { useNavigate } from "react-router";
 //   };
 // }
 
-
 export function registroUsuario({ nombre, email, password1 }) {
-  
   const n = Math.floor(Math.random() * 10) % 3;
 
   return async function () {
@@ -46,7 +46,7 @@ export function registroUsuario({ nombre, email, password1 }) {
       };
 
       const response = await clienteAxios.post(`/usuario`, body);
-      console.log(response);
+      //console.log(response);
       alert(response.data);
     } catch (e) {
       //   console.log(e);
@@ -124,36 +124,40 @@ export function setStateEmail() {
 
 
 export function login (payload) {
-
-  return async function(){
+  return async function(dispatch){
     try {
-      
-     //?dennis: saque el return porque no hace falta que devuelta nada.
       let json = await clienteAxios.post(`/usuario/login`, payload)
-      console.log(json);
       localStorage.setItem('token', json.data.token)
-     
-
+      return dispatch ({
+        type: LOGIN_USER,
+        payload: json.data
+      })
     } catch (error) {
-      alert(error.response.data.msg);
+      return dispatch ({
+        type: LOGIN_USER,
+        payload: {error: error.response.data.msg}
+      })
     }
   };
 }
-export function resetErrorLoguinUser() {
-  let nada = [];
-  return {
-    type: RESET_ERROR_LOGUIN_USER,
-    payload: nada
+export function resetErrorLoginUser() {
+  return function(dispatch){
+    let nada = [];
+    return dispatch({
+      type: RESET_ERROR_LOGUIN_USER,
+      payload: nada
+    })
   }
+ 
 }
 export function autenticarUser (config) {
   return async function(dispatch){
     try {
     
       let json = await clienteAxios(`/usuario/perfil`, config)
-      console.log(json);
+      //console.log(json);
       return dispatch({
-        type: LOGUIN_USER,
+        type: AUTH_USER,
         payload: json.data
       })
     } catch (error) {
@@ -163,6 +167,10 @@ export function autenticarUser (config) {
 }
 
 export function userLogout(){
- return localStorage.setItem('token', '')
+   localStorage.clear()
+    return ({
+     type: LOGOUT_USER
+   })
+  
 }
 
