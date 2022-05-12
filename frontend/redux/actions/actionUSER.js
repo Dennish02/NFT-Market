@@ -128,15 +128,13 @@ export function setStateEmail(){
 }
 
 export function login (payload) {
-  return async function(dispatch){
+  return async function(){
     try {
-     
+     //?dennis: saque el return porque no hace falta que devuelta nada.
       let json = await clienteAxios.post(`/usuario/login`, payload)
+      console.log(json);
       localStorage.setItem('token', json.data.token)
-      return dispatch({
-        type: LOGUIN_USER,
-        payload: json.data
-      })
+      
     } catch (error) {
       alert(error.response.data.msg)
     }
@@ -148,4 +146,23 @@ export function resetErrorLoguinUser(){
     type: RESET_ERROR_LOGUIN_USER,
     payload: nada
   }
+}
+export function autenticarUser (config) {
+  return async function(dispatch){
+    try {
+     
+      let json = await clienteAxios(`/usuario/perfil`, config)
+      console.log(json);
+      return dispatch({
+        type: LOGUIN_USER,
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error.response.data.msg)
+    }
+}
+}
+
+export function userLogout(){
+ return localStorage.setItem('token', '')
 }

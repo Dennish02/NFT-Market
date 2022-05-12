@@ -9,7 +9,7 @@ import validatePassword from "../../middleware/validarPassword";
 
 export default function Loguin({handleChangeModal}) {
   const infoUser = useSelector(state=> state.usuario);
-
+  let token = localStorage.getItem('token')
   const dispatch = useDispatch()
  const navigate = useNavigate();
   // const user = useSelector(state => state.usuario)
@@ -25,7 +25,7 @@ export default function Loguin({handleChangeModal}) {
     return(()=>{
       dispatch(resetErrorLoguinUser())
     })
-  },[infoUser])
+  },[])
 
   function  handleChangeEmail(e){
     setUsuario({
@@ -51,19 +51,22 @@ export default function Loguin({handleChangeModal}) {
       [e.target.name]: e.target.value,
     })
 
-    if(validatePassword(e.target.value)){
-      if(e.target.value.length < 8){
-        setErrors({
-         ...errors,
-         password: "Your password must be at least 8 characters"
-       })
-     }else{
+    if (validatePassword(e.target.value)) {
+
       setErrors({
-         ...errors,
-         password: ""
-       })
-     }
-   }
+        ...errors,
+        password: "Your password must be at least 8 characters"
+      })
+
+
+
+    }
+    else {
+      setErrors({
+        ...errors,
+        password: ""
+      })
+    }
   }
     const handleSubmit =(e)=>{
       e.preventDefault();
@@ -76,13 +79,18 @@ export default function Loguin({handleChangeModal}) {
           password: "this field is required"
         })
       }else {
+        
         dispatch(login(usuario))
-        setUsuario("")
+        setUsuario({
+          email:'',
+          password:''
+        })
+        navigate('/home') 
       }
     }
-//console.log(infoUser);
+  
   return (
-    <div className="contLogin">
+  <> {!token ? <div className="contLogin">
       <button className="close" onClick={handleChangeModal}>❌</button>
       <div className="contLogin-content">
       <h3>Login</h3>
@@ -131,5 +139,8 @@ export default function Loguin({handleChangeModal}) {
       </div>
     
     </div>
+    : navigate('/home')
+  }
+    </>
   )
 }

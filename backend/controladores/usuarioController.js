@@ -9,6 +9,7 @@ const registrar = async (req, res) => {
   //* * Este controlador esta termiando
 
   const { email, nombre } = req.body;
+  
   const usuarioRepetido = await Usuario.findOne({ nombre });
   const exiteUsiario = await Usuario.findOne({ email }); //busca si existe
 
@@ -39,7 +40,7 @@ const autenticar = async (req, res) => {
    //* * Este controlador esta termiando
 
   const { email, password } = req.body;
-
+  
   //comprobar si existe
   const usuario = await Usuario.findOne({ email });
 
