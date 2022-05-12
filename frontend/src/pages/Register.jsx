@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registroUsuario } from "../../../redux/actions/actionUSER";
-import validatePassword from "../../middleware/validarPassword";
-import validarEmail from "../../middleware/validarEmail";
+import { registroUsuario } from "../../redux/actions/actionUSER";
 
-export default function Register({ handleChangeModalRegister }) {
+import validarEmail from "../middleware/validarEmail";
+import validatePassword from "../middleware/validarPassword";
+import logo from '../img/logo.png';
+import { Link } from "react-router-dom";
+
+export default function Register() {
+
   const [estado, setEstado] = useState({
     email: "",
     nombre: "",
@@ -48,10 +52,11 @@ export default function Register({ handleChangeModalRegister }) {
   };
 
   return (
-    <div className="contLogin">
-      <button className="close" onClick={handleChangeModalRegister}>
-        ❌
-      </button>
+    <div className="contRegister">
+     <Link to='/'><img className="logo" src={logo} alt="Logo Corporation" /> </Link> 
+        <div className=" flex ">
+     
+        <div className="contLogin">
       <div className="contLogin-content">
         <h3>Register</h3>
         <form onSubmit={handleSubmit}>
@@ -103,5 +108,9 @@ export default function Register({ handleChangeModalRegister }) {
         </form>
       </div>
     </div>
+    </div>
+    
+    </div>
+    
   );
 }

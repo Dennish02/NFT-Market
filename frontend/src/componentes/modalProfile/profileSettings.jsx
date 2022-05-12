@@ -19,7 +19,7 @@ export default function ProfileSettings({closeModal}) {
         <div className='profileModal'>
          
             <div className='divPortfolio'>
-                <Link to='/usuario/portfolio'>
+                <Link to='/home/usuario/portfolio'>
                <h3>portfolio</h3> 
                 <MdSource className='icon'/>
                 </Link>
@@ -28,7 +28,7 @@ export default function ProfileSettings({closeModal}) {
 
 
             <div className='divPortfolio'>
-                <Link to='/usuario/wallet'>
+                <Link to='/home/usuario/wallet'>
                 <h3>wallet</h3>
                 <MdMonetizationOn className='icon'/>
                 </Link>
@@ -37,16 +37,16 @@ export default function ProfileSettings({closeModal}) {
 
 
             <div className='divPortfolio'>
-                <Link to='/usuario/setting'>
+                <Link to='/home/usuario/setting'>
                 <h3>settings</h3>
                 <MdSettingsApplications className='icon'/>
                 </Link>
                 
             </div>
 
-
-            <div 
-            onClick={()=>userLogout()}
+        
+        <div 
+           onClick={userLogout}
             className='divPortfolio'>
                
                 <Link to='/' >
@@ -57,6 +57,8 @@ export default function ProfileSettings({closeModal}) {
                 
                 
             </div>
+        
+       
 
 
               

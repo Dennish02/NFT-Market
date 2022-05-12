@@ -15,9 +15,9 @@ export default function Formulario() {
                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad 
                  </p>
                 </div>
-              <Link to='/home'>
+              <Link to='/register'>
               <button className='buttonPrimary'>
-                    view more
+                   get started
                 </button>
               </Link>
                
