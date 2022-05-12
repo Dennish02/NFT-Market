@@ -36,15 +36,18 @@ const usuarioSchema = mongoose.Schema(
       type: Number,
       trim: true,
       default: 1000,
-    },
-    nfts: {
-      type: Array,
-    },
+    }
+
   },
   {
     timestamps: true,
   }
 );
+
+//virtual
+usuarioSchema.virtual('nfts').get(() => {
+  return mongoose.model('NftCreated').find({ownerId: this.nombre})
+});
 
 //antes de almacenar
 usuarioSchema.pre("save", async function (next) {
@@ -56,8 +59,7 @@ usuarioSchema.pre("save", async function (next) {
 });
 
 usuarioSchema.methods.comprobarPassword = async function (passwordFormulario) {
-  console.log(passwordFormulario);
-  console.log(this.password);
+ 
   return await bcrypt.compare(passwordFormulario, this.password); //compara las pasword
 };
 
