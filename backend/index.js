@@ -4,12 +4,20 @@ import conectarCB from "./config/db.js";
 import router from "./routes/usuarioRoutes.js";
 import nft from "./routes/nftRoutes.js";
 import cors from "cors";
+import fileUpload from "express-fileupload";
 
 const app = express();
 
 dotenv.config();
 conectarCB();
 app.use(express.json());
+
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "./upload",
+  })
+);
 //cors
 
 app.use(cors());

@@ -6,6 +6,7 @@ const conectarCB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+
     const url = `${connecton.connection.host}:${connecton.connection.port}`;
     console.log(`MongoDB Conectado en: ${url}`);
   } catch (error) {

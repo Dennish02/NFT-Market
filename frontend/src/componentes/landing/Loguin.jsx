@@ -94,6 +94,7 @@ export default function Loguin({handleChangeModal}) {
         })
         navigate('/home') 
       }
+
     }
   
   return (
@@ -114,7 +115,7 @@ export default function Loguin({handleChangeModal}) {
           />
           {errors.email && (
             <div>
-              <p>{errors.email}</p>
+              <p className="error">{errors.email}</p>
             </div>
           )}
           <label htmlFor="password">password</label>
