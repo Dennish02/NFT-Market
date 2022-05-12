@@ -18,21 +18,25 @@ const obtenerAllNft = async (req, res) => {
 };
 
 const crearNft = async (req, res) => {
-  //con req.u
-
-  //todo: realionar la categoria de req.body con el modleo de categorias
 
   const newNft = new NftCreated(req.body); //inatanciar nuevo nft  con la info que llega
   newNft.id = makeGeneratorIDRandom(4);
   newNft.creatorId = req.usuario.nombre; //agrego el id del isuario al nft
   newNft.ownerId = req.usuario.nombre; //el creador es el primer poseedor
   newNft.priceBase = req.body.price;
+
+  if (newNft.colection.length > 8) {
+    res.status(400).send('Las colecciones no pueden tener más de 8 caracteres')
+  }
+
+  req.usuario.nfts.push(newNft);
+  req.usuario.save();
   
   try {
     const nftSave = await newNft.save();
     res.json(nftSave); //para regresar la info creada y sincronizar
   } catch (error) {
-    console, log(error);
+    console.log(error);
   }
 };
 
