@@ -5,14 +5,14 @@ export default function PortfoliOptions() {
   return (
     <div>
       <div className="contButton">
-        <Link className="portfolioCreateNft" to="/home/usuario/nft/crear/">
-          <a>CREAR NFT</a>
+        <Link to="/home/usuario/nft/crear/">
+          <button className="buttonPrimary">CREAR NFT</button>
         </Link>
-        <Link className="portfolioCreateColection" to="#">
-          <a>CREAR COLECCION</a>
+        <Link to="#">
+          <button className="buttonOrange">CREAR COLECCION</button>
         </Link>
-        <Link className="portfolioFavoritos" to="#">
-          <a>MIS FAVORITOS</a>
+        <Link to="#">
+          <button className="buttonMorado">MIS FAVORITOS</button>
         </Link>
       </div>
 
