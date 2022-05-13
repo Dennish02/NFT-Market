@@ -29,23 +29,19 @@ const crearNft = async (req, res) => {
   newNft.priceBase = req.body.price;
   
   if (newNft.colection.length > 8) {
-    return res.status(400).send('Las colecciones no pueden tener más de 8 caracteres');
+    return res.status(400).send({msg: 'Las colecciones no pueden tener más de 8 caracteres'});
   }
 
   if (newNft.colection.length <= 0) {
-    return res.status(400).send('Las colecciones deben tener al menos 1 carácter');
+    return res.status(400).send({msg: 'Las colecciones deben tener al menos 1 carácter'});
   }
 
   if (newNft.category.length <= 0) {
-    return res.status(400).send('Los nfts deben pertenecear a una categoría');
+    return res.status(400).send({msg: 'Los nfts deben pertenecear a una categoría'});
   }
   
   if (newNft.price <= 0) {
-    return res.status(400).send('El precio debe ser mayor a 0');
-  }
-
-  if (newNft.colection.length > 8) {
-    res.status(400).send("Las colecciones no pueden tener más de 8 caracteres");
+    return res.status(400).send({msg:'El precio debe ser mayor a 0'});
   }
 
   try {
