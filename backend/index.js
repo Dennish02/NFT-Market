@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import conectarCB from "./config/db.js";
 import router from "./routes/usuarioRoutes.js";
 import nft from "./routes/nftRoutes.js";
+import transacciones from "./routes/transaccionesRoutes.js";
 import cors from "cors";
 import fileUpload from "express-fileupload";
 
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 //ROUTNG
 app.use("/api/usuario", router);
 app.use("/api/nft", nft);
+app.use("/api/transacciones", transacciones)
 
 const PORT = process.env.PORT || 3001;
 

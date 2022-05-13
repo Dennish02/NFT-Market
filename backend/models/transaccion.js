@@ -16,7 +16,7 @@ const TransaccionSchema = mongoose.Schema({
         ref: "NftCreated",
         required: true
     },
-    transaction:{
+    transactionType:{
         type: String,
         required: true,
         enum: ['sale', 'gift', 'exchange']
