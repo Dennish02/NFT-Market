@@ -1,4 +1,5 @@
 import React from "react";
+import formateoPrecio from "../../middleware/formateoPrecio";
 import pocentajeAumento from "../../middleware/pocentajeAumento";
 
 export default function ComponentNFT(props) {
@@ -14,9 +15,9 @@ export default function ComponentNFT(props) {
         <h2>{`${colection}  ${id}`}</h2>
         <p>{`creator:  ${creatorId}`}</p>
         <p> owner: <small> {ownerId}</small> </p>
-        <p>last-price: <small> {`${priceBase} CL`}</small></p>
+        <p className="contPrice">last-price: <small> {formateoPrecio(priceBase)}</small></p>
         <p>cotization: {porcentaje >= 0 ? <small className="porcentajeMas">+ {porcentaje}</small>  : <small className="porcentajeMenos"> {porcentaje}</small> } </p>
-        <p>price: <span> {`${price} CL`}</span></p>
+        <p className="contPrice">price: <span> {formateoPrecio(price)}</span></p>
       </div>
       <div className="contButtons">
         <button className="w-50 buttonPrimary">BUY</button>

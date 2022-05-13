@@ -62,3 +62,21 @@
         width:50%;
     }
 }
+.contPrice{
+    display: flex;
+    justify-content: flex-start;
+    gap: 3rem;
+    align-items: center;
+}
+.contIcon{
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.iconcl{
+    width: 25px;
+    display: inline-block;
+    margin: 0;
+}
