@@ -103,7 +103,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { crearNFT } from "../../redux/actions/actionNFT";
+import { useNavigate } from "react-router";
 
+useNavigate;
 function validate(value) {
   let errores = {};
   !value.colection ? (errores.colection = "Campo obligatorio") : "";
@@ -117,14 +119,16 @@ function validate(value) {
   return errores;
 }
 export default function CrearNFT() {
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const [estado, setEstado] = useState({
     colection: "",
     category: "",
     price: "",
     image: null,
-    id: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyN2M1NmY0MTgxNTQ5NWJhYWJjNWViNyIsImlhdCI6MTY1MjM5NzUxNywiZXhwIjoxNjUyNDgzOTE3fQ.n7zGXJWs7dj-rOOqxklfIr4Ngfj8ZmaqKrGAzQYZ9wo",
+    id: token,
   });
+  const navigate = useNavigate();
 
   return (
     <div className="flex">
@@ -137,6 +141,7 @@ export default function CrearNFT() {
             onSubmit={(values) => {
               console.log(values);
               dispatch(crearNFT(values));
+              navigate("/home");
             }}
           >
             {({ setFieldValue, isSubmitting, handleSubmit }) => (

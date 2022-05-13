@@ -45,7 +45,7 @@ const crearNft = async (req, res) => {
       newNft.image = image;
     }
 
-    console.log(newNft);
+    // console.log(newNft);
     const nftSave = await newNft.save();
     res.json(nftSave); //para regresar la info creada y sincronizar
   } catch (error) {
