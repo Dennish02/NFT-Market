@@ -14,7 +14,7 @@ export const EDIT_NFT_PRICE = 'EDIT_NFT_PRICE'
 export const GIFT_NFT = 'GIFT_NFT'
 export const BUY_NFT = 'BUY_NFT'
 export const EDIT_NFT = 'EDIT'
-
+export const SEARCH_NFT= 'SEARCH_NFT'
 //USER
 export const RESET_ERROR_LOGUIN_USER='RESET_ERROR_LOGUIN_USER'
 export const SEND_EMAIL_TO_RESET_PASSWORD= 'SEND_EMAIL_TO_RESET_PASSWORD'

@@ -1,10 +1,21 @@
 import React from 'react'
-
+import {useDispatch} from 'react-redux'
+import { SearchNFT } from '../../../redux/actions/actionNFT'
 export default function SearchBar() {
+
+    const dispatch= useDispatch()
+    function onChangeValues(e){
+    console.log(e.target.value)
+    dispatch(SearchNFT(e.target.value))
+    
+ }
+
+
+
   return (
     <div className='contentSearchBar'>
         <div>
-        <input type="text" placeholder='Enter token id'/>
+        <input type="text" placeholder='Enter token id' onChange={onChangeValues}/>
         </div>
         <div className='contentSearchBar-select'>
             <div>
