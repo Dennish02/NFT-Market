@@ -1,51 +1,53 @@
 import mongoose from "mongoose";
 
-const nftSchema = mongoose.Schema({
-    id:{
-        type: String,
-        trim: true,
-        required: true,
+const nftSchema = mongoose.Schema(
+  {
+    id: {
+      type: String,
+      trim: true,
+      required: true,
     },
-    colection:{
-        type: mongoose.Schema.Types.String,
-        ref: "Coleccion"
+    colection: {
+      type: mongoose.Schema.Types.String,
+      ref: "Coleccion",
     },
-    category:{
-        type: mongoose.Schema.Types.String,
-        ref: "Categorias"
+    category: {
+      type: mongoose.Schema.Types.String,
+      ref: "Categorias",
     },
-    creatorId:{
-        type: mongoose.Schema.Types.String,
-        ref: "Usuario",
+    creatorId: {
+      type: mongoose.Schema.Types.String,
+      ref: "Usuario",
     },
-    ownerId:{
-        type: mongoose.Schema.Types.String,
-        ref: "Usuario",
+    ownerId: {
+      type: mongoose.Schema.Types.String,
+      ref: "Usuario",
     },
-    image:{
-        type: String,
-        require: true,
-        trim: true
+    image: {
+      public_id: String,
+      url: String,
     },
-    priceBase:{
-        type: Number,
-        trim: true,
-        required: true,
+    priceBase: {
+      type: Number,
+      trim: true,
+      required: true,
     },
-    price:{
-        type: Number,
-        trim: true,
-        required: true,
+    price: {
+      type: Number,
+      trim: true,
+      required: true,
     },
-    likes:{
-        type: Number,
-        trim: true,
+    likes: {
+      type: Number,
+      trim: true,
     },
-    avaliable:{
-        type: Boolean,
-        trim: true,
-    }
-},{
+    avaliable: {
+      type: Boolean,
+      trim: true,
+      default: false,
+    },
+  },
+  {
     timestamps: true,
   }
 );
