@@ -7,7 +7,7 @@ import { ALL_NFT_MARKET,
    SEND_EMAIL_TO_RESET_PASSWORD,
    RESET_ERROR_LOGUIN_USER,
    AUTH_USER,
-   LOGOUT_USER
+   LOGOUT_USER, SEARCH_NFT
    } from "../constantes";
 
 
@@ -90,7 +90,16 @@ function rootReducer(state = initialState, action) {
             ...state,
             errorEmail: [],
         };    
+      case SEARCH_NFT:
         
+        let getNFT = state.backUpAllNft
+        
+        let filterBySearch = getNFT.filter(el => el.id.toUpperCase().includes(action.payload.toUpperCase()))
+        
+        return{
+          ...state,
+          allNft : filterBySearch
+        }
 
     default:
       return state;
