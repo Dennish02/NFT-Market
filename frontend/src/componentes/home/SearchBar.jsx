@@ -1,6 +1,16 @@
 import React from 'react'
 
 export default function SearchBar() {
+
+    const dispatch= useDispatch()
+ function onChangeValues(e){
+    console.log(e.target.value)
+    dispatch(NFTSearch(e.target.value))
+    
+ }
+
+
+
   return (
     <div className='contentSearchBar'>
         <div>
