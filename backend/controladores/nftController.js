@@ -27,6 +27,22 @@ const crearNft = async (req, res) => {
   newNft.creatorId = req.usuario.nombre; //agrego el id del isuario al nft
   newNft.ownerId = req.usuario.nombre; //el creador es el primer poseedor
   newNft.priceBase = req.body.price;
+  
+  if (newNft.colection.length > 8) {
+    return res.status(400).send('Las colecciones no pueden tener más de 8 caracteres');
+  }
+
+  if (newNft.colection.length <= 0) {
+    return res.status(400).send('Las colecciones deben tener al menos 1 carácter');
+  }
+
+  if (newNft.category.length <= 0) {
+    return res.status(400).send('Los nfts deben pertenecear a una categoría');
+  }
+  
+  if (newNft.price <= 0) {
+    return res.status(400).send('El precio debe ser mayor a 0');
+  }
 
   if (newNft.colection.length > 8) {
     res.status(400).send("Las colecciones no pueden tener más de 8 caracteres");
