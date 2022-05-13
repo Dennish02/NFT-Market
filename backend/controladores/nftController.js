@@ -86,7 +86,7 @@ const obtenerNft = async (req, res) => {
   if (!nft) return res.status(404).json({ msg: "No encontrado" });
   res.send(nft);
 };
-const regalarNft = async (req, res) => {
+const regalarNft = async (req, res) => { // hago este comentario para meter el merge
   try {
     const { idnft, iduser, colection } = req.body
     const { usuario } = req
