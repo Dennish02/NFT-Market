@@ -6,9 +6,12 @@ import NavBar from "../componentes/home/NavBar";
 import SearchBar from "../componentes/home/SearchBar";
 
 export default function Home() {
+
+
   const dispatch = useDispatch();
   const todosLosNFT = useSelector((state) => state.allNft);
   const usuario = useSelector((state) => state.usuario);
+
 
   console.log(usuario);
   useEffect(() => {
@@ -16,34 +19,34 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <div className="contentHome">
-      <NavBar />
-      <div>
-        <SearchBar />
-      </div>
-      <main className="main">
-        {todosLosNFT.length > 0 ? (
-          todosLosNFT?.map((nft) => {
-            return (
-              <div key={nft.id}>
-                {
-                  <ComponentNFT
-                    id={nft.id}
-                    image={nft.image}
-                    colection={nft.colection}
-                    category={nft.category}
-                    price={nft.price}
-                    creatorId={nft.creatorId}
-                    ownerId={nft.ownerId}
-                  />
-                }
-              </div>
-            );
-          })
-        ) : (
-          <div>No hay NFT</div>
-        )}
-      </main>
+    <div className='contentHome'>
+        <NavBar/>
+        <div>
+            <SearchBar/>
+        </div>
+        <main className='main'>
+         
+          {todosLosNFT.length > 0 ? todosLosNFT?.map(nft=>{
+              return (
+                <div key={nft.id}>
+                  {
+                    
+                   <ComponentNFT 
+                        id={nft.id} 
+                        image={nft.image} 
+                        colection={nft.colection} 
+                        category={nft.category}
+                        priceBase={nft.priceBase}
+                        price={nft.price}
+                        creatorId={nft.creatorId}
+                        ownerId={nft.ownerId}
+                        />
+                  }
+                </div>
+              )
+          }): <div>No hay NFT</div>}
+        </main>
+
     </div>
   );
 }
