@@ -141,7 +141,7 @@ const comprarNft = async (req, res) => {
       try {
           
            vendedor.coins = vendedor.coins + precio;
-           const nftFiltrados = vendedor.nfts.filter((nft) => (nft.id !== NFT.id));
+           const nftFiltrados = vendedor.nfts.filter((nft) => (nft._id !== NFT._id));
            vendedor.nfts = nftFiltrados;
            await vendedor.save();
            NFT.ownerId = comprador.nombre;
@@ -154,10 +154,13 @@ const comprarNft = async (req, res) => {
       } catch (error) {
          //si arroja algun error se devuelve todo a sus valores iniciales
            vendedor.coins = vendedor_coins;
+           vendedor.nfts.push(NFT)
            await vendedor.save();
            NFT.ownerId = vendedor.nombre;
            await NFT.save();
            comprador.coins = comprador_coins;
+           const nftFiltrados = comprador.nfts.filter((nft) => (nft._id !== NFT._id));
+           comprador.nfts = nftFiltrados;
            await comprador.save();
   
            return res.status(401).json({ msg: "Lo sentimos, su compra no pudo realizarse" });
