@@ -9,6 +9,7 @@ import SearchBar from '../componentes/home/SearchBar'
 export default function Home() {
   const dispatch= useDispatch()
   const todosLosNFT = useSelector((state)=> state.allNft)
+  console.log(todosLosNFT);
   const usuario = useSelector((state)=> state.usuario)
 
   useEffect(()=>{
@@ -34,6 +35,7 @@ export default function Home() {
                         image={nft.image} 
                         colection={nft.colection} 
                         category={nft.category}
+                        priceBase={nft.priceBase}
                         price={nft.price}
                         creatorId={nft.creatorId}
                         ownerId={nft.ownerId}

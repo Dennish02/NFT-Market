@@ -26,7 +26,7 @@ useEffect(()=>{
     dispatch(autenticarUser(config))
 },[])
 
- if(!token) return 'Cargando'
+ if(!token)  'Cargando'
 
   return (
     <>

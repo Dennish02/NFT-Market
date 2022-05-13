@@ -678,13 +678,19 @@ img {
 
 .contNFT {
   padding: 1rem;
-  width: 250px;
+  width: 280px;
+  height: 500px;
   margin: 1rem auto;
   border: solid #f28b12 1px;
+  margin: 0 auto;
   border-radius: 0.5rem;
 }
-.contNFT img {
+.contNFT .contImg {
+  height: 260px;
   width: 100%;
+}
+.contNFT .contImg img {
+  height: 100%;
 }
 .contNFT h2 {
   color: #f28b12;
@@ -694,7 +700,8 @@ img {
 .contNFT p {
   color: #e1e1e1;
   font-size: 2rem;
-  line-height: 0.8;
+  line-height: 1.2;
+  margin: 0;
 }
 .contNFT p span {
   color: #f28b12;
@@ -703,6 +710,14 @@ img {
 }
 .contNFT .contNFTinfo {
   width: 100%;
+}
+.contNFT .contNFTinfo .porcentajeMenos {
+  color: #c53838;
+  font-weight: bold;
+}
+.contNFT .contNFTinfo .porcentajeMas {
+  color: #29a237;
+  font-weight: bold;
 }
 .contNFT .contButtons {
   display: flex;
