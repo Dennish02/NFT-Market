@@ -27,7 +27,6 @@ export default function NavBar() {
   function closeModal() {
     showModal && setShowModal(false);
   }
-  console.log(usuario);
 
   return (
     <div className="contentNav" onClick={closeModal}>
