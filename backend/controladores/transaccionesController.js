@@ -11,7 +11,7 @@ const ultimasVentas = async (req,res) => {
         const recentTransactions = orderedSales.slice(0, 20)
         res.status(200).send(recentTransactions)
     } catch (error){
-        res.status(400).send(error)
+        res.status(404).send(error)
     }
 }
 
