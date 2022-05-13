@@ -39,6 +39,9 @@ const usuarioSchema = mongoose.Schema(
     },
     nfts: {
       type: Array
+    },
+    transacciones: {
+      type: Array
     }
 
   },

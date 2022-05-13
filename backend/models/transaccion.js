@@ -16,21 +16,17 @@ const TransaccionSchema = mongoose.Schema({
         ref: "NftCreated",
         required: true
     },
-    transaction:{
+    transactionType:{
         type: String,
         required: true,
         enum: ['sale', 'gift', 'exchange']
     },
     price:{
         type: Number,
-        required: () => {
-            if(this.transaction === 'sale') return true
-            else return false
-        }
-    },
-    date: {
-        type: Date,
-        default: Date.now
+        // required: () => {
+        //     if(this.transactionType === 'sale') return true
+        //     else return false
+        // }
     }
 },{
     timestamps: true,
