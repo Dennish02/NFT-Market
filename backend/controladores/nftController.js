@@ -1,5 +1,7 @@
 import makeGeneratorIDRandom from "../middleware/idGenerator.js";
 import NftCreated from "../models/nft.js";
+import { uploadImage } from "../libs/cloudinary.js";
+import fs from "fs-extra";
 
 const allNftUser = async (req, res) => {
   const nftUserdb = await NftCreated.find()
@@ -18,7 +20,6 @@ const obtenerAllNft = async (req, res) => {
 };
 
 const crearNft = async (req, res) => {
-
   const newNft = new NftCreated(req.body); //inatanciar nuevo nft  con la info que llega
   newNft.id = makeGeneratorIDRandom(4);
   newNft.creatorId = req.usuario.nombre; //agrego el id del isuario al nft
@@ -26,13 +27,25 @@ const crearNft = async (req, res) => {
   newNft.priceBase = req.body.price;
 
   if (newNft.colection.length > 8) {
-    res.status(400).send('Las colecciones no pueden tener más de 8 caracteres')
+    res.status(400).send("Las colecciones no pueden tener más de 8 caracteres");
   }
 
   req.usuario.nfts.push(newNft);
   req.usuario.save();
-  
+
   try {
+    if (req.files.image) {
+      const res = await uploadImage(req.files.image.tempFilePath);
+      await fs.remove(req.files.image.tempFilePath);
+      const image = {
+        url: res.secure_url,
+        public_id: res.public_id,
+      };
+
+      newNft.image = image;
+    }
+
+    console.log(newNft);
     const nftSave = await newNft.save();
     res.json(nftSave); //para regresar la info creada y sincronizar
   } catch (error) {

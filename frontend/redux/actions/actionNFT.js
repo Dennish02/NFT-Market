@@ -23,15 +23,24 @@ export function crearNFT(payload) {
       image: payload.image,
     };
     const id = payload.id;
-    // console.log(body);
-    // console.log(id);
+
+    console.log(body);
+
+    const form = new FormData();
+    for (let key in body) {
+      form.append(key, body[key]);
+    }
+
     const config = {
-      headers: { Authorization: `Bearer ${id}` },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${id}`,
+      },
     };
 
     let json = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/api/nft`,
-      body,
+      form,
       config
     );
     console.log(json);
