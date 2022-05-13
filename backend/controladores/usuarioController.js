@@ -41,10 +41,9 @@ const autenticar = async (req, res) => {
   //* * Este controlador esta termiando
 
   const { email, password } = req.body;
-  
+
   //comprobar si existe
   const usuario = await Usuario.findOne({ email });
-  
 
   if (!usuario) {
     const error = new Error("EL USUARIO NO EXISTE");
@@ -160,7 +159,7 @@ const nuevoPassword = async (req, res) => {
 
 const perfil = async (req, res) => {
   const { usuario } = req; // se lee del server
-
+  
   res.json(usuario);
 };
 
