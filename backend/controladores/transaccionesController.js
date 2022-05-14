@@ -1,4 +1,5 @@
 import Transaccion from "../models/transaccion.js";
+import Usuario from "../models/Usuarios.js";
 
 const ultimasVentas = async (req,res) => {
     try{
@@ -17,9 +18,12 @@ const ultimasVentas = async (req,res) => {
 
 const crearTransaccion = async (req, res) => {
     try{
-        const transaccion = new Transaccion(req.body)
+        const transaccion = new Transaccion(req.data)
         const transaccionGuardada = await transaccion.save()
-        res.status(200).send(transaccionGuardada)
+        const comprador = await Usuario.findOne({ nombre: transaccion.actual_owner_Id });
+        comprador.transacciones.push(transaccion)
+        await comprador.save()
+        res.status(200).json(transaccion)
     } catch (error) {
         res.status(400).send(error)
     }
