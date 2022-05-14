@@ -3,10 +3,10 @@ const router = express.Router();
 
 import {
     ultimasVentas,
-    crearTransaccion
+    // crearTransaccion
 } from "../controladores/transaccionesController.js";
 
-router.post('/', crearTransaccion)
+// router.post('/', crearTransaccion)
 router.get('/ultimasVentas', ultimasVentas)
 
 export default router
