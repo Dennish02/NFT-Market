@@ -59,6 +59,7 @@ export default function Register() {
         <div className="contLogin">
       <div className="contLogin-content">
         <h3>Register</h3>
+        <p>you already have an account?  <Link to ='/login' > <button className="buttonPrimary">LOGIN</button>  </Link> </p>
         <form onSubmit={handleSubmit}>
           <label htmlFor="user">username</label>
           <input
@@ -101,7 +102,7 @@ export default function Register() {
             placeholder="enter password again"
           />
           {errores.length !== 0 && <p className="error">{errores[1]}</p>}
-
+          
           <button type="submit" className="buttonPrimary">
             Register
           </button>
