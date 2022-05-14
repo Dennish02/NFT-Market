@@ -66,15 +66,16 @@ const crearNft = async (req, res) => {
 };
 
 const editarNft = async (req, res) => {
+
+  //manejar errores.
   const { id } = req.params;
   const { price } = req.body;
   const oneNft = await NftCreated.findById(id);
-  if (!oneNft) {
+  if (oneNft.length === 0) {
     const error = new Error("No existe NFT");
     return res.status(401).json({ msg: error.message });
   }
-  if (oneNft.creatorId.toString() === req.usuario._id.toString()) {
-    //si es el creador hay que dejarlo editar
+  if (oneNft.ownerId === req.usuario.nombre) {
     oneNft.price = price || oneNft.price;
     try {
       const nftActualizado = await oneNft.save();
@@ -83,7 +84,7 @@ const editarNft = async (req, res) => {
       console.log(error);
     }
   } else {
-    const error = new Error("No puedes esitar este NFT");
+    const error = new Error("No puedes editar este NFT");
     return res.status(401).json({ msg: error.message });
   }
 };
