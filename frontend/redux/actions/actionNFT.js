@@ -1,5 +1,5 @@
 import clienteAxios from "../../src/config/clienteAxios";
-
+import axios from "axios";
 import {
   CREATE_NFT,
   EDIT_NFT_PRICE,
@@ -96,11 +96,36 @@ export function crearNFT(payload) {
 //   }
 // }
 
-export function nftWithUser() {}
+export function nftWithUser() { }
 
 export function SearchNFT(payload) {
   return {
     type: SEARCH_NFT,
     payload,
   };
+}
+
+export function Edit_NFT(_id, payload) {
+  return async function (dispatch){
+
+  const token = localStorage.getItem("token");
+
+   const url = 'http://localhost:3001'
+
+   const authAxios = axios.create({
+     headers:{
+      Authorization: `Bearer ${token}`
+     }
+   })
+
+   console.log('aa', authAxios)
+
+    const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/nft/${_id}`, {price: payload})
+    return dispatch({
+      type: EDIT_NFT_PRICE,
+      payload,
+    })
+  }
+
+  
 }
