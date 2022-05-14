@@ -964,3 +964,35 @@ img {
 .tuPortfolio {
   color: #e1e1e1;
 }
+
+.buttonOrange {
+  width: fit-content;
+  background-color: #f28b12;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+}
+.buttonOrange:hover {
+  cursor: pointer;
+}
+
+.buttonMorado {
+  width: fit-content;
+  background-color: #663a8f;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+}
+.buttonMorado:hover {
+  cursor: pointer;
+}

@@ -38,9 +38,8 @@ export default function CrearNFT() {
             initialValues={estado}
             validate={validate}
             onSubmit={(values) => {
-              console.log(values);
               dispatch(crearNFT(values));
-              navigate("/home");
+              navigate("/home/usuario/portfolio/");
             }}
           >
             {({ setFieldValue, isSubmitting, handleSubmit }) => (

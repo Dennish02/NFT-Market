@@ -1,21 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../componentes/home/NavBar";
 import ComponentNFT from "../componentes/home/ComponentNFT";
 import UserNFT from "../componentes/portfolio/UserNFT";
 import OptionsPortfolio from "../componentes/portfolio/portfolioOptions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { allNftMarket, userNfts } from "../../redux/actions/actionNFT";
 
 export default function Portfolio() {
-  const usuario = useSelector((state) => state.usuario);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.usuario);
+  const nftUser = useSelector((state) => state.nftUser);
+  const allNft = useSelector((state) => state.allNft);
+  // console.log(user);
+  // console.log(nftUser);
 
-  console.log(usuario);
+  useEffect(() => {
+    dispatch(allNftMarket());
+    dispatch(userNfts(user.nombre));
+  }, [dispatch, allNft]);
+
   return (
     <div className="contentHome">
       <NavBar />
       <OptionsPortfolio />
       <div className="main">
-        {usuario.nfts.length > 0 ? (
-          usuario.nfts.map((el) => {
+        {nftUser.length > 0 ? (
+          nftUser.map((el) => {
             return (
               <UserNFT
                 key={el.id}
