@@ -62,9 +62,12 @@ export default function CrearNFT() {
                   <option value="" disabled>
                     -- select --
                   </option>
-                  <option value="cat1">categoria 1</option>
-                  <option value="cat2">categoria 2</option>
-                  <option value="cat3">categoria 3</option>
+                  <option value="anime">Anime</option>
+                  <option value="gamer">Gamer</option>
+                  <option value="savage">Savage</option>
+                  <option value="cyber">Cyber</option>
+                  <option value="punk">Punk</option>
+                  <option value="other">Other</option>
                 </Field>
                 <p className="error">
                   <ErrorMessage name="category" />
