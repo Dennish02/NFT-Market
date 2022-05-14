@@ -1,4 +1,5 @@
 import express from 'express';
+import { ultimasVentas } from '../controladores/transaccionesController.js';
 const router = express.Router()
 import {  registrar, 
     autenticar, 
@@ -22,7 +23,7 @@ router.route('/olvide-password/:token')
     .get(comporbarToken)
     .post(nuevoPassword)
 router.get('/perfil', checkOut, perfil);//primero va al checkout y despues al perfil
-
+router.get('/ultimas-ventas-de-usuario', checkOut, ultimasVentas)
 
 
 export default router;
