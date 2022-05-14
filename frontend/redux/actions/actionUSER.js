@@ -3,7 +3,6 @@ import profile2 from "../../src/img/profile2.png";
 import profile3 from "../../src/img/profile3.png";
 import clienteAxios from "../../src/config/clienteAxios";
 
-
 import {
   VALIDATE_USER,
   RESET_PASSWORD,
@@ -12,7 +11,7 @@ import {
   RESET_ERROR_LOGUIN_USER,
   AUTH_USER,
   LOGIN_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
 } from "../constantes";
 // export function allNftMarket() {
 //   return async function (dispatch) {
@@ -122,55 +121,50 @@ export function setStateEmail() {
   };
 }
 
-
-export function login (payload) {
-  return async function(dispatch){
+export function login(payload) {
+  return async function (dispatch) {
     try {
-      let json = await clienteAxios.post(`/usuario/login`, payload)
-      localStorage.setItem('token', json.data.token)
-      return dispatch ({
+      let json = await clienteAxios.post(`/usuario/login`, payload);
+      localStorage.setItem("token", json.data.token);
+      return dispatch({
         type: LOGIN_USER,
-        payload: json.data
-      })
+        payload: json.data,
+      });
     } catch (error) {
-      return dispatch ({
+      return dispatch({
         type: LOGIN_USER,
-        payload: {error: error.response.data.msg}
-      })
+        payload: { error: error.response.data.msg },
+      });
     }
   };
 }
 export function resetErrorLoginUser() {
-  return function(dispatch){
+  return function (dispatch) {
     let nada = [];
     return dispatch({
       type: RESET_ERROR_LOGUIN_USER,
-      payload: nada
-    })
-  }
- 
+      payload: nada,
+    });
+  };
 }
-export function autenticarUser (config) {
-  return async function(dispatch){
+export function autenticarUser(config) {
+  return async function (dispatch) {
     try {
-    
-      let json = await clienteAxios(`/usuario/perfil`, config)
-      //console.log(json);
+      let json = await clienteAxios(`/usuario/perfil`, config);
+
       return dispatch({
         type: AUTH_USER,
-        payload: json.data
-      })
+        payload: json.data,
+      });
     } catch (error) {
-      console.log(error.response.data.msg)
+      console.log(error.response.data.msg);
     }
-}
-}
-
-export function userLogout(){
-   localStorage.clear()
-    return ({
-     type: LOGOUT_USER
-   })
-  
+  };
 }
 
+export function userLogout() {
+  localStorage.clear();
+  return {
+    type: LOGOUT_USER,
+  };
+}

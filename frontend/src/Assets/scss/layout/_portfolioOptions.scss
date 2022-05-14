@@ -1,69 +1,75 @@
-@use "../base/variables" as v; 
-@use '../base/mixins' as m;
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
 
-.contButton{
+.contButton {
   display: block;
   margin: 0 auto;
 }
-.contButton{
-    @include m.desktop{
-       @include m.grid(3, 1fr)
-    }
-    
+.contButton {
+  @include m.desktop {
+    @include m.grid(3, 1fr);
+  }
 }
-.contTittle{
-    width: 90%;
-    margin: 0 auto;
-    display: block;
-    @include m.desktop{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    h2{
-        margin: 1rem 0;
-    }
+.contTittle {
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+  @include m.desktop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h2 {
+    margin: 1rem 0;
+  }
 }
 .coleccion {
-    @include m.borderRadius;
-    cursor: pointer;
-    background-color: v.$naranja;
-    border:none;
-    margin: 1rem 0;
-    padding: 1rem;
-    color: v.$grisclaro;
+  @include m.borderRadius;
+  cursor: pointer;
+  background-color: v.$naranja;
+  border: none;
+  margin: 1rem 0;
+  padding: 1rem;
+  color: v.$grisclaro;
 }
 
 .portfolioCreateNft {
-   @include m.buttonPrimary;
-   width: 90%;
-   margin: 1rem auto;
-   display: block;
-   @include m.desktop{
-       width: fit-content;
-   }
+  @include m.buttonPrimary;
+  width: 90%;
+  margin: 1rem auto;
+  display: block;
+  @include m.desktop {
+    width: fit-content;
+  }
 }
 
 .portfolioCreateColection {
-    @include m.buttonOrange;
-    display: block;
-    width: 90%;
-    margin: 1rem auto;
-    @include m.desktop{
-        width: fit-content;
-    }
+  @include m.buttonOrange;
+  display: block;
+  width: 90%;
+  margin: 1rem auto;
+  @include m.desktop {
+    width: fit-content;
+  }
 }
-.portfolioFavoritos{
-    @include m.buttonMorado;
-    display: block;
-    width: 90%;
-    margin: 1rem auto;
-    @include m.desktop{
-        width: fit-content;
-    }
+.portfolioFavoritos {
+  @include m.buttonMorado;
+  display: block;
+  width: 90%;
+  margin: 1rem auto;
+  @include m.desktop {
+    width: fit-content;
+  }
 }
-.tuPortfolio{
-    color: v.$grisclaro
+.tuPortfolio {
+  color: v.$grisclaro;
 }
 
+.buttonOrange {
+  @include m.buttonOrange;
+}
+
+.buttonMorado {
+  @include m.buttonMorado;
+}

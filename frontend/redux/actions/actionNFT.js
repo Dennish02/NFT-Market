@@ -1,11 +1,34 @@
-import axios from "axios";
-import {SEARCH_NFT} from '../constantes'
+import clienteAxios from "../../src/config/clienteAxios";
+
+import {
+  CREATE_NFT,
+  EDIT_NFT_PRICE,
+  GIFT_NFT,
+  BUY_NFT,
+  EDIT_NFT,
+  SEARCH_NFT,
+  USER_NFT,
+  ALL_NFT_MARKET,
+} from "../constantes/index";
+
 export function allNftMarket() {
   return async function (dispatch) {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
     try {
-      var json = await axios.get("http://localhost:3001/api/nft/");
+      var json = await clienteAxios.get(`/nft/`, config);
       return dispatch({
-        type: "ALL_NFT_MARKET",
+        type: ALL_NFT_MARKET,
         payload: json.data,
       });
     } catch (error) {
@@ -14,8 +37,17 @@ export function allNftMarket() {
   };
 }
 
+export function userNfts(name) {
+  return async function (dispatch) {
+    return dispatch({
+      type: "USER_NFT",
+      payload: name,
+    });
+  };
+}
+
 export function crearNFT(payload) {
-  return async function () {
+  return async function (dispatch) {
     const body = {
       category: payload.category,
       colection: payload.colection,
@@ -23,8 +55,6 @@ export function crearNFT(payload) {
       image: payload.image,
     };
     const id = payload.id;
-
-    console.log(body);
 
     const form = new FormData();
     for (let key in body) {
@@ -38,20 +68,39 @@ export function crearNFT(payload) {
       },
     };
 
-    let json = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/api/nft`,
-      form,
-      config
-    );
-    console.log(json);
+    let json = await clienteAxios.post(`/nft`, form, config);
+    return dispatch({
+      type: CREATE_NFT,
+      payload: json.data,
+    });
   };
 }
 
+// export function nftWithUser() {
+//   return async function(dispatch){
+//     const token = localStorage.getItem('token')
+
+//     if(!token){return }
+
+//     const config = {
+//       headers: {
+//         "Content-Type": "multipart/form-data",
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+//       let json= await clienteAxios.get(`/nft/portfolio`, config)
+//     return dispatch({
+//       type: NFT_USER,
+//       payload: json.data
+//     })
+//   }
+// }
+
 export function nftWithUser() {}
 
-export function SearchNFT(payload){
+export function SearchNFT(payload) {
   return {
     type: SEARCH_NFT,
-    payload
-  }
+    payload,
+  };
 }
