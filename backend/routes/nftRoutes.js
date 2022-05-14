@@ -16,7 +16,7 @@ import {
 
 import { crearTransaccion } from "../controladores/transaccionesController.js";
 
-router.route("/").get(obtenerAllNft).post(checkOut, crearNft);
+router.route("/").get(checkOut, obtenerAllNft).post(checkOut, crearNft);
 router.get("/portfolio", checkOut, allNftUser);
 router.put("/gift", checkOut, regalarNft);
 

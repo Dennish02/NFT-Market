@@ -127,7 +127,9 @@ const comprarNft = async (req, res, next) => {
       return res.status(401).json({ msg: "El NFT no esta a la venta" });
     }
     else if(req.usuario.coins < NFT.price) {
-      return res.status(401).json({ msg: "No tienes CL suficientes para comprar este NFT" });
+      return res
+      .status(401)
+      .json({ msg: "No tienes CL suficientes para comprar este NFT" });
     }
     else if((req.usuario.coins >= NFT.price) && (NFT.avaliable === true)) {
       const precio = NFT.price;
@@ -136,19 +138,9 @@ const comprarNft = async (req, res, next) => {
       const vendedor =  await Usuario.findOne({ nombre: vendedor_nombre });  
       const vendedor_coins = vendedor.coins;
       const comprador = await Usuario.findOne({ nombre: req.usuario.nombre });
-     //falta asociar con transacciones
      
       try {
-          //  const transaccion = new Transaccion({
-          //   actual_owner_Id: comprador.nombre,
-          //   seller_Id: vendedor.nombre,
-          //   NFT_id: NFT.id,
-          //   NFT_colection: NFT.colection,
-          //   transactionType: "sale",
-          //   price: precio
-          //  })
-          //  const transaccionGuardada = await transaccion.save()
-          
+   
            vendedor.coins = vendedor.coins + precio;
            const nftFiltrados = vendedor.nfts.filter((nft) => (nft.id !== NFT.id || nft.colection !== NFT.colection));
            vendedor.nfts = nftFiltrados;
@@ -157,7 +149,6 @@ const comprarNft = async (req, res, next) => {
            await NFT.save();
            comprador.coins = comprador.coins - precio;
            comprador.nfts.push(NFT);
-          //  comprador.transacciones.push(transaccionGuardada)
            await comprador.save();
 
            const data = {
@@ -168,11 +159,8 @@ const comprarNft = async (req, res, next) => {
             transactionType: "sale",
             price: precio
            };
+           
            req.data = data;
-           
-          //  res.status(200).json({ msg: "No tienes CL suficientes para comprar este NFT" })
-           
-          //  res.json({ msg: "Su compra fue realizada" });
            return next();
       } catch (error) {
          //si arroja algun error se devuelve todo a sus valores iniciales
@@ -186,7 +174,9 @@ const comprarNft = async (req, res, next) => {
            comprador.nfts = nftFiltrados;
            await comprador.save();
 
-           return res.status(401).json({ msg: "Lo sentimos, su compra no pudo realizarse" });
+           return res
+           .status(401)
+           .json({ msg: "Lo sentimos, su compra no pudo realizarse" });
       } 
     }
   
