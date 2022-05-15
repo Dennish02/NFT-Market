@@ -11,10 +11,11 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    padding:'0'
+    padding: '0'
   },
 };
 export default function ComponentNFT(props) {
+  const [input, setInput] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const dispatch = useDispatch()
   const { id, image, colection, category, price, creatorId, ownerId } = props;
@@ -25,6 +26,18 @@ export default function ComponentNFT(props) {
   function closeModal() {
     setOpenModal(false)
   }
+
+  function changeInput(e) {
+    setInput(e.target.value)
+    console.log('input', input)
+    if (isNaN(input)) {
+      setInput('')
+      alert('only numbers')
+    }
+  }
+
+
+
   return (
     <div className="contNFT">
       <img src={image.url} alt="NFT IMAGE" />
@@ -41,16 +54,19 @@ export default function ComponentNFT(props) {
         </p>
       </div>
       <div className="contButtons">
-        <button  onClick={showModal} className="w-50 buttonPrimary">EDIT</button>
+        <button onClick={showModal} className="w-50 buttonPrimary">EDIT</button>
         <button className="w-50 buttonTrade">GIFT</button>
 
-        
+
         <Modal isOpen={openModal}
           style={customStyles}
         >
           <button onClick={closeModal}>CLOSE</button>
-          <input type="text"  placeholder="insert the new value" />
-          <button onClick={() => dispatch(Edit_NFT(Usuario.nfts[0]._id, 1111))}>ok</button>
+          <input type="text" placeholder="insert the new value" value={input} onChange={(e) => changeInput(e)} />
+
+          {<button onClick={() => dispatch(Edit_NFT(Usuario.nfts[0]._id, input))}>ok</button>}
+
+
 
         </Modal>
       </div>
