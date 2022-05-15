@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Edit_NFT } from '../../../redux/actions/actionNFT'
 import Modal from 'react-modal'
-import clienteAxios from "../../config/clienteAxios";
+import { useNavigate } from 'react-router'
 const customStyles = {
   content: {
     top: '50%',
@@ -15,11 +15,12 @@ const customStyles = {
   },
 };
 export default function ComponentNFT(props) {
+  const navigate = useNavigate()
   const [input, setInput] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const dispatch = useDispatch()
   const { id, image, colection, category, price, creatorId, ownerId, _id } = props;
-  const Usuario = useSelector(state => state.usuario)
+
   function showModal() {
     setOpenModal(true)
   }
@@ -29,14 +30,23 @@ export default function ComponentNFT(props) {
 
   function changeInput(e) {
     setInput(e.target.value)
-    console.log('input', input)
-    if (isNaN(input)) {
-      setInput('')
-      alert('only numbers')
-    }
+
   }
 
 
+
+
+  function editValue() {
+    if (isNaN(input)) {
+      setInput('')
+      alert('only numbers')
+    } else {
+      dispatch(Edit_NFT(_id, input))
+      alert('NFT changed succesfully!')
+      navigate('/home')
+    }
+
+  }
 
   return (
     <div className="contNFT">
@@ -57,23 +67,25 @@ export default function ComponentNFT(props) {
         <button onClick={showModal} className="w-50 buttonPrimary">EDIT</button>
         <button className="w-50 buttonTrade">GIFT</button>
 
-
+      
         <Modal isOpen={openModal}
           style={customStyles}
         >
-          <button onClick={closeModal}>CLOSE</button>
+          <div className="contLogin">
+          <button  onClick={closeModal}>X</button>
           <input type="text" placeholder="insert the new value" value={input} onChange={(e) => changeInput(e)} />
 
           {
-           
-
-            <button onClick={() => dispatch(Edit_NFT(_id, input))}>ok</button>
-            
-            
-            }
 
 
+            <button className="buttonPrimary" onClick={() => editValue()}>ok</button>
 
+
+          }
+
+
+
+        </div>
         </Modal>
       </div>
     </div>
