@@ -4,18 +4,22 @@
 .contNFT{
     padding: 1rem;
     width: 280px;
-    height: 500px;
+    height: fit-content;
     margin: 1rem auto;
     border: solid v.$naranja 1px ;
     margin: 0 auto;
     @include m.borderRadius;
     .contImg{
+        position: relative;
         height: 260px;
         width: 100%;
-        
-        img{
-           height: 100%;
-           
+        background-size: cover;
+        @supports(object-fit: cover){
+             img{
+              height: 100%;
+              object-fit: cover;
+              object-position: center center;
+            }
         }
 
     }
