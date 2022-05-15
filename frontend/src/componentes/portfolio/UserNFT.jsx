@@ -18,7 +18,7 @@ export default function ComponentNFT(props) {
   const [input, setInput] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const dispatch = useDispatch()
-  const { id, image, colection, category, price, creatorId, ownerId } = props;
+  const { id, image, colection, category, price, creatorId, ownerId, _id } = props;
   const Usuario = useSelector(state => state.usuario)
   function showModal() {
     setOpenModal(true)
@@ -64,7 +64,13 @@ export default function ComponentNFT(props) {
           <button onClick={closeModal}>CLOSE</button>
           <input type="text" placeholder="insert the new value" value={input} onChange={(e) => changeInput(e)} />
 
-          {<button onClick={() => dispatch(Edit_NFT(Usuario.nfts[0]._id, input))}>ok</button>}
+          {
+           
+
+            <button onClick={() => dispatch(Edit_NFT(_id, input))}>ok</button>
+            
+            
+            }
 
 
 

@@ -17,7 +17,7 @@ export default function Portfolio() {
   useEffect(() => {
     dispatch(allNftMarket());
     dispatch(userNfts(user.nombre));
-  }, [allNft])
+  }, [])
 
   return (
     <div className="contentHome">
@@ -36,6 +36,7 @@ export default function Portfolio() {
                 price={el.price}
                 creatorId={el.creatorId}
                 ownerId={el.ownerId}
+                _id ={el._id}
               />
             );
           })
