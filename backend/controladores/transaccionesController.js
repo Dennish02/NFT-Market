@@ -28,6 +28,9 @@ const crearTransaccion = async (req, res) => {
         const comprador = await Usuario.findOne({ nombre: transaccion.actual_owner_Id });
         comprador.transacciones.push(transaccion)
         await comprador.save()
+        const vendedor = await Usuario.findOne({ nombre: transaccion.seller_Id });
+        vendedor.transacciones.push(transaccion)
+        await vendedor.save()
         res.status(200).json(transaccion)
     } catch (error) {
         res.status(400).send(error)
