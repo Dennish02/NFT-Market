@@ -110,7 +110,6 @@ export function Edit_NFT(_id, payload) {
 
   const token = localStorage.getItem("token");
 
-   const url = 'http://localhost:3001'
 
    const authAxios = axios.create({
      headers:{
@@ -118,7 +117,6 @@ export function Edit_NFT(_id, payload) {
      }
    })
 
-   console.log('aa', authAxios)
 
     const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/nft/${_id}`, {price: payload})
     return dispatch({
