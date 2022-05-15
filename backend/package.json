@@ -24,7 +24,8 @@
     "fs-extra": "^10.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.2",
-    "nodemailer": "^6.7.5"
+    "nodemailer": "^6.7.5",
+    "socket.io": "^4.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

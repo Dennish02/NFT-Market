@@ -12,6 +12,7 @@ import {
   AUTH_USER,
   LOGIN_USER,
   LOGOUT_USER,
+  LOGIN_GOOGLE
 } from "../constantes";
 // export function allNftMarket() {
 //   return async function (dispatch) {
@@ -26,6 +27,32 @@ import {
 //     }
 //   };
 // }
+
+export function loguinGoogle(googleData) {
+  return async function (dispatch) {
+
+
+    const token = googleData.tokenId;
+    const googleId= googleData.googleId;
+    let api = import.meta.env.VITE_API
+    const config = {
+      headers: {
+        api: api,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      var json = await clienteAxios.post(`/usuario/login`, {config, googleId});
+      return dispatch({
+        type: LOGIN_USER,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
 export function registroUsuario({ nombre, email, password1 }) {
   const n = Math.floor(Math.random() * 10) % 3;
