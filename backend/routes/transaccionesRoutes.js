@@ -7,6 +7,6 @@ import {
 } from "../controladores/transaccionesController.js";
 
 // router.post('/', crearTransaccion)
-router.get('/ultimasVentas', ultimasVentas)
+router.get('/ultimas-ventas-general', ultimasVentas)
 
 export default router

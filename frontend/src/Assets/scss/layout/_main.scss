@@ -2,6 +2,7 @@
 @use '../base/mixins' as m;
 .main{
     @include m.mediaGrid(300px, 1fr);
+    gap: 2rem;
     width: 90%;
     margin: 2rem auto;
 }

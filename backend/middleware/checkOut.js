@@ -4,6 +4,7 @@ import Usuario from "../models/Usuarios.js";
 //custom middleware para proteger las rutas
 const checkOut = async (req, res, next) => {
   let token;
+
   //se envian por headers los token de autorizacion
   if (
     req.headers.authorization &&
@@ -13,7 +14,6 @@ const checkOut = async (req, res, next) => {
     try {
       //entra el JWT en este token
       token = req.headers.authorization.split(" ")[1]; //para sacar Bearer uy dejar solo el token
-
       const decoded = jwt.verify(token, process.env.JWT_SECRET); //se usa la variable de entornno que s eunso para verificar
 
       req.usuario = await Usuario.findById(decoded.id).select(

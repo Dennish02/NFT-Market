@@ -664,7 +664,7 @@ img {
 
 .contentHome {
   width: 90%;
-  margin: 0 auto;
+  margin: 1rem auto;
 }
 
 .main {
@@ -672,6 +672,7 @@ img {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1fr;
   align-items: center;
+  gap: 2rem;
   width: 90%;
   margin: 2rem auto;
 }
@@ -679,18 +680,47 @@ img {
 .contNFT {
   padding: 1rem;
   width: 280px;
-  height: 500px;
+  height: fit-content;
   margin: 1rem auto;
   border: solid #f28b12 1px;
   margin: 0 auto;
   border-radius: 0.5rem;
 }
+.contNFT .venta {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1px;
+}
+.contNFT .enVenta {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 1px solid black;
+  background-color: #29a237;
+  display: inline-block;
+  cursor: pointer;
+}
+.contNFT .noVenta {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 1px solid black;
+  background-color: transparent;
+  display: inline-block;
+  cursor: pointer;
+}
 .contNFT .contImg {
+  position: relative;
   height: 260px;
   width: 100%;
+  background-size: cover;
 }
-.contNFT .contImg img {
-  height: 100%;
+@supports (object-fit: cover) {
+  .contNFT .contImg img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
 }
 .contNFT h2 {
   color: #f28b12;

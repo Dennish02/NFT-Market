@@ -10,6 +10,7 @@ import {
   LOGOUT_USER,
   SEARCH_NFT,
   USER_NFT,
+  EDIT_NFT_PRICE,
 } from "../constantes";
 
 const initialState = {
@@ -105,6 +106,19 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft: filterBySearch,
       };
+
+
+
+
+    case EDIT_NFT_PRICE:
+
+      return {
+        ...state,
+      }
+
+
+
+
 
     default:
       return state;
