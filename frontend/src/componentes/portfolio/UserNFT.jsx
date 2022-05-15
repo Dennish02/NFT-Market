@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Edit_NFT, venta } from '../../../redux/actions/actionNFT'
@@ -66,14 +67,8 @@ export default function ComponentNFT(props) {
       <div className="contNFTinfo">
         <h2>{`${colection}  ${id}`}</h2>
         <p>{`creator:  ${creatorId}`}</p>
-        <p>
-          {" "}
-          owner: <small> {ownerId}</small>
-        </p>
-        <p>
-          {" "}
-          price: <span> {`${price} CL`}</span>{" "}
-        </p>
+        <p>owner: <small> {ownerId}</small></p>
+        <div className="contPrice"><p>price:</p>  <span> {formateoPrecio(price)}</span></div>
       </div>
       <div className="contButtons">
         <button onClick={showModal} className="w-50 buttonPrimary">EDIT</button>

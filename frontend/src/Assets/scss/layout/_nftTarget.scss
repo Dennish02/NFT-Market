@@ -1,15 +1,16 @@
 @use "../base/variables" as v;
 @use "../base/mixins" as m;
 
-.contNFT {
-  padding: 1rem;
-  width: 280px;
-  height: 500px;
-  margin: 1rem auto;
-  border: solid v.$naranja 1px;
-  margin: 0 auto;
-  @include m.borderRadius;
-  .venta {
+
+.contNFT{
+    padding: 1rem;
+    width: 280px;
+    height: fit-content;
+    margin: 1rem auto;
+    border: solid v.$naranja 1px ;
+    margin: 0 auto;
+    @include m.borderRadius;
+   .venta {
     @include m.venta;
   }
   .enVenta {
@@ -18,9 +19,19 @@
   .noVenta {
     @include m.noVenta;
   }
-  .contImg {
-    height: 260px;
-    width: 100%;
+    .contImg{
+        position: relative;
+        height: 260px;
+        width: 100%;
+        background-size: cover;
+        @supports(object-fit: cover){
+             img{
+              height: 100%;
+              object-fit: cover;
+              object-position: center center;
+            }
+        }
+
 
     img {
       height: 100%;
