@@ -18,12 +18,10 @@ import { crearTransaccion } from "../controladores/transaccionesController.js";
 router.route("/").get(checkOut, obtenerAllNft).post(checkOut, crearNft);
 router.get("/portfolio", checkOut, allNftUser);
 router.put("/gift", checkOut, regalarNft);
-
-router
-  .route("/:id")
-  .get(checkOut, obtenerNft)
-  .put(checkOut, editarNft)
-  .post(checkOut, añadirFavNft);
+router.put("/:id", checkOut, editarNft);
+router.get(checkOut, obtenerNft);
+  
+// router.post(checkOut, añadirFavNft);
 
 router.route("/vender/:id").put(checkOut, venderNft);
 router.route("/comprar/:id").post(checkOut, comprarNft, crearTransaccion);
