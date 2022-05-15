@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Edit_NFT } from '../../../redux/actions/actionNFT'
 import Modal from 'react-modal'
