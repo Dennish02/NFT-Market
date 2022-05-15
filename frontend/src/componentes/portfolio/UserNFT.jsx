@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Edit_NFT } from '../../../redux/actions/actionNFT'
+import { Edit_NFT, venta } from '../../../redux/actions/actionNFT'
 import Modal from 'react-modal'
 import { useNavigate } from 'react-router'
+
 const customStyles = {
   content: {
     top: '50%',
@@ -14,12 +15,19 @@ const customStyles = {
     padding: '0'
   },
 };
+
 export default function ComponentNFT(props) {
   const navigate = useNavigate()
   const [input, setInput] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const dispatch = useDispatch()
-  const { id, image, colection, category, price, creatorId, ownerId, _id } = props;
+  
+  const { id, _id, image, colection, avaliable, price, creatorId, ownerId } =
+    props;
+
+  function handleSell() {
+    dispatch(venta(_id));
+  }
 
   function showModal() {
     setOpenModal(true)
@@ -33,9 +41,6 @@ export default function ComponentNFT(props) {
 
   }
 
-
-
-
   function editValue() {
     if (isNaN(input)) {
       setInput('')
@@ -46,14 +51,17 @@ export default function ComponentNFT(props) {
       dispatch(Edit_NFT(_id, input))
       alert('NFT price changed succesfully!')
       navigate('/home')
-
-      
     }
-
   }
 
   return (
     <div className="contNFT">
+      <div className="venta">
+        <div
+          className={avaliable ? "enVenta" : "noVenta"}
+          onClick={() => handleSell()}
+        ></div>
+      </div>
       <img src={image.url} alt="NFT IMAGE" />
       <div className="contNFTinfo">
         <h2>{`${colection}  ${id}`}</h2>
@@ -78,17 +86,9 @@ export default function ComponentNFT(props) {
           <div className="contLogin">
           <button  onClick={closeModal}>X</button>
           <input type="text" placeholder="insert the new value" value={input} onChange={(e) => changeInput(e)} />
-
           {
-
-
             <button className="buttonPrimary" onClick={() => editValue()}>ok</button>
-
-
           }
-
-
-
         </div>
         </Modal>
       </div>

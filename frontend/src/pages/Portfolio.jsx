@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import NavBar from "../componentes/home/NavBar";
-import ComponentNFT from "../componentes/home/ComponentNFT";
 import UserNFT from "../componentes/portfolio/UserNFT";
 import OptionsPortfolio from "../componentes/portfolio/portfolioOptions";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,13 +10,14 @@ export default function Portfolio() {
   const user = useSelector((state) => state.usuario);
   const nftUser = useSelector((state) => state.nftUser);
   const allNft = useSelector((state) => state.allNft);
+
   // console.log(user);
   // console.log(nftUser);
 
-  useEffect(() => {
-    dispatch(allNftMarket());
+  useEffect(async () => {
+    dispatch(allNftMarket(user.nombre));
     dispatch(userNfts(user.nombre));
-  }, [])
+  }, [dispatch]);
 
   return (
     <div className="contentHome">
@@ -30,13 +30,14 @@ export default function Portfolio() {
               <UserNFT
                 key={el.id}
                 id={el.id}
+                _id={el._id}
                 image={el.image}
                 colection={el.colection}
                 category={el.category}
                 price={el.price}
                 creatorId={el.creatorId}
                 ownerId={el.ownerId}
-                _id ={el._id}
+                avaliable={el.avaliable}
               />
             );
           })
