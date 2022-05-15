@@ -40,6 +40,31 @@ app.use("/api/transacciones", transacciones)
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
+ const servidor = app.listen(PORT, () => {
   console.log(`Server en ${PORT}`);
 });
+
+//socket io
+
+import { Server } from 'socket.io';
+
+const io = new Server(servidor, {
+  pingTimeout: 60000,
+  cors:{
+    origin: process.env.FRONTEND_URL,
+  }
+})
+
+io.on("connection",(socket)=>{
+   //definir la conexion
+  //on define que es lo que pasa cuando el evento ocurre
+  socket.on("Actualizar", (room)=>{
+    socket.join(room);
+  })
+  socket.on("NftCreado", (nft)=>{
+    socket.to('http://localhost:3000/home').emit('nftAgregado', nft)
+  })
+
+  //enviar respuesta al front 
+  
+})

@@ -1,5 +1,5 @@
 import clienteAxios from "../../src/config/clienteAxios";
-
+import { useEffect } from "react";
 import {
   CREATE_NFT,
   EDIT_NFT_PRICE,
@@ -10,6 +10,12 @@ import {
   USER_NFT,
   ALL_NFT_MARKET,
 } from "../constantes/index";
+
+import io from 'socket.io-client';
+let socket;
+
+
+
 
 export function allNftMarket() {
   return async function (dispatch) {
@@ -47,6 +53,10 @@ export function userNfts(name) {
 }
 
 export function crearNFT(payload) {
+
+    socket = io(import.meta.env.VITE_BACKEND_URL)
+  
+  
   return async function (dispatch) {
     const body = {
       category: payload.category,
@@ -69,10 +79,9 @@ export function crearNFT(payload) {
     };
 
     let json = await clienteAxios.post(`/nft`, form, config);
-    return dispatch({
-      type: CREATE_NFT,
-      payload: json.data,
-    });
+
+    //socket.io
+    socket.emit('NftCreado', json.data)
   };
 }
 

@@ -21,6 +21,7 @@ export const SEND_EMAIL_TO_RESET_PASSWORD = "SEND_EMAIL_TO_RESET_PASSWORD";
 export const RESET_PASSWORD = "RESET_PASSWORD";
 export const RESET_ERROR = "RESET_ERROR";
 export const LOGIN_USER = "LOGIN_USER";
+export const LOGIN_GOOGLE = "LOGIN_GOOGLE";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const AUTH_USER = "AUTH_USER";
 export const REGISTER_USER = "REGISTER_USER";
