@@ -1,10 +1,24 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { venta } from "../../../redux/actions/actionNFT";
 
 export default function ComponentNFT(props) {
-  const { id, image, colection, category, price, creatorId, ownerId } = props;
+  const { id, _id, image, colection, avaliable, price, creatorId, ownerId } =
+    props;
+  const dispatch = useDispatch();
+
+  function handleSell() {
+    dispatch(venta(_id));
+  }
 
   return (
     <div className="contNFT">
+      <div className="venta">
+        <div
+          className={avaliable ? "enVenta" : "noVenta"}
+          onClick={() => handleSell()}
+        ></div>
+      </div>
       <img src={image.url} alt="NFT IMAGE" />
       <div className="contNFTinfo">
         <h2>{`${colection}  ${id}`}</h2>

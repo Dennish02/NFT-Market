@@ -685,6 +685,29 @@ img {
   margin: 0 auto;
   border-radius: 0.5rem;
 }
+.contNFT .venta {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1px;
+}
+.contNFT .enVenta {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 1px solid black;
+  background-color: #29a237;
+  display: inline-block;
+  cursor: pointer;
+}
+.contNFT .noVenta {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 1px solid black;
+  background-color: transparent;
+  display: inline-block;
+  cursor: pointer;
+}
 .contNFT .contImg {
   height: 260px;
   width: 100%;

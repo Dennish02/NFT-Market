@@ -1,82 +1,87 @@
-@use '../base/variables' as v;
-@use '../base/mixins' as m;
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
 
-.contNFT{
-    padding: 1rem;
-    width: 280px;
-    height: 500px;
-    margin: 1rem auto;
-    border: solid v.$naranja 1px ;
-    margin: 0 auto;
-    @include m.borderRadius;
-    .contImg{
-        height: 260px;
-        width: 100%;
-        
-        img{
-           height: 100%;
-           
-        }
+.contNFT {
+  padding: 1rem;
+  width: 280px;
+  height: 500px;
+  margin: 1rem auto;
+  border: solid v.$naranja 1px;
+  margin: 0 auto;
+  @include m.borderRadius;
+  .venta {
+    @include m.venta;
+  }
+  .enVenta {
+    @include m.enVenta;
+  }
+  .noVenta {
+    @include m.noVenta;
+  }
+  .contImg {
+    height: 260px;
+    width: 100%;
 
+    img {
+      height: 100%;
     }
-   
-    h2{
-        color: v.$naranja;
-        font-size: 2.9rem;
-        margin: 0;
-    }
-    p{
-        color: v.$grisclaro;
-        font-size: 2rem;
-        line-height: 1.2;
-        margin: 0;
-        span{
-            color: v.$naranja;
-            font-size: 2.3rem;
-            font-weight: bold;
-        }
-    }
-    .contNFTinfo{
-        width: 100%;
-        .porcentajeMenos{
-            color: v.$rojo;
-            font-weight: bold;
-            
-        }
-        .porcentajeMas{
-            color: v.$verde;
-            font-weight: bold;
-           
-        }
-    }
-    .contButtons{
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem
-    }
-    .w-50{
-        width: 50%;
-    }
-    .buttonTrade{
-        @include m.buttonTrade;
-        width:50%;
-    }
-}
-.contPrice{
-    display: flex;
-    justify-content: flex-start;
-    gap: 3rem;
-    align-items: center;
-}
-.contIcon{
-    display: flex;
-    width: 50%;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-}
-.iconcl{
-    width: 25px;
-    display: inline-block;
+  }
+
+  h2 {
+    color: v.$naranja;
+    font-size: 2.9rem;
     margin: 0;
+  }
+  p {
+    color: v.$grisclaro;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin: 0;
+    span {
+      color: v.$naranja;
+      font-size: 2.3rem;
+      font-weight: bold;
+    }
+  }
+  .contNFTinfo {
+    width: 100%;
+    .porcentajeMenos {
+      color: v.$rojo;
+      font-weight: bold;
+    }
+    .porcentajeMas {
+      color: v.$verde;
+      font-weight: bold;
+    }
+  }
+  .contButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .w-50 {
+    width: 50%;
+  }
+  .buttonTrade {
+    @include m.buttonTrade;
+    width: 50%;
+  }
+}
+.contPrice {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3rem;
+  align-items: center;
+}
+.contIcon {
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.iconcl {
+  width: 25px;
+  display: inline-block;
+  margin: 0;
 }
