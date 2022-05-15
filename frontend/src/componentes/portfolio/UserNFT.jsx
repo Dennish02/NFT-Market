@@ -40,9 +40,11 @@ export default function ComponentNFT(props) {
     if (isNaN(input)) {
       setInput('')
       alert('only numbers')
+    } else if (input.length == 0){
+      alert('put a value ')
     } else {
       dispatch(Edit_NFT(_id, input))
-      alert('NFT changed succesfully!')
+      alert('NFT price changed succesfully!')
       navigate('/home')
     }
 
