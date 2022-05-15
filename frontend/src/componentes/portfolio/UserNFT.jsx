@@ -46,6 +46,8 @@ export default function ComponentNFT(props) {
       dispatch(Edit_NFT(_id, input))
       alert('NFT price changed succesfully!')
       navigate('/home')
+
+      
     }
 
   }
