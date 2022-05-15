@@ -3,7 +3,12 @@ import Usuario from "../models/Usuarios.js";
 
 const ultimasVentas = async (req,res) => {
     try{
-        const allTransactions = await Transaccion.find()
+        if(req.usuario){
+            var allTransactions = req.usuario.transacciones
+        }
+        else {
+            var allTransactions = await Transaccion.find()
+        }
         const sales = allTransactions.filter(t => t.transactionType === 'sale')
         const orderedSales = sales.sort((a,b) => {
             //los ordeno del más reciente al más antiguo

@@ -16,7 +16,7 @@ export default function Home() {
   const todosLosNFT = useSelector((state) => state.allNft);
   const usuario = useSelector((state) => state.usuario);
   const params = window.location.href
- 
+
 
   useEffect(() => {
     dispatch(allNftMarket());
@@ -45,6 +45,7 @@ export default function Home() {
               <div key={nft.id}>
                 {
                   <ComponentNFT
+                    _id={nft._id}
                     id={nft.id}
                     image={nft.image}
                     colection={nft.colection}
@@ -53,6 +54,7 @@ export default function Home() {
                     price={nft.price}
                     creatorId={nft.creatorId}
                     ownerId={nft.ownerId}
+                    avaliable={nft.avaliable}
                   />
                 }
               </div>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import clienteAxios from "../../src/config/clienteAxios";
 import { useEffect } from "react";
 import {
@@ -31,8 +32,10 @@ export function allNftMarket() {
         Authorization: `Bearer ${token}`,
       },
     };
+
     try {
       var json = await clienteAxios.get(`/nft/`, config);
+
       return dispatch({
         type: ALL_NFT_MARKET,
         payload: json.data,
@@ -46,7 +49,7 @@ export function allNftMarket() {
 export function userNfts(name) {
   return async function (dispatch) {
     return dispatch({
-      type: "USER_NFT",
+      type: USER_NFT,
       payload: name,
     });
   };
@@ -105,11 +108,66 @@ export function crearNFT(payload) {
 //   }
 // }
 
-export function nftWithUser() {}
+export function nftWithUser() { }
+
+export function comprarNFT(payload) {
+  return async function () {
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    await clienteAxios.post(`/nft/comprar/${payload}`, {}, config);
+  };
+}
+
+export function venta(payload) {
+  return async function () {
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const json = await clienteAxios.put(`nft/vender/${payload}`, {}, config);
+      return json.data;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
 
 export function SearchNFT(payload) {
   return {
     type: SEARCH_NFT,
     payload,
   };
+}
+
+export function Edit_NFT(_id, payload) {
+  return async function (dispatch){
+
+  const token = localStorage.getItem("token");
+
+
+   const authAxios = axios.create({
+     headers:{
+      Authorization: `Bearer ${token}`
+     }
+   })
+
+
+    const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/nft/${_id}`, {price: payload})
+    return dispatch({
+      type: EDIT_NFT_PRICE,
+      payload,
+    })
+  }
+
+  
 }

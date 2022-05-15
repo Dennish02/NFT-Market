@@ -8,6 +8,8 @@ import {
 import checkOut from "../middleware/checkOut.js";
 
 // router.post('/', crearTransaccion)
+
 router.get('/ultimasVentas',checkOut, ultimasVentas)
+
 
 export default router

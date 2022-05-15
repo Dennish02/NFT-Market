@@ -158,3 +158,29 @@
     cursor: pointer;
   }
 }
+
+@mixin venta {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1px;
+}
+
+@mixin enVenta {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 1px solid black;
+  background-color: v.$verde;
+  display: inline-block;
+  cursor: pointer;
+}
+
+@mixin noVenta {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 1px solid black;
+  background-color: transparent;
+  display: inline-block;
+  cursor: pointer;
+}
