@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { resetPassword } from '../../redux/actions/actionUSER.js';
 
 
@@ -11,6 +12,7 @@ import validatePassword from '../middleware/validarPassword';
 
 export default function ResetPassword() {
   const params = useParams()
+  const navigate = useNavigate()
   const respuesta = useSelector(state => state.errorEmail)
   const { token }= params
     const [estado, setEstado] = useState({
@@ -29,17 +31,17 @@ export default function ResetPassword() {
         [e.target.name]: e.target.value,
       });
       if(validatePassword(e.target.value)){
-         if(e.target.value.length < 8){
           setErrores({
             ...errores,
             error: "Your password must be at least 8 characters"
           })
-        }else{
-          setErrores({
-            ...errores,
-            error: ""
-          })
-        }
+       
+      }
+      else{
+        setErrores({
+          ...errores,
+          error: ""
+        })
       }
     };
     
@@ -48,7 +50,7 @@ export default function ResetPassword() {
       if (estado.password !== estado.password2)
         setErrores({ ...errores, error: "Las contraseñas no coinciden" });
       else {
-        setErrores({ ...errores, error: "" });
+        setErrores( errores.error= "" );
         dispatch(resetPassword({
           token: token,
           password: estado.password}));
@@ -84,9 +86,9 @@ export default function ResetPassword() {
              {respuesta.error ? <p className='error'>{respuesta.error}</p> : <p>{respuesta.msg}</p> }
             {errores.error && <p className="error">{errores.error}</p>}
             
-            {respuesta.msg? <Link to='/'> <button type="submit" className="buttonPrimary">
-                Volver a inicio
-              </button> </Link> :  <button type="submit" className="buttonPrimary">
+            {respuesta.msg? <button type="submit" className="buttonMorado">
+                HOME
+              </button> :  <button type="submit" className="buttonPrimary">
                 Reset password
               </button>}
           </form>
