@@ -19,6 +19,10 @@
   .noVenta {
     @include m.noVenta;
   }
+  .textVenta{
+    color: v.$grisclaro;
+    margin-right: 1rem;
+  }
     .contImg{
         position: relative;
         height: 260px;

@@ -14,6 +14,8 @@ import {
   LOGOUT_USER,
   LOGIN_GOOGLE
 } from "../constantes";
+import { toast } from "react-toastify";
+
 // export function allNftMarket() {
 //   return async function (dispatch) {
 //     try {
@@ -74,10 +76,10 @@ export function registroUsuario({ nombre, email, password1 }) {
 
       const response = await clienteAxios.post(`/usuario`, body);
       //console.log(response);
-      alert(response.data);
+      toast.success(response.data);
     } catch (e) {
       //   console.log(e);
-      alert(e.response.data.msg);
+      toast.error(e.response.data.msg);
     }
   };
 }
@@ -86,12 +88,13 @@ export function validateUser(id) {
   return async function (dispatch) {
     try {
       var json = await clienteAxios(`/usuario/confirmar/${id}`);
-      console.log(json);
+      toast.success('Tu usuario se validó correctamente')
       return dispatch({
         type: VALIDATE_USER,
         payload: json.data,
       });
     } catch (error) {
+      toast.error('Hubo un error al validar tu usuario')
       return dispatch({
         type: VALIDATE_USER,
         payload: error.response.data,
@@ -106,11 +109,16 @@ export function sedEmailToResetPassword(data) {
       let json = await clienteAxios.post(`/usuario/olvide-password/`, {
         email: data,
       });
+    
+      toast.success(json.data.msg)
+    
+     
       return dispatch({
         type: SEND_EMAIL_TO_RESET_PASSWORD,
         payload: json.data,
       });
     } catch (error) {
+      toast.error(error.response.data.msg)
       return dispatch({
         type: SEND_EMAIL_TO_RESET_PASSWORD,
         payload: { error: error.response.data.msg },
@@ -126,13 +134,16 @@ export function resetPassword(data) {
         password,
       });
       //console.log(json.data);
+      //toast.success('Contraseña Actualiada')
       return dispatch({
         type: RESET_PASSWORD,
         payload: json.data,
       });
     } catch (error) {
       //console.log(error.response.data);
+      //toast.error(error.response.data.msg)
       return dispatch({
+        
         type: RESET_PASSWORD,
         payload: { error: error.response.data.msg },
       });

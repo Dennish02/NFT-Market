@@ -10,6 +10,10 @@ import ConfirmarCuenta from "./pages/ConfirmarCuenta.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 
 import OlvidePassword from "./pages/OlvidePassword.jsx";
+//tostify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import CrearNFT from "./pages/CrearNFT.jsx";
 import Portfolio from "./pages/Portfolio.jsx";
@@ -53,6 +57,16 @@ function App() {
 
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
+      <ToastContainer
+      position="top-center"
+      autoClose={2500}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover/>
     </Router>
   );
 }

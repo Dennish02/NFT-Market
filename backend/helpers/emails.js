@@ -14,12 +14,12 @@ export const emailRegistro = async (datos) => {
   // });
 
   //pablo
-  var transport = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
+  const transport = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     auth: {
-      user: "bd939024e7b851",
-      pass: "bd66a92987b5ce",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
