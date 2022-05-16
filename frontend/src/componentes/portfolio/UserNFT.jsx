@@ -5,6 +5,7 @@ import { Edit_NFT, venta } from '../../../redux/actions/actionNFT'
 import Modal from 'react-modal'
 import { useNavigate } from 'react-router'
 import formateoPrecio from "../../middleware/formateoPrecio";
+import { toast } from "react-toastify";
 
 const customStyles = {
   content: {
@@ -28,7 +29,7 @@ export default function ComponentNFT(props) {
     props;
 
   function handleSell() {
-    dispatch(venta(_id));
+    dispatch(venta({_id, avaliable, id}));
   }
 
   function showModal() {
@@ -51,7 +52,7 @@ export default function ComponentNFT(props) {
       alert('put a value ')
     } else {
       dispatch(Edit_NFT(_id, input))
-      alert('NFT price changed succesfully!')
+     toast.success('Precio Editado Correctamente')
       setOpenModal(false)
     }
   }
@@ -59,6 +60,7 @@ export default function ComponentNFT(props) {
   return (
     <div className="contNFT">
       <div className="venta">
+        { avaliable ? <small className="textVenta">Quitar del mercado</small>: <small className="textVenta">Poner en venta</small>}
         <div
           className={avaliable ? "enVenta" : "noVenta"}
           onClick={() => handleSell()}

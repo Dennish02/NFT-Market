@@ -69,7 +69,7 @@ export default function OlvidePassword() {
                 placeholder="Reset email"
               />
 
-              {respuesta.error ? <p  className='error'>{respuesta.error}</p> : <p>{respuesta.msg}</p> }
+              {/* {respuesta.error ? <p  className='error'>{respuesta.error}</p> : <p>{respuesta.msg}</p> } */}
              
 
               {errors.email && (
@@ -80,7 +80,7 @@ export default function OlvidePassword() {
              
 
 
-             {respuesta.msg? <Link to='/'> <button type="submit" className="buttonPrimary">
+             {respuesta.msg? <Link to='/'> <button type="submit" className="buttonMorado">
                 Volver a inicio
               </button> </Link> :  <button type="submit" className="buttonPrimary">
                 Reset password

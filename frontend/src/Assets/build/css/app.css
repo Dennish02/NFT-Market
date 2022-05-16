@@ -709,6 +709,10 @@ img {
   display: inline-block;
   cursor: pointer;
 }
+.contNFT .textVenta {
+  color: #e1e1e1;
+  margin-right: 1rem;
+}
 .contNFT .contImg {
   position: relative;
   height: 260px;
