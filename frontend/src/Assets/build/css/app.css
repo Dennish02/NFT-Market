@@ -722,6 +722,9 @@ img {
     object-position: center center;
   }
 }
+.contNFT .contImg img {
+  height: 100%;
+}
 .contNFT h2 {
   color: #f28b12;
   font-size: 2.9rem;
@@ -1025,4 +1028,58 @@ img {
 }
 .buttonMorado:hover {
   cursor: pointer;
+}
+
+.wallet-panel {
+  width: 30%;
+  border-radius: 0.5rem;
+  border: solid 1px #f28b12;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.contNFTWallet {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1fr;
+  align-items: center;
+  align-items: center;
+  text-align: left;
+  width: 90%;
+  margin: 1rem auto;
+  border: solid 1px #f28b12;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.contNFTWallet p {
+  color: #e1e1e1;
+  margin: 0;
+}
+
+.ContenedorGeneralWallet {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.ContenedorCardsWallet {
+  width: 70%;
+}
+
+.contenedorColection p {
+  color: #f28b12;
+}
+
+.block {
+  display: block;
+  margin: 1rem auto;
+}
+
+.balanceWallet {
+  color: #e1e1e1;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
 }

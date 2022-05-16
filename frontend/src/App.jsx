@@ -16,6 +16,7 @@ import Portfolio from "./pages/Portfolio.jsx";
 import VerificacionUsuario from "./pages/VerificacionUsuario.jsx";
 import Loguin from "./pages/Loguin.jsx";
 import Register from "./pages/Register.jsx";
+import Wallet from "./pages/Wallet.jsx";
 
 function App() {
   return (
@@ -42,6 +43,12 @@ function App() {
           element={<VerificacionUsuario />}
         >
           <Route index element={<CrearNFT />} />
+        </Route>
+        <Route
+          path="/home/usuario/wallet/"
+          element={<VerificacionUsuario />}
+        >
+          <Route index element={<Wallet />} />
         </Route>
 
         <Route path="*" element={<Navigate replace to="/" />} />

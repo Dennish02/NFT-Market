@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Edit_NFT, venta } from '../../../redux/actions/actionNFT'
 import Modal from 'react-modal'
 import { useNavigate } from 'react-router'
+import formateoPrecio from "../../middleware/formateoPrecio";
 
 const customStyles = {
   content: {
