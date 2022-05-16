@@ -1,0 +1,53 @@
+@use "../base/variables" as v;
+@use '../base/mixins' as m;
+.perfil{
+    position: relative;
+    
+}
+.image-click{
+    cursor: pointer;
+}
+.boton {
+    background-color: red;
+    cursor: pointer;
+  }
+
+.profileModal{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    background-color: v.$fondo;
+    color: v.$grisclaro;
+    padding: 2rem 0;
+}
+
+.divPortfolio{
+   
+    border: none;
+    color: v.$grisoscuro;
+    background-color: v.$grisclaro;
+    height: 80px;
+    width: 90%;
+    margin: 0 auto;
+    @include m.borderRadius;
+    padding: 1rem;
+    a{
+        width: 100%;
+        @include m.grid(3,1fr);
+        align-content: center;
+    }
+    h3{
+        grid-column: 1/3;
+        margin: 0;
+       color: v.$grisoscuro;
+    }
+}
+.icon{
+    height: 60px;
+    width: 60px;
+    grid-column: 3/4;
+    color: v.$naranja;
+    display: inline-block
+  
+}

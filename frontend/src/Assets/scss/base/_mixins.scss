@@ -1,0 +1,191 @@
+@use "variables" as v;
+
+@mixin telefono {
+  @media (min-width: v.$telefono) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: v.$tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: v.$desktop) {
+    @content;
+  }
+}
+
+@mixin desktopxl {
+  @media (min-width: v.$desktopxl) {
+    @content;
+  }
+}
+
+@mixin grid($columnas, $espaciado) {
+  display: grid;
+  grid-template-columns: repeat($columnas, 1fr);
+  gap: $espaciado;
+  align-items: center;
+}
+@mixin mediaGrid($ancho, $espaciado) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($ancho, 1fr));
+  gap: $espaciado;
+  align-items: center;
+}
+@mixin resetear-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@mixin buttonPrimary {
+  width: fit-content;
+  background-color: v.$verde;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: v.$grisclaro;
+  font-weight: 700;
+  margin: 1rem 0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+@mixin buttonSecondary {
+  width: fit-content;
+  background-color: v.$grisclaro;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: v.$grisoscuro;
+  font-weight: 700;
+  margin: 1rem 0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+@mixin buttonOrange {
+  width: fit-content;
+  background-color: v.$naranja;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: v.$grisclaro;
+  font-weight: 700;
+  margin: 1rem auto;
+  &:hover {
+    cursor: pointer;
+  }
+}
+@mixin buttonMorado {
+  width: fit-content;
+  background-color: v.$morado;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: v.$grisclaro;
+  font-weight: 700;
+  margin: 1rem auto;
+  &:hover {
+    cursor: pointer;
+  }
+}
+@mixin inputs {
+  font-family: v.$fuente_principal;
+  display: block;
+  margin: 1rem auto 2rem auto;
+  padding: 2rem;
+  width: 100%;
+  border-radius: 00.5rem;
+  background-color: v.$grisclaro;
+  outline: none;
+}
+
+@mixin selects {
+  font-family: v.$fuente_principal;
+  display: block;
+  margin: 1rem auto 2rem auto;
+  padding: 2rem;
+  width: 100%;
+  border-radius: 00.5rem;
+  background-color: v.$grisclaro;
+}
+
+@mixin borderRadius {
+  border-radius: 0.5rem;
+}
+
+@mixin error {
+  color: v.$rojo;
+}
+
+@mixin input {
+  border: none;
+}
+
+@mixin file {
+  background-color: transparent;
+  padding: 0;
+}
+
+@mixin inputError {
+  border: 3px solid v.$rojo;
+}
+
+@mixin buttonTrade {
+  width: fit-content;
+  background-color: v.$morado;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: v.$grisclaro;
+  font-weight: 700;
+  margin: 1rem 0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin venta {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1px;
+}
+
+@mixin enVenta {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: none;
+  background-color: v.$verde;
+  display: inline-block;
+  cursor: pointer;
+}
+
+@mixin noVenta {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 2px solid v.$morado;
+  background-color: transparent;
+  display: inline-block;
+  cursor: pointer;
+}
+
+@mixin iconBalance {
+  width: 10px;
+  height: 10px;
+}

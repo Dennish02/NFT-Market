@@ -1,0 +1,30 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.landing{
+    height: 100vh;
+}
+.contentbutton{
+    width: 90%;
+    margin: 6rem auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 2rem;
+}
+.contLanding{
+   height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contLandingOne{
+
+    @include m.desktop{
+        
+        @include m.grid(2, 1rem);
+        align-items: center;
+        width: 700px;
+    }
+}
+
