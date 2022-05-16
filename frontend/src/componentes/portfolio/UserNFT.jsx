@@ -52,7 +52,7 @@ export default function ComponentNFT(props) {
     } else {
       dispatch(Edit_NFT(_id, input))
       alert('NFT price changed succesfully!')
-      navigate('/home')
+      setOpenModal(false)
     }
   }
 

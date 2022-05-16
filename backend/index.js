@@ -61,10 +61,29 @@ io.on("connection",(socket)=>{
   socket.on("Actualizar", (room)=>{
     socket.join(room);
   })
-  socket.on("NftCreado", (nft)=>{
-    socket.to('http://localhost:3000/home').emit('nftAgregado', nft)
+  socket.on("NftCreado", ()=>{
+    socket.to('http://localhost:3000/home').emit('nftAgregado')
   })
 
   //enviar respuesta al front 
-  
+  socket.on("ponerEnVenta", ()=>{
+    socket.to('http://localhost:3000/home').emit('nftDisponile')
+  })
+  socket.on("editarPrecio", ()=>{
+    socket.to('http://localhost:3000/home').emit('nftModificado')
+  })
+  socket.on("ventaNFT", ()=>{
+    socket.to('http://localhost:3000/home').emit('nftVendido')
+  })
+ 
+  socket.on("balanceUser", ()=>{
+    socket.to('http://localhost:3000/home').emit('balance')
+  })
+
+  socket.on("portfolio", (room)=>{
+    socket.join(room);
+  })
+  socket.on("update", ()=>{
+    socket.to('http://localhost:3000/home/usuario/porfolio').emit('nftUser')
+  })
 })

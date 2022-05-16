@@ -31,15 +31,22 @@ function rootReducer(state = initialState, action) {
     case ALL_NFT_MARKET:
       return {
         ...state,
-        allNft: action.payload,
-        backUpAllNft: action.payload,
+        allNft: action.payload.nftAlldb,
+        backUpAllNft: action.payload.nftAlldb,
+        usuario: action.payload.usuario
       };
 
+    // case USER_NFT:
+    //   const filter = state.allNft.filter((e) => e.ownerId === action.payload);
+    //   return {
+    //     ...state,
+    //     nftUser: filter,
+    //   };
     case USER_NFT:
-      const filter = state.allNft.filter((e) => e.ownerId === action.payload);
+      
       return {
         ...state,
-        nftUser: filter,
+        nftUser: action.payload,
       };
 
     case LOGIN_USER:
@@ -106,19 +113,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft: filterBySearch,
       };
-
-
-
-
-    case EDIT_NFT_PRICE:
-
-      return {
-        ...state,
-      }
-
-
-
-
 
     default:
       return state;
