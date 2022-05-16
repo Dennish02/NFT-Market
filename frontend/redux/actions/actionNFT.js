@@ -14,7 +14,7 @@ import {
 
 import io from 'socket.io-client';
 let socket;
-
+socket = io(import.meta.env.VITE_BACKEND_URL)
 
 
 
@@ -35,7 +35,6 @@ export function allNftMarket() {
 
     try {
       var json = await clienteAxios.get(`/nft/`, config);
-
       return dispatch({
         type: ALL_NFT_MARKET,
         payload: json.data,
@@ -45,7 +44,23 @@ export function allNftMarket() {
     }
   };
 }
-
+export function allNFTUser(){
+  return async function(dispatch){
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let json = await clienteAxios.get(`/nft/portfolio`, config);
+      
+    return dispatch({
+      type: USER_NFT,
+      payload: json.data,
+    })
+  }
+}
 export function userNfts(name) {
   return async function (dispatch) {
     return dispatch({
@@ -56,10 +71,6 @@ export function userNfts(name) {
 }
 
 export function crearNFT(payload) {
-
-    socket = io(import.meta.env.VITE_BACKEND_URL)
-  
-  
   return async function (dispatch) {
     const body = {
       category: payload.category,
@@ -84,7 +95,7 @@ export function crearNFT(payload) {
     let json = await clienteAxios.post(`/nft`, form, config);
 
     //socket.io
-    socket.emit('NftCreado', json.data)
+    socket.emit('NftCreado')
   };
 }
 
@@ -110,6 +121,8 @@ export function crearNFT(payload) {
 
 export function nftWithUser() { }
 
+
+
 export function comprarNFT(payload) {
   return async function () {
     const token = localStorage.getItem("token");
@@ -120,7 +133,9 @@ export function comprarNFT(payload) {
       },
     };
 
-    await clienteAxios.post(`/nft/comprar/${payload}`, {}, config);
+  const json=  await clienteAxios.post(`/nft/comprar/${payload}`, {}, config);
+  //socket.io
+    socket.emit('ventaNFT')
   };
 }
 
@@ -135,6 +150,8 @@ export function venta(payload) {
     };
     try {
       const json = await clienteAxios.put(`nft/vender/${payload}`, {}, config);
+     //socket.io
+    socket.emit('ponerEnVenta')
       return json.data;
     } catch (e) {
       console.log(e);
@@ -150,23 +167,19 @@ export function SearchNFT(payload) {
 }
 
 export function Edit_NFT(_id, payload) {
-  return async function (dispatch){
 
-  const token = localStorage.getItem("token");
-
-
-   const authAxios = axios.create({
-     headers:{
-      Authorization: `Bearer ${token}`
-     }
-   })
-
-
-    const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/nft/${_id}`, {price: payload})
-    return dispatch({
-      type: EDIT_NFT_PRICE,
-      payload,
+  return async function () {
+    const token = localStorage.getItem("token");
+    const authAxios = axios.create({
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
+    const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/nft/${_id}`, {price: payload})
+    
+    //socket.io
+    socket.emit('editarPrecio')
+  
   }
 
   

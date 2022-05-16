@@ -1,39 +1,37 @@
-import React from 'react'
-import {useDispatch} from 'react-redux'
-import { SearchNFT } from '../../../redux/actions/actionNFT'
+import React from "react";
+import { useDispatch } from "react-redux";
+import { SearchNFT } from "../../../redux/actions/actionNFT";
 export default function SearchBar() {
-
-    const dispatch= useDispatch()
-    function onChangeValues(e){
-    console.log(e.target.value)
-    dispatch(SearchNFT(e.target.value))
-    
- }
-
-
+  const dispatch = useDispatch();
+  function onChangeValues(e) {
+    // console.log(e.target.value)
+    dispatch(SearchNFT(e.target.value));
+  }
 
   return (
-    <div className='contentSearchBar'>
+    <div className="contentSearchBar">
+      <div>
+        <input
+          type="text"
+          placeholder="Enter token id"
+          onChange={onChangeValues}
+        />
+      </div>
+      <div className="contentSearchBar-select">
         <div>
-        <input type="text" placeholder='Enter token id' onChange={onChangeValues}/>
-        </div>
-        <div className='contentSearchBar-select'>
-            <div>
-            <label htmlFor="popularity">popularity</label>
-        <select name="popularity" id="popularity">
+          <label htmlFor="popularity">popularity</label>
+          <select name="popularity" id="popularity">
             <option value="one">one</option>
-        </select>
-            </div>
+          </select>
+        </div>
         <div>
-        <label htmlFor="price">price</label>
-        <select name="price" id="price">
+          <label htmlFor="price">price</label>
+          <select name="price" id="price">
             <option value="top">top</option>
             <option value="down">down</option>
-        </select>
+          </select>
         </div>
-       
-        </div>
-        
+      </div>
     </div>
-  )
+  );
 }

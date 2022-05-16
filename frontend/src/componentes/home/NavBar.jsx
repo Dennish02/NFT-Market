@@ -3,6 +3,7 @@ import logo from "../../img/logo.png";
 import profile from "../../img/profile.png";
 import Modal from "react-modal";
 import ProfileSettings from "../modalProfile/profileSettings";
+import formateoPrecio from "../../middleware/formateoPrecio";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const customStyles = {
@@ -31,13 +32,13 @@ export default function NavBar() {
   return (
     <div className="contentNav" onClick={closeModal}>
       <Link to="/home">
-        {" "}
         <img className="logo" src={logo} alt="Logo Perfil" />
       </Link>
 
       <div className="perfil">
         <p>
-          balance: <span>{usuario.coins}</span>{" "}
+          balance:
+          <span className="iconBalance">{formateoPrecio(usuario.coins)}</span>
         </p>
         <p>{`Hola ${usuario.nombre}`}</p>
         <img

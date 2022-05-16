@@ -15,7 +15,7 @@ const allNftUser = async (req, res) => {
 const obtenerAllNft = async (req, res) => {
   const nftAlldb = await NftCreated.find(); //trae todos los nf de la base de datos
   try {
-    return res.status(200).send(nftAlldb);
+    return res.status(200).json({ nftAlldb, usuario: req.usuario });
   } catch (error) {
     return res.status(404).json({ msg: error.message });
   }
@@ -72,14 +72,11 @@ const crearNft = async (req, res) => {
 };
 
 const editarNft = async (req, res) => {
-
-
-
   //manejar errores.
 
   const { id } = req.params;
   const { price } = req.body;
-  const { usuario } = req; 
+  const { usuario } = req;
   const oneNft = await NftCreated.findById(id);
 
   if (oneNft.length === 0) {
@@ -87,14 +84,18 @@ const editarNft = async (req, res) => {
     return res.status(401).json({ msg: error.message });
   }
   if (oneNft.ownerId === req.usuario.nombre) {
-    if(price <= 0) {
-      return res.status(400).json({ msg: "The NFT price must be at least greater than 0CL"})
+    if (price <= 0) {
+      return res
+        .status(400)
+        .json({ msg: "The NFT price must be at least greater than 0CL" });
     }
     oneNft.price = price || oneNft.price;
     try {
       await oneNft.save();
 
-      let filterNft = usuario.nfts.filter(nft => nft.id !== oneNft.id || nft.colection !== oneNft.colection)
+      let filterNft = usuario.nfts.filter(
+        (nft) => nft.id !== oneNft.id || nft.colection !== oneNft.colection
+      );
 
       usuario.nfts = filterNft;
 
@@ -107,7 +108,9 @@ const editarNft = async (req, res) => {
       console.log(error);
     }
   } else {
-    const error = new Error("No puedes editar este NFT porque no eres el dueño");
+    const error = new Error(
+      "No puedes editar este NFT porque no eres el dueño"
+    );
     return res.status(401).json({ msg: error.message });
   }
 };
@@ -180,6 +183,7 @@ const comprarNft = async (req, res, next) => {
       vendedor.nfts = nftFiltrados;
       await vendedor.save();
       NFT.ownerId = comprador.nombre;
+      NFT.avaliable = false;
       await NFT.save();
       comprador.coins = comprador.coins - precio;
       comprador.nfts.push(NFT);

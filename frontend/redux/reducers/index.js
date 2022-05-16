@@ -29,17 +29,30 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_NFT_MARKET:
+      if (state.allNft.length === state.backUpAllNft.length) {
+        return {
+          ...state,
+          allNft: action.payload.nftAlldb,
+          backUpAllNft: action.payload.nftAlldb,
+          usuario: action.payload.usuario,
+        };
+      }
       return {
         ...state,
-        allNft: action.payload,
-        backUpAllNft: action.payload,
+        backUpAllNft: action.payload.nftAlldb,
+        usuario: action.payload.usuario,
       };
 
+    // case USER_NFT:
+    //   const filter = state.allNft.filter((e) => e.ownerId === action.payload);
+    //   return {
+    //     ...state,
+    //     nftUser: filter,
+    //   };
     case USER_NFT:
-      const filter = state.allNft.filter((e) => e.ownerId === action.payload);
       return {
         ...state,
-        nftUser: filter,
+        nftUser: action.payload,
       };
 
     case LOGIN_USER:
@@ -96,29 +109,21 @@ function rootReducer(state = initialState, action) {
         errorEmail: [],
       };
     case SEARCH_NFT:
-      let getNFT = state.backUpAllNft;
+      if (!action.payload) {
+        return {
+          ...state,
+          allNft: state.backUpAllNft,
+        };
+      }
 
+      let getNFT = state.backUpAllNft;
       let filterBySearch = getNFT.filter((el) =>
         el.id.toUpperCase().includes(action.payload.toUpperCase())
       );
-
       return {
         ...state,
         allNft: filterBySearch,
       };
-
-
-
-
-    case EDIT_NFT_PRICE:
-
-      return {
-        ...state,
-      }
-
-
-
-
 
     default:
       return state;
