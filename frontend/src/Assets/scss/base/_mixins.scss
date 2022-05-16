@@ -184,3 +184,8 @@
   display: inline-block;
   cursor: pointer;
 }
+
+@mixin iconBalance {
+  width: 10px;
+  height: 10px;
+}

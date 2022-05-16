@@ -29,11 +29,18 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_NFT_MARKET:
+      if (state.allNft.length === state.backUpAllNft.length) {
+        return {
+          ...state,
+          allNft: action.payload.nftAlldb,
+          backUpAllNft: action.payload.nftAlldb,
+          usuario: action.payload.usuario,
+        };
+      }
       return {
         ...state,
-        allNft: action.payload.nftAlldb,
         backUpAllNft: action.payload.nftAlldb,
-        usuario: action.payload.usuario
+        usuario: action.payload.usuario,
       };
 
     // case USER_NFT:
@@ -43,7 +50,6 @@ function rootReducer(state = initialState, action) {
     //     nftUser: filter,
     //   };
     case USER_NFT:
-      
       return {
         ...state,
         nftUser: action.payload,
@@ -103,12 +109,17 @@ function rootReducer(state = initialState, action) {
         errorEmail: [],
       };
     case SEARCH_NFT:
-      let getNFT = state.backUpAllNft;
+      if (!action.payload) {
+        return {
+          ...state,
+          allNft: state.backUpAllNft,
+        };
+      }
 
+      let getNFT = state.backUpAllNft;
       let filterBySearch = getNFT.filter((el) =>
         el.id.toUpperCase().includes(action.payload.toUpperCase())
       );
-
       return {
         ...state,
         allNft: filterBySearch,
