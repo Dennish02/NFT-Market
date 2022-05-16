@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavWallet from "../componentes/wallet/NavWallet"
 import ComponentNFTWallet from "../componentes/wallet/ComponentNFTWallet"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch  } from "react-redux"
 import formateoPrecio from "../middleware/formateoPrecio";
+import { allNftMarket } from  "../../redux/actions/actionNFT"
+
 
 function Wallet() {
-
+const dispatch = useDispatch()
 const usuario = useSelector(state => state.usuario)
-console.log(usuario.transacciones)
+
+useEffect(()=> {
+  dispatch(allNftMarket())
+},[])
 
   return (
     <div> 
