@@ -695,7 +695,7 @@ img {
   width: 20px;
   height: 20px;
   border-radius: 100%;
-  border: 1px solid black;
+  border: none;
   background-color: #29a237;
   display: inline-block;
   cursor: pointer;
@@ -704,7 +704,7 @@ img {
   width: 20px;
   height: 20px;
   border-radius: 100%;
-  border: 1px solid black;
+  border: 2px solid #663a8f;
   background-color: transparent;
   display: inline-block;
   cursor: pointer;
@@ -721,6 +721,9 @@ img {
     object-fit: cover;
     object-position: center center;
   }
+}
+.contNFT .contImg img {
+  height: 100%;
 }
 .contNFT h2 {
   color: #f28b12;
@@ -793,6 +796,32 @@ img {
   width: 25px;
   display: inline-block;
   margin: 0;
+}
+
+.input {
+  font-family: "Ubuntu", sans-serif;
+  display: block;
+  margin: 1rem auto 2rem auto;
+  padding: 2rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: #e1e1e1;
+  outline: none;
+  margin-top: 2rem;
+  display: block;
+}
+
+.buttonPrimary {
+  display: block;
+}
+
+.contInput {
+  width: 100%;
+}
+
+.heigth {
+  height: 100%;
+  background: none;
 }
 
 .perfil {
@@ -870,6 +899,7 @@ img {
 
 .flex {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;

@@ -15,7 +15,7 @@ const allNftUser = async (req, res) => {
 const obtenerAllNft = async (req, res) => {
   const nftAlldb = await NftCreated.find(); //trae todos los nf de la base de datos
   try {
-    return res.status(200).send(nftAlldb);
+    return res.status(200).json({nftAlldb, usuario: req.usuario});
   } catch (error) {
     return res.status(404).json({ msg: error.message });
   }
