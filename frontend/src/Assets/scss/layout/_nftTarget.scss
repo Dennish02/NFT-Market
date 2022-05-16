@@ -96,3 +96,19 @@
   display: inline-block;
   margin: 0;
 }
+.input{
+  @include m.inputs;
+  margin-top: 2rem;
+  display: block;
+}
+.buttonPrimary{
+  display: block;
+  
+}
+.contInput{
+  width: 100%;
+}
+.heigth{
+  height: 100%;
+  background: none;
+}

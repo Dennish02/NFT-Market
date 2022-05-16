@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Edit_NFT, venta } from '../../../redux/actions/actionNFT'
 import Modal from 'react-modal'
 import { useNavigate } from 'react-router'
+import formateoPrecio from "../../middleware/formateoPrecio";
 
 const customStyles = {
   content: {
@@ -63,7 +64,9 @@ export default function ComponentNFT(props) {
           onClick={() => handleSell()}
         ></div>
       </div>
-      <img src={image.url} alt="NFT IMAGE" />
+      <div className="contImg">
+      <img src={image.url} alt="NFT IMAGE" height='280px' />
+      </div>
       <div className="contNFTinfo">
         <h2>{`${colection}  ${id}`}</h2>
         <p>{`creator:  ${creatorId}`}</p>
@@ -78,13 +81,20 @@ export default function ComponentNFT(props) {
         <Modal isOpen={openModal}
           style={customStyles}
         >
-          <div className="contLogin">
-          <button  onClick={closeModal}>X</button>
-          <input type="text" placeholder="insert the new value" value={input} onChange={(e) => changeInput(e)} />
-          {
-            <button className="buttonPrimary" onClick={() => editValue()}>ok</button>
-          }
-        </div>
+          <div className="heigth">
+            <div className="contLogin">
+              <button className="close" onClick={closeModal}>X</button>
+              <div className="contInput">
+                <span>Update price:</span>
+                <input className="input" type="text" placeholder="insert the new value" value={input} onChange={(e) => changeInput(e)} />
+              </div>
+
+              {
+                <button className="buttonPrimary" onClick={() => editValue()}>ok</button>
+              }
+            </div>
+
+          </div>
         </Modal>
       </div>
     </div>
