@@ -20,7 +20,9 @@ export default function ComponentNFT(props) {
   const dispatch = useDispatch();
 
   function handleBuy() {
-    dispatch(comprarNFT(_id));
+    confirm("Estas seguro de gastar tu plata en el mono?")
+      ? dispatch(comprarNFT(_id))
+      : null;
   }
 
   return (
