@@ -108,7 +108,6 @@ export default function ComponentNFT(props) {
               </select>
             </div>
           </div>
-            {console.log('id', id, 'colection', colection)}
             <button onClick={() => gift_nft()}>OK</button>
         </Modal2>
 
