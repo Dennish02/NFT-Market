@@ -11,6 +11,8 @@ import {
   SEARCH_NFT,
   USER_NFT,
   EDIT_NFT_PRICE,
+  GIFT_NFT,
+  SHOW_USERS_ID
 } from "../constantes";
 
 const initialState = {
@@ -24,6 +26,7 @@ const initialState = {
   errorEmail: [],
   invalidToken: true,
   loginUser: false,
+  usersInfo: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -124,7 +127,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft: filterBySearch,
       };
-
+      case  SHOW_USERS_ID:
+        return {
+          ...state,
+          usersInfo: action.payload
+        }
     default:
       return state;
   }
