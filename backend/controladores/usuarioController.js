@@ -163,6 +163,14 @@ const perfil = async (req, res) => {
   res.json(usuario);
 };
 
+const traerUsuarios = async (req, res) => {
+  try { await Usuario.find({}).then(results => res.json(results)) }
+  catch { error } console.log(error)
+
+
+
+}
+
 export {
   registrar,
   autenticar,
@@ -171,4 +179,5 @@ export {
   comporbarToken,
   nuevoPassword,
   perfil,
+  traerUsuarios
 };
