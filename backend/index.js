@@ -4,6 +4,7 @@ import conectarCB from "./config/db.js";
 import router from "./routes/usuarioRoutes.js";
 import nft from "./routes/nftRoutes.js";
 import transacciones from "./routes/transaccionesRoutes.js";
+import coleccion from "./routes/coleccionRoutes.js";
 import cors from "cors";
 import fileUpload from "express-fileupload";
 
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 app.use("/api/usuario", router);
 app.use("/api/nft", nft);
 app.use("/api/transacciones", transacciones)
+app.use("/api/coleccion", coleccion)
 
 const PORT = process.env.PORT || 3001;
 
