@@ -158,9 +158,9 @@ const nuevoPassword = async (req, res) => {
 };
 
 const perfil = async (req, res) => {
-  const { usuario } = req; // se lee del server
-
-  res.json(usuario);
+  // const { usuario } = req; // se lee del server
+  const user = await Usuario.findOne({ nombre: req.usuario.nombre }).populate("favoritos"); //populate trae la data de la referencia
+  res.json(user);
 };
 
 export {

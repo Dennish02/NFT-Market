@@ -40,6 +40,10 @@ const usuarioSchema = mongoose.Schema(
     nfts: {
       type: Array
     },
+    favoritos: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "NftCreated"
+    }],
     transacciones: {
       type: Array
     }
@@ -49,11 +53,6 @@ const usuarioSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-
-// virtual
-// usuarioSchema.virtual('nfts').get(() => {
-//   return mongoose.model('NftCreated').find({ownerId: this.nombre})
-// });
 
 //antes de almacenar
 usuarioSchema.pre("save", async function (next) {
