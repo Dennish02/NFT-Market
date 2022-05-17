@@ -7,7 +7,8 @@ import {  registrar,
     olvidePassword, 
     comporbarToken, 
     nuevoPassword,
-    perfil } from '../controladores/usuarioController.js'
+    perfil,
+    traerUsuarios } from '../controladores/usuarioController.js'
 import checkOut from '../middleware/checkOut.js'
 //Autenticacion, Registro y Confirmacion de Usuarios
 
@@ -24,6 +25,6 @@ router.route('/olvide-password/:token')
     .post(nuevoPassword)
 router.get('/perfil', checkOut, perfil);//primero va al checkout y despues al perfil
 router.get('/ultimas-ventas-de-usuario', checkOut, ultimasVentas)
-
+router.get('/traer-usuarios', traerUsuarios)
 
 export default router;

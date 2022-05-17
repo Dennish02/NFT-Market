@@ -14,6 +14,9 @@ import {
   CREATE_NFT,
   RESET,
   SET_COLECCIONES,
+  GIFT_NFT,
+  SHOW_USERS_ID
+
 } from "../constantes";
 
 const initialState = {
@@ -29,6 +32,8 @@ const initialState = {
   loginUser: false,
   creado: false,
   colecciones: [],
+  usersInfo: []
+
 };
 
 function rootReducer(state = initialState, action) {
@@ -146,7 +151,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft: filterBySearch,
       };
-
+      case  SHOW_USERS_ID:
+        return {
+          ...state,
+          usersInfo: action.payload
+        }
     default:
       return state;
   }

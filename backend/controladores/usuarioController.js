@@ -163,6 +163,24 @@ const perfil = async (req, res) => {
   res.json(user);
 };
 
+const traerUsuarios = async (req, res) => { //traigo todos los user y los mapeo para que solo me muestre el ID y nombre 
+  await Usuario.find({}).then(results => {
+    let userMapeado = results.map(el => {
+      return {
+        id: el.id,
+        name: el.nombre
+      }
+
+    })
+    return res.json(userMapeado)
+  })
+}
+
+
+
+
+
+
 export {
   registrar,
   autenticar,
@@ -171,4 +189,5 @@ export {
   comporbarToken,
   nuevoPassword,
   perfil,
+  traerUsuarios
 };
