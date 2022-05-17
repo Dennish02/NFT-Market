@@ -69,6 +69,7 @@ export default function ComponentNFT(props) {
   function gift_nft() {
     dispatch(Gift_NFT(idUsuario, id, colection))
     alert('nft regalado con exito') 
+    setOpenmodal2(false)
   }
 
   useEffect(() => {
