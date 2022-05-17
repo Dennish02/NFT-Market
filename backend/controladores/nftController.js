@@ -173,7 +173,6 @@ const comprarNft = async (req, res, next) => {
     const vendedor = await Usuario.findOne({ nombre: vendedor_nombre });
     const vendedor_coins = vendedor.coins;
     const comprador = await Usuario.findOne({ nombre: req.usuario.nombre });
-    //falta asociar con transacciones
 
     try {
       vendedor.coins = vendedor.coins + precio;
@@ -184,6 +183,7 @@ const comprarNft = async (req, res, next) => {
       await vendedor.save();
       NFT.ownerId = comprador.nombre;
       NFT.avaliable = false;
+      NFT.lastPrice = precio;
       await NFT.save();
       comprador.coins = comprador.coins - precio;
       comprador.nfts.push(NFT);
@@ -248,7 +248,39 @@ const venderNft = async (req, res) => {
   }
 };
 
-const añadirFavNft = async (req, res) => {};
+const añadirFavNft = async (req, res) => {
+  const { id } = req.params;
+  try {
+     const NFT = await NftCreated.findById(id);
+     const user = await Usuario.findOne({ nombre: req.usuario.nombre }).populate("favoritos"); //populate trae la data de la referencia
+     const nftFav = user.favoritos.find(nft => nft.id === NFT.id && nft.colection === NFT.colection);
+     if(nftFav) {
+        res.json({msg: `${NFT.id} ya está en sus favoritos`})
+     } else {
+        user.favoritos.push(NFT);
+        await user.save();
+        res.json({msg: `${NFT.id} fue agregado a favoritos`})
+     }
+     
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const eliminarFavNft = async (req, res) => {
+  const { id } = req.params;
+  try {
+     const NFT = await NftCreated.findById(id);
+     const user = await Usuario.findOne({ nombre: req.usuario.nombre }).populate("favoritos");
+     const favFiltrados = user.favoritos.filter(nft => nft.id !== NFT.id || nft.colection !== NFT.colection);
+     user.favoritos = favFiltrados;
+     await user.save();
+     res.json({msg: `${NFT.id} fue eliminado de favoritos`})
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const obtenerVentas = async (req, res) => {};
 
 export {
@@ -259,6 +291,7 @@ export {
   comprarNft,
   venderNft,
   añadirFavNft,
+  eliminarFavNft,
   allNftUser,
   obtenerNft,
 };
