@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Edit_NFT, venta } from '../../../redux/actions/actionNFT'
+import { Edit_NFT, venta, Gift_NFT } from '../../../redux/actions/actionNFT'
 import Modal from 'react-modal'
 import { useNavigate } from 'react-router'
 import formateoPrecio from "../../middleware/formateoPrecio";
@@ -56,6 +56,9 @@ export default function ComponentNFT(props) {
       setOpenModal(false)
     }
   }
+  function gift_nft(){
+    dispatch(Gift_NFT('628177ab83679fd44d2d39d0',id, colection))
+  }
 
   return (
     <div className="contNFT">
@@ -77,7 +80,7 @@ export default function ComponentNFT(props) {
       </div>
       <div className="contButtons">
         <button onClick={showModal} className="w-50 buttonPrimary">EDIT</button>
-        <button className="w-50 buttonTrade">GIFT</button>
+        <button className="w-50 buttonTrade" onClick={()=> gift_nft()}>GIFT</button>
 
       
         <Modal isOpen={openModal}
