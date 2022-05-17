@@ -57,7 +57,7 @@ export default function ComponentNFT(props) {
     }
   }
   function gift_nft(){
-    dispatch(Gift_NFT('628177ab83679fd44d2d39d0',id,colection))
+    dispatch(Gift_NFT('628177ab83679fd44d2d39d0',id,colection)) //hardcodeado para regalar el nft clickeado a el userid de pablo 
   }
 
   return (
