@@ -14,6 +14,7 @@ export const EDIT_NFT = "EDIT";
 export const SEARCH_NFT = "SEARCH_NFT";
 export const USER_NFT = "USER_NFT";
 export const ALL_NFT_MARKET = "ALL_NFT_MARKET";
+export const SHOW_USERS_ID = "SHOW_USERS_ID"
 
 //USER
 export const RESET_ERROR_LOGUIN_USER = "RESET_ERROR_LOGUIN_USER";
@@ -29,3 +30,4 @@ export const LOGIN_TO_GOOGLE = "GOOGLE_TO_GOOGLE";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const DELETE_PROFILE = "DELETE_PROFILE";
 export const VALIDATE_USER = "VALIDATE_USER";
+

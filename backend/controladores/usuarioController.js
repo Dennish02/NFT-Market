@@ -163,13 +163,23 @@ const perfil = async (req, res) => {
   res.json(usuario);
 };
 
-const traerUsuarios = async (req, res) => {
-  try { await Usuario.find({}).then(results => res.json(results)) }
-  catch { error } console.log(error)
+const traerUsuarios = async (req, res) => { //traigo todos los user y los mapeo para que solo me muestre el ID y nombre 
+  await Usuario.find({}).then(results => {
+    let userMapeado = results.map(el => {
+      return {
+        id: el.id,
+        name: el.nombre
+      }
 
-
-
+    })
+    return res.json(userMapeado)
+  })
 }
+
+
+
+
+
 
 export {
   registrar,

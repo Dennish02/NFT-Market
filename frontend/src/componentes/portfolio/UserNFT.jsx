@@ -7,7 +7,7 @@ import Modal2 from 'react-modal'
 import { useNavigate } from 'react-router'
 import formateoPrecio from "../../middleware/formateoPrecio";
 import { toast } from "react-toastify";
-
+import {showUsers} from '../../../redux/actions/actionUSER'
 const customStyles = {
   content: {
     top: '50%',
@@ -90,6 +90,9 @@ export default function ComponentNFT(props) {
       <div className="contButtons">
         <button onClick={showModal} className="w-50 buttonPrimary">EDIT</button>
         <button className="w-50 buttonTrade" onClick={showModal2}    >GIFT</button>
+
+        <button onClick={()=> dispatch(showUsers())}>test</button>
+
         <Modal2 isOpen={openModal2} style={customStyles} >
           <div>
             <button onClick={closeModal2}>X</button>
