@@ -42,7 +42,11 @@ const usuarioSchema = mongoose.Schema(
     },
     transacciones: {
       type: Array
-    }
+    },
+    colecciones: [{
+      type: mongoose.Schema.Types.String,
+      ref: 'Coleccion'
+    }]
 
   },
   {

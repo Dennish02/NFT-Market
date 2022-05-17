@@ -3,6 +3,7 @@ import NftCreated from "../models/nft.js";
 import { uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 import Usuario from "../models/Usuarios.js";
+import Coleccion from "../models/coleccion.js";
 
 const allNftUser = async (req, res) => {
   const { usuario } = req;
@@ -30,8 +31,8 @@ const crearNft = async (req, res) => {
 
   if (newNft.colection.length > 8) {
     return res
-      .status(400)
-      .send({ msg: "Las colecciones no pueden tener más de 8 caracteres" });
+    .status(400)
+    .send({ msg: "Las colecciones no pueden tener más de 8 caracteres" });
   }
 
   if (newNft.colection.length <= 0) {
@@ -42,14 +43,14 @@ const crearNft = async (req, res) => {
 
   if (newNft.category.length <= 0) {
     return res
-      .status(400)
-      .send({ msg: "Los nfts deben pertenecear a una categoría" });
+    .status(400)
+    .send({ msg: "Los nfts deben pertenecear a una categoría" });
   }
 
   if (newNft.price <= 0) {
     return res.status(400).send({ msg: "El precio debe ser mayor a 0" });
   }
-
+  
   try {
     if (req.files.image) {
       const res = await uploadImage(req.files.image.tempFilePath);
@@ -64,6 +65,10 @@ const crearNft = async (req, res) => {
 
     req.usuario.nfts.push(newNft);
     req.usuario.save();
+    //agrego el nft a la colección
+    const coleccion = await Coleccion.findOne({nombre: req.body.colection})
+    coleccion.nfts.push(newNft.id)
+    await coleccion.save()
     const nftSave = await newNft.save();
     res.json(nftSave); //para regresar la info creada y sincronizar
   } catch (error) {
