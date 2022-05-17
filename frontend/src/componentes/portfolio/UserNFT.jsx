@@ -66,7 +66,7 @@ export default function ComponentNFT(props) {
     }
   }
   function gift_nft() {
-    dispatch(Gift_NFT(idUsuario, id, colection)) //hardcodeado para regalar el nft clickeado a el userid de pablo 
+    dispatch(Gift_NFT(idUsuario, id, colection)) 
   }
 
   return (
