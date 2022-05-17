@@ -102,23 +102,24 @@ export default function ComponentNFT(props) {
         
 
         <Modal2 isOpen={openModal2} style={customStyles} >
-          <div>
-            <button onClick={closeModal2}>X</button>
+          <div  className="heigth">
+           
 
 
 
+            <div className="contLogin">
+            <button className="close" onClick={closeModal2}>X</button>
             <span> a quien le queres regalar este nft?  </span>
-            <div>
               <select value={idUsuario} id="usuarios" onChange={(e) => setIdUsuario(e.target.value)}> 
               {usuarios.map(users =>
               <option value={users.id}>{users.name}</option> 
             )}
                 
               </select>
+            <button className="buttonPrimary" onClick={() => gift_nft()}>OK</button>
             </div>
           </div>
             
-            <button onClick={() => gift_nft()}>OK</button>
         </Modal2>
 
 
