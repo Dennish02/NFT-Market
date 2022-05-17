@@ -1,32 +1,39 @@
-import Coleccion from "../models/coleccion.js"
+import Coleccion from "../models/coleccion.js";
+
+const obtenerColecciones = async (req, res) => {
+  return res.json(await Coleccion.find());
+};
 
 const crearColeccion = async (req, res) => {
-    try{
-        if(req.body.nombre.length > 8){
-            res.status(400).send({ msg: "Las colecciones no pueden tener más de 8 caracteres"})
-        }
-        else{
-            const coleccion = new Coleccion(req.body)
-            await coleccion.save()
-            var {usuario} = req
-            usuario.colecciones.push(coleccion.nombre)
-            await usuario.save()
-            res.status(200).send(coleccion)
-        }
-    } catch (error) {
-        res.status(400).send(error)
+  const { name } = req.body;
+  const creator = req.usuario.nombre;
+  if (name.length > 8)
+    return res
+      .status(400)
+      .send({ msg: "Las colecciones no pueden tener mas de 8 caracteres" });
+  try {
+    const existe = await Coleccion.findOne({ name });
+    if (!existe) {
+      const coleccion = new Coleccion({ creator, name });
+      await coleccion.save();
+      return res.send({ msg: "Coleccion creada" });
+    } else {
+      return res.status(400).send({ msg: "Ya existe la coleccion" });
     }
-}
+  } catch (e) {
+    return res.status(400).send({ msg: "ocurrio un error" });
+  }
+};
 
-const coleccionesDeUsuario = (req, res) => {
-    try{
-        res.status(200).send(req.usuario.colecciones)
-    } catch (error) {
-        res.status(404).send(error)
-    }
-}
+const coleccionesUsuario = async (req, res) => {
+  const colecciones = await Coleccion.find();
+  const user = colecciones.filter((col) => col.creator === req.usuario.nombre);
+  return res.json(user);
+};
 
 export {
-    crearColeccion,
-    coleccionesDeUsuario
-}
+  crearColeccion,
+  obtenerColecciones,
+  coleccionesUsuario,
+  //  coleccionesDeUsuario
+};

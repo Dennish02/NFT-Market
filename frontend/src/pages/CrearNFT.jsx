@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { crearNFT } from "../../redux/actions/actionNFT";
+import { crearNFT, reset } from "../../redux/actions/actionNFT";
 import { useNavigate } from "react-router";
+import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
 
-useNavigate;
 function validate(value) {
   let errores = {};
   !value.colection ? (errores.colection = "Campo obligatorio") : "";
@@ -27,7 +27,21 @@ export default function CrearNFT() {
     image: null,
     id: token,
   });
+
   const navigate = useNavigate();
+  const creado = useSelector((state) => state.creado);
+  const colecciones = useSelector((state) => state.colecciones);
+
+  useEffect(() => {
+    dispatch(coleccionesUsuario());
+  }, []);
+
+  useEffect(() => {
+    if (creado) {
+      dispatch(reset());
+      navigate("/home/usuario/portfolio");
+    }
+  }, [creado]);
 
   return (
     <div className="flex">
@@ -38,24 +52,42 @@ export default function CrearNFT() {
             initialValues={estado}
             validate={validate}
             onSubmit={(values) => {
-              dispatch(crearNFT(values));
-              navigate("/home/usuario/portfolio/");
+              dispatch(
+                crearNFT({
+                  ...values,
+                  flag: colecciones.length === 0 ? false : true,
+                })
+              );
             }}
           >
-            {({ setFieldValue, isSubmitting, handleSubmit }) => (
+            {({ setFieldValue }) => (
               <Form>
-                <label>Coleccion</label>
-                <Field name="colection" as="select">
-                  <option value="" disabled>
-                    -- select --
-                  </option>
-                  <option value="col1">coleccion 1</option>
-                  <option value="col2">coleccion 2</option>
-                  <option value="col3">coleccion 3</option>
-                </Field>
-                <p className="error">
-                  <ErrorMessage name="colection" />
-                </p>
+                {colecciones.length !== 0 ? (
+                  <div>
+                    <label>Coleccion</label>
+                    <Field name="colection" as="select">
+                      <option value="" disabled>
+                        -- select --
+                      </option>
+                      {colecciones?.map((col, i) => (
+                        <option key={i} value={col.name}>
+                          {col.name}
+                        </option>
+                      ))}
+                    </Field>
+                    <p className="error">
+                      <ErrorMessage name="colection" />
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    <label>Crear coleccion</label>
+                    <Field name="colection" type="text" />
+                    <p className="error">
+                      <ErrorMessage name="colection" />
+                    </p>
+                  </div>
+                )}
 
                 <label>Categoria</label>
                 <Field name="category" as="select">

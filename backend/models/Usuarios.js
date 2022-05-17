@@ -38,20 +38,17 @@ const usuarioSchema = mongoose.Schema(
       default: 1000,
     },
     nfts: {
-      type: Array
+      type: Array,
     },
-    favoritos: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "NftCreated"
-    }],
+    favoritos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "NftCreated",
+      },
+    ],
     transacciones: {
-      type: Array
+      type: Array,
     },
-    colecciones: [{
-      type: mongoose.Schema.Types.String,
-      ref: 'Coleccion'
-    }]
-
   },
   {
     timestamps: true,
@@ -68,7 +65,6 @@ usuarioSchema.pre("save", async function (next) {
 });
 
 usuarioSchema.methods.comprobarPassword = async function (passwordFormulario) {
- 
   return await bcrypt.compare(passwordFormulario, this.password); //compara las pasword
 };
 
