@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Edit_NFT, venta, Gift_NFT } from '../../../redux/actions/actionNFT'
 import Modal from 'react-modal'
@@ -21,13 +21,14 @@ const customStyles = {
 };
 
 export default function ComponentNFT(props) {
-  const navigate = useNavigate()
+  
+  const usuarios = useSelector(state => state.usersInfo)
   const [input, setInput] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const [openModal2, setOpenmodal2] = useState(false)
   const [idUsuario, setIdUsuario] = useState(' ')
   const dispatch = useDispatch()
-
+  console.log('soy usuarios', usuarios)
   const { id, _id, image, colection, avaliable, price, creatorId, ownerId } =
     props;
 
@@ -66,8 +67,14 @@ export default function ComponentNFT(props) {
     }
   }
   function gift_nft() {
-    dispatch(Gift_NFT(idUsuario, id, colection)) //hardcodeado para regalar el nft clickeado a el userid de pablo 
+    dispatch(Gift_NFT(idUsuario, id, colection))
+    alert('nft regalado con exito') 
   }
+
+  useEffect(() => {
+    dispatch(showUsers())
+  }, [])
+  
 
   return (
     <div className="contNFT">
@@ -91,7 +98,7 @@ export default function ComponentNFT(props) {
         <button onClick={showModal} className="w-50 buttonPrimary">EDIT</button>
         <button className="w-50 buttonTrade" onClick={showModal2}    >GIFT</button>
 
-        <button onClick={()=> dispatch(showUsers())}>test</button>
+        
 
         <Modal2 isOpen={openModal2} style={customStyles} >
           <div>
@@ -102,16 +109,14 @@ export default function ComponentNFT(props) {
             <span> a quien le queres regalar este nft?  </span>
             <div>
               <select value={idUsuario} id="usuarios" onChange={(e) => setIdUsuario(e.target.value)}> 
+              {usuarios.map(users =>
+              <option value={users.id}>{users.name}</option> 
+            )}
                 
-                <option value="6282a31dcab57a621c1a499c">loco92</option>
-                <option value="6282aa3f5188470b1baeba00">jimena</option>
-                <option value="627ffc8318c34ab12847767c">dennis</option>
-                <option value="627ffe115d6cd8b113e07bf1">gabriel</option>
-                <option value="628177ab83679fd44d2d39d0">pablo</option>
               </select>
             </div>
           </div>
-            {console.log('id', id, 'colection', colection)}
+            
             <button onClick={() => gift_nft()}>OK</button>
         </Modal2>
 
