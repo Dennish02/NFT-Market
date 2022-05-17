@@ -1,13 +1,18 @@
-import express from 'express'
-const router = express.Router()
-import checkOut from '../middleware/checkOut.js'
+import express from "express";
+const router = express.Router();
+import checkOut from "../middleware/checkOut.js";
 
 import {
-    crearColeccion,
-    coleccionesDeUsuario
-} from "../controladores/coleccionController.js"
+  crearColeccion,
+  obtenerColecciones,
+  coleccionesUsuario,
+} from "../controladores/coleccionController.js";
 
-router.post('/', checkOut, crearColeccion)
-router.get('/', checkOut, coleccionesDeUsuario)
+router.get("/usuario", checkOut, coleccionesUsuario);
 
-export default router
+router
+  .route("/")
+  .get(checkOut, obtenerColecciones)
+  .post(checkOut, crearColeccion);
+
+export default router;

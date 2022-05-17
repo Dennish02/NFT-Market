@@ -7,6 +7,7 @@ export const DELETE_NFT_FAVORITE = "DELETE_NFT_FAVORITE";
 
 //acciones
 export const CREATE_NFT = "CREATE_NFT";
+export const RESET = "RESET";
 export const EDIT_NFT_PRICE = "EDIT_NFT_PRICE";
 export const GIFT_NFT = "GIFT_NFT";
 export const BUY_NFT = "BUY_NFT";
@@ -15,6 +16,7 @@ export const SEARCH_NFT = "SEARCH_NFT";
 export const USER_NFT = "USER_NFT";
 export const ALL_NFT_MARKET = "ALL_NFT_MARKET";
 
+export const SET_COLECCIONES = "SET_COLECCIONES";
 //USER
 export const RESET_ERROR_LOGUIN_USER = "RESET_ERROR_LOGUIN_USER";
 export const SEND_EMAIL_TO_RESET_PASSWORD = "SEND_EMAIL_TO_RESET_PASSWORD";

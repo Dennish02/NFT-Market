@@ -1,23 +1,23 @@
-import mongoose from 'mongoose'
- 
-const coleccionSchema = mongoose.Schema(
-    {
-        nombre:{
-            type: String,
-            trim: true,
-            unique: true,
-            required: true
-        },
-        nfts:[{
-            type: mongoose.Schema.Types.String,
-            ref: 'NftCreated',
-            autopopulate: true
-        }]
-    },
-    {
-        timestamps: true
-    }
-)
+import mongoose from "mongoose";
 
-const Coleccion = mongoose.model('Coleccion', coleccionSchema)
-export default Coleccion
+const coleccionSchema = mongoose.Schema(
+  {
+    creator: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    name: {
+      type: String,
+      trim: true,
+      unique: true,
+      require: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const Coleccion = mongoose.model("Coleccion", coleccionSchema);
+export default Coleccion;
