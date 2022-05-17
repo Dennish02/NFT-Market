@@ -12,6 +12,9 @@ import {
   añadirFavNft,
   allNftUser,
   obtenerNft,
+  tradeOffer,
+  seeOffers,
+  responseOffer
 } from "../controladores/nftController.js";
 
 import { crearTransaccion } from "../controladores/transaccionesController.js";
@@ -20,6 +23,9 @@ router.get("/portfolio", checkOut, allNftUser);
 router.put("/gift", checkOut, regalarNft);
 router.put("/:id", checkOut, editarNft);
 router.get(checkOut, obtenerNft);
+router.post("/tradeoffer", checkOut, tradeOffer);
+router.get("/seeoffers", checkOut, seeOffers);
+router.put("responseOffer/:id", checkOut, responseOffer);
   
 // router.post(checkOut, añadirFavNft);
 
