@@ -98,11 +98,8 @@ const editarNft = async (req, res) => {
       );
 
       usuario.nfts = filterNft;
-
       usuario.nfts.push(oneNft);
-
       await usuario.save();
-
       res.json({ msg: "NFT actualizado" });
     } catch (error) {
       console.log(error);
