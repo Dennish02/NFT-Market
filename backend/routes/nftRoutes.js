@@ -25,8 +25,8 @@ router.put("/:id", checkOut, editarNft);
 router.get(checkOut, obtenerNft);
 router.post("/tradeoffer", checkOut, tradeOffer);
 router.get("/seeoffers", checkOut, seeOffers);
-router.put("responseOffer/:id", checkOut, responseOffer);
-  
+router.post("/responseoffer", checkOut, responseOffer);
+
 // router.post(checkOut, añadirFavNft);
 
 router.route("/vender/:id").put(checkOut, venderNft);

@@ -262,8 +262,8 @@ const tradeOffer = async (req, res) => {
     id: makeGeneratorIDRandom(5),
     offer: offer,
     nft: nft,
-    offerUser: usuario._id,
     status: null,
+    // offerUser: usuario._id
   });
 
   await nftOwner.save()
@@ -283,14 +283,17 @@ const seeOffers = async (req, res) => {
 
 const responseOffer = async (req, res) => {
   const { usuario } = req;
-  const { id } = req.params;
-  const { response } = req.body;
+  const { response, newId } = req.body;
 
-  let oferta = usuario.hasTradeOffers.find(value => value.id === id);
+  let oferta = usuario.hasTradeOffers.find(value => value.id === newId);
+
+  let r = JSON.parse(response);
 
   if (oferta) {
-    if (response) {
-      const userToGive = await Usuario.findById(oferta.offerUser); // usuario al que hay que darle el nft - ofertante
+    if (r) {
+      const userToGive = await Usuario.findOne({ nombre: oferta.offer.ownerId}); // usuario al que hay que darle el nft - ofertante
+
+      console.log(userToGive);
 
       usuario.nfts.filter(value => value.id !== oferta.nft.id || value.colection !== oferta.nft.colection) // quitamos el nft del arreglo del ex dueño
 
@@ -316,13 +319,13 @@ const responseOffer = async (req, res) => {
 
       usuario.nfts = usuario.nfts.filter(item => item.id !== thenft.id && item.colection !== thenft.colection);
       
-      usuario.hasTradeOffers.filter(item => item.id !== id);
+      usuario.hasTradeOffers = usuario.hasTradeOffers.filter(item => item.id !== newId);
 
       await usuario.save();
 
       res.status(200).send('Trade successfully completed');
     } else {
-      usuario.hasTradeOffers.filter(item => item.id !== id);
+      usuario.hasTradeOffers = usuario.hasTradeOffers.filter(item => item.id !== newId);
       await usuario.save();
 
       res.status(200).send('Trade successfully rejected');
