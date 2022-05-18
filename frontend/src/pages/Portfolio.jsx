@@ -9,8 +9,6 @@ import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
 import io from "socket.io-client";
 let socket;
 
-import io from "socket.io-client";
-let socket;
 
 export default function Portfolio() {
   const dispatch = useDispatch();
