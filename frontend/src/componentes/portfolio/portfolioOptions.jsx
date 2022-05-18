@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { crearColeccion } from "../../../redux/actions/actionColeccion";
 import { toast } from "react-toastify";
+import {filterColection } from '../../../redux/actions/actionNFT'
 
 const customStyles = {
   content: {
@@ -18,14 +19,19 @@ const customStyles = {
 };
 
 export default function PortfoliOptions() {
+  const [coleccion, setColeccion] = useState(' ')
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [input, setInput] = useState("");
-
+  const colecciones = useSelector(state => state.backUpNftUser)
   function showModal() {
     setOpenModal(true);
   }
-
+  
+ function filtrarColeccion()  {
+  dispatch(filterColection(coleccion))
+ }
+  
   function closeModal() {
     setOpenModal(false);
   }
@@ -58,8 +64,13 @@ export default function PortfoliOptions() {
         <h2 className="tuPortfolio">your portfolio</h2>
 
         <div>
-          <select className="coleccion" name="colection" id="">
-            <option value="colection">coleccion</option>
+          <select className="coleccion" onChange={(e) => setColeccion(e.target.value)}  value={coleccion} id="colection">
+            <option onClick={() => filtrarColeccion()} value="todos">todos</option>
+            {colecciones.map(el => 
+               <option onClick={() => filtrarColeccion()} value={el.colection}>{el.colection}</option>
+              )}
+            
+           
           </select>
         </div>
       </div>

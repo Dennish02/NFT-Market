@@ -15,7 +15,8 @@ import {
   RESET,
   SET_COLECCIONES,
   GIFT_NFT,
-  SHOW_USERS_ID
+  SHOW_USERS_ID,
+  FILTER_COLECTION
 
 } from "../constantes";
 
@@ -80,6 +81,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         nftUser: action.payload,
+        backUpNftUser: action.payload
       };
 
     case LOGIN_USER:
@@ -156,6 +158,15 @@ function rootReducer(state = initialState, action) {
           ...state,
           usersInfo: action.payload
         }
+        case FILTER_COLECTION:
+         const nftForFilter = state.backUpNftUser
+         const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
+        
+        
+          return {
+            ...state,
+           nftUser: action.payload == 'todos'? state.backUpNftUser : filter
+          }
     default:
       return state;
   }
