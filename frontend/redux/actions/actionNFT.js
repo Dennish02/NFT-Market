@@ -3,6 +3,7 @@ import clienteAxios from "../../src/config/clienteAxios";
 import { useEffect } from "react";
 import {
   CREATE_NFT,
+  RESET,
   EDIT_NFT_PRICE,
   GIFT_NFT,
   BUY_NFT,
@@ -12,12 +13,11 @@ import {
   ALL_NFT_MARKET,
 } from "../constantes/index";
 
-import io from 'socket.io-client';
+import io from "socket.io-client";
 import { toast } from "react-toastify";
+
 let socket;
-socket = io(import.meta.env.VITE_BACKEND_URL)
-
-
+socket = io(import.meta.env.VITE_BACKEND_URL);
 
 export function allNftMarket() {
   return async function (dispatch) {
@@ -59,8 +59,8 @@ export function allNFTUser() {
     return dispatch({
       type: USER_NFT,
       payload: json.data,
-    })
-  }
+    });
+  };
 }
 export function userNfts(name) {
   return async function (dispatch) {
@@ -73,36 +73,58 @@ export function userNfts(name) {
 
 export function crearNFT(payload) {
   return async function (dispatch) {
-    const body = {
-      category: payload.category,
-      colection: payload.colection,
-      price: Number(payload.price),
-      image: payload.image,
-    };
     const id = payload.id;
-
-    const form = new FormData();
-    for (let key in body) {
-      form.append(key, body[key]);
-    }
-
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${id}`,
       },
     };
+
     try {
+      if (!payload.flag) {
+        const response = await clienteAxios.post(
+          "/coleccion",
+          {
+            name: payload.colection,
+          },
+          config
+        );
+      }
+
+      const body = {
+        category: payload.category,
+        colection: payload.colection,
+        price: Number(payload.price),
+        image: payload.image,
+      };
+
+      const form = new FormData();
+      for (let key in body) {
+        form.append(key, body[key]);
+      }
+
       await clienteAxios.post(`/nft`, form, config);
       //socket.io
-      socket.emit('NftCreado')
-      toast.success('NFT creado correctamente')
+      socket.emit("NftCreado");
+      toast.success("NFT creado correctamente");
+      return dispatch({
+        type: CREATE_NFT,
+        payload: true,
+      });
     } catch (error) {
-      toast.error(error.response.data.msg)
+      console.log(error.response.data.msg);
+      toast.error(error.response.data.msg);
     }
+  };
+}
 
-
-
+export function reset(payload) {
+  return async function (dispatch) {
+    return dispatch({
+      type: RESET,
+      payload: false,
+    });
   };
 }
 
@@ -126,9 +148,7 @@ export function crearNFT(payload) {
 //   }
 // }
 
-export function nftWithUser() { }
-
-
+export function nftWithUser() {}
 
 export function comprarNFT(payload) {
   return async function () {
@@ -140,21 +160,23 @@ export function comprarNFT(payload) {
       },
     };
     try {
-      const nft = await clienteAxios.post(`/nft/comprar/${payload}`, {}, config);
+      const nft = await clienteAxios.post(
+        `/nft/comprar/${payload}`,
+        {},
+        config
+      );
 
       //socket.io
-      toast.success(`Compraste este NFT: ${nft.data.NFT_id}`)
-      socket.emit('ventaNFT')
+      toast.success(`Compraste este NFT: ${nft.data.NFT_id}`);
+      socket.emit("ventaNFT");
     } catch (error) {
-      toast.error(error.response.data.msg)
+      toast.error(error.response.data.msg);
     }
-
-
   };
 }
 
 export function venta(payload) {
-  const { _id, avaliable, id } = payload
+  const { _id, avaliable, id } = payload;
   return async function () {
     const token = localStorage.getItem("token");
     const config = {
@@ -167,9 +189,8 @@ export function venta(payload) {
       await clienteAxios.put(`nft/vender/${_id}`, {}, config);
 
       //alert
-      avaliable ?
-        toast.info(`Tu NFT ya no está en venta ${id} `,
-          {
+      avaliable
+        ? toast.info(`Tu NFT ya no está en venta ${id} `, {
             position: "top-center",
             autoClose: 2500,
             hideProgressBar: false,
@@ -177,21 +198,26 @@ export function venta(payload) {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-          }) : toast.info(`Pusiste a la venta tu nft ${id}`,
-            {
-              position: "top-center",
-              autoClose: 2500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            })
+          })
+
+  
+      
+
+        : toast.info(`Pusiste a la venta tu nft ${id}`, {
+            position: "top-center",
+            autoClose: 2500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
       //socket.io
-      socket.emit('ponerEnVenta')
+      socket.emit("ponerEnVenta");
+      socket.emit("update");
 
     } catch (e) {
-      toast.error(e.response.data.msg)
+      toast.error(e.response.data.msg);
     }
   };
 }
@@ -204,35 +230,34 @@ export function SearchNFT(payload) {
 }
 
 export function Edit_NFT(_id, payload) {
-
   return async function () {
     const token = localStorage.getItem("token");
     const authAxios = axios.create({
       headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/nft/${_id}`, { price: payload })
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await authAxios.put(
+      `${import.meta.env.VITE_BACKEND_URL}/api/nft/${_id}`,
+      { price: payload }
+    );
 
     //socket.io
-    socket.emit('editarPrecio')
-
-  }
-
-
+    socket.emit("editarPrecio");
+  };
 }
 
 export function Gift_NFT(iduser, idnft, colection) {
-
-
   return async function () {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token");
     const authAxios = axios.create({
       headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/nft/gift`, {iduser: iduser, idnft: idnft, colection: colection})
-  
-  }
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await authAxios.put(
+      `${import.meta.env.VITE_BACKEND_URL}/api/nft/gift`,
+      { iduser: iduser, idnft: idnft, colection: colection }
+    );
+  };
 }

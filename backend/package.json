@@ -1,7 +1,7 @@
 {
   "name": "uptask",
   "version": "1.0.0",
-  "description": "aprenidendno MERN",
+  "description": "NFT Market",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,12 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.2",
     "nodemailer": "^6.7.5",
-    "socket.io": "^4.5.0"
+    "socket.io": "^4.5.0",
+
+    "mercadopago": "^1.5.8",
+
+    "mongoose-autopopulate": "^0.16.1"
+
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

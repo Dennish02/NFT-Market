@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { resetPassword } from '../../redux/actions/actionUSER.js';
+import { resetPassword, setStateEmail } from '../../redux/actions/actionUSER.js';
 
 
 
@@ -24,7 +24,13 @@ export default function ResetPassword() {
     });
   
     const dispatch = useDispatch();
-  
+    
+    useEffect(()=>{
+      return(()=>{
+        dispatch(setStateEmail())
+      })
+    },[])
+
     const handleChange = (e) => {
       setEstado({
         ...estado,
@@ -50,7 +56,7 @@ export default function ResetPassword() {
       if (estado.password !== estado.password2)
         setErrores({ ...errores, error: "Las contraseñas no coinciden" });
       else {
-        setErrores( errores.error= "" );
+        setErrores( {...errores , error: ""} );
         dispatch(resetPassword({
           token: token,
           password: estado.password}));
@@ -86,9 +92,9 @@ export default function ResetPassword() {
              {respuesta.error ? <p className='error'>{respuesta.error}</p> : <p>{respuesta.msg}</p> }
             {errores.error && <p className="error">{errores.error}</p>}
             
-            {respuesta.msg? <button type="submit" className="buttonMorado">
+            {respuesta.msg? <Link to='home'> <button type="submit" className="buttonMorado">
                 HOME
-              </button> :  <button type="submit" className="buttonPrimary">
+              </button></Link> :  <button type="submit" className="buttonPrimary">
                 Reset password
               </button>}
           </form>

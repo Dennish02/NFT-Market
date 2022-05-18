@@ -32,6 +32,10 @@ const nftSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
+    lastPrice: {
+      type: Number,
+      trim: true
+    },
     price: {
       type: Number,
       trim: true,

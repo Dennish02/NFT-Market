@@ -10,6 +10,7 @@ import {
   comprarNft,
   venderNft,
   añadirFavNft,
+  eliminarFavNft,
   allNftUser,
   obtenerNft,
   tradeOffer,
@@ -23,11 +24,13 @@ router.get("/portfolio", checkOut, allNftUser);
 router.put("/gift", checkOut, regalarNft);
 router.put("/:id", checkOut, editarNft);
 router.get(checkOut, obtenerNft);
+
 router.post("/tradeoffer", checkOut, tradeOffer);
 router.get("/seeoffers", checkOut, seeOffers);
 router.post("/responseoffer", checkOut, responseOffer);
 
-// router.post(checkOut, añadirFavNft);
+router.route("/favoritos/:id").put(checkOut, añadirFavNft);
+router.route("/sacarfavoritos/:id").put(checkOut, eliminarFavNft);
 
 router.route("/vender/:id").put(checkOut, venderNft);
 router.route("/comprar/:id").post(checkOut, comprarNft, crearTransaccion);

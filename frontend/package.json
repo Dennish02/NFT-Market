@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
+    "prop-types": "^15.7.2",
     "axios": "^0.27.2",
     "formik": "^2.2.9",
     "gulp-plumber": "^1.2.1",
@@ -16,6 +17,7 @@
     "gulp-sourcemaps": "^3.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-credit-cards": "^0.8.3",
     "react-google-login": "^5.2.2",
     "react-icons": "^4.3.1",
     "react-modal": "^3.15.1",
