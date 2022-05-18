@@ -374,6 +374,23 @@ const eliminarFavNft = async (req, res) => {
   }
 };
 
+const ordenarNFT = (req, res) => {
+  //recibe por body {sort: que puede ser 'price_asc' o 'price_desc'
+  //                 nfts: nfts de usuario}
+  const { nfts } = req.body
+  const { sort } = req.body
+  var nftOrdenados = nfts.sort((a,b) => {
+    if(sort === 'price_asc'){
+      return a.price - b.price
+    }
+    else if(sort === 'price_desc'){
+      return b.price - a.price
+    }
+  })
+  res.status(200).send(nftOrdenados)
+}
+
+
 const obtenerVentas = async (req, res) => {};
 
 export {
@@ -389,5 +406,6 @@ export {
   obtenerNft,
   tradeOffer,
   seeOffers,
-  responseOffer
+  responseOffer,
+  ordenarNFT,
 };

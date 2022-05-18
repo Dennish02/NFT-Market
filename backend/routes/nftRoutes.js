@@ -15,7 +15,8 @@ import {
   obtenerNft,
   tradeOffer,
   seeOffers,
-  responseOffer
+  responseOffer,
+  ordenarNFT,
 } from "../controladores/nftController.js";
 
 import { crearTransaccion } from "../controladores/transaccionesController.js";
@@ -34,5 +35,7 @@ router.route("/sacarfavoritos/:id").put(checkOut, eliminarFavNft);
 
 router.route("/vender/:id").put(checkOut, venderNft);
 router.route("/comprar/:id").post(checkOut, comprarNft, crearTransaccion);
+
+router.route("/ordenar").get(checkOut, ordenarNFT)
 
 export default router;
