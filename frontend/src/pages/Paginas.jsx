@@ -17,8 +17,8 @@ export default function Paginado ({goToNextPage, goToPreviousPage, paginas,curre
               {currentPage>=3 ?  <button onClick={() => paginas(currentPage-2)}>{currentPage-2}</button> : null}
                {currentPage>=2 ? <button  onClick={() => paginas(currentPage-1)}>{currentPage-1}</button> : null}
                <button className="buttonCentro" onClick={() => paginas(currentPage)}>{currentPage}</button>
-               {currentPage<=22 ? <button onClick={() => paginas(currentPage+1)}>{currentPage+1}</button>: null}
-               {currentPage<=23 ? <button onClick={() => paginas(currentPage+2)}>{currentPage+2}</button>: null}
+               {currentPage<=pageNumber.length - 1 ? <button onClick={() => paginas(currentPage+1)}>{currentPage+1}</button>: null}
+               {currentPage<=pageNumber.length - 2 ? <button onClick={() => paginas(currentPage+2)}>{currentPage+2}</button>: null}
 
 
 
