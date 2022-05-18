@@ -16,8 +16,8 @@ import {
   SET_COLECCIONES,
   GIFT_NFT,
   SHOW_USERS_ID,
-  FILTER_COLECTION
 
+  FILTER_COLECTION
 } from "../constantes";
 
 const initialState = {
@@ -33,8 +33,7 @@ const initialState = {
   loginUser: false,
   creado: false,
   colecciones: [],
-  usersInfo: []
-
+  usersInfo: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -63,7 +62,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         creado: false,
-        colecciones: [],
+        // colecciones: [],
       };
     case SET_COLECCIONES:
       return {
@@ -104,6 +103,10 @@ function rootReducer(state = initialState, action) {
         confirmacion: {},
         errorEmail: [],
         invalidToken: true,
+        loginUser: false,
+        creado: false,
+        colecciones: [],
+        usersInfo: [],
       };
     case AUTH_USER:
       return {
@@ -153,6 +156,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft: filterBySearch,
       };
+
       case  SHOW_USERS_ID:
         return {
           ...state,
@@ -167,6 +171,7 @@ function rootReducer(state = initialState, action) {
             ...state,
            nftUser: action.payload == 'todos'? state.backUpNftUser : filter
           }
+
     default:
       return state;
   }

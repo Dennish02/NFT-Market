@@ -21,6 +21,9 @@ import VerificacionUsuario from "./pages/VerificacionUsuario.jsx";
 import Loguin from "./pages/Loguin.jsx";
 import Register from "./pages/Register.jsx";
 import Wallet from "./pages/Wallet.jsx";
+import Settings from "./pages/Settings.jsx";
+import UpdatePassword from "./componentes/settings/updatePassword"
+
 
 function App() {
   return (
@@ -32,6 +35,8 @@ function App() {
         <Route path="/olvide-password/" element={<OlvidePassword />} />
         <Route path="/olvide-password/:token" element={<ResetPassword />} />
         <Route path="/confirmar/:id" element={<ConfirmarCuenta />} />
+        <Route path="/update-password" element= {<UpdatePassword/>} />
+       
 
         <Route path="/home/" element={<VerificacionUsuario />}>
           <Route index element={<Home />} />
@@ -53,6 +58,13 @@ function App() {
           element={<VerificacionUsuario />}
         >
           <Route index element={<Wallet />} />
+        </Route>
+
+        <Route
+          path="/home/usuario/setting"
+          element={<VerificacionUsuario />}
+        >
+          <Route index element={<Settings />} />
         </Route>
 
         <Route path="*" element={<Navigate replace to="/" />} />

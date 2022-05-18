@@ -13,7 +13,7 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   LOGIN_GOOGLE,
-  SHOW_USERS_ID
+  SHOW_USERS_ID,
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -32,14 +32,11 @@ import axios from "axios";
 //   };
 // }
 
-
 export function loguinGoogle(googleData) {
   return async function (dispatch) {
-
-
     const token = googleData.tokenId;
     const googleId = googleData.googleId;
-    let api = import.meta.env.VITE_API
+    let api = import.meta.env.VITE_API;
     const config = {
       headers: {
         api: api,
@@ -48,7 +45,10 @@ export function loguinGoogle(googleData) {
       },
     };
     try {
-      var json = await clienteAxios.post(`/usuario/login`, { config, googleId });
+      var json = await clienteAxios.post(`/usuario/login`, {
+        config,
+        googleId,
+      });
       return dispatch({
         type: LOGIN_USER,
         payload: json.data,
@@ -61,7 +61,6 @@ export function loguinGoogle(googleData) {
 
 export function registroUsuario({ nombre, email, password1 }) {
   const n = Math.floor(Math.random() * 10) % 3;
-
   return async function () {
     try {
       const body = {
@@ -72,8 +71,8 @@ export function registroUsuario({ nombre, email, password1 }) {
           n === 0
             ? profile1.toString()
             : n === 1
-              ? profile2.toString()
-              : profile3.toString(),
+            ? profile2.toString()
+            : profile3.toString(),
       };
 
       const response = await clienteAxios.post(`/usuario`, body);
@@ -90,13 +89,13 @@ export function validateUser(id) {
   return async function (dispatch) {
     try {
       var json = await clienteAxios(`/usuario/confirmar/${id}`);
-      toast.success('Tu usuario se validó correctamente')
+      toast.success("Tu usuario se validó correctamente");
       return dispatch({
         type: VALIDATE_USER,
         payload: json.data,
       });
     } catch (error) {
-      toast.error('Hubo un error al validar tu usuario')
+      toast.error("Hubo un error al validar tu usuario");
       return dispatch({
         type: VALIDATE_USER,
         payload: error.response.data,
@@ -112,15 +111,14 @@ export function sedEmailToResetPassword(data) {
         email: data,
       });
 
-      toast.success(json.data.msg)
-
+      toast.success(json.data.msg);
 
       return dispatch({
         type: SEND_EMAIL_TO_RESET_PASSWORD,
         payload: json.data,
       });
     } catch (error) {
-      toast.error(error.response.data.msg)
+      toast.error(error.response.data.msg);
       return dispatch({
         type: SEND_EMAIL_TO_RESET_PASSWORD,
         payload: { error: error.response.data.msg },
@@ -145,7 +143,6 @@ export function resetPassword(data) {
       //console.log(error.response.data);
       //toast.error(error.response.data.msg)
       return dispatch({
-
         type: RESET_PASSWORD,
         payload: { error: error.response.data.msg },
       });
@@ -210,21 +207,20 @@ export function userLogout() {
   };
 }
 
-
 export function showUsers(payload) {
-  
   return async function (dispatch) {
-    const token = localStorage.getItem('token')
-    const authAxios = axios.create({
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
       headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    const json = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/traer-usuarios`)
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/usuario/traer-usuarios`
+    );
     return dispatch({
       type: SHOW_USERS_ID,
-      payload: json.data
-    })
-  }
-
+      payload: json.data,
+    });
+  };
 }
