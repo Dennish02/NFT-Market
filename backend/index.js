@@ -4,6 +4,7 @@ import conectarCB from "./config/db.js";
 import router from "./routes/usuarioRoutes.js";
 import nft from "./routes/nftRoutes.js";
 import transacciones from "./routes/transaccionesRoutes.js";
+import mercadoPago from './routes/mercadoPago.js'
 import cors from "cors";
 import fileUpload from "express-fileupload";
 
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 app.use("/api/usuario", router);
 app.use("/api/nft", nft);
 app.use("/api/transacciones", transacciones)
+app.use('/process-payment', mercadoPago)
 
 const PORT = process.env.PORT || 3001;
 
@@ -84,6 +86,6 @@ io.on("connection",(socket)=>{
     socket.join(room);
   })
   socket.on("update", ()=>{
-    socket.to('http://localhost:3000/home/usuario/porfolio').emit('nftUser')
+    socket.to('http://localhost:3000/home/usuario/portfolio').emit('nftUser')
   })
 })

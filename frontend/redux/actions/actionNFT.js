@@ -189,6 +189,7 @@ export function venta(payload) {
           })
      //socket.io
     socket.emit('ponerEnVenta')
+    socket.emit('update')
       
     } catch (e) {
      toast.error(e.response.data.msg)
