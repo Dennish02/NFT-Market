@@ -2,6 +2,18 @@ import clienteAxios from "../../src/config/clienteAxios";
 import { toast } from "react-toastify";
 import { SET_COLECCIONES } from "../constantes";
 
+import io from "socket.io-client";
+let socket;
+socket = io(import.meta.env.VITE_BACKEND_URL);
+
+const token = localStorage.getItem("token");
+const config = {
+  headers: {
+    "Content-Type": "multipart/form-data",
+    Authorization: `Bearer ${token}`,
+  },
+};
+
 export function coleccionesUsuario() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
@@ -22,14 +34,6 @@ export function coleccionesUsuario() {
 
 export function crearColeccion(payload) {
   return async function (dispatch) {
-    const token = localStorage.getItem("token");
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
     const response = await clienteAxios.get("/coleccion", config);
     const existe = response.data.filter((col) => col.name === payload);
 
@@ -41,6 +45,7 @@ export function crearColeccion(payload) {
         },
         config
       );
+      socket.emit("update");
       toast.success("Coleccion creada");
     } else {
       toast.error("La coleccion ya existe");

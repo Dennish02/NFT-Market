@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { crearColeccion } from "../../../redux/actions/actionColeccion";
 import { toast } from "react-toastify";
+import { coleccionesUsuario } from "../../../redux/actions/actionColeccion";
 
 const customStyles = {
   content: {
@@ -21,6 +22,7 @@ export default function PortfoliOptions() {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [input, setInput] = useState("");
+  const colecciones = useSelector((state) => state.colecciones);
 
   function showModal() {
     setOpenModal(true);
@@ -56,10 +58,14 @@ export default function PortfoliOptions() {
 
       <div className="contTittle">
         <h2 className="tuPortfolio">your portfolio</h2>
-
         <div>
           <select className="coleccion" name="colection" id="">
-            <option value="colection">coleccion</option>
+            <option value="all">Todas</option>
+            {colecciones?.map((col, i) => (
+              <option key={i} value={col.name}>
+                {col.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -80,7 +86,6 @@ export default function PortfoliOptions() {
                 onChange={(e) => handleInput(e)}
               />
             </div>
-
             {
               <button className="buttonPrimary" onClick={() => crear()}>
                 ok

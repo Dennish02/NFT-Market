@@ -39,6 +39,7 @@ export default function Home() {
     });
     socket.on("nftDisponile", () => {
       dispatch(allNftMarket());
+      dispatch(allNFTUser());
     });
     socket.on("nftModificado", () => {
       dispatch(allNftMarket());
