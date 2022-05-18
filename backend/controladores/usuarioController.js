@@ -158,10 +158,28 @@ const nuevoPassword = async (req, res) => {
 };
 
 const perfil = async (req, res) => {
-  const { usuario } = req; // se lee del server
-
-  res.json(usuario);
+  // const { usuario } = req; // se lee del server
+  const user = await Usuario.findOne({ nombre: req.usuario.nombre }).populate("favoritos"); //populate trae la data de la referencia
+  res.json(user);
 };
+
+const traerUsuarios = async (req, res) => { //traigo todos los user y los mapeo para que solo me muestre el ID y nombre 
+  await Usuario.find({}).then(results => {
+    let userMapeado = results.map(el => {
+      return {
+        id: el.id,
+        name: el.nombre
+      }
+
+    })
+    return res.json(userMapeado)
+  })
+}
+
+
+
+
+
 
 export {
   registrar,
@@ -171,4 +189,5 @@ export {
   comporbarToken,
   nuevoPassword,
   perfil,
+  traerUsuarios
 };

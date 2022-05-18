@@ -26,7 +26,11 @@
     "mongoose": "^6.3.2",
     "nodemailer": "^6.7.5",
     "socket.io": "^4.5.0",
+
     "mercadopago": "^1.5.8"
+
+    "mongoose-autopopulate": "^0.16.1"
+
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

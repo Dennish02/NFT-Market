@@ -11,6 +11,11 @@ import {
   SEARCH_NFT,
   USER_NFT,
   EDIT_NFT_PRICE,
+  CREATE_NFT,
+  RESET,
+  SET_COLECCIONES,
+  GIFT_NFT,
+  SHOW_USERS_ID,
 } from "../constantes";
 
 const initialState = {
@@ -24,6 +29,9 @@ const initialState = {
   errorEmail: [],
   invalidToken: true,
   loginUser: false,
+  creado: false,
+  colecciones: [],
+  usersInfo: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -41,6 +49,23 @@ function rootReducer(state = initialState, action) {
         ...state,
         backUpAllNft: action.payload.nftAlldb,
         usuario: action.payload.usuario,
+      };
+
+    case CREATE_NFT:
+      return {
+        ...state,
+        creado: true,
+      };
+    case RESET:
+      return {
+        ...state,
+        creado: false,
+        // colecciones: [],
+      };
+    case SET_COLECCIONES:
+      return {
+        ...state,
+        colecciones: action.payload,
       };
 
     // case USER_NFT:
@@ -75,6 +100,10 @@ function rootReducer(state = initialState, action) {
         confirmacion: {},
         errorEmail: [],
         invalidToken: true,
+        loginUser: false,
+        creado: false,
+        colecciones: [],
+        usersInfo: [],
       };
     case AUTH_USER:
       return {
@@ -124,7 +153,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft: filterBySearch,
       };
-
+    case SHOW_USERS_ID:
+      return {
+        ...state,
+        usersInfo: action.payload,
+      };
     default:
       return state;
   }

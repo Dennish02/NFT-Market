@@ -4,6 +4,10 @@ import UserNFT from "../componentes/portfolio/UserNFT";
 import OptionsPortfolio from "../componentes/portfolio/portfolioOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { allNFTUser, userNfts } from "../../redux/actions/actionNFT";
+import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
+
+import io from "socket.io-client";
+let socket;
 
 import io from "socket.io-client";
 let socket;
@@ -13,9 +17,10 @@ export default function Portfolio() {
   //const user = useSelector((state) => state.usuario);
   const nftUser = useSelector((state) => state.nftUser);
   const params = window.location.href
- 
+
   useEffect(() => {
     dispatch(allNFTUser());
+    dispatch(coleccionesUsuario());
     socket = io(import.meta.env.VITE_BACKEND_URL);
     socket.emit("Actualizar", params);
   }, []);
@@ -24,6 +29,8 @@ export default function Portfolio() {
     //recibir la respuesta del back
     socket.on("nftUser", () => {
       dispatch(allNFTUser());
+      dispatch(coleccionesUsuario());
+
     });
   });
 

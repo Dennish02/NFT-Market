@@ -12,9 +12,11 @@ import {
   AUTH_USER,
   LOGIN_USER,
   LOGOUT_USER,
-  LOGIN_GOOGLE
+  LOGIN_GOOGLE,
+  SHOW_USERS_ID,
 } from "../constantes";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 // export function allNftMarket() {
 //   return async function (dispatch) {
@@ -30,14 +32,11 @@ import { toast } from "react-toastify";
 //   };
 // }
 
-
 export function loguinGoogle(googleData) {
   return async function (dispatch) {
-
-
     const token = googleData.tokenId;
-    const googleId= googleData.googleId;
-    let api = import.meta.env.VITE_API
+    const googleId = googleData.googleId;
+    let api = import.meta.env.VITE_API;
     const config = {
       headers: {
         api: api,
@@ -46,7 +45,10 @@ export function loguinGoogle(googleData) {
       },
     };
     try {
-      var json = await clienteAxios.post(`/usuario/login`, {config, googleId});
+      var json = await clienteAxios.post(`/usuario/login`, {
+        config,
+        googleId,
+      });
       return dispatch({
         type: LOGIN_USER,
         payload: json.data,
@@ -88,13 +90,13 @@ export function validateUser(id) {
   return async function (dispatch) {
     try {
       var json = await clienteAxios(`/usuario/confirmar/${id}`);
-      toast.success('Tu usuario se validó correctamente')
+      toast.success("Tu usuario se validó correctamente");
       return dispatch({
         type: VALIDATE_USER,
         payload: json.data,
       });
     } catch (error) {
-      toast.error('Hubo un error al validar tu usuario')
+      toast.error("Hubo un error al validar tu usuario");
       return dispatch({
         type: VALIDATE_USER,
         payload: error.response.data,
@@ -109,16 +111,15 @@ export function sedEmailToResetPassword(data) {
       let json = await clienteAxios.post(`/usuario/olvide-password/`, {
         email: data,
       });
-    
-      toast.success(json.data.msg)
-    
-     
+
+      toast.success(json.data.msg);
+
       return dispatch({
         type: SEND_EMAIL_TO_RESET_PASSWORD,
         payload: json.data,
       });
     } catch (error) {
-      toast.error(error.response.data.msg)
+      toast.error(error.response.data.msg);
       return dispatch({
         type: SEND_EMAIL_TO_RESET_PASSWORD,
         payload: { error: error.response.data.msg },
@@ -143,7 +144,6 @@ export function resetPassword(data) {
       //console.log(error.response.data);
       //toast.error(error.response.data.msg)
       return dispatch({
-        
         type: RESET_PASSWORD,
         payload: { error: error.response.data.msg },
       });
@@ -205,5 +205,23 @@ export function userLogout() {
   localStorage.clear();
   return {
     type: LOGOUT_USER,
+  };
+}
+
+export function showUsers(payload) {
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const json = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/usuario/traer-usuarios`
+    );
+    return dispatch({
+      type: SHOW_USERS_ID,
+      payload: json.data,
+    });
   };
 }
