@@ -9,11 +9,14 @@ import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
 import io from "socket.io-client";
 let socket;
 
+import io from "socket.io-client";
+let socket;
+
 export default function Portfolio() {
   const dispatch = useDispatch();
   //const user = useSelector((state) => state.usuario);
   const nftUser = useSelector((state) => state.nftUser);
-  const params = window.location.href;
+  const params = window.location.href
 
   useEffect(() => {
     dispatch(allNFTUser());
@@ -23,9 +26,11 @@ export default function Portfolio() {
   }, []);
 
   useEffect(() => {
+    //recibir la respuesta del back
     socket.on("nftUser", () => {
       dispatch(allNFTUser());
       dispatch(coleccionesUsuario());
+
     });
   });
 

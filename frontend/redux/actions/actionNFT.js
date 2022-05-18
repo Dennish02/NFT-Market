@@ -199,6 +199,10 @@ export function venta(payload) {
             draggable: true,
             progress: undefined,
           })
+
+  
+      
+
         : toast.info(`Pusiste a la venta tu nft ${id}`, {
             position: "top-center",
             autoClose: 2500,
@@ -211,6 +215,7 @@ export function venta(payload) {
       //socket.io
       socket.emit("ponerEnVenta");
       socket.emit("update");
+
     } catch (e) {
       toast.error(e.response.data.msg);
     }
