@@ -30,7 +30,6 @@ export default function PortfoliOptions() {
 
   const colecciones = useSelector(state => state.backUpNftUser)
 
-  const colecciones = useSelector((state) => state.colecciones);
 
   function showModal() {
     setOpenModal(true);
@@ -63,7 +62,7 @@ export default function PortfoliOptions() {
         <button className="buttonOrange" onClick={showModal}>
           CREAR COLECCION
         </button>
-        <Link to="#">
+        <Link to="/usuario/favoritos">
           <button className="buttonMorado">MIS FAVORITOS</button>
         </Link>
       </div>
