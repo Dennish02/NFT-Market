@@ -34,3 +34,4 @@ export const EDIT_PROFILE = "EDIT_PROFILE";
 export const DELETE_PROFILE = "DELETE_PROFILE";
 export const VALIDATE_USER = "VALIDATE_USER";
 export const ACTUAL = "ACTUAL";
+export const SAVE_VALUE= "SAVE_VALUE"

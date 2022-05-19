@@ -4,12 +4,15 @@ import ComponentNFTWallet from "../componentes/wallet/ComponentNFTWallet";
 import { useSelector, useDispatch } from "react-redux";
 import formateoPrecio from "../middleware/formateoPrecio";
 import { allNftMarket } from "../../redux/actions/actionNFT";
-import MercadoPagoForm from "../componentes/MercadoPago/MercadoPagoForm.jsx";
+
 import Modal from "react-modal";
 import mp from "../img/mp.png";
 import { toast } from "react-toastify";
 import Paginado from "./Paginas";
 import { usuarioActual } from "../../redux/actions/actionUSER";
+import { comprarCL } from '../../redux/actions/actionUSER';
+import io from "socket.io-client";
+let socket;
 
 const customStyles = {
   content: {
@@ -60,8 +63,11 @@ function Wallet() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  function handleButton() {
-    !compra ? toast.info("Deebes ingresar in monto") : setShowModal(true);
+  function handleButton(e) {
+    e.preventDefault()
+    !compra ? toast.info("Deebes ingresar in monto") :  
+    localStorage.setItem('valor', `${compra}`)
+    dispatch(comprarCL(compra));
   }
   function closeModal() {
     showModal && setShowModal(false);
@@ -69,8 +75,15 @@ function Wallet() {
 
   useEffect(() => {
     dispatch(allNftMarket());
+    socket = io(import.meta.env.VITE_BACKEND_URL);
+    socket.emit("Navegar", params);
   }, []);
-
+  useEffect(() => {
+    //recibir la respuesta del back
+    socket.on("redicreccion", (ruta) => {
+      setRuta(ruta);
+    });
+  },[]);
   return (
     <div>
       <NavWallet />
@@ -82,22 +95,29 @@ function Wallet() {
           <div>
             <div className="contAgrgarCl">
               <p>Recargá CL con Mercado Pago</p>
-              <label htmlFor="monto">Ingreá el monto a comprar</label>
-              <div className="InpcutLogo">
-                <div className="contInput">
-                  <input
-                    id="valorMP"
-                    placeholder="Ingresa la cantidad de CL"
-                    onChange={(e) => setCompra(e.target.value)}
-                    className="dinner input"
-                    value={compra}
-                  />
-                </div>
+              {!ruta ? <> <label htmlFor="monto">Ingreá el monto a comprar</label>
+                <div className='InpcutLogo'>
+                  <div className='contInput'>
 
-                <div className="contLogoMP">
-                  <img onClick={handleButton} className="logomp" src={mp} />
-                </div>
-              </div>
+                    <input
+                      id='valorMP'
+                      placeholder='Ingresa la cantidad de CL'
+                      onChange={(e) => setCompra(e.target.value)}
+                      className='dinner input'
+                      value={compra} />
+                  </div>
+
+                  <button className='buttonMorado' onClick={handleButton}>Enviar</button>
+
+
+
+
+                </div> </> : <a href={ruta}>
+                <button  >
+                  <p>Pagar</p>
+                  <img className='logomp' src={mp} />
+                </button>  </a>
+                }
               <p>Transeferí CL a otro usuario</p>
               <label>Elegir ususario:</label>
               <div className="InpcutLogo">
@@ -155,9 +175,6 @@ function Wallet() {
         ) : null}
       </div>
 
-      <Modal isOpen={showModal} style={customStyles}>
-        <MercadoPagoForm compra={compra} closeModal={closeModal} />
-      </Modal>
     </div>
   );
 }
