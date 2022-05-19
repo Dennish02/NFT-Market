@@ -125,16 +125,19 @@ const regalarNft = async (req, res) => {
     const { idnft, iduser, colection } = req.body;
     const { usuario } = req;
 
-    let nft;
-    usuario.nfts.forEach((currentValue, id) => {
-      if (currentValue.id === idnft && currentValue.colection === colection) {
-        nft = usuario.nfts[id];
-        usuario.nfts = usuario.nfts.filter((item) => {
-          return item.id !== idnft;
-        });
-      }
-    });
+    const nft = await NftCreated.findOne({id: idnft, colection});
+    // usuario.nfts.forEach((currentValue, id) => {
+    //   if (currentValue.id === idnft && currentValue.colection === colection) {
+    //     nft = usuario.nfts[id];
+    //     usuario.nfts = usuario.nfts.filter((item) => {
+    //       return item.id !== idnft;
+    //     });
+    //   }
+    // });
 
+    
+    const filtrado = usuario.nfts.filter( (NFT) => nft.id !== NFT.id || nft.colection !== NFT.colection );
+    usuario.nfts = filtrado;
     await usuario.save();
 
     const giftTo = await Usuario.findById(iduser);
@@ -142,7 +145,10 @@ const regalarNft = async (req, res) => {
     if (nft) {
       giftTo.nfts.push(nft);
       giftTo.save();
-
+      //...
+      nft.ownerId = giftTo.nombre;
+      nft.save()
+      //...
       res.status(200).json(giftTo.nfts);
     } else {
       res.status(404).send("this NFT does not exist");
