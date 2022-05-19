@@ -181,6 +181,7 @@ const comprarNft = async (req, res, next) => {
       NFT.ownerId = comprador.nombre;
       NFT.avaliable = false;
       NFT.lastPrice = precio;
+      NFT.ranking = NFT.ranking + 1;
       await NFT.save();
       comprador.coins = comprador.coins - precio;
       comprador.nfts.push(NFT);
@@ -216,7 +217,7 @@ const comprarNft = async (req, res, next) => {
         .json({ msg: "Lo sentimos, su compra no pudo realizarse" });
     }
   }
-  // res.status(200).json(transaccion);
+ 
 };
 
 const venderNft = async (req, res) => {
@@ -374,6 +375,75 @@ const eliminarFavNft = async (req, res) => {
   }
 };
 
+
+const likeNft = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const nft = await NftCreated.findById(id).populate("userLikes");
+    const nftOwner = nft.ownerId;
+    const likeUser = nft.userLikes.find( user => user.nombre === req.usuario.nombre );
+
+    const propietario = await Usuario.findOne({nombre: nftOwner});
+    // console.log (propietario.nfts)
+
+    if (likeUser) {
+      //si el usuario ya le dio like puede quitarselo
+      nft.ranking = nft.ranking - 1;
+      const userFiltrados = nft.userLikes.filter( user => user.nombre !== req.usuario.nombre);
+      nft.userLikes = userFiltrados;
+      await nft.save();
+
+      //actualizar el nft en propietario
+      const actualizado = propietario.nfts.map((n) => {
+        if(n.id === nft.id && n.colection === nft.colection) {
+          console.log(n)
+          n.ranking = nft.ranking;
+          n.userLikes = nft.userLikes;
+          console.log(n)
+          return n
+        } else {
+          return n
+        }
+      }
+      ); 
+      propietario.nfts = actualizado;
+     
+      await Usuario.findOneAndUpdate({nombre: nftOwner}, propietario);
+       
+      
+      res.json({ msg: `Ya no le gusta ${nft.id}` });
+
+    } else if (!likeUser) {
+      //si el usuario no esta en la lista de likes, puede darle su like
+      nft.ranking = nft.ranking + 1;
+      nft.userLikes.push(req.usuario)
+      await nft.save();
+
+      //actualizar el nft en propietario
+      const actualizado = propietario.nfts.map((NFT) => {
+        if(NFT.id === nft.id && NFT.colection === nft.colection) {
+          console.log(NFT)
+          NFT.ranking = nft.ranking;
+          NFT.userLikes = nft.userLikes;
+          console.log(NFT)
+          return NFT
+        } else {
+          return NFT
+        }
+      }
+      );
+      propietario.nfts = actualizado;  
+     
+      await Usuario.findOneAndUpdate({nombre: nftOwner}, propietario);
+
+      res.json({ msg: `Le gusta ${nft.id}` });
+    }
+    
+  } catch (error) {
+    console.log(error)
+  }
+};
+
 const ordenarNFT = (req, res) => {
   //recibe por body {sort: que puede ser 'price_asc' o 'price_desc'
   //                 nfts: nfts de usuario}
@@ -389,6 +459,7 @@ const ordenarNFT = (req, res) => {
   })
   res.status(200).send(nftOrdenados)
 }
+
 
 
 const obtenerVentas = async (req, res) => {};
@@ -408,4 +479,6 @@ export {
   seeOffers,
   responseOffer,
   ordenarNFT,
+  likeNft
+  
 };

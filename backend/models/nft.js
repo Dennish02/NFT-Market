@@ -41,10 +41,17 @@ const nftSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
-    likes: {
+    ranking: {
       type: Number,
       trim: true,
+      default: 0
     },
+    userLikes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Usuario"
+      }
+    ],
     avaliable: {
       type: Boolean,
       trim: true,
