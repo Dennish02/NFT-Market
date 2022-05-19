@@ -21,9 +21,8 @@ const usuarioSchema = mongoose.Schema(
       unique: true,
     },
     image: {
-      type: String,
-      require: true,
-      trim: true,
+      public_id: String,
+      url: String,
     },
     token: {
       type: String,

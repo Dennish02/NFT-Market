@@ -6,14 +6,6 @@ import io from "socket.io-client";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
-const token = localStorage.getItem("token");
-const config = {
-  headers: {
-    "Content-Type": "multipart/form-data",
-    Authorization: `Bearer ${token}`,
-  },
-};
-
 export function coleccionesUsuario() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
@@ -34,9 +26,17 @@ export function coleccionesUsuario() {
 
 export function crearColeccion(payload) {
   return async function (dispatch) {
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     const response = await clienteAxios.get("/coleccion", config);
     const existe = response.data.filter((col) => col.name === payload);
-
     if (existe.length === 0) {
       const response = await clienteAxios.post(
         "/coleccion",

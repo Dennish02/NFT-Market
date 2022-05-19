@@ -16,6 +16,7 @@ import {
   SET_COLECCIONES,
   GIFT_NFT,
   SHOW_USERS_ID,
+  ACTUAL,
 } from "../constantes";
 
 const initialState = {
@@ -80,6 +81,12 @@ function rootReducer(state = initialState, action) {
         nftUser: action.payload,
       };
 
+    case ACTUAL:
+      return {
+        ...state,
+        usuario: action.payload,
+      };
+
     case LOGIN_USER:
       return {
         ...state,
@@ -89,7 +96,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case LOGOUT_USER:
-      console.log("aca");
       return {
         allNft: [],
         backUpAllNft: [],

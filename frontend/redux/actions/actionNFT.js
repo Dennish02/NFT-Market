@@ -13,9 +13,9 @@ import {
   ALL_NFT_MARKET,
 } from "../constantes/index";
 
-import io from "socket.io-client";
 import { toast } from "react-toastify";
 
+import io from "socket.io-client";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
@@ -80,7 +80,6 @@ export function crearNFT(payload) {
         Authorization: `Bearer ${id}`,
       },
     };
-
     try {
       if (!payload.flag) {
         const response = await clienteAxios.post(
@@ -91,19 +90,16 @@ export function crearNFT(payload) {
           config
         );
       }
-
       const body = {
         category: payload.category,
         colection: payload.colection,
         price: Number(payload.price),
         image: payload.image,
       };
-
       const form = new FormData();
       for (let key in body) {
         form.append(key, body[key]);
       }
-
       await clienteAxios.post(`/nft`, form, config);
       //socket.io
       socket.emit("NftCreado");
@@ -199,10 +195,6 @@ export function venta(payload) {
             draggable: true,
             progress: undefined,
           })
-
-  
-      
-
         : toast.info(`Pusiste a la venta tu nft ${id}`, {
             position: "top-center",
             autoClose: 2500,
@@ -215,7 +207,6 @@ export function venta(payload) {
       //socket.io
       socket.emit("ponerEnVenta");
       socket.emit("update");
-
     } catch (e) {
       toast.error(e.response.data.msg);
     }

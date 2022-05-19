@@ -40,6 +40,7 @@ export default function PortfoliOptions() {
     if (input.length > 8)
       return toast.error("el nombre puede tener hasta 8 caracteres");
     dispatch(crearColeccion(input));
+    closeModal();
   }
 
   return (
