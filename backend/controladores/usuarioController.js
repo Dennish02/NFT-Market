@@ -214,6 +214,45 @@ const traerUsuarios = async (req, res) => {
   });
 };
 
+const transferirCl = async (req, res) => {
+  const { cl, user } = req.body;
+
+  const usuarioA = await Usuario.findOne({ nombre: req.usuario.nombre });
+    const coinsA = usuarioA.coins;
+
+    const usuarioB = await Usuario.findOne({ nombre: user });
+    // const usuarioB = await Usuario.findById( user );
+    const coinsB = usuarioB.coins;
+
+  if (usuarioA.coins < cl) {
+    res.status(401).json({ msg: "No tienes CL suficientes para enviar" });
+  }
+  
+    try {
+      if (usuarioA.coins >= cl) {
+      usuarioA.coins = usuarioA.coins - cl;
+      usuarioA.save();
+  
+      usuarioB.coins = usuarioB.coins + cl;
+      usuarioB.save();
+  
+      res.json({ msg: `Ha enviado ${cl}CL a ${usuarioB.nombre}` });
+  
+      }  
+    
+    } catch (error) {
+      //si falla devuelve las coins a su estado inicial
+      usuarioA.coins = coinsA;
+      usuarioA.save();
+  
+      usuarioB.coins = coinsB;
+      usuarioB.save();
+  
+      res.status(401).json({ msg: "No se pudo enviar CL" });
+    }
+  
+};
+
 export {
   registrar,
   autenticar,
@@ -225,4 +264,5 @@ export {
   traerUsuarios,
   cambiarImage,
   usuario,
+  transferirCl
 };
