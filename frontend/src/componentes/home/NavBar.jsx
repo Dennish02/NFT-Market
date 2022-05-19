@@ -39,12 +39,11 @@ export default function NavBar() {
       </Link>
 
       <div className="perfil">
-        <p>
-          balance:
+        <div className="contBalance">
           {usuario.length !== 0 ? (
             <span className="iconBalance">{formateoPrecio(usuario.coins)}</span>
           ) : null}
-        </p>
+        </div>
         <p>{`Hola ${usuario.nombre}`}</p>
         {usuario.length !== 0 ? (
           <img

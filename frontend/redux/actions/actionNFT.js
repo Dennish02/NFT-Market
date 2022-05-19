@@ -149,8 +149,6 @@ export function reset(payload) {
 //   }
 // }
 
-export function nftWithUser() {}
-
 export function comprarNFT(payload) {
   return async function () {
     const token = localStorage.getItem("token");
@@ -210,8 +208,13 @@ export function venta(payload) {
             progress: undefined,
           });
       //socket.io
+
+
       socket.emit("renderHome");
+
       socket.emit("update");
+     
+     
     } catch (e) {
       toast.error(e.response.data.msg);
     }
@@ -240,6 +243,9 @@ export function Edit_NFT(_id, payload) {
 
     //socket.io
     socket.emit("renderHome");
+    socket.emit("update");
+
+
   };
 }
 

@@ -31,7 +31,6 @@ export default function Home() {
       dispatch(allNftMarket());
        dispatch(allNFTUser());
     });
-
   });
 
   return (

@@ -50,9 +50,9 @@ export default function ComponentNFT(props) {
   function editValue() {
     if (isNaN(input)) {
       setInput("");
-      alert("only numbers");
+      toast.warning("only numbers");
     } else if (input.length == 0) {
-      alert("put a value ");
+      toast.warning("put a value ");
     } else {
       dispatch(Edit_NFT(_id, input));
       toast.success("Precio Editado Correctamente");
@@ -92,9 +92,9 @@ export default function ComponentNFT(props) {
         <p>
           owner: <small> {ownerId}</small>
         </p>
-        <div className="contPrice">
-          <p>price:</p> <span> {formateoPrecio(price)}</span>
-        </div>
+        <p className="contPrice">
+          price: <span> {formateoPrecio(price)}</span>
+        </p>
       </div>
       <div className="contButtons">
         <button

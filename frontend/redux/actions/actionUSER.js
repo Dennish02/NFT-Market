@@ -299,3 +299,18 @@ export function usuarioActual() {
     }
   };
 }
+export function comprarCL(cuantity){
+ 
+  return async function(){
+    try {
+     const json = await clienteAxios.post(`${import.meta.env.VITE_BACKEND_URL}/process-payment`, {cuantity})
+     socket.emit("Redireccion", json.data);
+     
+    } catch (error) {
+        console.log(error);
+    }
+   
+    
+  }
+}
+

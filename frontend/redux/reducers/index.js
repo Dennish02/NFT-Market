@@ -21,7 +21,8 @@ import {
 
   ACTUAL,
   FILTER_COLECTION,
-  SAVE_VALUE
+  SAVE_VALUE,
+  LOAD_COLECCIONES
 
 
 } from "../constantes";
@@ -76,7 +77,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         colecciones: action.payload,
       };
-
+      case LOAD_COLECCIONES:
+        return {
+          ...state
+        }
     // case USER_NFT:
     //   const filter = state.allNft.filter((e) => e.ownerId === action.payload);
     //   return {

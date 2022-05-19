@@ -57,15 +57,24 @@ export default function PortfoliOptions() {
   return (
     <div>
       <div className="contButton">
-        <Link to="/home/usuario/nft/crear/">
-          <button className="buttonPrimary">CREAR NFT</button>
-        </Link>
-        <button className="buttonOrange" onClick={showModal}>
-          CREAR COLECCION
-        </button>
-        <Link to="/usuario/favoritos">
-          <button className="buttonMorado">MIS FAVORITOS</button>
-        </Link>
+        <div className="center">
+          <Link to="/home/usuario/nft/crear/">
+            <button className="buttonPrimary">CREAR NFT</button>
+          </Link>
+        </div>
+        <div className="center">
+          <button className="buttonOrange" onClick={showModal}>
+            CREAR COLECCION
+          </button>
+        </div>
+        <div className="center">
+          <Link to="/usuario/favoritos">
+            <button className="buttonMorado">MIS FAVORITOS</button>
+          </Link>
+        </div>
+       
+       
+        
       </div>
 
       <div className="contTittle">
@@ -74,7 +83,7 @@ export default function PortfoliOptions() {
           <select className="coleccion" onChange={(e) => setColeccion(e.target.value)}  value={coleccion} id="colection">
             <option onClick={() => filtrarColeccion()} value="todos">todos</option>
             {colecciones.map(el => 
-               <option onClick={() => filtrarColeccion()} value={el.colection}>{el.colection}</option>
+               <option key={el._id} onClick={() => filtrarColeccion()} value={el.colection}>{el.colection}</option>
               )}      
           </select>
         </div>
