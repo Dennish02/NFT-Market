@@ -10,14 +10,15 @@ export default function Favoritos() {
     
    
     return (
-        <div><h1>favoritos</h1>
+        <div>
             <NavBar />
+            <h1 style={{color: 'white'}}>favoritos</h1>
             {favoritos.length > 0 ? favoritos.map(fav => {
                 return (
                     <FavNFTS image={fav.image} id={fav.id} 
                     colection={fav.colection} avaliable={fav.avaliable}
                     creatorId={fav.creatorId} ownerId={fav.ownerId}
-                    _id={fav._id}
+                    _id={fav._id} priceBase={fav.priceBase} price={fav.price}
                     />
                 )
             })
