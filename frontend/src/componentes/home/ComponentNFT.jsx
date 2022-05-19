@@ -18,16 +18,25 @@ export default function ComponentNFT(props) {
   } = props;
   let porcentaje = pocentajeAumento(priceBase, price);
   const dispatch = useDispatch();
-  function añadirFavoritos(){
+
+  function añadirValidado(){
+    extraerId.includes(_id)? alert('ya lo tenes'): añadirFavorito()
+    
+    
+
+    }
+    
+  function añadirFavorito(){
+    alert('añadido a favoritos')
     dispatch(AñadirFav(_id))
-    alert('nft agregado a favoritos')
   }
+  
  const user = useSelector(state => state.usuario)
- let idFavorito = ''
+ let idFavorito = user.favoritos
+ let extraerId = ''
+ idFavorito.length>0? extraerId = idFavorito.map(el => el._id) : null
  
 
- 
- 
  
  
  
@@ -75,8 +84,8 @@ export default function ComponentNFT(props) {
         <button className="w-50 buttonPrimary" onClick={() => handleBuy()}>
           BUY
         </button>
-       
-        {user.favoritos? (idFavorito = user.favoritos, idFavorito.map(el => el._id.includes(_id)? null : <button onClick={()=> añadirFavoritos()}>AÑADIR A FAVS</button> )) :null}
+        
+          {user.favoritos.length== 0? <button onClick={() => añadirFavorito()}>añadir fav</button>: <button onClick={()=> añadirValidado()}>añadir fav</button>}
         <button className="w-50 buttonTrade">Trade</button>
       </div>
     </div>
