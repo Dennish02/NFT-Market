@@ -17,7 +17,8 @@ import {
   GIFT_NFT,
   SHOW_USERS_ID,
   ACTUAL,
-  FILTER_COLECTION
+  FILTER_COLECTION,
+  SAVE_VALUE
 
 } from "../constantes";
 
@@ -163,21 +164,24 @@ function rootReducer(state = initialState, action) {
         allNft: filterBySearch,
       };
 
-      case  SHOW_USERS_ID:
-        return {
-          ...state,
-          usersInfo: action.payload
-        }
-        case FILTER_COLECTION:
-         const nftForFilter = state.backUpNftUser
-         const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
-        
-        
-          return {
-            ...state,
-           nftUser: action.payload == 'todos'? state.backUpNftUser : filter
-          }
+    case SHOW_USERS_ID:
+      return {
+        ...state,
+        usersInfo: action.payload
+      }
+    case FILTER_COLECTION:
+      const nftForFilter = state.backUpNftUser
+      const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
 
+
+      return {
+        ...state,
+        nftUser: action.payload == 'todos' ? state.backUpNftUser : filter
+      }
+    case SAVE_VALUE:
+      return {
+        ...state,
+      }    
     default:
       return state;
   }

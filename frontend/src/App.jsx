@@ -24,6 +24,9 @@ import Wallet from "./pages/Wallet.jsx";
 import Settings from "./pages/Settings.jsx";
 import UpdatePassword from "./componentes/settings/updatePassword"
 import Favoritos from './pages/Favoritos'
+import ConfirmarCompra from "./componentes/wallet/ConfirmarCompra.jsx";
+import Failure from "./componentes/wallet/Failure.jsx";
+
 
 function App() {
   return (
@@ -63,7 +66,18 @@ function App() {
         >
           <Route index element={<Wallet />} />
         </Route>
-
+        <Route
+          path="home/usuario/wallet/confirmar"
+          element={<VerificacionUsuario />}
+        >
+          <Route index element={<ConfirmarCompra />} />
+        </Route>
+        <Route
+          path="/home/usuario/wallet/failure"
+          element={<VerificacionUsuario />}
+        >
+          <Route index element={<Failure />} />
+        </Route>
         <Route
           path="/home/usuario/setting"
           element={<VerificacionUsuario />}
