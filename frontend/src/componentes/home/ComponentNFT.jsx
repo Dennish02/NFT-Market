@@ -22,10 +22,16 @@ export default function ComponentNFT(props) {
     dispatch(AñadirFav(_id))
     alert('nft agregado a favoritos')
   }
-
+ const user = useSelector(state => state.usuario)
+ const idFavorito = user.favoritos
+ 
+ 
+ 
+ 
+ 
 
   function handleBuy() {
-    confirm("Estas seguro de gastar tu plata en el mono?")
+    confirm("Queres comprar este nft?")
       ? dispatch(comprarNFT(_id))
       : null;
   }
@@ -65,7 +71,7 @@ export default function ComponentNFT(props) {
         <button className="w-50 buttonPrimary" onClick={() => handleBuy()}>
           BUY
         </button>
-        <button onClick={() =>añadirFavoritos()}>AÑADIR A FAV</button>
+        {idFavorito.map(el => el._id).includes(_id)? null: <button onClick={()=> añadirFavoritos()}>AÑADIR A FAVS</button>}
         <button className="w-50 buttonTrade">Trade</button>
       </div>
     </div>
