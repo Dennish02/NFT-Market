@@ -16,6 +16,7 @@ import {
   SET_COLECCIONES,
   GIFT_NFT,
   SHOW_USERS_ID,
+  SAVE_VALUE
 } from "../constantes";
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   creado: false,
   colecciones: [],
   usersInfo: [],
+  valor:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -158,6 +160,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         usersInfo: action.payload,
       };
+    case SAVE_VALUE:
+      return {
+        ...state,
+      }
     default:
       return state;
   }

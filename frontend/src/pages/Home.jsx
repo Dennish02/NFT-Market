@@ -34,20 +34,11 @@ export default function Home() {
 
   useEffect(() => {
     //recibir la respuesta del back
-    socket.on("nftAgregado", () => {
+    socket.on("homeUpdate", () => {
       dispatch(allNftMarket());
+       dispatch(allNFTUser());
     });
-    socket.on("nftDisponile", () => {
-      dispatch(allNftMarket());
-      dispatch(allNFTUser());
-    });
-    socket.on("nftModificado", () => {
-      dispatch(allNftMarket());
-    });
-    socket.on("nftVendido", () => {
-      dispatch(allNftMarket());
-      dispatch(allNFTUser());
-    });
+
   });
 
   return (

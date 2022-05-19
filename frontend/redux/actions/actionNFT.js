@@ -11,6 +11,7 @@ import {
   SEARCH_NFT,
   USER_NFT,
   ALL_NFT_MARKET,
+  SAVE_VALUE,
 } from "../constantes/index";
 
 import io from "socket.io-client";
@@ -106,7 +107,7 @@ export function crearNFT(payload) {
 
       await clienteAxios.post(`/nft`, form, config);
       //socket.io
-      socket.emit("NftCreado");
+      socket.emit("renderHome");
       toast.success("NFT creado correctamente");
       return dispatch({
         type: CREATE_NFT,
@@ -168,7 +169,7 @@ export function comprarNFT(payload) {
 
       //socket.io
       toast.success(`Compraste este NFT: ${nft.data.NFT_id}`);
-      socket.emit("ventaNFT");
+      socket.emit("renderHome");
     } catch (error) {
       toast.error(error.response.data.msg);
     }
@@ -213,7 +214,7 @@ export function venta(payload) {
             progress: undefined,
           });
       //socket.io
-      socket.emit("ponerEnVenta");
+      socket.emit("renderHome");
       socket.emit("update");
 
     } catch (e) {
@@ -243,7 +244,7 @@ export function Edit_NFT(_id, payload) {
     );
 
     //socket.io
-    socket.emit("editarPrecio");
+    socket.emit("renderHome");
   };
 }
 
@@ -260,4 +261,29 @@ export function Gift_NFT(iduser, idnft, colection) {
       { iduser: iduser, idnft: idnft, colection: colection }
     );
   };
+}
+
+export function setNewCoin(value) {
+  return async function(dispatch){
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+    
+    const json =  await clienteAxios.put(`${import.meta.env.VITE_BACKEND_URL}/process-payment/setcoins`, {value}, config)
+    
+      toast.success(json.data.msg)
+     return dispatch({
+       type: SAVE_VALUE,
+     })
+    } catch (error) {
+        console.log(error);
+    }
+   
+    
+  }
 }

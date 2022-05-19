@@ -3,35 +3,41 @@ import NavWallet from "../componentes/wallet/NavWallet"
 import ComponentNFTWallet from "../componentes/wallet/ComponentNFTWallet"
 import { useSelector, useDispatch  } from "react-redux"
 import formateoPrecio from "../middleware/formateoPrecio";
-import { allNftMarket } from  "../../redux/actions/actionNFT"
-import MercadoPagoForm from '../componentes/MercadoPago/MercadoPagoForm.jsx'
-import Modal from 'react-modal';
+import { allNftMarket} from  "../../redux/actions/actionNFT"
+//import MercadoPagoForm from '../componentes/MercadoPago/MercadoPagoForm.jsx'
+//import Modal from 'react-modal';
 import mp from '../img/mp.png'
 import { toast } from 'react-toastify';
 import Paginado from './Paginas';
+import { comprarCL } from '../../redux/actions/actionUSER';
+//import { useNavigate } from 'react-router';
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    padding: "0",
-    width: "800px",
-  },
-};
+// const customStyles = {
+//   content: {
+//     top: "50%",
+//     left: "50%",
+//     right: "auto",
+//     bottom: "auto",
+//     marginRight: "-50%",
+//     transform: "translate(-50%, -50%)",
+//     padding: "0",
+//     width: "800px",
+//   },
+// };
 
 
+import io from "socket.io-client";
+let socket;
 
 
 function Wallet() {
-const [showModal, setShowModal] = useState(false);
+
+//const [showModal, setShowModal] = useState(false);
 const dispatch = useDispatch()
 const usuario = useSelector(state => state.usuario)
 
 const [compra, setCompra] = useState()
+
 
 
 //paginacion
@@ -49,20 +55,36 @@ const goToNextPage = () => setCurrentPage(currentPage + 1);
 const goToPreviousPage = () => {
   if (currentPage > 1) setCurrentPage(currentPage - 1)
 }
+const params = window.location.href;
+const [ruta, setRuta ] = useState()
 
 
-
-function handleButton() {
+function handleButton(e) {
+  e.preventDefault()
   !compra? toast.info('Deebes ingresar in monto') :
-  setShowModal(true);
+  //setShowModal(true);
+  localStorage.setItem('valor', `${compra}`)
+  dispatch(comprarCL(compra))
+
 }
-function closeModal() {
-  showModal && setShowModal(false);
-}
+// function closeModal() {
+//   showModal && setShowModal(false);
+// }
 
 useEffect(()=> {
   dispatch(allNftMarket())
+  socket = io(import.meta.env.VITE_BACKEND_URL);
+  socket.emit("Navegar", params);
 },[])
+
+
+
+useEffect(() => {
+  //recibir la respuesta del back
+  socket.on("redicreccion", (ruta) => {
+    setRuta(ruta);
+  });
+},[]);
 
   return (
     <div> 
@@ -76,10 +98,10 @@ useEffect(()=> {
             <div className='contAgrgarCl'>
               
               <p>Recargá CL con Mercado Pago</p>
-              <label htmlFor="monto">Ingreá el monto a comprar</label>
+             { !ruta ? <> <label htmlFor="monto">Ingreá el monto a comprar</label>
               <div className='InpcutLogo'>
                 <div className='contInput'>
-                 
+
                   <input 
                   id='valorMP' 
                   placeholder='Ingresa la cantidad de CL' 
@@ -88,13 +110,18 @@ useEffect(()=> {
                   value={compra} />
                 </div>
 
-
-               <div className='contLogoMP'>
-               <img onClick={handleButton} className='logomp' src={mp} /> 
-               </div>
+                <button className='buttonMorado' onClick={handleButton}>Enviar</button>
+               
                 
                
-              </div>
+               
+              </div> </>: <a  href={ruta}> 
+                   <button  >
+                      <p>Pagar</p>
+                      <img   className='logomp' src={mp} />  
+                   </button>  </a>}
+
+
               <p>Transeferí CL a otro usuario</p>
               <label>Elegir ususario:</label>
               <div className='InpcutLogo'>
@@ -160,9 +187,9 @@ useEffect(()=> {
        
         </div>
        
-        <Modal  isOpen={showModal} style={customStyles}>
+        {/* <Modal  isOpen={showModal} style={customStyles}>
         <MercadoPagoForm compra={compra} closeModal={closeModal} />
-        </Modal>
+        </Modal> */}
     </div>
   )
 }
