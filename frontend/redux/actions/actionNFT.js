@@ -285,6 +285,7 @@ export function AñadirFav(id){
     const json = await authAxios.put(
       `${import.meta.env.VITE_BACKEND_URL}/api/nft/favoritos/${id}`
     );
+    socket.emit('renderHome')
   }
 }
 
@@ -300,6 +301,7 @@ export function eliminarFav(id){
     const json = await authAxios.put(
       `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${id}`
     );
+    socket.emit('renderHome')
   }
 }
 

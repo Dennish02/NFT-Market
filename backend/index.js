@@ -73,36 +73,11 @@ io.on("connection", (socket) => {
     socket.to(`${process.env.FRONTEND_URL}/home`).emit("homeUpdate");
   });
 
-
   //enviar respuesta al front
- 
-  socket.on("balanceUser", () => {
-    socket.to(`${process.env.FRONTEND_URL}/home`).emit("balance");
-  });
-
   //Room portfolio
-  socket.on("portfolio", (room) => {
-    socket.join(room);
-
-  });
-  socket.on("update", () => {
-    socket.to(`${process.env.FRONTEND_URL}/home/usuario/portolio`).emit("nftUser");
-  });
-
-  //Room Wallet
-
-  socket.on("Navegar", (room) => {
-    socket.join(room);
-
-  });
-  
-
-  socket.on("balanceUser", () => {
-    socket.to(`${process.env.FRONTEND_URL}/home`).emit("balance");
-  });
-
   socket.on("Portfolio", (room) => {
     socket.join(room);
+
   });
   socket.on("update", () => {
     socket.to(`${process.env.FRONTEND_URL}/home/usuario/portfolio`).emit("nftUser");
@@ -110,13 +85,17 @@ io.on("connection", (socket) => {
   socket.on("updateCollections", () => {
     socket.to(`${process.env.FRONTEND_URL}/home/usuario/portfolio`).emit("colectionUser");
   });
+
+
   socket.on("Settings", (room) => {
     socket.join(room);
   });
   socket.on("update2", () => {
     socket.to(`${process.env.FRONTEND_URL}/home/usuario/setting`).emit("nftUser2");
   });
-    socket.on("Navegar", (room) => {
+
+  //Room Wallet  
+  socket.on("Navegar", (room) => {
     socket.join(room);
 
   });

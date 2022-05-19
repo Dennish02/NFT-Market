@@ -680,6 +680,7 @@ img {
 }
 
 .contNFT {
+  position: relative;
   padding: 1rem;
   width: 280px;
   height: fit-content;
@@ -780,6 +781,15 @@ img {
   width: 50%;
 }
 .contNFT .buttonTrade:hover {
+  cursor: pointer;
+}
+.contNFT .buttonFav {
+  width: 30px;
+  position: absolute;
+  bottom: 95px;
+  left: 85%;
+}
+.contNFT .buttonFav:hover {
   cursor: pointer;
 }
 
