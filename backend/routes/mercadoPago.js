@@ -9,7 +9,10 @@ router.post("/", payMercadoPago);
 router.put("/setcoins",checkOut, setCoins);
 
   
-// router.post(checkOut, añadirFavNft);
 
+router.post("/", payMercadoPago);
+router.put("/setcoins",checkOut, setCoins);
+
+// router.post(checkOut, añadirFavNft);
 
 export default router;

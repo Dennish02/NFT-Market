@@ -4,7 +4,11 @@ import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { crearColeccion } from "../../../redux/actions/actionColeccion";
 import { toast } from "react-toastify";
+
+import {filterColection } from '../../../redux/actions/actionNFT'
+
 import { coleccionesUsuario } from "../../../redux/actions/actionColeccion";
+
 
 const customStyles = {
   content: {
@@ -19,15 +23,22 @@ const customStyles = {
 };
 
 export default function PortfoliOptions() {
+  const [coleccion, setColeccion] = useState(' ')
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [input, setInput] = useState("");
-  const colecciones = useSelector((state) => state.colecciones);
+
+  const colecciones = useSelector(state => state.backUpNftUser)
+
 
   function showModal() {
     setOpenModal(true);
   }
-
+  
+ function filtrarColeccion()  {
+  dispatch(filterColection(coleccion))
+ }
+  
   function closeModal() {
     setOpenModal(false);
   }
@@ -40,6 +51,7 @@ export default function PortfoliOptions() {
     if (input.length > 8)
       return toast.error("el nombre puede tener hasta 8 caracteres");
     dispatch(crearColeccion(input));
+    closeModal();
   }
 
   return (
@@ -51,7 +63,7 @@ export default function PortfoliOptions() {
         <button className="buttonOrange" onClick={showModal}>
           CREAR COLECCION
         </button>
-        <Link to="#">
+        <Link to="/usuario/favoritos">
           <button className="buttonMorado">MIS FAVORITOS</button>
         </Link>
       </div>
@@ -59,13 +71,11 @@ export default function PortfoliOptions() {
       <div className="contTittle">
         <h2 className="tuPortfolio">your portfolio</h2>
         <div>
-          <select className="coleccion" name="colection" id="">
-            <option value="all">Todas</option>
-            {colecciones?.map((col, i) => (
-              <option key={i} value={col.name}>
-                {col.name}
-              </option>
-            ))}
+          <select className="coleccion" onChange={(e) => setColeccion(e.target.value)}  value={coleccion} id="colection">
+            <option onClick={() => filtrarColeccion()} value="todos">todos</option>
+            {colecciones.map(el => 
+               <option onClick={() => filtrarColeccion()} value={el.colection}>{el.colection}</option>
+              )}      
           </select>
         </div>
       </div>

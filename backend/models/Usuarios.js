@@ -21,9 +21,8 @@ const usuarioSchema = mongoose.Schema(
       unique: true,
     },
     image: {
-      type: String,
-      require: true,
-      trim: true,
+      public_id: String,
+      url: String,
     },
     token: {
       type: String,
@@ -40,16 +39,22 @@ const usuarioSchema = mongoose.Schema(
     nfts: {
       type: Array,
     },
-    favoritos: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "NftCreated",
-      },
-    ],
-    transacciones: {
+    favoritos: {
+
+
       type: Array,
+
+
+
     },
+    transacciones: {
+      type: Array
+    },
+    hasTradeOffers: {
+      type: Array
+    }
   },
+
   {
     timestamps: true,
   }

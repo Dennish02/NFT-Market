@@ -16,7 +16,14 @@ import {
   SET_COLECCIONES,
   GIFT_NFT,
   SHOW_USERS_ID,
+
   SAVE_VALUE
+
+  ACTUAL,
+  FILTER_COLECTION,
+  SAVE_VALUE
+
+
 } from "../constantes";
 
 const initialState = {
@@ -80,6 +87,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         nftUser: action.payload,
+        backUpNftUser: action.payload
+      };
+
+    case ACTUAL:
+      return {
+        ...state,
+        usuario: action.payload,
       };
 
     case LOGIN_USER:
@@ -91,7 +105,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case LOGOUT_USER:
-      console.log("aca");
       return {
         allNft: [],
         backUpAllNft: [],
@@ -155,15 +168,34 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft: filterBySearch,
       };
+
     case SHOW_USERS_ID:
       return {
         ...state,
+
         usersInfo: action.payload,
       };
     case SAVE_VALUE:
       return {
         ...state,
       }
+
+        usersInfo: action.payload
+      }
+    case FILTER_COLECTION:
+      const nftForFilter = state.backUpNftUser
+      const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
+
+
+      return {
+        ...state,
+        nftUser: action.payload == 'todos' ? state.backUpNftUser : filter
+      }
+    case SAVE_VALUE:
+      return {
+        ...state,
+      }    
+
     default:
       return state;
   }

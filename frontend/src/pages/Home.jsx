@@ -17,14 +17,7 @@ export default function Home() {
   const todosLosNFT = useSelector((state) => state.allNft);
   const usuario = useSelector((state) => state.usuario);
   const params = window.location.href;
-
   const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`,
-    },
-  };
 
   useEffect(() => {
     dispatch(allNftMarket());
