@@ -32,12 +32,14 @@ export default function ComponentNFT(props) {
   }
   
  const user = useSelector(state => state.usuario)
- let idFavorito = user.favoritos
+ let idFavorito = ''
+ let validarBoton = ''
+ user.favoritos? validarBoton = user.favoritos : null
+ user.favoritos? idFavorito = user.favoritos : null
  let extraerId = ''
  idFavorito.length>0? extraerId = idFavorito.map(el => el._id) : null
  
 
- 
  
  
  
@@ -85,7 +87,7 @@ export default function ComponentNFT(props) {
           BUY
         </button>
         
-          {user.favoritos.length== 0? <button onClick={() => añadirFavorito()}>añadir fav</button>: <button onClick={()=> añadirValidado()}>añadir fav</button>}
+          {validarBoton.length==0? <button onClick={() => añadirFavorito()}>añadir fav</button>: <button onClick={()=> añadirValidado()}>añadir favs</button>}
         <button className="w-50 buttonTrade">Trade</button>
       </div>
     </div>
