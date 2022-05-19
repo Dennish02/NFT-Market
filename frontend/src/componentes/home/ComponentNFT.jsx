@@ -92,4 +92,3 @@ export default function ComponentNFT(props) {
   );
 }
 
-// {idFavorito.map(el => el._id).includes(_id)? null: <button onClick={()=> añadirFavoritos()}>AÑADIR A FAVS</button>}
