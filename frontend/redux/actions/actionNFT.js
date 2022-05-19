@@ -285,3 +285,18 @@ export function AñadirFav(id){
     );
   }
 }
+
+export function eliminarFav(id){
+  return async function(){
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const json = await authAxios.put(
+      `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${id}`
+    );
+  }
+}

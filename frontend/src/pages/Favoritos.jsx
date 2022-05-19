@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux'
 export default function Favoritos() {
     const miUser = useSelector(state => state.usuario)
     const favoritos = miUser.favoritos
-    const prueba = favoritos.map(el => el.image.url)
-    console.log('soy favoritos', prueba)
+    
+   
     return (
         <div><h1>favoritos</h1>
             <NavBar />
@@ -17,6 +17,7 @@ export default function Favoritos() {
                     <FavNFTS image={fav.image} id={fav.id} 
                     colection={fav.colection} avaliable={fav.avaliable}
                     creatorId={fav.creatorId} ownerId={fav.ownerId}
+                    _id={fav._id}
                     />
                 )
             })
@@ -28,7 +29,7 @@ export default function Favoritos() {
 
             }
 
-            <h1>Favorites </h1>
+            
 
             {/* ACA SE TIENEN QUE RENDERIZAR LOS NFT QUE ESTEN AGREGADOS A FAVORITOS  */}
             <Link to='/home/usuario/portfolio'> <button>VOLVER AL PORTFOLIO </button></Link>
