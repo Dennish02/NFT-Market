@@ -70,12 +70,14 @@ io.on("connection", (socket) => {
   });
 
   //enviar respuesta al front
+
   socket.on("balanceUser", () => {
     socket.to(`${process.env.FRONTEND_URL}/home`).emit("balance");
   });
 
   socket.on("Portfolio", (room) => {
     socket.join(room);
+
   });
   socket.on("update", () => {
     socket

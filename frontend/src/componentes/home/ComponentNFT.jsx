@@ -1,8 +1,13 @@
 import React from "react";
-import { comprarNFT, AñadirFav } from "../../../redux/actions/actionNFT";
+import { comprarNFT, AñadirFav, eliminarFav } from "../../../redux/actions/actionNFT";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import pocentajeAumento from "../../middleware/pocentajeAumento";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import favOn from '../../img/likeOn.png';
+import favOf from '../../img/likeOff.png';
+
+
 
 export default function ComponentNFT(props) {
   const {
@@ -19,17 +24,7 @@ export default function ComponentNFT(props) {
   let porcentaje = pocentajeAumento(priceBase, price);
   const dispatch = useDispatch();
 
-  function añadirValidado(){
-    extraerId.includes(_id)? alert('ya lo tenes'): añadirFavorito()
-    
-    
 
-    }
-    
-  function añadirFavorito(){
-    alert('añadido a favoritos')
-    dispatch(AñadirFav(_id))
-  }
   
  const user = useSelector(state => state.usuario)
  let idFavorito = ''
@@ -40,16 +35,21 @@ export default function ComponentNFT(props) {
  idFavorito.length>0? extraerId = idFavorito.map(el => el._id) : null
  
 
- 
- 
- 
- 
+function añadirFavorito(){
 
-  function handleBuy() {
+  extraerId.includes(_id) ?
+
+  dispatch(eliminarFav(_id)): 
+  
+  dispatch(AñadirFav(_id))
+}
+ 
+ 
+function handleBuy() {
     confirm("Queres comprar este nft?")
       ? dispatch(comprarNFT(_id))
       : null;
-  }
+}
 
   return (
     <div className="contNFT">
@@ -87,9 +87,12 @@ export default function ComponentNFT(props) {
           BUY
         </button>
         
-          {validarBoton.length==0? <button onClick={() => añadirFavorito()}>añadir fav</button>: <button onClick={()=> añadirValidado()}>añadir favs</button>}
+         
         <button className="w-50 buttonTrade">Trade</button>
       </div>
+
+      {!extraerId.includes(_id) ? <img className="buttonFav" onClick={() => añadirFavorito()} src={favOf} alt="favOn"/>: <img className="buttonFav" onClick={()=> añadirFavorito()} src={favOn} alt="favOn"/>}       
+
     </div>
   );
 }

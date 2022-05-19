@@ -3,6 +3,7 @@
 
 
 .contNFT{
+  position: relative;
     padding: 1rem;
     width: 280px;
     height: fit-content;
@@ -80,6 +81,15 @@
   .buttonTrade {
     @include m.buttonTrade;
     width: 50%;
+  }
+  .buttonFav{
+    width: 30px;
+    position: absolute;
+    bottom: 95px;
+    left: 85%;
+    &:hover{
+      cursor: pointer;
+    }
   }
 }
 .contPrice {
