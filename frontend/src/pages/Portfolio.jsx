@@ -9,27 +9,27 @@ import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
 import io from "socket.io-client";
 let socket;
 
-
 export default function Portfolio() {
   const dispatch = useDispatch();
   //const user = useSelector((state) => state.usuario);
   const nftUser = useSelector((state) => state.nftUser);
-  const params = window.location.href
+  const params = window.location.href;
 
   useEffect(() => {
     dispatch(allNFTUser());
     dispatch(coleccionesUsuario());
     socket = io(import.meta.env.VITE_BACKEND_URL);
-    socket.emit("Actualizar", params);
+    socket.emit("Portfolio", params);
   }, []);
 
   useEffect(() => {
     //recibir la respuesta del back
     socket.on("nftUser", () => {
       dispatch(allNFTUser());
-      dispatch(coleccionesUsuario());
-
     });
+    // socket.on("colectionUser", () => {
+    //   dispatch(coleccionesUsuario());
+    // });
   });
 
   return (

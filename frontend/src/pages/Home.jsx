@@ -17,14 +17,7 @@ export default function Home() {
   const todosLosNFT = useSelector((state) => state.allNft);
   const usuario = useSelector((state) => state.usuario);
   const params = window.location.href;
-
   const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`,
-    },
-  };
 
   useEffect(() => {
     dispatch(allNftMarket());
@@ -34,19 +27,9 @@ export default function Home() {
 
   useEffect(() => {
     //recibir la respuesta del back
-    socket.on("nftAgregado", () => {
+    socket.on("homeUpdate", () => {
       dispatch(allNftMarket());
-    });
-    socket.on("nftDisponile", () => {
-      dispatch(allNftMarket());
-      dispatch(allNFTUser());
-    });
-    socket.on("nftModificado", () => {
-      dispatch(allNftMarket());
-    });
-    socket.on("nftVendido", () => {
-      dispatch(allNftMarket());
-      dispatch(allNFTUser());
+       dispatch(allNFTUser());
     });
   });
 
