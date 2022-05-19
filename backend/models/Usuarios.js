@@ -46,8 +46,11 @@ const usuarioSchema = mongoose.Schema(
       },
     ],
     transacciones: {
-      type: Array,
+      type: Array
     },
+    hasTradeOffers: {
+      type: Array
+    }
   },
   {
     timestamps: true,

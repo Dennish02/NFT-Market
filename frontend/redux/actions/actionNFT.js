@@ -11,6 +11,7 @@ import {
   SEARCH_NFT,
   USER_NFT,
   ALL_NFT_MARKET,
+  FILTER_COLECTION,
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -251,4 +252,11 @@ export function Gift_NFT(iduser, idnft, colection) {
       { iduser: iduser, idnft: idnft, colection: colection }
     );
   };
+}
+
+export function filterColection(payload){
+  return{
+    type: FILTER_COLECTION,
+    payload
+  }
 }

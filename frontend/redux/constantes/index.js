@@ -16,7 +16,7 @@ export const SEARCH_NFT = "SEARCH_NFT";
 export const USER_NFT = "USER_NFT";
 export const ALL_NFT_MARKET = "ALL_NFT_MARKET";
 export const SHOW_USERS_ID = "SHOW_USERS_ID";
-
+export const FILTER_COLECTION = 'FILTER_COLECTION'
 export const SET_COLECCIONES = "SET_COLECCIONES";
 
 //USER
