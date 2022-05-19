@@ -11,8 +11,6 @@ import {
   SEARCH_NFT,
   USER_NFT,
   ALL_NFT_MARKET,
-
-
   FILTER_COLECTION,
   ADD_NFT_FAVORITE,
   SAVE_VALUE,
@@ -209,12 +207,9 @@ export function venta(payload) {
           });
       //socket.io
 
-
       socket.emit("renderHome");
 
       socket.emit("update");
-     
-     
     } catch (e) {
       toast.error(e.response.data.msg);
     }
@@ -244,37 +239,38 @@ export function Edit_NFT(_id, payload) {
     //socket.io
     socket.emit("renderHome");
     socket.emit("update");
-
-
   };
 }
 
 export function Gift_NFT(iduser, idnft, colection) {
   return async function () {
     const token = localStorage.getItem("token");
-    const authAxios = axios.create({
+    const config = {
       headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
-    });
-    const json = await authAxios.put(
+    };
+
+    const json = await clienteAxios.put(
       `${import.meta.env.VITE_BACKEND_URL}/api/nft/gift`,
-      { iduser: iduser, idnft: idnft, colection: colection }
+      { iduser, idnft, colection },
+      config
     );
+    socket.emit("update");
+    // socket.emit("renderHome");
   };
 }
 
-
-
-export function filterColection(payload){
-  return{
+export function filterColection(payload) {
+  return {
     type: FILTER_COLECTION,
-    payload
-  }
+    payload,
+  };
 }
 
-export function AñadirFav(id){
-  return async function(){
+export function AñadirFav(id) {
+  return async function () {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
       headers: {
@@ -285,11 +281,11 @@ export function AñadirFav(id){
     const json = await authAxios.put(
       `${import.meta.env.VITE_BACKEND_URL}/api/nft/favoritos/${id}`
     );
-  }
+  };
 }
 
-export function eliminarFav(id){
-  return async function(){
+export function eliminarFav(id) {
+  return async function () {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
       headers: {
@@ -300,12 +296,11 @@ export function eliminarFav(id){
     const json = await authAxios.put(
       `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${id}`
     );
-  }
+  };
 }
 
-
 export function setNewCoin(value) {
-  return async function(dispatch){
+  return async function (dispatch) {
     const token = localStorage.getItem("token");
     const config = {
       headers: {
@@ -314,21 +309,18 @@ export function setNewCoin(value) {
       },
     };
     try {
-    
-    const json =  await clienteAxios.put(`${import.meta.env.VITE_BACKEND_URL}/process-payment/setcoins`, {value}, config)
-    
-      toast.success(json.data.msg)
-     return dispatch({
-       type: SAVE_VALUE,
-     })
+      const json = await clienteAxios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/process-payment/setcoins`,
+        { value },
+        config
+      );
+
+      toast.success(json.data.msg);
+      return dispatch({
+        type: SAVE_VALUE,
+      });
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-   
-    
-  }
-
+  };
 }
-
-
-
