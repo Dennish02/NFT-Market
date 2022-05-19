@@ -7,6 +7,7 @@ const obtenerColecciones = async (req, res) => {
 const crearColeccion = async (req, res) => {
   const { name } = req.body;
   const creator = req.usuario.nombre;
+
   if (name.length > 8)
     return res
       .status(400)
@@ -27,13 +28,10 @@ const crearColeccion = async (req, res) => {
 
 const coleccionesUsuario = async (req, res) => {
   const colecciones = await Coleccion.find();
+
   const user = colecciones.filter((col) => col.creator === req.usuario.nombre);
+
   return res.json(user);
 };
 
-export {
-  crearColeccion,
-  obtenerColecciones,
-  coleccionesUsuario,
-  //  coleccionesDeUsuario
-};
+export { crearColeccion, obtenerColecciones, coleccionesUsuario };
