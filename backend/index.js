@@ -85,7 +85,9 @@ io.on("connection", (socket) => {
   socket.on("update", () => {
     socket.to(`${process.env.FRONTEND_URL}/home/usuario/portfolio`).emit("nftUser");
   });
-
+  socket.on("updateCollections", () => {
+    socket.to(`${process.env.FRONTEND_URL}/home/usuario/portfolio`).emit("colectionUser");
+  });
   socket.on("Settings", (room) => {
     socket.join(room);
   });

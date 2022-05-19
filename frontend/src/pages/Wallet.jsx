@@ -62,6 +62,8 @@ function Wallet() {
   const goToPreviousPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
+  const [ruta, setRuta ] = useState()
+  const params = window.location.href;
 
   function handleButton(e) {
     e.preventDefault()

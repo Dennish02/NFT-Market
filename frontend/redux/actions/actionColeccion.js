@@ -1,6 +1,6 @@
 import clienteAxios from "../../src/config/clienteAxios";
 import { toast } from "react-toastify";
-import { SET_COLECCIONES } from "../constantes";
+import { SET_COLECCIONES, LOAD_COLECCIONES } from "../constantes";
 
 import io from "socket.io-client";
 let socket;
@@ -17,6 +17,7 @@ export function coleccionesUsuario() {
     };
 
     const json = await clienteAxios.get("/coleccion/usuario", config);
+    //socket.emit("updateCollections")
     return dispatch({
       type: SET_COLECCIONES,
       payload: json.data,
@@ -45,8 +46,11 @@ export function crearColeccion(payload) {
         },
         config
       );
-      socket.emit("update");
+      //socket.emit("update");
       toast.success("Coleccion creada");
+      return dispatch({
+        type: LOAD_COLECCIONES,
+      });
     } else {
       toast.error("La coleccion ya existe");
     }
