@@ -141,6 +141,7 @@ const regalarNft = async (req, res) => {
     await usuario.save();
 
     const giftTo = await Usuario.findById(iduser);
+    // const giftTo = await Usuario.findOne({nombre: iduser});
 
     if (nft) {
       giftTo.nfts.push(nft);
