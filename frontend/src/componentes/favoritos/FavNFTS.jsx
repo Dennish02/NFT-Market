@@ -18,32 +18,18 @@ function    FavnFTS({id, image, _id, colection, avaliable, priceBase, price, cre
   }
   let porcentaje = pocentajeAumento(priceBase, price)
   return (
-    <div className="contNFT">
-      <img className='contImg' src={image.url} alt="not image"  />
-      <div className="contNFTinfo">
-      <h2>{`${colection} ${id}`}</h2>
-      <p>{`creator: ${creatorId}`}</p>
-      <p>
-          {" "}
-          owner: <small> {ownerId}</small>{" "}
-        </p>
-        <p>
-          cotization:{" "}
-          {porcentaje >= 0 ? (
-            <small className="porcentajeMas">+ {porcentaje}</small>
-          ) : (
-            <small className="porcentajeMenos"> {porcentaje}</small>
-          )}{" "}
-        </p>
-        <p className='contPrice'>
-          last-price: <small>{formateoPrecio(priceBase)}</small>
-        </p>
-       
-        <p>{avaliable ? "En venta" : "No en venta"}</p>
-        <button onClick={() => deleteFav()}>ELIMINAR DE FAVORITOS</button>
-        <button className="w-50 buttonPrimary" onClick={() => handleBuy()}>BUY</button>
+    <div  >
+    <div className='contentGrid'  >
+    
+      <img className='imagee' src={image.url} alt="not image"  />
+      <p className='text' >{`creador : ${creatorId}`} </p>
+      <p  className='text'>{`price: ${price}`}</p>
+      <button className='last-grid' onClick={() => deleteFav()}>ELIMINAR DE FAVORITOS</button>
+     
       </div>
     </div>
+    
+   
   )
 }
 
