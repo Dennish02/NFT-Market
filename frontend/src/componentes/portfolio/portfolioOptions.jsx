@@ -29,8 +29,10 @@ export default function PortfoliOptions() {
   const [input, setInput] = useState("");
 
   const colecciones = useSelector(state => state.backUpNftUser)
+  const traerColecciones = colecciones.map(el => el.colection)
+  const noRepetirColecciones = new Set(traerColecciones)
 
-
+ 
   function showModal() {
     setOpenModal(true);
   }
@@ -82,8 +84,10 @@ export default function PortfoliOptions() {
         <div>
           <select className="coleccion" onChange={(e) => setColeccion(e.target.value)}  value={coleccion} id="colection">
             <option onClick={() => filtrarColeccion()} value="todos">todos</option>
-            {colecciones.map(el => 
-               <option key={el._id} onClick={() => filtrarColeccion()} value={el.colection}>{el.colection}</option>
+
+            {[...noRepetirColecciones].map(el => 
+               <option onClick={() => filtrarColeccion()} value={el}>{el}</option>
+
               )}      
           </select>
         </div>
