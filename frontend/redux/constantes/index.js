@@ -33,5 +33,10 @@ export const LOGIN_TO_GOOGLE = "GOOGLE_TO_GOOGLE";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const DELETE_PROFILE = "DELETE_PROFILE";
 export const VALIDATE_USER = "VALIDATE_USER";
+
+export const SAVE_VALUE= "SAVE_VALUE"
+
+
 export const ACTUAL = "ACTUAL";
 export const SAVE_VALUE= "SAVE_VALUE"
+
