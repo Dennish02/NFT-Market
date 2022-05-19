@@ -1,5 +1,5 @@
 import React from "react";
-import { comprarNFT } from "../../../redux/actions/actionNFT";
+import { comprarNFT, AñadirFav } from "../../../redux/actions/actionNFT";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import pocentajeAumento from "../../middleware/pocentajeAumento";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,9 +18,20 @@ export default function ComponentNFT(props) {
   } = props;
   let porcentaje = pocentajeAumento(priceBase, price);
   const dispatch = useDispatch();
+  function añadirFavoritos(){
+    dispatch(AñadirFav(_id))
+    alert('nft agregado a favoritos')
+  }
+ const user = useSelector(state => state.usuario)
+ const idFavorito = user.favoritos
+ 
+ 
+ 
+ 
+ 
 
   function handleBuy() {
-    confirm("Estas seguro de gastar tu plata en el mono?")
+    confirm("Queres comprar este nft?")
       ? dispatch(comprarNFT(_id))
       : null;
   }
@@ -60,6 +71,7 @@ export default function ComponentNFT(props) {
         <button className="w-50 buttonPrimary" onClick={() => handleBuy()}>
           BUY
         </button>
+        {idFavorito.map(el => el._id).includes(_id)? null: <button onClick={()=> añadirFavoritos()}>AÑADIR A FAVS</button>}
         <button className="w-50 buttonTrade">Trade</button>
       </div>
     </div>

@@ -12,6 +12,7 @@ import {
   USER_NFT,
   ALL_NFT_MARKET,
   FILTER_COLECTION,
+  ADD_NFT_FAVORITE,
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -258,5 +259,35 @@ export function filterColection(payload){
   return{
     type: FILTER_COLECTION,
     payload
+  }
+}
+
+export function AñadirFav(id){
+  return async function(){
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const json = await authAxios.put(
+      `${import.meta.env.VITE_BACKEND_URL}/api/nft/favoritos/${id}`
+    );
+  }
+}
+
+export function eliminarFav(id){
+  return async function(){
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const json = await authAxios.put(
+      `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${id}`
+    );
   }
 }
