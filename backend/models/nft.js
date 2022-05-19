@@ -34,17 +34,24 @@ const nftSchema = mongoose.Schema(
     },
     lastPrice: {
       type: Number,
-      trim: true
+      trim: true,
     },
     price: {
       type: Number,
       trim: true,
       required: true,
     },
-    likes: {
+    ranking: {
       type: Number,
       trim: true,
+      default: 0
     },
+    userLikes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Usuario"
+      }
+    ],
     avaliable: {
       type: Boolean,
       trim: true,

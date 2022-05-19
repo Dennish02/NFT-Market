@@ -2,7 +2,7 @@ import profile1 from "../../src/img/profile1.png";
 import profile2 from "../../src/img/profile2.png";
 import profile3 from "../../src/img/profile3.png";
 import clienteAxios from "../../src/config/clienteAxios";
-
+import io from "socket.io-client";
 import {
   VALIDATE_USER,
   RESET_PASSWORD,
@@ -14,9 +14,17 @@ import {
   LOGOUT_USER,
   LOGIN_GOOGLE,
   SHOW_USERS_ID,
+  ACTUAL,
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
+let socket;
+socket = io(import.meta.env.VITE_BACKEND_URL);
+
+
+import io from "socket.io-client";
+let socket;
+socket = io(import.meta.env.VITE_BACKEND_URL);
 
 // export function allNftMarket() {
 //   return async function (dispatch) {
@@ -60,19 +68,13 @@ export function loguinGoogle(googleData) {
 }
 
 export function registroUsuario({ nombre, email, password1 }) {
-  const n = Math.floor(Math.random() * 10) % 3;
+  // const n = Math.floor(Math.random() * 10) % 3;
   return async function () {
     try {
       const body = {
         nombre,
         email,
         password: password1,
-        image:
-          n === 0
-            ? profile1.toString()
-            : n === 1
-            ? profile2.toString()
-            : profile3.toString(),
       };
 
       const response = await clienteAxios.post(`/usuario`, body);
@@ -210,17 +212,105 @@ export function userLogout() {
 export function showUsers(payload) {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
-    const authAxios = clienteAxios.create({
+    const config = {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    });
-    const json = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/usuario/traer-usuarios`
+    };
+    const json = await clienteAxios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/usuario/traer-usuarios`,
+      config
     );
     return dispatch({
       type: SHOW_USERS_ID,
       payload: json.data,
     });
   };
+
 }
+
+
+export function comprarCL(cuantity){
+ 
+  return async function(){
+    try {
+     const json = await clienteAxios.post(`${import.meta.env.VITE_BACKEND_URL}/process-payment`, {cuantity})
+     socket.emit("Redireccion", json.data);
+     
+    } catch (error) {
+        console.log(error);
+    }
+   
+    
+  }
+}
+
+export function cambiarImagen(payload) {
+  return async function (dispatch) {
+    const id = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${id}`,
+      },
+    };
+    try {
+      const body = {
+        image: payload,
+      };
+      const form = new FormData();
+      for (let key in body) {
+        form.append(key, body[key]);
+      }
+      const json = await clienteAxios.put(`/usuario/imagen`, form, config);
+      toast.success(json.data.msg);
+      socket.io;
+      socket.emit("update2");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.msg);
+      console.log(error);
+      // console.log(error.response.data.msg);
+      // toast.error(error.response.data.msg);
+    }
+  };
+}
+
+export function usuarioActual() {
+  return async function (dispatch) {
+    const id = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${id}`,
+      },
+    };
+
+    try {
+      const json = await clienteAxios.get("/usuario/actual", config);
+
+      return dispatch({
+        type: ACTUAL,
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+export function comprarCL(cuantity){
+ 
+  return async function(){
+    try {
+     const json = await clienteAxios.post(`${import.meta.env.VITE_BACKEND_URL}/process-payment`, {cuantity})
+     socket.emit("Redireccion", json.data);
+     
+    } catch (error) {
+        console.log(error);
+    }
+   
+    
+  }
+}
+

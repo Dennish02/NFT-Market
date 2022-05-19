@@ -17,7 +17,14 @@ import {
   GIFT_NFT,
   SHOW_USERS_ID,
 
-  FILTER_COLECTION
+  SAVE_VALUE
+
+  ACTUAL,
+  FILTER_COLECTION,
+  SAVE_VALUE,
+  LOAD_COLECCIONES
+
+
 } from "../constantes";
 
 const initialState = {
@@ -34,6 +41,7 @@ const initialState = {
   creado: false,
   colecciones: [],
   usersInfo: [],
+  valor:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -69,7 +77,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         colecciones: action.payload,
       };
-
+      case LOAD_COLECCIONES:
+        return {
+          ...state
+        }
     // case USER_NFT:
     //   const filter = state.allNft.filter((e) => e.ownerId === action.payload);
     //   return {
@@ -83,6 +94,12 @@ function rootReducer(state = initialState, action) {
         backUpNftUser: action.payload
       };
 
+    case ACTUAL:
+      return {
+        ...state,
+        usuario: action.payload,
+      };
+
     case LOGIN_USER:
       return {
         ...state,
@@ -92,7 +109,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case LOGOUT_USER:
-      console.log("aca");
       return {
         allNft: [],
         backUpAllNft: [],
@@ -157,20 +173,32 @@ function rootReducer(state = initialState, action) {
         allNft: filterBySearch,
       };
 
-      case  SHOW_USERS_ID:
-        return {
-          ...state,
-          usersInfo: action.payload
-        }
-        case FILTER_COLECTION:
-         const nftForFilter = state.backUpNftUser
-         const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
-        
-        
-          return {
-            ...state,
-           nftUser: action.payload == 'todos'? state.backUpNftUser : filter
-          }
+    case SHOW_USERS_ID:
+      return {
+        ...state,
+
+        usersInfo: action.payload,
+      };
+    case SAVE_VALUE:
+      return {
+        ...state,
+      }
+
+        usersInfo: action.payload
+      }
+    case FILTER_COLECTION:
+      const nftForFilter = state.backUpNftUser
+      const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
+
+
+      return {
+        ...state,
+        nftUser: action.payload == 'todos' ? state.backUpNftUser : filter
+      }
+    case SAVE_VALUE:
+      return {
+        ...state,
+      }    
 
     default:
       return state;

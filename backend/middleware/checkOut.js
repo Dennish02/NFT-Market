@@ -19,7 +19,6 @@ const checkOut = async (req, res, next) => {
         "-password -confirmado -token -createdAt -updatedAt -__v"
       ); //saca del modleo tood loq eu esta en el parentesis
       //?dennis: saque el console.log
-      //console.log(req.usuario);
 
       return next();
     } catch (error) {

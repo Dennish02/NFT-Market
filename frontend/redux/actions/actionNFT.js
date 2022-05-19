@@ -11,13 +11,16 @@ import {
   SEARCH_NFT,
   USER_NFT,
   ALL_NFT_MARKET,
+
+
   FILTER_COLECTION,
   ADD_NFT_FAVORITE,
+  SAVE_VALUE,
 } from "../constantes/index";
 
-import io from "socket.io-client";
 import { toast } from "react-toastify";
 
+import io from "socket.io-client";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
@@ -82,7 +85,6 @@ export function crearNFT(payload) {
         Authorization: `Bearer ${id}`,
       },
     };
-
     try {
       if (!payload.flag) {
         const response = await clienteAxios.post(
@@ -93,22 +95,19 @@ export function crearNFT(payload) {
           config
         );
       }
-
       const body = {
         category: payload.category,
         colection: payload.colection,
         price: Number(payload.price),
         image: payload.image,
       };
-
       const form = new FormData();
       for (let key in body) {
         form.append(key, body[key]);
       }
-
       await clienteAxios.post(`/nft`, form, config);
       //socket.io
-      socket.emit("NftCreado");
+      socket.emit("renderHome");
       toast.success("NFT creado correctamente");
       return dispatch({
         type: CREATE_NFT,
@@ -150,8 +149,6 @@ export function reset(payload) {
 //   }
 // }
 
-export function nftWithUser() {}
-
 export function comprarNFT(payload) {
   return async function () {
     const token = localStorage.getItem("token");
@@ -170,7 +167,7 @@ export function comprarNFT(payload) {
 
       //socket.io
       toast.success(`Compraste este NFT: ${nft.data.NFT_id}`);
-      socket.emit("ventaNFT");
+      socket.emit("renderHome");
     } catch (error) {
       toast.error(error.response.data.msg);
     }
@@ -201,10 +198,6 @@ export function venta(payload) {
             draggable: true,
             progress: undefined,
           })
-
-  
-      
-
         : toast.info(`Pusiste a la venta tu nft ${id}`, {
             position: "top-center",
             autoClose: 2500,
@@ -215,9 +208,13 @@ export function venta(payload) {
             progress: undefined,
           });
       //socket.io
-      socket.emit("ponerEnVenta");
-      socket.emit("update");
 
+
+      socket.emit("renderHome");
+
+      socket.emit("update");
+     
+     
     } catch (e) {
       toast.error(e.response.data.msg);
     }
@@ -245,7 +242,10 @@ export function Edit_NFT(_id, payload) {
     );
 
     //socket.io
-    socket.emit("editarPrecio");
+    socket.emit("renderHome");
+    socket.emit("update");
+
+
   };
 }
 
@@ -263,6 +263,8 @@ export function Gift_NFT(iduser, idnft, colection) {
     );
   };
 }
+
+
 
 export function filterColection(payload){
   return{
@@ -300,3 +302,33 @@ export function eliminarFav(id){
     );
   }
 }
+
+
+export function setNewCoin(value) {
+  return async function(dispatch){
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+    
+    const json =  await clienteAxios.put(`${import.meta.env.VITE_BACKEND_URL}/process-payment/setcoins`, {value}, config)
+    
+      toast.success(json.data.msg)
+     return dispatch({
+       type: SAVE_VALUE,
+     })
+    } catch (error) {
+        console.log(error);
+    }
+   
+    
+  }
+
+}
+
+}
+
