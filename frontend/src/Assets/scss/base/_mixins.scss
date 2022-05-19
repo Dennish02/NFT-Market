@@ -189,3 +189,19 @@
   width: 10px;
   height: 10px;
 }
+
+@mixin buttonRojo {
+  width: fit-content;
+  background-color: v.$rojo;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: v.$grisclaro;
+  font-weight: 700;
+  margin: 1rem auto;
+  &:hover {
+    cursor: pointer;
+  }
+}
