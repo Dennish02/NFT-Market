@@ -22,10 +22,6 @@ let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
 
-import io from "socket.io-client";
-let socket;
-socket = io(import.meta.env.VITE_BACKEND_URL);
-
 // export function allNftMarket() {
 //   return async function (dispatch) {
 //     try {
@@ -228,22 +224,6 @@ export function showUsers(payload) {
     });
   };
 
-}
-
-
-export function comprarCL(cuantity){
- 
-  return async function(){
-    try {
-     const json = await clienteAxios.post(`${import.meta.env.VITE_BACKEND_URL}/process-payment`, {cuantity})
-     socket.emit("Redireccion", json.data);
-     
-    } catch (error) {
-        console.log(error);
-    }
-   
-    
-  }
 }
 
 export function cambiarImagen(payload) {
