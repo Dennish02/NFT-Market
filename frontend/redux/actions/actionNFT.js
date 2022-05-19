@@ -11,6 +11,8 @@ import {
   SEARCH_NFT,
   USER_NFT,
   ALL_NFT_MARKET,
+
+
   FILTER_COLECTION,
   ADD_NFT_FAVORITE,
   SAVE_VALUE,
@@ -206,8 +208,12 @@ export function venta(payload) {
             progress: undefined,
           });
       //socket.io
-      socket.emit("update");
+
+
       socket.emit("renderHome");
+
+      socket.emit("update");
+     
      
     } catch (e) {
       toast.error(e.response.data.msg);
@@ -238,6 +244,8 @@ export function Edit_NFT(_id, payload) {
     //socket.io
     socket.emit("renderHome");
     socket.emit("update");
+
+
   };
 }
 
@@ -255,6 +263,8 @@ export function Gift_NFT(iduser, idnft, colection) {
     );
   };
 }
+
+
 
 export function filterColection(payload){
   return{
@@ -293,6 +303,7 @@ export function eliminarFav(id){
   }
 }
 
+
 export function setNewCoin(value) {
   return async function(dispatch){
     const token = localStorage.getItem("token");
@@ -316,4 +327,8 @@ export function setNewCoin(value) {
    
     
   }
+
 }
+
+}
+
