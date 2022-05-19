@@ -87,7 +87,7 @@ export default function Register() {
             name="password1"
             value={estado.password}
             onChange={handleChange}
-            id="password"
+            id="password1"
             type="password"
             placeholder="Your password"
           />
@@ -97,7 +97,7 @@ export default function Register() {
             name="password2"
             value={estado.password2}
             onChange={handleChange}
-            id="password"
+            id="password2"
             type="password"
             placeholder="enter password again"
           />
