@@ -29,7 +29,6 @@ app.use(
 app.use(cors());
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -70,36 +69,34 @@ io.on("connection", (socket) => {
   socket.on("Actualizar", (room) => {
     socket.join(room);
   });
-  socket.on("NftCreado", () => {
-    socket.to("http://localhost:3000/home").emit("nftAgregado");
+  socket.on("renderHome", () => {
+    socket.to(`${process.env.FRONTEND_URL}/home`).emit("homeUpdate");
   });
 
-  //enviar respuesta al front
-  socket.on("ponerEnVenta", () => {
-    socket.to("http://localhost:3000/home").emit("nftDisponile");
-  });
-  socket.on("editarPrecio", () => {
-    socket.to("http://localhost:3000/home").emit("nftModificado");
-  });
-  socket.on("ventaNFT", () => {
-    socket.to("http://localhost:3000/home").emit("nftVendido");
-  });
+  
 
   socket.on("balanceUser", () => {
-    socket.to("http://localhost:3000/home").emit("balance");
+    socket.to(`${process.env.FRONTEND_URL}/home`).emit("balance");
   });
 
   socket.on("Portfolio", (room) => {
     socket.join(room);
   });
   socket.on("update", () => {
-    socket.to("http://localhost:3000/home/usuario/portfolio").emit("nftUser");
+    socket.to(`${process.env.FRONTEND_URL}/home/usuario/portfolio`).emit("nftUser");
   });
 
   socket.on("Settings", (room) => {
     socket.join(room);
   });
   socket.on("update2", () => {
-    socket.to("http://localhost:3000/home/usuario/setting").emit("nftUser2");
+    socket.to(`${process.env.FRONTEND_URL}/home/usuario/setting`).emit("nftUser2");
+  });
+    socket.on("Navegar", (room) => {
+    socket.join(room);
+
+  });
+  socket.on("Redireccion", (ruta) => {
+    socket.to(`${process.env.FRONTEND_URL}/home/usuario/wallet`).emit("redicreccion", ruta);
   });
 });
