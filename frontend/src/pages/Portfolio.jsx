@@ -27,9 +27,9 @@ export default function Portfolio() {
     socket.on("nftUser", () => {
       dispatch(allNFTUser());
     });
-    // socket.on("colectionUser", () => {
-    //   dispatch(coleccionesUsuario());
-    // });
+    socket.on("colectionUser", () => {
+      dispatch(coleccionesUsuario());
+    });
   });
 
   return (
