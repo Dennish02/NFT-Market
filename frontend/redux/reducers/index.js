@@ -16,12 +16,10 @@ import {
   SET_COLECCIONES,
   GIFT_NFT,
   SHOW_USERS_ID,
-
-  SAVE_VALUE
-
+  SAVE_VALUE,
   ACTUAL,
   FILTER_COLECTION,
-  SAVE_VALUE,
+  
   LOAD_COLECCIONES
 
 
@@ -182,9 +180,6 @@ function rootReducer(state = initialState, action) {
     case SAVE_VALUE:
       return {
         ...state,
-      }
-
-        usersInfo: action.payload
       }
     case FILTER_COLECTION:
       const nftForFilter = state.backUpNftUser

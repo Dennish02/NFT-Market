@@ -330,5 +330,5 @@ export function setNewCoin(value) {
 
 }
 
-}
+
 
