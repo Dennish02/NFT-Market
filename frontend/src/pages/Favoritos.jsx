@@ -11,7 +11,12 @@ export default function Favoritos() {
    
     return (
         <div>
+
             <NavBar usuario={miUser} />
+
+            
+            <div className='contFavoritos'>
+
             <h1 style={{color: 'white'}}>favoritos</h1>
             {favoritos.length > 0 ? favoritos.map(fav => {
                 return (
@@ -33,8 +38,8 @@ export default function Favoritos() {
             
 
             {/* ACA SE TIENEN QUE RENDERIZAR LOS NFT QUE ESTEN AGREGADOS A FAVORITOS  */}
-            <Link to='/home/usuario/portfolio'> <button>VOLVER AL PORTFOLIO </button></Link>
-
+            <Link to='/home/usuario/portfolio'> <button className='back-button' >VOLVER AL PORTFOLIO </button></Link>
+            </div>
         </div>
     )
 }
