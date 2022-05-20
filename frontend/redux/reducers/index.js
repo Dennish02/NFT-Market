@@ -17,7 +17,8 @@ import {
   GIFT_NFT,
   SHOW_USERS_ID,
   ACTUAL,
-  FILTER_COLECTION
+  FILTER_COLECTION,
+  SORT
 
 } from "../constantes";
 
@@ -178,6 +179,20 @@ function rootReducer(state = initialState, action) {
            nftUser: action.payload == 'todos'? state.backUpNftUser : filter
           }
 
+    case SORT:
+      const NFTOrdenados = state.allNft.sort((a,b) => {
+        if(action.payload === 'price_asc'){
+          return a.price - b.price
+        }
+        else if(action.payload === 'price_desc'){
+          return b.price - a.price
+        }
+      })
+      let aux = NFTOrdenados.map(el => el)
+      return {
+        ...state,
+        allNFT: aux,
+      }
     default:
       return state;
   }
