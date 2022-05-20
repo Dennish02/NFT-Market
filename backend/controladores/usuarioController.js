@@ -29,7 +29,7 @@ const cambiarImage = async (req, res) => {
 
 const usuario = async (req, res) => {
   try {
-    const user = await Usuario.findOne({ nombre: req.usuario.nombre });
+    const user = await Usuario.findOne({ nombre: req.usuario.nombre }).populate("favoritos");
     return res.send(user);
   } catch (e) {
     return res.status(400).json({ msg: "error" });
