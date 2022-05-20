@@ -29,7 +29,7 @@ const cambiarImage = async (req, res) => {
 
 const usuario = async (req, res) => {
   try {
-    const user = await Usuario.findOne({ nombre: req.usuario.nombre });
+    const user = await Usuario.findOne({ nombre: req.usuario.nombre }).populate("favoritos");
     return res.send(user);
   } catch (e) {
     return res.status(400).json({ msg: "error" });
@@ -38,10 +38,12 @@ const usuario = async (req, res) => {
 
 const registrar = async (req, res) => {
   //Evitar registros dupicados
-
   //* * Este controlador esta termiando
-
   const { email, nombre } = req.body;
+  if (nombre.length > 10) {
+    const error = new Error("El usuario no puede tener mas de 10 caracteres");
+    return res.status(400).json({ msg: error.message });
+  }
 
   const usuarioRepetido = await Usuario.findOne({ nombre });
   const exiteUsiario = await Usuario.findOne({ email }); //busca si existe
@@ -77,10 +79,10 @@ const registrar = async (req, res) => {
 const autenticar = async (req, res) => {
   //* * Este controlador esta termiando
   const { email, password } = req.body;
-
   //comprobar si existe
   const usuario = await Usuario.findOne({ email });
   if (!usuario) {
+    console.log("a");
     const error = new Error("EL USUARIO NO EXISTE");
     return res.status(404).json({ msg: error.message });
   }
@@ -218,39 +220,36 @@ const transferirCl = async (req, res) => {
   const { cl, user } = req.body;
 
   const usuarioA = await Usuario.findOne({ nombre: req.usuario.nombre });
-    const coinsA = usuarioA.coins;
+  const coinsA = usuarioA.coins;
 
-    const usuarioB = await Usuario.findOne({ nombre: user });
-    // const usuarioB = await Usuario.findById( user );
-    const coinsB = usuarioB.coins;
+  const usuarioB = await Usuario.findOne({ nombre: user });
+  // const usuarioB = await Usuario.findById( user );
+  const coinsB = usuarioB.coins;
 
   if (usuarioA.coins < cl) {
     res.status(401).json({ msg: "No tienes CL suficientes para enviar" });
   }
-  
-    try {
-      if (usuarioA.coins >= cl) {
+
+  try {
+    if (usuarioA.coins >= cl) {
       usuarioA.coins = usuarioA.coins - cl;
       usuarioA.save();
-  
+
       usuarioB.coins = usuarioB.coins + cl;
       usuarioB.save();
-  
+
       res.json({ msg: `Ha enviado ${cl}CL a ${usuarioB.nombre}` });
-  
-      }  
-    
-    } catch (error) {
-      //si falla devuelve las coins a su estado inicial
-      usuarioA.coins = coinsA;
-      usuarioA.save();
-  
-      usuarioB.coins = coinsB;
-      usuarioB.save();
-  
-      res.status(401).json({ msg: "No se pudo enviar CL" });
     }
-  
+  } catch (error) {
+    //si falla devuelve las coins a su estado inicial
+    usuarioA.coins = coinsA;
+    usuarioA.save();
+
+    usuarioB.coins = coinsB;
+    usuarioB.save();
+
+    res.status(401).json({ msg: "No se pudo enviar CL" });
+  }
 };
 
 export {
@@ -264,5 +263,5 @@ export {
   traerUsuarios,
   cambiarImage,
   usuario,
-  transferirCl
+  transferirCl,
 };

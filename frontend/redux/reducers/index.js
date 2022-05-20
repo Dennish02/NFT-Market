@@ -20,6 +20,8 @@ import {
   ACTUAL,
   FILTER_COLECTION,
   RANKING_PORTFOLIOS,
+
+  SORT,
   LOAD_COLECCIONES
 
 
@@ -194,11 +196,28 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       }    
-      case RANKING_PORTFOLIOS:
+ case RANKING_PORTFOLIOS:
         return {
           ...state,
           ranking: action.payload
         }
+
+
+    case SORT:
+      const NFTOrdenados = state.allNft.sort((a,b) => {
+        if(action.payload === 'price_asc'){
+          return a.price - b.price
+        }
+        else if(action.payload === 'price_desc'){
+          return b.price - a.price
+        }
+      })
+      let aux = NFTOrdenados.map(el => el)
+      return {
+        ...state,
+        allNFT: aux,
+      }
+
     default:
       return state;
   }

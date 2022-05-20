@@ -39,9 +39,12 @@ const usuarioSchema = mongoose.Schema(
     nfts: {
       type: Array,
     },
-    favoritos: {
-      type: Array,
-    },
+    favoritos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "NftCreated",
+    }
+    ],
     transacciones: {
       type: Array,
     },

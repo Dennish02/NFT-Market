@@ -21,6 +21,7 @@ export default function Home() {
   const usuario = useSelector((state) => state.usuario);
   const params = window.location.href;
   const token = localStorage.getItem("token");
+  const [orden, setOrden] = useState('')
 
 
   //Paginado 
@@ -61,7 +62,7 @@ export default function Home() {
     <div className="contentHome">
       <NavBar usuario={usuario} />
       <div>
-        <SearchBar />
+        <SearchBar setOrden={setOrden}/>
       </div>
       <main id="main" className="main">
         {currentNftFilter.length !== 0 ? (

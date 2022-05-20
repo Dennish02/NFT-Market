@@ -144,12 +144,14 @@ const regalarNft = async (req, res) => {
     // const giftTo = await Usuario.findOne({nombre: iduser});
 
     if (nft) {
-      giftTo.nfts.push(nft);
-      giftTo.save();
       //...
       nft.ownerId = giftTo.nombre;
       nft.save()
       //...
+      
+      giftTo.nfts.push(nft);
+      giftTo.save();
+      
       res.status(200).json(giftTo.nfts);
     } else {
       res.status(404).send("this NFT does not exist");
