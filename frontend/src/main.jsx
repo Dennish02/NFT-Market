@@ -4,7 +4,7 @@ import App from "./App";
 import "../src/Assets/build/css/app.css";
 import axios from "axios";
 import { Provider } from "react-redux";
-
+import "swiper/css/bundle";
 import { store } from "../redux/store/index.js";
 
 // import { persistStore } from "redux-persist";

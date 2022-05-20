@@ -19,6 +19,8 @@ import {
   SAVE_VALUE,
   ACTUAL,
   FILTER_COLECTION,
+  RANKING_PORTFOLIOS,
+
   SORT,
   LOAD_COLECCIONES
 
@@ -39,7 +41,8 @@ const initialState = {
   creado: false,
   colecciones: [],
   usersInfo: [],
-  valor:[]
+  valor:[],
+  ranking:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -193,6 +196,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       }    
+ case RANKING_PORTFOLIOS:
+        return {
+          ...state,
+          ranking: action.payload
+        }
+
 
     case SORT:
       const NFTOrdenados = state.allNft.sort((a,b) => {
@@ -208,6 +217,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFT: aux,
       }
+
     default:
       return state;
   }

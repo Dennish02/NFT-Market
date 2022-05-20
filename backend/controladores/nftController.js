@@ -480,7 +480,7 @@ const ordenarNFT = (req, res) => {
 const getPortfolioValue = async (req, res) => {
   const { usuario } = req;
 
-  let allnftsprice = usuario.nfts.map(nft => nft.lastPrice);
+  let allnftsprice = usuario.nfts.map(nft => nft.price);
 
   let sum = 0;
 
@@ -513,7 +513,7 @@ const topPortfolios = async (req, res) => {
 
   const wealthy = allusers.slice(0, 5);
 
-  console.log(wealthy)
+  
 
   res.status(200).json(wealthy);
 };

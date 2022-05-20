@@ -1,6 +1,6 @@
-export default function Paginado ({goToNextPage, goToPreviousPage, paginas,currentPage ,transactionByPage,allTransaction}){
+export default function Paginado ({goToNextPage, goToPreviousPage, paginas,currentPage ,elementsByPage,allElemtns}){
     let pageNumber = []
-    let page = Math.ceil( allTransaction/transactionByPage );
+    let page = Math.ceil( allElemtns/elementsByPage );
     for(let i=1; i <= page; i++){
         pageNumber.push(i)
     }
