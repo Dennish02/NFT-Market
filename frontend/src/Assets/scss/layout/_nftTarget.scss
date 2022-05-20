@@ -17,8 +17,23 @@
   .enVenta {
     @include m.enVenta;
   }
+  .verde{
+    background-color: v.$verde
+  }
+  .rojo{
+    background-color: v.$rojo
+  }
   .noVenta {
     @include m.noVenta;
+  }
+  .disabled{
+    @include m.buttonPrimary;
+    &:hover{
+      cursor: not-allowed;
+    }
+    background-color: v.$verdeOscuro;
+    width: 50%;
+    opacity: 0.5;
   }
   .textVenta{
     color: v.$grisclaro;

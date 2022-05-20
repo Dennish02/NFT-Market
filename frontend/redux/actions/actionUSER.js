@@ -15,6 +15,7 @@ import {
   LOGIN_GOOGLE,
   SHOW_USERS_ID,
   ACTUAL,
+  RANKING_PORTFOLIOS,
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -294,4 +295,42 @@ export function comprarCL(cuantity){
     
   }
 }
+export function topPortfolios(){
+  return async function(dispatch){
+    try {
+      const id = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${id}`,
+      },
+    };
+        const json = await clienteAxios.get(`${import.meta.env.VITE_BACKEND_URL}/api/nft/wealthyportfolios`, config)
+       console.log(json.data);
+        return dispatch({
+          type: RANKING_PORTFOLIOS,
+          payload: json.data,
+        });
+      } catch (error) {
+      console.log(error);
+    }
+  }
+}
 
+export function getValuePortfolio(){
+  return async function(){
+    try {
+      const id = localStorage.getItem("token");
+      const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${id}`,
+      },
+    };
+      await clienteAxios.get(`${import.meta.env.VITE_BACKEND_URL}/api/nft/valueport`, config)
+      
+      } catch (error) {
+      console.log(error);
+    }
+  }
+}

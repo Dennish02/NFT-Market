@@ -19,7 +19,7 @@ import {
   SAVE_VALUE,
   ACTUAL,
   FILTER_COLECTION,
-  
+  RANKING_PORTFOLIOS,
   LOAD_COLECCIONES
 
 
@@ -39,7 +39,8 @@ const initialState = {
   creado: false,
   colecciones: [],
   usersInfo: [],
-  valor:[]
+  valor:[],
+  ranking:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -193,7 +194,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       }    
-
+      case RANKING_PORTFOLIOS:
+        return {
+          ...state,
+          ranking: action.payload
+        }
     default:
       return state;
   }

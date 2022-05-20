@@ -40,9 +40,9 @@ function Wallet() {
   //paginacion
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [transactionByPage, setTransactionByPage] = useState(5);
-  const indexOfLastTransactions = currentPage * transactionByPage;
-  const indexOfFirstTransaction = indexOfLastTransactions - transactionByPage;
+  const [elementsByPage, setElementsByPage] = useState(5);
+  const indexOfLastTransactions = currentPage * elementsByPage;
+  const indexOfFirstTransaction = indexOfLastTransactions - elementsByPage;
   let currentTransaction;
   if (usuario.length !== 0) {
     currentTransaction = usuario.transacciones.slice(
@@ -184,8 +184,8 @@ function Wallet() {
                 goToPreviousPage={goToPreviousPage}
                 paginas={paginas}
                 currentPage={currentPage}
-                allTransaction={usuario.transacciones.length}
-                transactionByPage={transactionByPage}
+                allElemnts={usuario.transacciones.length}
+                elementsByPage={elementsByPage}
               />
             </div>
           </section>

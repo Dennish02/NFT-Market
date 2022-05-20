@@ -20,36 +20,37 @@ export default function ComponentNFT(props) {
     price,
     creatorId,
     ownerId,
+    usuario
   } = props;
   let porcentaje = pocentajeAumento(priceBase, price);
   const dispatch = useDispatch();
 
 
-  
- const user = useSelector(state => state.usuario)
- let idFavorito = ''
- let validarBoton = ''
- user.favoritos? validarBoton = user.favoritos : null
- user.favoritos? idFavorito = user.favoritos : null
- let extraerId = ''
- idFavorito.length>0? extraerId = idFavorito.map(el => el._id) : null
- 
 
-function añadirFavorito(){
+  const user = useSelector(state => state.usuario)
+  let idFavorito = ''
+  let validarBoton = ''
+  user.favoritos ? validarBoton = user.favoritos : null
+  user.favoritos ? idFavorito = user.favoritos : null
+  let extraerId = ''
+  idFavorito.length > 0 ? extraerId = idFavorito.map(el => el._id) : null
 
-  extraerId.includes(_id) ?
 
-  dispatch(eliminarFav(_id)): 
-  
-  dispatch(AñadirFav(_id))
-}
- 
- 
-function handleBuy() {
+  function añadirFavorito() {
+
+    extraerId.includes(_id) ?
+
+      dispatch(eliminarFav(_id)) :
+
+      dispatch(AñadirFav(_id))
+  }
+
+
+  function handleBuy() {
     confirm("Queres comprar este nft?")
       ? dispatch(comprarNFT(_id))
       : null;
-}
+  }
 
   return (
     <div className="contNFT">
@@ -80,20 +81,29 @@ function handleBuy() {
         </p>
       </div>
       <div>
-        <p>{avaliable ? "En venta" : "No en venta"}</p>
+        <p className={avaliable ? "verde" : "rojo"}>{avaliable ? "En venta" : "No en venta"}</p>
       </div>
       <div className="contButtons">
-        <button className="w-50 buttonPrimary" onClick={() => handleBuy()}>
-          BUY
-        </button>
-        
+        {ownerId !== usuario  ? <>  < button disabled={ avaliable === false ? true : false} className={ avaliable ? "w-50 buttonPrimary" : 'disabled'} onClick={() => handleBuy()}>
+        BUY
+        </button>   <button  className="w-50 buttonTrade">Trade</button> </>: null}
+
+     </div>
+ 
+{ ownerId !== usuario ? 
+      <>
+      { !extraerId.includes(_id) ? 
+      <img 
+      className="buttonFav" 
+      onClick={() => añadirFavorito()} 
+      src={favOf} alt="favOn" /> : 
+      <img className="buttonFav" 
+      onClick={() => añadirFavorito()} 
+      src={favOn} alt="favOn" /> }  
+      </> : null}
          
-        <button className="w-50 buttonTrade">Trade</button>
-      </div>
 
-      {!extraerId.includes(_id) ? <img className="buttonFav" onClick={() => añadirFavorito()} src={favOf} alt="favOn"/>: <img className="buttonFav" onClick={()=> añadirFavorito()} src={favOn} alt="favOn"/>}       
-
-    </div>
+    </div > 
   );
 }
 

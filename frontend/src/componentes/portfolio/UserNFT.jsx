@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch} from "react-redux";
 import { Edit_NFT, venta, Gift_NFT } from "../../../redux/actions/actionNFT";
 import Modal from "react-modal";
 import Modal2 from "react-modal";
-import { useNavigate } from "react-router";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import { toast } from "react-toastify";
-import { showUsers } from "../../../redux/actions/actionUSER";
+
 
 const customStyles = {
   content: {
