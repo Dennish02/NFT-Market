@@ -20,9 +20,8 @@ const customStyles = {
   },
 };
 
-export default function NavBar() {
+export default function NavBar({usuario}) {
   const [showModal, setShowModal] = useState(false);
-  const usuario = useSelector((state) => state.usuario);
 
   function handleButton() {
     setShowModal(true);

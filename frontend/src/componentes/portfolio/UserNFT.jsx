@@ -21,8 +21,8 @@ const customStyles = {
 };
 
 export default function ComponentNFT(props) {
-  const miUser = useSelector((state) => state.usuario);
-  const usuarios = useSelector((state) => state.usersInfo);
+  
+  const {usuarios, miUser}=props
   const [input, setInput] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [openModal2, setOpenmodal2] = useState(false);
@@ -66,9 +66,7 @@ export default function ComponentNFT(props) {
     setOpenmodal2(false);
   }
 
-  useEffect(() => {
-    dispatch(showUsers());
-  }, []);
+ 
 
   return (
     <div className="contNFT">

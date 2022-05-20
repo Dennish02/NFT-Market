@@ -174,7 +174,6 @@ function rootReducer(state = initialState, action) {
     case SHOW_USERS_ID:
       return {
         ...state,
-
         usersInfo: action.payload,
       };
     case SAVE_VALUE:

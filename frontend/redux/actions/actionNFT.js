@@ -285,7 +285,7 @@ export function AñadirFav(id) {
     socket.emit('renderHome')
   }
   };
-}
+
 
 export function eliminarFav(id) {
   return async function () {
@@ -303,7 +303,7 @@ export function eliminarFav(id) {
     socket.emit('renderHome')
   }
   };
-}
+
 
 export function setNewCoin(value) {
   return async function (dispatch) {
