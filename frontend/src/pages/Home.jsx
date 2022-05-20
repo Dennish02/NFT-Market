@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   allNftMarket,
@@ -18,6 +18,7 @@ export default function Home() {
   const usuario = useSelector((state) => state.usuario);
   const params = window.location.href;
   const token = localStorage.getItem("token");
+  const [orden, setOrden] = useState('')
 
   useEffect(() => {
     dispatch(allNftMarket());
@@ -37,7 +38,7 @@ export default function Home() {
     <div className="contentHome">
       <NavBar usuario={usuario} />
       <div>
-        <SearchBar />
+        <SearchBar setOrden={setOrden}/>
       </div>
       <main id="main" className="main">
         {todosLosNFT.length > 0 ? (

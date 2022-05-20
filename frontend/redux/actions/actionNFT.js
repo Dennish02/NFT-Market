@@ -13,6 +13,7 @@ import {
   ALL_NFT_MARKET,
   FILTER_COLECTION,
   ADD_NFT_FAVORITE,
+  SORT,
   SAVE_VALUE,
 } from "../constantes/index";
 
@@ -302,7 +303,16 @@ export function eliminarFav(id) {
 
     socket.emit('renderHome')
   }
-  };
+}
+
+export function sort(payload){
+  return async function(dispatch){
+    return dispatch({
+      type: SORT,
+      payload
+    })
+  }
+}
 
 
 export function setNewCoin(value) {

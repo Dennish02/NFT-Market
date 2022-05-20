@@ -1,11 +1,19 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { SearchNFT } from "../../../redux/actions/actionNFT";
-export default function SearchBar() {
+import { useDispatch} from "react-redux";
+import { SearchNFT, sort } from "../../../redux/actions/actionNFT";
+import { useState } from "react";
+
+export default function SearchBar({setOrden}) {
+
   const dispatch = useDispatch();
   function onChangeValues(e) {
     // console.log(e.target.value)
     dispatch(SearchNFT(e.target.value));
+  }
+
+  function changeSort(e) {
+    dispatch(sort(e.target.value))
+    setOrden(`Ordenado ${e.target.value}`)
   }
 
   return (
@@ -26,9 +34,9 @@ export default function SearchBar() {
         </div>
         <div>
           <label htmlFor="price">price</label>
-          <select name="price" id="price">
-            <option value="top">top</option>
-            <option value="down">down</option>
+          <select name="price" id="price" onChange={changeSort}>
+            <option value="price_desc">high to low</option>
+            <option value="price_asc">low to high</option>
           </select>
         </div>
       </div>
