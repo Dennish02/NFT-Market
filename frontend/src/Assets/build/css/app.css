@@ -426,24 +426,26 @@ img {
   }
 }
 .contentNav .perfil {
-  grid-column: 4/5;
+  grid-column: 3/5;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   width: 90%;
   margin: 0 auto;
 }
 @media (min-width: 768px) {
   .contentNav .perfil {
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: 2rem;
   }
 }
 .contentNav .perfil p {
-  width: 70%;
   color: #e1e1e1;
 }
-.contentNav .perfil p span {
+.contentNav .perfil span {
   color: #f28b12;
   font-weight: 700;
+  font-size: 3rem;
 }
 .contentNav .perfil img {
   display: inline-block;
@@ -678,6 +680,7 @@ img {
 }
 
 .contNFT {
+  position: relative;
   padding: 1rem;
   width: 280px;
   height: fit-content;
@@ -778,6 +781,15 @@ img {
   width: 50%;
 }
 .contNFT .buttonTrade:hover {
+  cursor: pointer;
+}
+.contNFT .buttonFav {
+  width: 30px;
+  position: absolute;
+  bottom: 95px;
+  left: 85%;
+}
+.contNFT .buttonFav:hover {
   cursor: pointer;
 }
 
@@ -924,6 +936,9 @@ img {
     grid-template-columns: repeat(3, 1fr);
     gap: 1fr;
     align-items: center;
+  }
+  .contButton .center {
+    margin: 0 auto;
   }
 }
 
@@ -1139,7 +1154,7 @@ img {
 }
 
 .contInput {
-  width: 100%;
+  width: 50%;
   display: inline-block;
 }
 .contInput .dinner {

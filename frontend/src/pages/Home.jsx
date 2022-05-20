@@ -27,25 +27,15 @@ export default function Home() {
 
   useEffect(() => {
     //recibir la respuesta del back
-    socket.on("nftAgregado", () => {
+    socket.on("homeUpdate", () => {
       dispatch(allNftMarket());
-    });
-    socket.on("nftDisponile", () => {
-      dispatch(allNftMarket());
-      dispatch(allNFTUser());
-    });
-    socket.on("nftModificado", () => {
-      dispatch(allNftMarket());
-    });
-    socket.on("nftVendido", () => {
-      dispatch(allNftMarket());
-      dispatch(allNFTUser());
+       dispatch(allNFTUser());
     });
   });
 
   return (
     <div className="contentHome">
-      <NavBar />
+      <NavBar usuario={usuario} />
       <div>
         <SearchBar />
       </div>

@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { crearColeccion } from "../../../redux/actions/actionColeccion";
 import { toast } from "react-toastify";
 
-import {filterColection } from '../../../redux/actions/actionNFT'
+import { filterColection } from "../../../redux/actions/actionNFT";
 
 import { coleccionesUsuario } from "../../../redux/actions/actionColeccion";
-
 
 const customStyles = {
   content: {
@@ -23,22 +22,21 @@ const customStyles = {
 };
 
 export default function PortfoliOptions() {
-  const [coleccion, setColeccion] = useState(' ')
+  const [coleccion, setColeccion] = useState(" ");
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [input, setInput] = useState("");
 
-  const colecciones = useSelector(state => state.backUpNftUser)
-
+  const colecciones = useSelector((state) => state.colecciones);
 
   function showModal() {
     setOpenModal(true);
   }
-  
- function filtrarColeccion()  {
-  dispatch(filterColection(coleccion))
- }
-  
+
+  function filtrarColeccion() {
+    dispatch(filterColection(coleccion));
+  }
+
   function closeModal() {
     setOpenModal(false);
   }
@@ -51,31 +49,52 @@ export default function PortfoliOptions() {
     if (input.length > 8)
       return toast.error("el nombre puede tener hasta 8 caracteres");
     dispatch(crearColeccion(input));
+    setInput("");
     closeModal();
   }
 
   return (
     <div>
       <div className="contButton">
-        <Link to="/home/usuario/nft/crear/">
-          <button className="buttonPrimary">CREAR NFT</button>
-        </Link>
-        <button className="buttonOrange" onClick={showModal}>
-          CREAR COLECCION
-        </button>
-        <Link to="/usuario/favoritos">
-          <button className="buttonMorado">MIS FAVORITOS</button>
-        </Link>
+        <div className="center">
+          <Link to="/home/usuario/nft/crear/">
+            <button className="buttonPrimary">CREAR NFT</button>
+          </Link>
+        </div>
+        <div className="center">
+          <button className="buttonOrange" onClick={showModal}>
+            CREAR COLECCION
+          </button>
+        </div>
+        <div className="center">
+          <Link to="/usuario/favoritos">
+            <button className="buttonMorado">MIS FAVORITOS</button>
+          </Link>
+        </div>
       </div>
-
       <div className="contTittle">
         <h2 className="tuPortfolio">your portfolio</h2>
         <div>
-          <select className="coleccion" onChange={(e) => setColeccion(e.target.value)}  value={coleccion} id="colection">
-            <option onClick={() => filtrarColeccion()} value="todos">todos</option>
-            {colecciones.map(el => 
-               <option onClick={() => filtrarColeccion()} value={el.colection}>{el.colection}</option>
-              )}      
+          <select
+            className="coleccion"
+            onChange={(e) => setColeccion(e.target.value)}
+            value={coleccion}
+            id="colection"
+          >
+            <option onClick={() => filtrarColeccion()} value="todos">
+              todos
+            </option>
+            {colecciones.length !== 0
+              ? colecciones.map((el) => (
+                  <option
+                    key={el._id}
+                    onClick={() => filtrarColeccion()}
+                    value={el.name}
+                  >
+                    {el.name}
+                  </option>
+                ))
+              : null}
           </select>
         </div>
       </div>

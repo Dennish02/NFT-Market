@@ -8,6 +8,9 @@
 .contButton {
   @include m.desktop {
     @include m.grid(3, 1fr);
+    .center{
+      margin: 0 auto;
+    }
   }
 }
 .contTittle {
