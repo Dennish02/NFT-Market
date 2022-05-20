@@ -7,7 +7,7 @@ import { validateUser } from '../../redux/actions/actionUSER.js'
 
 
 export default function ConfirmarCuenta() {
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
     const dispatch = useDispatch()
     const respuesta = useSelector(state=> state.confirmacion)
     const params = useParams()

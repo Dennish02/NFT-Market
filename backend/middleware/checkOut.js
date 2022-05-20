@@ -4,7 +4,6 @@ import Usuario from "../models/Usuarios.js";
 //custom middleware para proteger las rutas
 const checkOut = async (req, res, next) => {
   let token;
-
   //se envian por headers los token de autorizacion
   if (
     req.headers.authorization &&
@@ -20,7 +19,7 @@ const checkOut = async (req, res, next) => {
         "-password -confirmado -token -createdAt -updatedAt -__v"
       ); //saca del modleo tood loq eu esta en el parentesis
       //?dennis: saque el console.log
-      //console.log(req.usuario);
+
       return next();
     } catch (error) {
       return res.status(404).json({ msg: error.message });

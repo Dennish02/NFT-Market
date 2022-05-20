@@ -11,6 +11,18 @@ import {
   SEARCH_NFT,
   USER_NFT,
   EDIT_NFT_PRICE,
+  CREATE_NFT,
+  RESET,
+  SET_COLECCIONES,
+  GIFT_NFT,
+  SHOW_USERS_ID,
+  SAVE_VALUE,
+  ACTUAL,
+  FILTER_COLECTION,
+  
+  LOAD_COLECCIONES
+
+
 } from "../constantes";
 
 const initialState = {
@@ -24,6 +36,10 @@ const initialState = {
   errorEmail: [],
   invalidToken: true,
   loginUser: false,
+  creado: false,
+  colecciones: [],
+  usersInfo: [],
+  valor:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -43,6 +59,26 @@ function rootReducer(state = initialState, action) {
         usuario: action.payload.usuario,
       };
 
+    case CREATE_NFT:
+      return {
+        ...state,
+        creado: true,
+      };
+    case RESET:
+      return {
+        ...state,
+        creado: false,
+        // colecciones: [],
+      };
+    case SET_COLECCIONES:
+      return {
+        ...state,
+        colecciones: action.payload,
+      };
+      case LOAD_COLECCIONES:
+        return {
+          ...state
+        }
     // case USER_NFT:
     //   const filter = state.allNft.filter((e) => e.ownerId === action.payload);
     //   return {
@@ -53,6 +89,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         nftUser: action.payload,
+        backUpNftUser: action.payload
+      };
+
+    case ACTUAL:
+      return {
+        ...state,
+        usuario: action.payload,
       };
 
     case LOGIN_USER:
@@ -64,7 +107,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case LOGOUT_USER:
-      console.log("aca");
       return {
         allNft: [],
         backUpAllNft: [],
@@ -75,6 +117,10 @@ function rootReducer(state = initialState, action) {
         confirmacion: {},
         errorEmail: [],
         invalidToken: true,
+        loginUser: false,
+        creado: false,
+        colecciones: [],
+        usersInfo: [],
       };
     case AUTH_USER:
       return {
@@ -124,6 +170,29 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft: filterBySearch,
       };
+
+    case SHOW_USERS_ID:
+      return {
+        ...state,
+        usersInfo: action.payload,
+      };
+    case SAVE_VALUE:
+      return {
+        ...state,
+      }
+    case FILTER_COLECTION:
+      const nftForFilter = state.backUpNftUser
+      const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
+
+
+      return {
+        ...state,
+        nftUser: action.payload == 'todos' ? state.backUpNftUser : filter
+      }
+    case SAVE_VALUE:
+      return {
+        ...state,
+      }    
 
     default:
       return state;

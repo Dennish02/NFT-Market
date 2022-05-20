@@ -21,9 +21,8 @@ const usuarioSchema = mongoose.Schema(
       unique: true,
     },
     image: {
-      type: String,
-      require: true,
-      trim: true,
+      public_id: String,
+      url: String,
     },
     token: {
       type: String,
@@ -38,22 +37,23 @@ const usuarioSchema = mongoose.Schema(
       default: 1000,
     },
     nfts: {
-      type: Array
+      type: Array,
+    },
+    favoritos: {
+      type: Array,
     },
     transacciones: {
-      type: Array
-    }
-
+      type: Array,
+    },
+    hasTradeOffers: {
+      type: Array,
+    },
   },
+
   {
     timestamps: true,
   }
 );
-
-// virtual
-// usuarioSchema.virtual('nfts').get(() => {
-//   return mongoose.model('NftCreated').find({ownerId: this.nombre})
-// });
 
 //antes de almacenar
 usuarioSchema.pre("save", async function (next) {
@@ -65,7 +65,6 @@ usuarioSchema.pre("save", async function (next) {
 });
 
 usuarioSchema.methods.comprobarPassword = async function (passwordFormulario) {
- 
   return await bcrypt.compare(passwordFormulario, this.password); //compara las pasword
 };
 

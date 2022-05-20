@@ -2,6 +2,39 @@ import Usuario from "../models/Usuarios.js";
 import { generarID } from "../helpers/generarId.js";
 import generarJWT from "../helpers/generarJWT.js";
 import { emailRegistro, emailOlvidePassword } from "../helpers/emails.js";
+import { uploadImage } from "../libs/cloudinary.js";
+import fs from "fs-extra";
+
+const cambiarImage = async (req, res) => {
+  const nombre = req.usuario.nombre;
+  try {
+    if (req.files.image) {
+      const user = await Usuario.findOne({ nombre });
+      const response = await uploadImage(req.files.image.tempFilePath);
+      await fs.remove(req.files.image.tempFilePath);
+
+      const image = {
+        url: response.secure_url,
+        public_id: response.public_id,
+      };
+
+      user.image = image;
+      await user.save();
+      return res.json({ msg: "imagen modificada" });
+    }
+  } catch (e) {
+    return res.status(400).json({ msg: "error" });
+  }
+};
+
+const usuario = async (req, res) => {
+  try {
+    const user = await Usuario.findOne({ nombre: req.usuario.nombre });
+    return res.send(user);
+  } catch (e) {
+    return res.status(400).json({ msg: "error" });
+  }
+};
 
 const registrar = async (req, res) => {
   //Evitar registros dupicados
@@ -18,7 +51,11 @@ const registrar = async (req, res) => {
     return res.status(400).json({ msg: error.message });
   }
   try {
-    const usuario = new Usuario(req.body);
+    // const usuario = new Usuario(req.body)
+    const usuario = new Usuario({
+      ...req.body,
+      image: { public_id: "", url: "" },
+    });
     usuario.token = generarID(); //id hasheado
     await usuario.save();
 
@@ -39,12 +76,10 @@ const registrar = async (req, res) => {
 
 const autenticar = async (req, res) => {
   //* * Este controlador esta termiando
-
   const { email, password } = req.body;
 
   //comprobar si existe
   const usuario = await Usuario.findOne({ email });
-
   if (!usuario) {
     const error = new Error("EL USUARIO NO EXISTE");
     return res.status(404).json({ msg: error.message });
@@ -61,6 +96,7 @@ const autenticar = async (req, res) => {
       _id: usuario._id,
       nombre: usuario.nombre,
       email: usuario.email,
+      image: usuario.image,
       token: generarJWT(usuario._id), //mandar el id por JWT
     });
   } else {
@@ -158,9 +194,63 @@ const nuevoPassword = async (req, res) => {
 };
 
 const perfil = async (req, res) => {
-  const { usuario } = req; // se lee del server
+  // const { usuario } = req; // se lee del server
+  const user = await Usuario.findOne({ nombre: req.usuario.nombre }).populate(
+    "favoritos"
+  ); //populate trae la data de la referencia
+  res.json(user);
+};
 
-  res.json(usuario);
+const traerUsuarios = async (req, res) => {
+  //traigo todos los user y los mapeo para que solo me muestre el ID y nombre
+  await Usuario.find({}).then((results) => {
+    let userMapeado = results.map((el) => {
+      return {
+        id: el.id,
+        name: el.nombre,
+      };
+    });
+    return res.json(userMapeado);
+  });
+};
+
+const transferirCl = async (req, res) => {
+  const { cl, user } = req.body;
+
+  const usuarioA = await Usuario.findOne({ nombre: req.usuario.nombre });
+    const coinsA = usuarioA.coins;
+
+    const usuarioB = await Usuario.findOne({ nombre: user });
+    // const usuarioB = await Usuario.findById( user );
+    const coinsB = usuarioB.coins;
+
+  if (usuarioA.coins < cl) {
+    res.status(401).json({ msg: "No tienes CL suficientes para enviar" });
+  }
+  
+    try {
+      if (usuarioA.coins >= cl) {
+      usuarioA.coins = usuarioA.coins - cl;
+      usuarioA.save();
+  
+      usuarioB.coins = usuarioB.coins + cl;
+      usuarioB.save();
+  
+      res.json({ msg: `Ha enviado ${cl}CL a ${usuarioB.nombre}` });
+  
+      }  
+    
+    } catch (error) {
+      //si falla devuelve las coins a su estado inicial
+      usuarioA.coins = coinsA;
+      usuarioA.save();
+  
+      usuarioB.coins = coinsB;
+      usuarioB.save();
+  
+      res.status(401).json({ msg: "No se pudo enviar CL" });
+    }
+  
 };
 
 export {
@@ -171,4 +261,8 @@ export {
   comporbarToken,
   nuevoPassword,
   perfil,
+  traerUsuarios,
+  cambiarImage,
+  usuario,
+  transferirCl
 };

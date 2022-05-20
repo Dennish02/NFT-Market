@@ -21,6 +21,15 @@ import VerificacionUsuario from "./pages/VerificacionUsuario.jsx";
 import Loguin from "./pages/Loguin.jsx";
 import Register from "./pages/Register.jsx";
 import Wallet from "./pages/Wallet.jsx";
+import Settings from "./pages/Settings.jsx";
+import UpdatePassword from "./componentes/settings/updatePassword"
+
+
+import Favoritos from './pages/Favoritos'
+
+import ConfirmarCompra from "./componentes/wallet/ConfirmarCompra.jsx";
+import Failure from "./componentes/wallet/Failure.jsx";
+
 
 function App() {
   return (
@@ -32,6 +41,12 @@ function App() {
         <Route path="/olvide-password/" element={<OlvidePassword />} />
         <Route path="/olvide-password/:token" element={<ResetPassword />} />
         <Route path="/confirmar/:id" element={<ConfirmarCuenta />} />
+        <Route path="/update-password" element= {<UpdatePassword/>} />
+
+        <Route  path = '/usuario/favoritos' element = {<VerificacionUsuario/>}>
+        <Route index element ={<Favoritos/>} />
+
+        </Route> 
 
         <Route path="/home/" element={<VerificacionUsuario />}>
           <Route index element={<Home />} />
@@ -53,6 +68,28 @@ function App() {
           element={<VerificacionUsuario />}
         >
           <Route index element={<Wallet />} />
+        </Route>
+        <Route
+          path="home/usuario/wallet/confirmar"
+          element={<VerificacionUsuario />}
+        >
+          <Route index element={<ConfirmarCompra />} />
+        </Route>
+        <Route
+          path="/home/usuario/wallet/failure"
+          element={<VerificacionUsuario />}
+        >
+          <Route index element={<Failure />} />
+        </Route>
+
+        
+
+
+        <Route
+          path="/home/usuario/setting"
+          element={<VerificacionUsuario />}
+        >
+          <Route index element={<Settings />} />
         </Route>
 
         <Route path="*" element={<Navigate replace to="/" />} />
