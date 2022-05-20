@@ -32,7 +32,7 @@ function Settings() {
   }
   return (
     <div>
-      <NavBar />
+      <NavBar usuario={usuario} />
       <div>
         <Link to="/update-password">
           <p>-Change password</p>

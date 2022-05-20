@@ -20,9 +20,8 @@ const customStyles = {
   },
 };
 
-export default function NavBar() {
+export default function NavBar({usuario}) {
   const [showModal, setShowModal] = useState(false);
-  const usuario = useSelector((state) => state.usuario);
 
   function handleButton() {
     setShowModal(true);
@@ -39,12 +38,11 @@ export default function NavBar() {
       </Link>
 
       <div className="perfil">
-        <p>
-          balance:
+        <div className="contBalance">
           {usuario.length !== 0 ? (
             <span className="iconBalance">{formateoPrecio(usuario.coins)}</span>
           ) : null}
-        </p>
+        </div>
         <p>{`Hola ${usuario.nombre}`}</p>
         {usuario.length !== 0 ? (
           <img

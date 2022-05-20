@@ -19,6 +19,7 @@ export const SHOW_USERS_ID = "SHOW_USERS_ID";
 export const FILTER_COLECTION = 'FILTER_COLECTION'
 export const SET_COLECCIONES = "SET_COLECCIONES";
 export const SORT = "SORT"
+export const LOAD_COLECCIONES = "LOAD_COLECCIONES";
 
 //USER
 export const RESET_ERROR_LOGUIN_USER = "RESET_ERROR_LOGUIN_USER";
@@ -34,4 +35,10 @@ export const LOGIN_TO_GOOGLE = "GOOGLE_TO_GOOGLE";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const DELETE_PROFILE = "DELETE_PROFILE";
 export const VALIDATE_USER = "VALIDATE_USER";
+
+export const SAVE_VALUE= "SAVE_VALUE"
+
+
 export const ACTUAL = "ACTUAL";
+
+

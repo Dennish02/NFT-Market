@@ -2,7 +2,7 @@ import profile1 from "../../src/img/profile1.png";
 import profile2 from "../../src/img/profile2.png";
 import profile3 from "../../src/img/profile3.png";
 import clienteAxios from "../../src/config/clienteAxios";
-
+import io from "socket.io-client";
 import {
   VALIDATE_USER,
   RESET_PASSWORD,
@@ -18,10 +18,9 @@ import {
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
-
-import io from "socket.io-client";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
+
 
 // export function allNftMarket() {
 //   return async function (dispatch) {
@@ -206,7 +205,7 @@ export function userLogout() {
   };
 }
 
-export function showUsers(payload) {
+export function showUsers() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const config = {
@@ -219,11 +218,13 @@ export function showUsers(payload) {
       `${import.meta.env.VITE_BACKEND_URL}/api/usuario/traer-usuarios`,
       config
     );
+    console.log('hola desde action');
     return dispatch({
       type: SHOW_USERS_ID,
       payload: json.data,
     });
   };
+
 }
 
 export function cambiarImagen(payload) {
@@ -279,3 +280,18 @@ export function usuarioActual() {
     }
   };
 }
+export function comprarCL(cuantity){
+ 
+  return async function(){
+    try {
+     const json = await clienteAxios.post(`${import.meta.env.VITE_BACKEND_URL}/process-payment`, {cuantity})
+     socket.emit("Redireccion", json.data);
+     
+    } catch (error) {
+        console.log(error);
+    }
+   
+    
+  }
+}
+
