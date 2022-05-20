@@ -40,18 +40,17 @@ const usuarioSchema = mongoose.Schema(
       type: Array,
     },
     favoritos: {
-
-
       type: Array,
-
-
-
     },
     transacciones: {
       type: Array
     },
     hasTradeOffers: {
       type: Array
+    },
+    portfolioValue: {
+      type: Number,
+      default: 0
     }
   },
 
