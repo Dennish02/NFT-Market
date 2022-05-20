@@ -46,8 +46,12 @@ const usuarioSchema = mongoose.Schema(
       type: Array,
     },
     hasTradeOffers: {
-      type: Array,
+      type: Array
     },
+    portfolioValue: {
+      type: Number,
+      default: 0
+    }
   },
 
   {
