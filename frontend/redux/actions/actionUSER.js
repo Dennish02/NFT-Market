@@ -205,7 +205,7 @@ export function userLogout() {
   };
 }
 
-export function showUsers(payload) {
+export function showUsers() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const config = {
@@ -218,6 +218,7 @@ export function showUsers(payload) {
       `${import.meta.env.VITE_BACKEND_URL}/api/usuario/traer-usuarios`,
       config
     );
+    console.log('hola desde action');
     return dispatch({
       type: SHOW_USERS_ID,
       payload: json.data,

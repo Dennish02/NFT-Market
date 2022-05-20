@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <div className="contentHome">
-      <NavBar />
+      <NavBar usuario={usuario} />
       <div>
         <SearchBar />
       </div>

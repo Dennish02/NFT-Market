@@ -11,8 +11,12 @@ export default function Favoritos() {
    
     return (
         <div>
-            <NavBar />
+
+            <NavBar usuario={miUser} />
+
+            
             <div className='contFavoritos'>
+
             <h1 style={{color: 'white'}}>favoritos</h1>
             {favoritos.length > 0 ? favoritos.map(fav => {
                 return (
