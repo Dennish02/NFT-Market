@@ -37,15 +37,15 @@ export default function Portfolio() {
 
   return (
     <div className="contentHome">
-      <NavBar  usuario={usuario} />
+      <NavBar usuario={usuario} />
       <OptionsPortfolio />
       <div className="main">
         {nftUser.length > 0 ? (
           nftUser.map((el) => {
             return (
               <UserNFT
-              usuarios={usuarios}
-              miUser={usuario}
+                usuarios={usuarios}
+                miUser={usuario}
                 key={el.id}
                 id={el.id}
                 _id={el._id}
