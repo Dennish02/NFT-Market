@@ -98,3 +98,12 @@
     font-size: 2rem;
 }
 
+.disabled{
+    @include m.buttonMorado;
+    &:hover{
+      cursor: not-allowed;
+    }
+    background-color: v.$verdeOscuro;
+    width: 50%;
+    opacity: 0.5;
+}

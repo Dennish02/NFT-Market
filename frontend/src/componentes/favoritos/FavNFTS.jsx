@@ -5,20 +5,21 @@ import formateoPrecio from '../../middleware/formateoPrecio'
 import pocentajeAumento from '../../middleware/pocentajeAumento'
 import {comprarNFT} from '../../../redux/actions/actionNFT'
 import { toast } from 'react-toastify'
+
+ 
+
 function    FavnFTS({id, image, _id, colection, avaliable, priceBase, price, creatorId,ownerId}) {
   const dispatch = useDispatch()
   function deleteFav(){
-    dispatch(eliminarFav(_id))
-    toast.success('eliminado de favoritos')
-    
+    dispatch(eliminarFav(_id))  
   }
 
   function handleBuy() {
-    confirm("Estas seguro de gastar tu plata en el mono?")
+    confirm("Estas seguro?")
       ? dispatch(comprarNFT(_id))
       : null;
   }
-  let porcentaje = pocentajeAumento(priceBase, price)
+  //let porcentaje = pocentajeAumento(priceBase, price)
   return (
     
     <div className='contNFTWallet'  >
@@ -38,7 +39,7 @@ function    FavnFTS({id, image, _id, colection, avaliable, priceBase, price, cre
         
       {/* <p  className='text'>{`price: ${price}`}</p> */}
       <div className='btn-group'>
-      <button onClick={() =>handleBuy() } className='buy-button'> BUY</button>
+      {avaliable==true?  <button onClick={() =>handleBuy() } className='buy-button'> BUY</button> : <button className='disabled'>not for sale</button> }
       <button  className='delete-button' onClick={() => deleteFav()}>ELIMINAR DE FAVORITOS</button>
       </div>
       

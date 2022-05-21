@@ -33,7 +33,7 @@ let socket;
 function Wallet() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const usuario = useSelector((state) => state.usuario);
+  const usuario = useSelector((state) => state.usuarioActual);
 
   const [compra, setCompra] = useState();
 
@@ -91,7 +91,7 @@ function Wallet() {
   },[]);
 
   return (
-    <div>
+    <div className="contentHome" >
       <NavWallet />
       <div className="ContenedorGeneralWallet">
         <div className="wallet-panel">

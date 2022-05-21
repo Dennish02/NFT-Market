@@ -1,16 +1,52 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
 
-.contentSearchBar{
-    @include m.grid(2, 1fr);
-    justify-content: space-between;
-    input {
-        @include m.inputs;
-        width:70%;
-        margin: 0;
+
+@include m.telefono{
+    .contentSearchBar{
+      
+        input {
+            @include m.inputs;
+            width:90%;
+            margin: 2rem auto;
+        }
+        .contentSearchBar-select{
+            display: flex;
+            justify-content: space-around;
+            width: 90%;
+            margin: 0 auto;
+        }
+        label{
+            color: v.$grisclaro;
+        }
+        select{
+            padding: 1rem 0.5rem;
+            border: none;
+            border-bottom: solid 1px v.$naranja;
+            background: none;
+            color: v.$grisclaro;
+            margin: 0 1rem;
+            option{
+                background-color: v.$grisoscuro
+                
+            }
+        }
     }
-    .contentSearchBar-select{
-        display: flex;
-        justify-content: space-around;
+}
+
+
+@include m.desktop {
+    .contentSearchBar{
+        @include m.grid(2, 1fr);
+        justify-content: space-between;
+        input {
+            @include m.inputs;
+            width:70%;
+            margin: 0;
+        }
+        .contentSearchBar-select{
+            display: flex;
+            justify-content: space-around;
+        }
     }
 }

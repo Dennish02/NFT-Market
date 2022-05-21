@@ -4,15 +4,30 @@
 .landing{
     height: 100vh;
 }
-.contentbutton{
-    width: 90%;
-    margin: 6rem auto 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    gap: 2rem;
+@include m.telefono{
+    .contentbutton{
+        margin: 6rem auto 0 auto;
+        display: none;
+        opacity: 0;
+        z-index: -1;
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        gap: 2rem;
+    }
 }
+@include m.desktop{
+    .contentbutton{
+        opacity: 1;
+        z-index: 0;
+      
+    }
+}
+
 .contLanding{
+    width: 95%;
+    margin: 0 auto;
    height: 80vh;
     display: flex;
     align-items: center;

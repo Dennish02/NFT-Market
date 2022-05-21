@@ -31,18 +31,27 @@ function Settings() {
     dispatch(cambiarImagen(image));
   }
   return (
-    <div>
+    <div className="contSettings">
       <NavBar usuario={usuario} />
-      <div>
-        <Link to="/update-password">
-          <p>-Change password</p>
-        </Link>
-        <input
-          type="file"
-          name="image"
-          className="file"
-          onChange={(e) => handleImage(e.target.files[0])}
-        />
+      <div className="contSettings-info">
+        <div className="enlace">
+          
+          <Link  to="/update-password">
+            <button >Change password</button>
+          </Link>
+        </div>
+        <div className="contFile">
+          <p>cambiar foto de perfil</p>
+          <label className="labelmiinput" htmlFor="mifile">Subir img</label>
+          <input
+            type="file"
+            name="image"
+            className="file"
+            id='mifile'
+            onChange={(e) => handleImage(e.target.files[0])}
+          />
+        </div>
+        
       </div>
     </div>
   );

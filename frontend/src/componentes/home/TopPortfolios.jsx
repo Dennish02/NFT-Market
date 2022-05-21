@@ -8,17 +8,15 @@ import  {Pagination} from 'swiper'
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
+import ComponenteTopPortf from './ComponenteTopPortf';
 
 
 
-export default function TopPortfolios({usuario}) {
-    const ranking = useSelector(state=> state.ranking)
-    const dispatch = useDispatch()
+export default function TopPortfolios({usuario, screen, ranking }) {
+  
+   // const dispatch = useDispatch()
    
-   
-   useEffect(()=>{
-    dispatch(topPortfolios())
-   },[])
+
    const limite = ranking.slice(0, 3)
   
   return (
@@ -38,22 +36,21 @@ export default function TopPortfolios({usuario}) {
                         </nav>
                        <div className='contentSwiper'>
                        <Swiper
-                            slidesPerView={3}
-                            spaceBetween={100}
-                            pagination
+                           slidesPerView={
+                            screen > 1650 ? 4 : screen > 1300 ? 3 : screen > 920 ? 2 : 1
+                          }
+                            spaceBetween={30}
                             navigation
                         >
                               
                             
-                            {user.nfts.length !== 0 ? user.nfts?.map((nft, i) => {
+                            {user.nfts.length !== 0 ? user.nfts?.map((nft) => {
                                
                                     return (
                                       
-                                        <SwiperSlide key={nft_id}>
+                                        <SwiperSlide key={nft._id}>
 
-                                            <ComponentNFT
-                                                
-                                                usuario={usuario.nombre}
+                                            <ComponenteTopPortf
                                                 id={nft.id}
                                                 image={nft.image}
                                                 colection={nft.colection}

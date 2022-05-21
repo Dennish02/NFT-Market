@@ -26,15 +26,7 @@
   .noVenta {
     @include m.noVenta;
   }
-  .disabled{
-    @include m.buttonPrimary;
-    &:hover{
-      cursor: not-allowed;
-    }
-    background-color: v.$verdeOscuro;
-    width: 50%;
-    opacity: 0.5;
-  }
+ 
   .textVenta{
     color: v.$grisclaro;
     margin-right: 1rem;
@@ -100,6 +92,15 @@
     width: 30px;
     position: absolute;
     bottom: 95px;
+    left: 85%;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .buttonlike{
+    width: 30px;
+    position: absolute;
+    bottom: 200px;
     left: 85%;
     &:hover{
       cursor: pointer;

@@ -3,11 +3,11 @@ import NavBar from "../componentes/home/NavBar";
 import UserNFT from "../componentes/portfolio/UserNFT";
 import OptionsPortfolio from "../componentes/portfolio/portfolioOptions";
 import { useDispatch, useSelector } from "react-redux";
-import { allNFTUser, userNfts } from "../../redux/actions/actionNFT";
+import { allNFTUser } from "../../redux/actions/actionNFT";
 import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
 
 import io from "socket.io-client";
-import { showUsers } from "../../redux/actions/actionUSER";
+import { showUsers, usuarioActual } from "../../redux/actions/actionUSER";
 let socket;
 
 export default function Portfolio() {
@@ -16,7 +16,7 @@ export default function Portfolio() {
   const usuarios = useSelector((state) => state.usersInfo);
   const nftUser = useSelector((state) => state.nftUser);
   const params = window.location.href;
-
+  
   useEffect(() => {
     dispatch(allNFTUser());
     dispatch(showUsers());
