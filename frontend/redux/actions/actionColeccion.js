@@ -46,7 +46,7 @@ export function crearColeccion(payload) {
         },
         config
       );
-      //socket.emit("update");
+      socket.emit("updateCollections");
       toast.success("Coleccion creada");
       return dispatch({
         type: LOAD_COLECCIONES,

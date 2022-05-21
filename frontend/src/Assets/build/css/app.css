@@ -680,6 +680,7 @@ img {
 }
 
 .contNFT {
+  position: relative;
   padding: 1rem;
   width: 280px;
   height: fit-content;
@@ -702,6 +703,12 @@ img {
   display: inline-block;
   cursor: pointer;
 }
+.contNFT .verde {
+  background-color: #29a237;
+}
+.contNFT .rojo {
+  background-color: #c53838;
+}
 .contNFT .noVenta {
   width: 20px;
   height: 20px;
@@ -710,6 +717,27 @@ img {
   background-color: transparent;
   display: inline-block;
   cursor: pointer;
+}
+.contNFT .disabled {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  background-color: #1b5a23;
+  width: 50%;
+  opacity: 0.5;
+}
+.contNFT .disabled:hover {
+  cursor: pointer;
+}
+.contNFT .disabled:hover {
+  cursor: not-allowed;
 }
 .contNFT .textVenta {
   color: #e1e1e1;
@@ -780,6 +808,15 @@ img {
   width: 50%;
 }
 .contNFT .buttonTrade:hover {
+  cursor: pointer;
+}
+.contNFT .buttonFav {
+  width: 30px;
+  position: absolute;
+  bottom: 95px;
+  left: 85%;
+}
+.contNFT .buttonFav:hover {
   cursor: pointer;
 }
 
@@ -1194,4 +1231,182 @@ img {
   padding: 2 rem;
   font-size: 2.5rem;
   border: solid 1px #e1e1e1;
+}
+
+.contFavoritos {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.second-grid {
+  grid-column-start: 2;
+  grid-column-end: 2;
+}
+
+.contNFTWallet h2 {
+  color: #f28b12;
+  font-size: 2.9rem;
+  margin: 0;
+}
+.contNFTWallet p {
+  color: #e1e1e1;
+  font-size: 2rem;
+}
+.contNFTWallet span {
+  color: #f28b12;
+  font-size: 2.3rem;
+  font-weight: bold;
+}
+.contNFTWallet .imgFav {
+  height: 250px;
+  width: 250px;
+}
+@supports (object-fit: cover) {
+  .contNFTWallet .imgFav img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+.last-grid {
+  grid-column-start: 4;
+  grid-column-end: 4;
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+.last-grid:hover {
+  cursor: pointer;
+}
+
+.third-grid {
+  grid-column-start: 3;
+  grid-column-end: 3;
+  display: inline-block;
+}
+
+.first-grid {
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.btn-group {
+  display: flex;
+  width: 100%;
+  border-radius: 0.5rem;
+  gap: 2rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.buy-button {
+  margin: 0;
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  font-size: 2rem;
+}
+.buy-button:hover {
+  cursor: pointer;
+}
+
+.delete-button {
+  margin: 0;
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  font-size: 2rem;
+}
+.delete-button:hover {
+  cursor: pointer;
+}
+
+.back-button {
+  width: fit-content;
+  background-color: #663a8f;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  font-size: 2rem;
+}
+.back-button:hover {
+  cursor: pointer;
+}
+
+.contentTopPortfolios {
+  width: 95%;
+  margin: 2rem auto;
+  border-top: solid 1px #e1e1e1;
+  padding: 2rem 0;
+}
+.contentTopPortfolios .TitleTopPortfolios {
+  text-align: left;
+  font-size: 3rem;
+  color: #e1e1e1;
+}
+.contentTopPortfolios .contentTopPortfolios--contendio {
+  background-color: rgba(11, 12, 41, 0.5607843137);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  margin: 1rem auto;
+  border-radius: 0.5rem;
+}
+.contentTopPortfolios .contentTopPortfolios--contendio .navTopPortfolio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+.contentTopPortfolios .contentTopPortfolios--contendio .navTopPortfolio .contImgProfile {
+  height: 80px;
+}
+.contentTopPortfolios .contentTopPortfolios--contendio .navTopPortfolio .contImgProfile .profilePicture {
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+.contentTopPortfolios .contentTopPortfolios--contendio .navTopPortfolio .nameUser {
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: #e1e1e1;
+}
+.contentTopPortfolios .contentTopPortfolios--contendio .contentSwiper {
+  width: 90%;
+  margin: 1rem auto;
+}
+.contentTopPortfolios .contentTopPortfolios--contendio .contentSwiper .swiper {
+  height: 570px;
+}
+.contentTopPortfolios .contentTopPortfolios--contendio .contentNftTopPorfolios {
+  margin: 0 auto;
 }

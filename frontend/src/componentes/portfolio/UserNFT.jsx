@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch} from "react-redux";
 import { Edit_NFT, venta, Gift_NFT } from "../../../redux/actions/actionNFT";
 import Modal from "react-modal";
 import Modal2 from "react-modal";
-import { useNavigate } from "react-router";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import { toast } from "react-toastify";
-import { showUsers } from "../../../redux/actions/actionUSER";
+
 
 const customStyles = {
   content: {
@@ -21,12 +20,12 @@ const customStyles = {
 };
 
 export default function ComponentNFT(props) {
-  const miUser = useSelector((state) => state.usuario);
-  const usuarios = useSelector((state) => state.usersInfo);
+  
+  const {usuarios, miUser}=props
   const [input, setInput] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [openModal2, setOpenmodal2] = useState(false);
-  const [idUsuario, setIdUsuario] = useState(" ");
+  const [idUsuario, setIdUsuario] = useState("");
   const dispatch = useDispatch();
 
   const { id, _id, image, colection, avaliable, price, creatorId, ownerId } =
@@ -62,13 +61,11 @@ export default function ComponentNFT(props) {
 
   function gift_nft() {
     dispatch(Gift_NFT(idUsuario, id, colection));
-    alert("nft regalado con exito");
+    toast.success("NFT regalado");
     setOpenmodal2(false);
   }
 
-  useEffect(() => {
-    dispatch(showUsers());
-  }, []);
+ 
 
   return (
     <div className="contNFT">
@@ -143,8 +140,11 @@ export default function ComponentNFT(props) {
               <select
                 value={idUsuario}
                 id="usuarios"
-                onChange={(e) => setIdUsuario(e.target.value)}
+                onChange={(e) => {
+                  setIdUsuario(e.target.value);
+                }}
               >
+                <option value="">Seleccione</option>
                 {usuarios.map((users) => (
                   <option key={users.id} value={users.id}>
                     {users.name}
@@ -152,7 +152,14 @@ export default function ComponentNFT(props) {
                 ))}
               </select>
               {idUsuario !== miUser._id ? (
-                <button className="buttonPrimary" onClick={() => gift_nft()}>
+                <button
+                  className="buttonPrimary"
+                  onClick={() => {
+                    idUsuario
+                      ? gift_nft()
+                      : toast.error("debe seleccionar un usuario");
+                  }}
+                >
                   OK
                 </button>
               ) : (

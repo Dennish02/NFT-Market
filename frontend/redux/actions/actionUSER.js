@@ -1,6 +1,3 @@
-import profile1 from "../../src/img/profile1.png";
-import profile2 from "../../src/img/profile2.png";
-import profile3 from "../../src/img/profile3.png";
 import clienteAxios from "../../src/config/clienteAxios";
 import io from "socket.io-client";
 import {
@@ -15,13 +12,14 @@ import {
   LOGIN_GOOGLE,
   SHOW_USERS_ID,
   ACTUAL,
-  TRANSFERIR_CL
+  TRANSFERIR_CL,
+  RANKING_PORTFOLIOS,
+
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
-
 
 // export function allNftMarket() {
 //   return async function (dispatch) {
@@ -206,7 +204,7 @@ export function userLogout() {
   };
 }
 
-export function showUsers(payload) {
+export function showUsers() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const config = {
@@ -224,7 +222,6 @@ export function showUsers(payload) {
       payload: json.data,
     });
   };
-
 }
 
 export function cambiarImagen(payload) {
@@ -280,18 +277,56 @@ export function usuarioActual() {
     }
   };
 }
-export function comprarCL(cuantity){
- 
+export function comprarCL(cuantity) {
+  return async function () {
+    try {
+      const json = await clienteAxios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/process-payment`,
+        { cuantity }
+      );
+      socket.emit("Redireccion", json.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function topPortfolios(){
+  return async function(dispatch){
+    try {
+      const id = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${id}`,
+      },
+    };
+        const json = await clienteAxios.get(`${import.meta.env.VITE_BACKEND_URL}/api/nft/wealthyportfolios`, config)
+       console.log(json.data);
+        return dispatch({
+          type: RANKING_PORTFOLIOS,
+          payload: json.data,
+        });
+      } catch (error) {
+      console.log(error);
+    }
+  }
+}
+export function getValuePortfolio(){
   return async function(){
     try {
-     const json = await clienteAxios.post(`${import.meta.env.VITE_BACKEND_URL}/process-payment`, {cuantity})
-     socket.emit("Redireccion", json.data);
-     
-    } catch (error) {
-        console.log(error);
+      const id = localStorage.getItem("token");
+      const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${id}`,
+      },
+    };
+      await clienteAxios.get(`${import.meta.env.VITE_BACKEND_URL}/api/nft/valueport`, config)
+      
+      } catch (error) {
+      console.log(error);
     }
-   
-    
   }
 }
 
