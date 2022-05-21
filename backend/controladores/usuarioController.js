@@ -222,7 +222,13 @@ const transferirCl = async (req, res) => {
 
     const usuarioB = await Usuario.findOne({ nombre: user });
     // const usuarioB = await Usuario.findById( user );
-    const coinsB = usuarioB.coins;
+    if(!usuarioB){
+      return res.status(401).json({msg: "No existe el usuario"})
+    }
+
+    const coinsB = await usuarioB.coins;
+
+
 
   if (usuarioA.coins < cl) {
     res.status(401).json({ msg: "No tienes CL suficientes para enviar" });
@@ -230,13 +236,13 @@ const transferirCl = async (req, res) => {
   
     try {
       if (usuarioA.coins >= cl) {
-      usuarioA.coins = usuarioA.coins - cl;
+      usuarioA.coins = usuarioA.coins - Number(cl);
       usuarioA.save();
-  
-      usuarioB.coins = usuarioB.coins + cl;
+        
+      usuarioB.coins = usuarioB.coins + Number(cl);
       usuarioB.save();
   
-      res.json({ msg: `Ha enviado ${cl}CL a ${usuarioB.nombre}` });
+      res.json({ msg: `${usuarioA.nombre} Ha enviado ${cl}CL a ${usuarioB.nombre}` });
   
       }  
     
@@ -248,7 +254,7 @@ const transferirCl = async (req, res) => {
       usuarioB.coins = coinsB;
       usuarioB.save();
   
-      res.status(401).json({ msg: "No se pudo enviar CL" });
+      res.status(401).json({ msg: "No se pudo transferir CL"});
     }
   
 };

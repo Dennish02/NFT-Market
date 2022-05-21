@@ -10,32 +10,28 @@ import Modal from "react-modal";
 import mp from "../img/mp.png";
 import { toast } from "react-toastify";
 import Paginado from "./Paginas";
-import { usuarioActual } from "../../redux/actions/actionUSER";
+import { usuarioActual , transferirCL, showUsers} from "../../redux/actions/actionUSER";
 import { comprarCL } from '../../redux/actions/actionUSER';
 import io from "socket.io-client";
 
 
 
-// const customStyles = {
-//   content: {
-//     top: "50%",
-//     left: "50%",
-//     right: "auto",
-//     bottom: "auto",
-//     marginRight: "-50%",
-//     transform: "translate(-50%, -50%)",
-//     padding: "0",
-//     width: "800px",
-//   },
-// };
 let socket;
 
 function Wallet() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const usuario = useSelector((state) => state.usuario);
-
   const [compra, setCompra] = useState();
+  const [errors, setErrors] = useState({
+    clerror:"",
+    error:""
+  })
+  const [ mostrarModal, setMostrarModal ] = useState(false)
+  const [transferencias, setTransferencias] = useState({
+    cl:"",
+    user:"",
+  })
 
   //paginacion
 
@@ -43,6 +39,8 @@ function Wallet() {
   const [transactionByPage, setTransactionByPage] = useState(5);
   const indexOfLastTransactions = currentPage * transactionByPage;
   const indexOfFirstTransaction = indexOfLastTransactions - transactionByPage;
+
+
   let currentTransaction;
   if (usuario.length !== 0) {
     currentTransaction = usuario.transacciones.slice(
@@ -79,7 +77,6 @@ function Wallet() {
   }
 
   useEffect(() => {
-    dispatch(allNftMarket());
     socket = io(import.meta.env.VITE_BACKEND_URL);
     socket.emit("Navegar", params);
   }, []);
@@ -88,7 +85,69 @@ function Wallet() {
     socket.on("redicreccion", (ruta) => {
       setRuta(ruta);
     });
-  },[]);
+    socket.on("TransferenciaOk", () => {
+      dispatch(usuarioActual())
+    })
+  });
+
+  function MostrarModal () {
+    setMostrarModal(true);
+  } 
+  function OcultarModal () {
+    setMostrarModal(false);
+    setErrors({})
+    setTransferencias({
+      cl:"",
+      user:"",
+    })
+  } 
+
+  const handleChangeInputTransfer = (e) => {
+    setTransferencias({
+      ...transferencias.user,
+      [e.target.name]: e.target.value
+    })
+    if(e.target.value.length > 10){
+      setErrors({
+        error: "Invalid length"
+      })
+    }else {
+      setErrors({
+        error: ""
+      })
+    }
+    console.log(transferencias)
+  }
+
+  const handleInputCl = (e) => {
+    setTransferencias({
+      ...transferencias,
+      [e.target.name]: e.target.value
+    })
+    if(e.target.value < 0 ){
+      setErrors({
+        clerror: "Enter a number greater than 1"
+      })
+    }else if (!e.target.value){
+      setErrors({
+        clerror:""
+      })
+    }
+    console.log(e.target.value)
+  }
+
+  const handleSubmitTransfer = (e) => {
+    e.preventDefault()
+    dispatch(transferirCL(transferencias))
+    setMostrarModal(false)
+    setTransferencias({
+        cl:"",
+        user:"",
+      })
+    setErrors({})
+  }
+
+  
 
   return (
     <div>
@@ -102,7 +161,7 @@ function Wallet() {
             <div className='contAgrgarCl'>
 
               <p>Recargá CL con Mercado Pago</p>
-              {!ruta ? <> <label htmlFor="monto">Ingreá el monto a comprar</label>
+              {!ruta ? <> <label htmlFor="monto">Enter the amount to deposit</label>
                 <div className='InpcutLogo'>
                   <div className='contInput'>
 
@@ -117,8 +176,6 @@ function Wallet() {
                   <button className='buttonMorado' onClick={handleButton}>Enviar</button>
 
 
-
-
                 </div> </> : <a href={ruta}>
                 <button  >
                   <p>Pagar</p>
@@ -127,26 +184,51 @@ function Wallet() {
               }
 
 
-              <p>Transeferí CL a otro usuario</p>
-              <label>Elegir ususario:</label>
+              <p>Transferí CL a otro usuario</p>
+              <button className="buttonPrimary" onClick={MostrarModal}>Transferir</button>
+              <Modal isOpen={mostrarModal}>
               <div className='InpcutLogo'>
                 <div className='regalar'>
-
-
-
-                  <input
-                    className='input'
-                    placeholder='Elegir usuario' />
-                </div>
-                <div>
-                  <button className='buttonPrimary logomp'>Buscar y transferir</button>
+                <button className="close" onClick={OcultarModal}>
+                    X
+                </button>
+                <form onSubmit={handleSubmitTransfer}>
+                    <input
+                    className= "input"
+                    name="user"
+                    type="text"
+                    placeholder='insert user'
+                    onChange={handleChangeInputTransfer}
+                    value={transferencias.user}
+                    />
+                    {errors.error && (
+                      <div>
+                        <p className="error">{errors.error}</p>
+                      </div>
+                    )}
+                    
+                    <input 
+                    min="1"
+                    pattern="[0-9]+"
+                    className= "input"
+                    name="cl"
+                    type="number"
+                    placeholder="insert coins"
+                    value={transferencias.cl}
+                    onChange={handleInputCl}
+                    />
+                      {errors.clerror && (
+                      <div>
+                        <p className="error">{errors.clerror}</p>
+                      </div>
+                    )}
+                    
+                    <button className="buttonPrimary" type="submit">Submit Coins</button>
+                </form>
                 </div>
               </div>
-
-
+              </Modal>
             </div>
-
-
           </div>
         </div>
 

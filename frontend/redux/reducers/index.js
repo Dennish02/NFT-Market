@@ -19,7 +19,7 @@ import {
   SAVE_VALUE,
   ACTUAL,
   FILTER_COLECTION,
-  
+  TRANSFERIR_CL,
   LOAD_COLECCIONES
 
 
@@ -39,7 +39,8 @@ const initialState = {
   creado: false,
   colecciones: [],
   usersInfo: [],
-  valor:[]
+  valor:[],
+  transferencias:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -194,6 +195,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       }    
+    case TRANSFERIR_CL:
+      return {
+        ...state,
+      }
 
     default:
       return state;

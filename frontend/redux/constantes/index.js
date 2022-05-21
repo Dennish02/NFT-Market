@@ -36,7 +36,7 @@ export const DELETE_PROFILE = "DELETE_PROFILE";
 export const VALIDATE_USER = "VALIDATE_USER";
 
 export const SAVE_VALUE= "SAVE_VALUE"
-
+export const TRANSFERIR_CL = "TRANSFERIR_CL"
 
 export const ACTUAL = "ACTUAL";
 

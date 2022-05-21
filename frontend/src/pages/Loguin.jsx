@@ -95,9 +95,6 @@ export default function Loguin() {
     }
   }
 
-
-
-
   return (
     <div className="contRegister">
         <Link to='/'><img className="logo" src={logo} alt="Logo Corporation" /> </Link> 
