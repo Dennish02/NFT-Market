@@ -19,8 +19,8 @@ import {
   SAVE_VALUE,
   ACTUAL,
   FILTER_COLECTION,
+  TRANSFERIR_CL,
   RANKING_PORTFOLIOS,
-
   SORT,
   LOAD_COLECCIONES
 
@@ -42,7 +42,9 @@ const initialState = {
   colecciones: [],
   usersInfo: [],
   valor:[],
+  transferencias:[],
   ranking:[]
+
 };
 
 function rootReducer(state = initialState, action) {
@@ -196,6 +198,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       }    
+
+    case TRANSFERIR_CL:
+      return {
+        ...state,
+
  case RANKING_PORTFOLIOS:
         return {
           ...state,
@@ -216,6 +223,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allNFT: aux,
+
       }
 
     default:
