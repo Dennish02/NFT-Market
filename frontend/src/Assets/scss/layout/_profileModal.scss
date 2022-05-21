@@ -1,8 +1,36 @@
 @use "../base/variables" as v;
 @use '../base/mixins' as m;
+
+
+@include m.telefono{
+    .customStyles{
+        position: absolute;
+          top: 42%;
+          left: 60%;
+          right: auto;
+          bottom: auto;
+          margin-right: -50%;
+          transform: translate(-50%, -50%);
+          padding: 0;
+          width: 250px;
+      };
+}
+
+
+
+@include m.desktop{
+    .customStyles{
+          top: 32%;
+          left: 80%;
+          width: 400px;
+      };
+}
+
+  
+
 .perfil{
     position: relative;
-    
+   
 }
 .image-click{
     cursor: pointer;

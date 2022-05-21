@@ -413,8 +413,9 @@ img {
 
 .contentNav {
   display: block;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
+  box-shadow: 0px 4px 4px 0px rgb(11, 12, 41);
   margin: 2rem auto;
 }
 @media (min-width: 768px) {
@@ -468,16 +469,28 @@ img {
   height: 100vh;
 }
 
-.contentbutton {
-  width: 90%;
-  margin: 6rem auto 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  gap: 2rem;
+@media (min-width: 320px) {
+  .contentbutton {
+    margin: 6rem auto 0 auto;
+    display: none;
+    opacity: 0;
+    z-index: -1;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 2rem;
+  }
 }
-
+@media (min-width: 768px) {
+  .contentbutton {
+    opacity: 1;
+    z-index: 0;
+  }
+}
 .contLanding {
+  width: 95%;
+  margin: 0 auto;
   height: 80vh;
   display: flex;
   align-items: center;
@@ -541,6 +554,12 @@ img {
   margin: 4rem auto;
 }
 
+@media (min-width: 320px) {
+  .flex {
+    width: 95%;
+    margin: 0 auto;
+  }
+}
 .contLogin {
   position: relative;
   width: 600px;
@@ -640,30 +659,65 @@ img {
   border: 3px solid #c53838;
 }
 
-.contentSearchBar {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1fr;
-  align-items: center;
-  justify-content: space-between;
+@media (min-width: 320px) {
+  .contentSearchBar input {
+    font-family: "Ubuntu", sans-serif;
+    display: block;
+    margin: 1rem auto 2rem auto;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #e1e1e1;
+    outline: none;
+    width: 90%;
+    margin: 2rem auto;
+  }
+  .contentSearchBar .contentSearchBar-select {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    margin: 0 auto;
+  }
+  .contentSearchBar label {
+    color: #e1e1e1;
+  }
+  .contentSearchBar select {
+    padding: 1rem 0.5rem;
+    border: none;
+    border-bottom: solid 1px #f28b12;
+    background: none;
+    color: #e1e1e1;
+    margin: 0 1rem;
+  }
+  .contentSearchBar select option {
+    background-color: #3a3a3a;
+  }
 }
-.contentSearchBar input {
-  font-family: "Ubuntu", sans-serif;
-  display: block;
-  margin: 1rem auto 2rem auto;
-  padding: 2rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  background-color: #e1e1e1;
-  outline: none;
-  width: 70%;
-  margin: 0;
+@media (min-width: 768px) {
+  .contentSearchBar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1fr;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .contentSearchBar input {
+    font-family: "Ubuntu", sans-serif;
+    display: block;
+    margin: 1rem auto 2rem auto;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #e1e1e1;
+    outline: none;
+    width: 70%;
+    margin: 0;
+  }
+  .contentSearchBar .contentSearchBar-select {
+    display: flex;
+    justify-content: space-around;
+  }
 }
-.contentSearchBar .contentSearchBar-select {
-  display: flex;
-  justify-content: space-around;
-}
-
 .contentHome {
   width: 90%;
   margin: 1rem auto;
@@ -676,7 +730,10 @@ img {
   align-items: center;
   gap: 2rem;
   width: 90%;
-  margin: 2rem auto;
+  margin: 5rem auto;
+}
+.main .textGray {
+  color: #e1e1e1;
 }
 
 .contNFT {
@@ -717,27 +774,6 @@ img {
   background-color: transparent;
   display: inline-block;
   cursor: pointer;
-}
-.contNFT .disabled {
-  width: fit-content;
-  background-color: #29a237;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem 0;
-  background-color: #1b5a23;
-  width: 50%;
-  opacity: 0.5;
-}
-.contNFT .disabled:hover {
-  cursor: pointer;
-}
-.contNFT .disabled:hover {
-  cursor: not-allowed;
 }
 .contNFT .textVenta {
   color: #e1e1e1;
@@ -819,6 +855,15 @@ img {
 .contNFT .buttonFav:hover {
   cursor: pointer;
 }
+.contNFT .buttonlike {
+  width: 30px;
+  position: absolute;
+  bottom: 200px;
+  left: 85%;
+}
+.contNFT .buttonlike:hover {
+  cursor: pointer;
+}
 
 .contPrice {
   display: flex;
@@ -867,6 +912,26 @@ img {
   background: none;
 }
 
+@media (min-width: 320px) {
+  .customStyles {
+    position: absolute;
+    top: 42%;
+    left: 60%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    width: 250px;
+  }
+}
+@media (min-width: 768px) {
+  .customStyles {
+    top: 32%;
+    left: 80%;
+    width: 400px;
+  }
+}
 .perfil {
   position: relative;
 }
@@ -952,11 +1017,18 @@ img {
   color: #e1e1e1;
 }
 
-.contButton {
-  display: block;
-  margin: 0 auto;
+@media (min-width: 320px) {
+  .contButton {
+    display: block;
+    margin: 0 auto;
+  }
+  .contButton .center {
+    width: 100%;
+  }
+  .contButton .center button {
+    width: 100%;
+  }
 }
-
 @media (min-width: 768px) {
   .contButton {
     display: grid;
@@ -966,9 +1038,9 @@ img {
   }
   .contButton .center {
     margin: 0 auto;
+    width: 90%;
   }
 }
-
 .contTittle {
   width: 90%;
   margin: 0 auto;
@@ -1360,6 +1432,28 @@ img {
   cursor: pointer;
 }
 
+.disabled {
+  width: fit-content;
+  background-color: #663a8f;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  background-color: #1b5a23;
+  width: 50%;
+  opacity: 0.5;
+}
+.disabled:hover {
+  cursor: pointer;
+}
+.disabled:hover {
+  cursor: not-allowed;
+}
+
 .contentTopPortfolios {
   width: 95%;
   margin: 2rem auto;
@@ -1401,12 +1495,63 @@ img {
   color: #e1e1e1;
 }
 .contentTopPortfolios .contentTopPortfolios--contendio .contentSwiper {
-  width: 90%;
+  width: 98%;
   margin: 1rem auto;
 }
 .contentTopPortfolios .contentTopPortfolios--contendio .contentSwiper .swiper {
   height: 570px;
+  z-index: 0;
 }
-.contentTopPortfolios .contentTopPortfolios--contendio .contentNftTopPorfolios {
+
+.contSettings {
+  width: 90%;
   margin: 0 auto;
+}
+
+.contSettings-info {
+  width: 80%;
+  margin: 0 auto;
+}
+.contSettings-info .enlace {
+  margin: 0 auto;
+  width: 80%;
+}
+.contSettings-info button {
+  width: fit-content;
+  background-color: #663a8f;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  width: 100%;
+  margin: 4rem auto;
+}
+.contSettings-info button:hover {
+  cursor: pointer;
+}
+.contSettings-info .contFile {
+  text-align: center;
+  color: #e1e1e1;
+}
+.contSettings-info #mifile {
+  display: none;
+  margin: 2rem auto;
+}
+.contSettings-info .labelmiinput {
+  margin: 2rem auto;
+  font-size: 14px;
+  font-weight: bold;
+  color: #e1e1e1;
+  background-color: rgba(11, 12, 41, 0.5607843137);
+  transition: all 0.5s;
+  cursor: pointer;
+  padding: 15px 40px !important;
+  text-transform: uppercase;
+  width: fit-content;
+  text-align: center;
+  display: block;
 }

@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavBar from '../componentes/home/NavBar'
 import { Link } from 'react-router-dom'
 import FavNFTS from '../componentes/favoritos/FavNFTS'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { usuarioActual } from '../../redux/actions/actionUSER'
 
 export default function Favoritos() {
-    const miUser = useSelector(state => state.usuario)
-    const favoritos = miUser.favoritos
-    
+    const dispatch = useDispatch()
+    const miUser = useSelector(state => state.usuarioActual)
    
+    useEffect(()=>{ 
+        dispatch(usuarioActual())
+    },[])
+
     return (
-        <div>
+      miUser.length !== 0 ? <div className="contentHome">
 
             <NavBar usuario={miUser} />
 
@@ -18,9 +22,10 @@ export default function Favoritos() {
             <div className='contFavoritos'>
 
             <h1 style={{color: 'white'}}>favoritos</h1>
-            {favoritos.length > 0 ? favoritos.map(fav => {
+            {miUser.favoritos.length > 0  ? miUser.favoritos.map(fav => {
                 return (
-                    <FavNFTS image={fav.image} id={fav.id} 
+                    
+                    <FavNFTS key={fav._id} image={fav.image} id={fav.id} 
                     colection={fav.colection} avaliable={fav.avaliable}
                     creatorId={fav.creatorId} ownerId={fav.ownerId}
                     _id={fav._id} priceBase={fav.priceBase} price={fav.price}
@@ -40,6 +45,6 @@ export default function Favoritos() {
             {/* ACA SE TIENEN QUE RENDERIZAR LOS NFT QUE ESTEN AGREGADOS A FAVORITOS  */}
             <Link to='/home/usuario/portfolio'> <button className='back-button' >VOLVER AL PORTFOLIO </button></Link>
             </div>
-        </div>
+        </div> : <p>Cargadno</p>
     )
 }

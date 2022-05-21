@@ -248,7 +248,7 @@ export function cambiarImagen(payload) {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.msg);
-      console.log(error);
+      
       // console.log(error.response.data.msg);
       // toast.error(error.response.data.msg);
     }
@@ -302,7 +302,6 @@ export function topPortfolios(){
       },
     };
         const json = await clienteAxios.get(`${import.meta.env.VITE_BACKEND_URL}/api/nft/wealthyportfolios`, config)
-       console.log(json.data);
         return dispatch({
           type: RANKING_PORTFOLIOS,
           payload: json.data,
@@ -323,7 +322,7 @@ export function getValuePortfolio(){
       },
     };
       await clienteAxios.get(`${import.meta.env.VITE_BACKEND_URL}/api/nft/valueport`, config)
-      
+     
       } catch (error) {
       console.log(error);
     }

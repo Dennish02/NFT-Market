@@ -1,0 +1,44 @@
+@use "../base/variables" as v;
+@use "../base/mixins" as m;
+
+.contSettings{
+    width: 90%;
+    margin: 0 auto;
+}
+.contSettings-info{
+    width: 80%;
+    margin: 0 auto;
+    
+    .enlace{
+        margin: 0 auto;
+        width: 80%;
+    }
+    button{
+        @include m.buttonMorado;
+        width: 100%;
+        margin: 4rem auto;
+    }
+    .contFile{
+        text-align: center;
+        color: v.$grisclaro;
+    }
+   #mifile{
+    display: none;
+    margin: 2rem auto;
+   }
+    .labelmiinput{
+        margin: 2rem auto;
+        font-size: 14px;
+        font-weight: bold;
+        color: v.$grisclaro;
+        background-color: v.$fondoOscuro;
+        transition: all .5s;
+        cursor: pointer;
+        padding: 15px 40px !important;
+        text-transform: uppercase;
+        width: fit-content;
+        text-align: center;
+        display: block
+    }
+   }
+  

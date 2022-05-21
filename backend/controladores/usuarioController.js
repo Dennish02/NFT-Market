@@ -29,7 +29,9 @@ const cambiarImage = async (req, res) => {
 
 const usuario = async (req, res) => {
   try {
-    const user = await Usuario.findOne({ nombre: req.usuario.nombre }).populate("favoritos");
+    const user = await Usuario.findOne({ nombre: req.usuario.nombre })
+                        .populate("favoritos")
+                        .select(" -password -confirmado  -createdAt -updatedAt -__v");
     return res.send(user);
   } catch (e) {
     return res.status(400).json({ msg: "error" });
@@ -82,7 +84,7 @@ const autenticar = async (req, res) => {
   //comprobar si existe
   const usuario = await Usuario.findOne({ email });
   if (!usuario) {
-    console.log("a");
+    
     const error = new Error("EL USUARIO NO EXISTE");
     return res.status(404).json({ msg: error.message });
   }
@@ -197,9 +199,8 @@ const nuevoPassword = async (req, res) => {
 
 const perfil = async (req, res) => {
   // const { usuario } = req; // se lee del server
-  const user = await Usuario.findOne({ nombre: req.usuario.nombre }).populate(
-    "favoritos"
-  ); //populate trae la data de la referencia
+  const user = await Usuario.findOne({ nombre: req.usuario.nombre }).select("-password -hasTradeOffers -email -transacciones -favoritos -confirmado  -createdAt -updatedAt -__v"); //populate trae la data de la referencia
+ 
   res.json(user);
 };
 

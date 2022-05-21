@@ -43,14 +43,14 @@
             }
         }
         .contentSwiper{
-            width: 90%;
+            width: 98%;
             margin: 1rem auto;
             .swiper{
                 height: 570px;
+                z-index: 0;
             }
         }
-        .contentNftTopPorfolios{
-           margin: 0 auto;
-        }
+       
+       
     }
 }

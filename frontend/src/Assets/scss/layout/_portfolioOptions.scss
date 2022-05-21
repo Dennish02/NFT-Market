@@ -1,15 +1,26 @@
 @use "../base/variables" as v;
 @use "../base/mixins" as m;
 
-.contButton {
-  display: block;
-  margin: 0 auto;
+@include m.telefono {
+  .contButton {
+    display: block;
+    margin: 0 auto;
+    .center{
+      width: 100%; 
+        button{
+          width: 100%;
+        }
+      
+    }
+  }
 }
-.contButton {
-  @include m.desktop {
+
+@include m.desktop{
+  .contButton{
     @include m.grid(3, 1fr);
     .center{
       margin: 0 auto;
+      width: 90%; 
     }
   }
 }

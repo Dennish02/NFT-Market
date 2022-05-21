@@ -5,6 +5,13 @@
 .contRegister{
   margin: 4rem auto;
 }
+@include m.telefono{
+  .flex{
+    width: 95%;
+    margin: 0 auto;
+  }
+ 
+}
 .contLogin {
   position: relative;
   width: 600px;
