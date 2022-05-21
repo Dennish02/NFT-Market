@@ -19,6 +19,7 @@ import {
   SAVE_VALUE,
   ACTUAL,
   FILTER_COLECTION,
+  TRANSFERIR_CL,
   RANKING_PORTFOLIOS,
   LIKE_NFT,
   SORT,
@@ -44,7 +45,8 @@ const initialState = {
   usersInfo: [],
   valor:[],
   ranking:[],
-  likeNft:[]
+  likeNft:[],
+  transferencias:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -199,6 +201,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       }    
+
+    case TRANSFERIR_CL:
+      return {
+        ...state,
+
  case RANKING_PORTFOLIOS:
         return {
           ...state,
@@ -219,6 +226,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allNFT: aux,
+
       }
     case LIKE_NFT:
       const like = action.payload.msg ? { msg: action.payload.msg, like :true} : { msg: action.payload.alert, like :false}

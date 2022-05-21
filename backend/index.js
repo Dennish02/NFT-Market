@@ -108,4 +108,10 @@ io.on("connection", (socket) => {
       .to(`${process.env.FRONTEND_URL}/home/usuario/wallet`)
       .emit("redicreccion", ruta);
   });
+
+  socket.on("Transferencia", (ruta) => {
+    socket.to(`${process.env.FRONTEND_URL}/home/usuario/wallet`).emit("TransferenciaOk", ruta);
+  });
 });
+
+

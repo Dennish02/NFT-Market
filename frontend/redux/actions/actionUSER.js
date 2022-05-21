@@ -12,7 +12,9 @@ import {
   LOGIN_GOOGLE,
   SHOW_USERS_ID,
   ACTUAL,
+  TRANSFERIR_CL,
   RANKING_PORTFOLIOS,
+
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -327,3 +329,25 @@ export function getValuePortfolio(){
   }
 }
 
+export function transferirCL({cl,user}){
+
+  return async function(dispatch){
+    const token = localStorage.getItem("token");
+    const authAxios = axios.create({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    try {
+      const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/transferir`, {cl,user} )
+      toast.success(json.data.msg)
+      socket.emit('Transferencia')
+      return dispatch({
+        type: TRANSFERIR_CL,
+      })
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.msg)
+    }
+  }
+}
