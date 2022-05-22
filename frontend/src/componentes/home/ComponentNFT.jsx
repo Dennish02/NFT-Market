@@ -25,7 +25,8 @@ export default function ComponentNFT(props) {
     ownerId,
     usuario,
     like,
-    todosLosNFT
+    todosLosNFT,
+    ranking
   } = props;
   let porcentaje = pocentajeAumento(priceBase, price);
  
@@ -73,6 +74,7 @@ function handleLike(){
       </div>
 
       <div className="contNFTinfo">
+        <p>{`ranking: ${ranking}`}</p>
         <h2>{`${colection}  ${id}`}</h2>
         <p>{`creator:  ${creatorId}`}</p>
         <p>
