@@ -25,6 +25,7 @@ export default function Home() {
   //const token = localStorage.getItem("token");
   const [orden, setOrden] = useState('')
   const [selectedSort, setSelectedSort] = useState('sort')
+  //comentario para poder comitear
   const like = useSelector(state => state.likeNft)
 
   //Paginado 

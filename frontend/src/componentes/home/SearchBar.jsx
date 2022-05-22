@@ -12,6 +12,7 @@ export default function SearchBar({setOrden, selectedSort, setSelectedSort, pagi
   }
 
   function changeSort(e) {
+    //comentario para poder comitear
     dispatch(sort(e.target.value))
     setOrden(`Ordenado ${e.target.value}`)
     setSelectedSort(e.target.value)

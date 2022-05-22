@@ -215,6 +215,7 @@ function rootReducer(state = initialState, action) {
 
 
     case SORT:
+      //comentario para poder comitear
       const NFTOrdenados = state.allNft.sort((a,b) => {
         if(action.payload === 'price_asc'){
           return a.price - b.price
