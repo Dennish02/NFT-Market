@@ -23,7 +23,8 @@ import {
   RANKING_PORTFOLIOS,
   LIKE_NFT,
   SORT,
-  LOAD_COLECCIONES
+  LOAD_COLECCIONES,
+  SORT_POP
 
 
 } from "../constantes";
@@ -52,6 +53,7 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+
     case ALL_NFT_MARKET:
       // if (state.allNft.length === state.backUpAllNft.length) {
       if(state.allNftFlag){
@@ -63,11 +65,7 @@ function rootReducer(state = initialState, action) {
           //usuario: action.payload.usuario,
         };
       }
-      return {
-        ...state,
-        backUpAllNft: action.payload.nftAlldb,
-        //usuario: action.payload.usuario,
-      };
+    
 
     case CREATE_NFT:
       return {
@@ -210,6 +208,7 @@ function rootReducer(state = initialState, action) {
         ...state,
       }
 
+
  case RANKING_PORTFOLIOS:
         return {
           ...state,
@@ -245,6 +244,23 @@ function rootReducer(state = initialState, action) {
         ...state,
         likeNft: like
       }  
+    
+      case SORT_POP:
+
+        
+        let nftForSort =   action.payload == 'high'? state.allNft.sort((a,b) => {  return b.ranking - a.ranking }) : action.payload == 'low'? state.allNft.sort((a,b) => {  return a.ranking - b.ranking }) : state.backUpAllNft
+        
+         
+        
+        
+  
+        let auxiliar = nftForSort.map(el => el )
+        console.log(nftForSort)
+        console.log('aux', auxiliar)
+        return{
+          ...state,
+          allNFT : auxiliar
+        }
     default:
       return state;
   }

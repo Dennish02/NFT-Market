@@ -25,7 +25,7 @@ export default function Home() {
   //const token = localStorage.getItem("token");
   const [orden, setOrden] = useState('')
   const [selectedSort, setSelectedSort] = useState('sort')
-  //comentario para poder comitear
+  const [orderPop, setOrderPop] = useState('')
   const like = useSelector(state => state.likeNft)
 
   //Paginado 
@@ -61,7 +61,8 @@ export default function Home() {
     };
   }, []);
  
-
+ const test = todosLosNFT.map(el => el.ranking)
+ console.log(test)
   useEffect(() => {
     //recibir la respuesta del back
     socket.on("homeUpdate", () => {
@@ -76,7 +77,7 @@ export default function Home() {
     <div className="contentHome">
       <NavBar usuario={usuario} />
       <div>
-        <SearchBar setOrden={setOrden} selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas}/>
+        <SearchBar setOrden={setOrden} selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas} OrderPop={setOrderPop}/>
       </div>
       <main id="main" className="main">
         {currentNftFilter.length !== 0 ? (
@@ -99,6 +100,7 @@ export default function Home() {
                       creatorId={nft.creatorId}
                       ownerId={nft.ownerId}
                       avaliable={nft.avaliable}
+                      ranking={nft.ranking}
                     />
                   }
                 </div>

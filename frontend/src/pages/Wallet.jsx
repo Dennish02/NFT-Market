@@ -38,8 +38,7 @@ function Wallet() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [transactionByPage, setTransactionByPage] = useState(5);
-  const indexOfLastTransactions = currentPage * transactionByPage;
-  const indexOfFirstTransaction = indexOfLastTransactions - transactionByPage;
+
 
 
   const [elementsByPage, setElementsByPage] = useState(5);

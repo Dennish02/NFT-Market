@@ -15,7 +15,8 @@ import {
   ADD_NFT_FAVORITE,
   SORT,
   SAVE_VALUE,
-  LIKE_NFT
+  LIKE_NFT,
+  SORT_POP
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -377,4 +378,13 @@ export function darLike(id){
         toast.warning(error.response.data.msg);
       }
     }
+}
+
+export function sortPopularity(payload){
+  return async function(dispatch){
+    return dispatch({
+      type: SORT_POP,
+      payload
+    })
+}
 }

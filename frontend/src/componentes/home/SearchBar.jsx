@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch} from "react-redux";
-import { SearchNFT, sort } from "../../../redux/actions/actionNFT";
+import { SearchNFT, sort, sortPopularity } from "../../../redux/actions/actionNFT";
 import { useState } from "react";
 
-export default function SearchBar({setOrden, selectedSort, setSelectedSort, paginas}) {
+export default function SearchBar({setOrden, selectedSort, setSelectedSort, paginas, OrderPop}) {
 
   const dispatch = useDispatch();
   function onChangeValues(e) {
@@ -18,6 +18,11 @@ export default function SearchBar({setOrden, selectedSort, setSelectedSort, pagi
     setSelectedSort(e.target.value)
     paginas(1)
   }
+  function sortByPopularity(e){
+    dispatch(sortPopularity(e.target.value))
+    OrderPop(`wasu wasol ${e.target.value}`)
+  }
+
 
   return (
     <div className="contentSearchBar">
@@ -31,8 +36,9 @@ export default function SearchBar({setOrden, selectedSort, setSelectedSort, pagi
       <div className="contentSearchBar-select">
         {/* <div>
           <label htmlFor="popularity">popularity</label>
-          <select name="popularity" id="popularity">
-            <option value="one">one</option>
+          <select onChange={(e)=>sortByPopularity(e)}  id="popularity">
+            <option value="high">high</option>
+            <option value="low">low</option>
           </select>
         </div> */}
         <div>
