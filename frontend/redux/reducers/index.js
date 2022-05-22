@@ -218,7 +218,21 @@ function rootReducer(state = initialState, action) {
 
     case SORT:
       //comentario para poder comitear
-      const NFTOrdenados = state.allNft.sort((a,b) => {
+      const allNft = state.allNft.sort((a,b) => {
+        if(action.payload === 'price_asc'){
+          return a.price - b.price
+        }
+        else if(action.payload === 'price_desc'){
+          return b.price - a.price
+        }
+        else if(action.payload === 'ranking_asc'){
+          return a.ranking - b.ranking
+        }
+        else if(action.payload === 'ranking_desc'){
+          return b.ranking - a.ranking
+        }
+      })
+      const backUpAllNft = state.backUpAllNft.sort((a,b) => {
         if(action.payload === 'price_asc'){
           return a.price - b.price
         }
@@ -235,7 +249,8 @@ function rootReducer(state = initialState, action) {
       // let aux = NFTOrdenados.map(el => el)
       return {
         ...state,
-        allNFT: NFTOrdenados,
+        allNft,
+        backUpAllNft
 
       }
     case LIKE_NFT:
