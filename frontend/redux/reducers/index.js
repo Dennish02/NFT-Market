@@ -48,18 +48,20 @@ const initialState = {
   ranking:[],
   likeNft:[],
   transferencias:[],
+  allNftFlag: true
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
 
     case ALL_NFT_MARKET:
-  
-      if (state.allNft.length === state.backUpAllNft.length) {
+      // if (state.allNft.length === state.backUpAllNft.length) {
+      if(state.allNftFlag){
         return {
           ...state,
           allNft: action.payload.nftAlldb,
-          backUpAllNft: action.payload.nftAlldb
+          backUpAllNft: action.payload.nftAlldb,
+          allNftFlag: false
           //usuario: action.payload.usuario,
         };
       }
@@ -205,6 +207,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       }
+
+
  case RANKING_PORTFOLIOS:
         return {
           ...state,
@@ -213,6 +217,7 @@ function rootReducer(state = initialState, action) {
 
 
     case SORT:
+      //comentario para poder comitear
       const NFTOrdenados = state.allNft.sort((a,b) => {
         if(action.payload === 'price_asc'){
           return a.price - b.price
@@ -220,11 +225,17 @@ function rootReducer(state = initialState, action) {
         else if(action.payload === 'price_desc'){
           return b.price - a.price
         }
+        else if(action.payload === 'ranking_asc'){
+          return a.ranking - b.ranking
+        }
+        else if(action.payload === 'ranking_desc'){
+          return b.ranking - a.ranking
+        }
       })
-      let aux = NFTOrdenados.map(el => el)
+      // let aux = NFTOrdenados.map(el => el)
       return {
         ...state,
-        allNFT: aux,
+        allNFT: NFTOrdenados,
 
       }
     case LIKE_NFT:
