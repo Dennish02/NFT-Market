@@ -205,6 +205,7 @@ function rootReducer(state = initialState, action) {
     case TRANSFERIR_CL:
       return {
         ...state,
+      }
 
  case RANKING_PORTFOLIOS:
         return {
@@ -221,11 +222,17 @@ function rootReducer(state = initialState, action) {
         else if(action.payload === 'price_desc'){
           return b.price - a.price
         }
+        else if(action.payload === 'ranking_asc'){
+          return a.ranking - b.ranking
+        }
+        else if(action.payload === 'ranking_desc'){
+          return b.ranking - a.ranking
+        }
       })
-      let aux = NFTOrdenados.map(el => el)
+      // let aux = NFTOrdenados.map(el => el)
       return {
         ...state,
-        allNFT: aux,
+        allNFT: NFTOrdenados,
 
       }
     case LIKE_NFT:

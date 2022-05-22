@@ -24,6 +24,7 @@ export default function Home() {
   const ranking = useSelector(state=> state.ranking)
   //const token = localStorage.getItem("token");
   const [orden, setOrden] = useState('')
+  const [selectedSort, setSelectedSort] = useState('sort')
   const like = useSelector(state => state.likeNft)
 
   //Paginado 
@@ -74,7 +75,7 @@ export default function Home() {
     <div className="contentHome">
       <NavBar usuario={usuario} />
       <div>
-        <SearchBar setOrden={setOrden}/>
+        <SearchBar setOrden={setOrden} selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas}/>
       </div>
       <main id="main" className="main">
         {currentNftFilter.length !== 0 ? (
