@@ -14,6 +14,7 @@ import TopPortfolios from "../componentes/home/TopPortfolios";
 import Paginado from "./Paginas";
 import { getValuePortfolio, topPortfolios, usuarioActual } from "../../redux/actions/actionUSER";
 let socket;
+import { guardarPagina } from "../../redux/actions/actionPaginado";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -23,13 +24,14 @@ export default function Home() {
   const params = window.location.href;
   const ranking = useSelector(state=> state.ranking)
   //const token = localStorage.getItem("token");
-  const [orden, setOrden] = useState('')
-  const [selectedSort, setSelectedSort] = useState('sort')
+  // const [orden, setOrden] = useState('')
+  const homeGuardado = useSelector(state => state.homeGuardado)
+  const [selectedSort, setSelectedSort] = useState(homeGuardado.ordenamiento)
   const [orderPop, setOrderPop] = useState('')
   const like = useSelector(state => state.likeNft)
 
   //Paginado 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(homeGuardado.pagina);
   const [nftByPage, setNftByPage] = useState(8);
   const indexOfLastNft = currentPage * nftByPage;
   const indexOfFirstNft = indexOfLastNft - nftByPage;
@@ -40,10 +42,17 @@ export default function Home() {
   const paginas = (pageNumber) => {
     //console.log(pageNumber);
     setCurrentPage(pageNumber);
+    dispatch(guardarPagina(pageNumber))
   };
-  const goToNextPage = () => setCurrentPage(currentPage + 1);
+  const goToNextPage = () => {
+    setCurrentPage(currentPage + 1);
+    dispatch(guardarPagina(currentPage + 1))
+  }
   const goToPreviousPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      dispatch(guardarPagina(currentPage - 1))
+    }
   };
   useEffect(() => {
     dispatch(usuarioActual())
@@ -77,7 +86,7 @@ export default function Home() {
     <div className="contentHome">
       <NavBar usuario={usuario} />
       <div>
-        <SearchBar setOrden={setOrden} selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas} OrderPop={setOrderPop}/>
+        <SearchBar selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas} OrderPop={setOrderPop}/>
       </div>
       <main id="main" className="main">
         {currentNftFilter.length !== 0 ? (
