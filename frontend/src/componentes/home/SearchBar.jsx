@@ -29,12 +29,12 @@ export default function SearchBar({setOrden, selectedSort, setSelectedSort, pagi
         />
       </div>
       <div className="contentSearchBar-select">
-        <div>
+        {/* <div>
           <label htmlFor="popularity">popularity</label>
           <select name="popularity" id="popularity">
             <option value="one">one</option>
           </select>
-        </div>
+        </div> */}
         <div>
           {/* <label htmlFor="price">price</label> */}
           <select name="price" id="price" onChange={changeSort} value={selectedSort}>
