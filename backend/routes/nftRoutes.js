@@ -44,6 +44,5 @@ router.route("/like/:id").put(checkOut, likeNft);
 router.route("/vender/:id").put(checkOut, venderNft);
 router.route("/comprar/:id").post(checkOut, comprarNft, crearTransaccion);
 
-router.route("/ordenar").get(checkOut, ordenarNFT)
-
+router.route("/ordenar").get(checkOut, ordenarNFT);
 export default router;

@@ -3,8 +3,8 @@ import { useDispatch} from "react-redux";
 import { SearchNFT, sort, sortPopularity } from "../../../redux/actions/actionNFT";
 import { useState } from "react";
 
-export default function SearchBar({setOrden, selectedSort, setSelectedSort, paginas, OrderPop}) {
-
+export default function SearchBar({selectedSort, setSelectedSort, paginas, OrderPop}) {
+  console.log(selectedSort)
   const dispatch = useDispatch();
   function onChangeValues(e) {
     // console.log(e.target.value)
@@ -14,7 +14,6 @@ export default function SearchBar({setOrden, selectedSort, setSelectedSort, pagi
   function changeSort(e) {
     //comentario para poder comitear
     dispatch(sort(e.target.value))
-    setOrden(`Ordenado ${e.target.value}`)
     setSelectedSort(e.target.value)
     paginas(1)
   }
