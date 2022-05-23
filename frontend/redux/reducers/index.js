@@ -57,17 +57,21 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_NFT_MARKET:
-      // if (state.allNft.length === state.backUpAllNft.length) {
-      if (state.allNftFlag) {
+    if (state.allNft.length === state.backUpAllNft.length) {
         return {
           ...state,
           allNft: action.payload.nftAlldb,
           backUpAllNft: action.payload.nftAlldb,
-          allNftFlag: false,
+          allNftFlag:false
           //usuario: action.payload.usuario,
         };
       }
-
+      return {
+        ...state,
+        backUpAllNft: action.payload.nftAlldb,
+        //usuario: action.payload.usuario,
+      };
+  
     case CREATE_NFT:
       return {
         ...state,
