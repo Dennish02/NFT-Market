@@ -8,12 +8,18 @@ import {
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { userLogout } from "../../../redux/actions/actionUSER";
+import { useDispatch } from "react-redux";
 
 export default function ProfileSettings({ closeModal }) {
   const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   if (!token) {
     navigate("/");
+  }
+
+  function logOut() {
+    dispatch(userLogout);
   }
 
   return (
@@ -39,7 +45,7 @@ export default function ProfileSettings({ closeModal }) {
         </Link>
       </div>
 
-      <div onClick={userLogout} className="divPortfolio">
+      <div onClick={() => logOut()} className="divPortfolio">
         <Link to="/">
           <h3>logout</h3>
           <MdLogout className="icon" />

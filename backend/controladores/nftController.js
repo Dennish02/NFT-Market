@@ -15,7 +15,7 @@ const allNftUser = async (req, res) => {
 const obtenerAllNft = async (req, res) => {
   const nftAlldb = await NftCreated.find(); //trae todos los nf de la base de datos
   try {
-    return res.status(200).json({ nftAlldb});
+    return res.status(200).json({ nftAlldb });
   } catch (error) {
     return res.status(404).json({ msg: error.message });
   }
@@ -125,7 +125,7 @@ const regalarNft = async (req, res) => {
     const { idnft, iduser, colection } = req.body;
     const { usuario } = req;
 
-    const nft = await NftCreated.findOne({id: idnft, colection});
+    const nft = await NftCreated.findOne({ id: idnft, colection });
     // usuario.nfts.forEach((currentValue, id) => {
     //   if (currentValue.id === idnft && currentValue.colection === colection) {
     //     nft = usuario.nfts[id];
@@ -135,8 +135,9 @@ const regalarNft = async (req, res) => {
     //   }
     // });
 
-    
-    const filtrado = usuario.nfts.filter( (NFT) => nft.id !== NFT.id || nft.colection !== NFT.colection );
+    const filtrado = usuario.nfts.filter(
+      (NFT) => nft.id !== NFT.id || nft.colection !== NFT.colection
+    );
     usuario.nfts = filtrado;
     await usuario.save();
 
@@ -146,12 +147,12 @@ const regalarNft = async (req, res) => {
     if (nft) {
       //...
       nft.ownerId = giftTo.nombre;
-      nft.save()
+      nft.save();
       //...
-      
+
       giftTo.nfts.push(nft);
       giftTo.save();
-      
+
       res.status(200).json(giftTo.nfts);
     } else {
       res.status(404).send("this NFT does not exist");
@@ -226,7 +227,6 @@ const comprarNft = async (req, res, next) => {
         .json({ msg: "Lo sentimos, su compra no pudo realizarse" });
     }
   }
- 
 };
 
 const venderNft = async (req, res) => {
@@ -258,23 +258,32 @@ const venderNft = async (req, res) => {
 const tradeOffer = async (req, res) => {
   try {
     const { usuario } = req;
-    const { nftOffered, nftOfferedColection, nftId, owner, nftColection } = req.body;
-  
-    const nft = await NftCreated.findOne({ ownerId: owner, colection: nftColection, id: nftId });
-  
-    const offer = await NftCreated.findOne({ ownerId: usuario.nombre, colection: nftOfferedColection, id: nftOffered });
-  
+    const { nftOffered, nftOfferedColection, nftId, owner, nftColection } =
+      req.body;
+
+    const nft = await NftCreated.findOne({
+      ownerId: owner,
+      colection: nftColection,
+      id: nftId,
+    });
+
+    const offer = await NftCreated.findOne({
+      ownerId: usuario.nombre,
+      colection: nftOfferedColection,
+      id: nftOffered,
+    });
+
     const nftOwner = await Usuario.findOne({ nombre: owner });
-  
+
     nftOwner.hasTradeOffers.push({
       id: makeGeneratorIDRandom(5),
       offer: offer,
       nft: nft,
-      status: null
+      status: null,
     });
-  
-    await nftOwner.save()
-  
+
+    await nftOwner.save();
+
     res.json(nftOwner.hasTradeOffers);
   } catch (error) {
     res.status(400).send(error);
@@ -287,7 +296,7 @@ const seeOffers = async (req, res) => {
   if (usuario.hasTradeOffers.length > 0) {
     return res.status(200).json(usuario.hasTradeOffers);
   } else {
-    return res.send({msg: `No trade offers here yet`})
+    return res.send({ msg: `No trade offers here yet` });
   }
 };
 
@@ -295,62 +304,79 @@ const responseOffer = async (req, res) => {
   try {
     const { usuario } = req;
     const { response, newId } = req.body;
-  
-    let oferta = usuario.hasTradeOffers.find(value => value.id === newId);
-  
+
+    let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
+
     let r = JSON.parse(response);
-  
+
     if (oferta) {
       if (r) {
-        const userToGive = await Usuario.findOne({ nombre: oferta.offer.ownerId}); // usuario al que hay que darle el nft - ofertante
-  
-      
-  
-        usuario.nfts.filter(value => value.id !== oferta.nft.id || value.colection !== oferta.nft.colection) // quitamos el nft del arreglo del ex dueño
-  
-        const thenft = await NftCreated.findOne({ id: oferta.nft.id, colection: oferta.nft.colection }); // buscamos el nft
-  
+        const userToGive = await Usuario.findOne({
+          nombre: oferta.offer.ownerId,
+        }); // usuario al que hay que darle el nft - ofertante
+
+        usuario.nfts.filter(
+          (value) =>
+            value.id !== oferta.nft.id ||
+            value.colection !== oferta.nft.colection
+        ); // quitamos el nft del arreglo del ex dueño
+
+        const thenft = await NftCreated.findOne({
+          id: oferta.nft.id,
+          colection: oferta.nft.colection,
+        }); // buscamos el nft
+
         thenft.ownerId = userToGive.nombre; // cambiamos el owner
-  
+
         await thenft.save(); // guardamos cambios
-  
+
         userToGive.nfts.push(thenft); // le damos el nft
-  
-        const theOtherNft = await NftCreated.findOne({ id: oferta.offer.id, colection: oferta.offer.colection});
-  
-        userToGive.nfts = userToGive.nfts.filter(item => item.id !== theOtherNft.id && item.colection !== theOtherNft.colection);
-  
+
+        const theOtherNft = await NftCreated.findOne({
+          id: oferta.offer.id,
+          colection: oferta.offer.colection,
+        });
+
+        userToGive.nfts = userToGive.nfts.filter(
+          (item) =>
+            item.id !== theOtherNft.id &&
+            item.colection !== theOtherNft.colection
+        );
+
         userToGive.save();
-  
+
         theOtherNft.ownerId = usuario.nombre;
-  
+
         await theOtherNft.save();
-  
+
         usuario.nfts.push(theOtherNft);
-  
-        usuario.nfts = usuario.nfts.filter(item => item.id !== thenft.id && item.colection !== thenft.colection);
-        
-        usuario.hasTradeOffers = usuario.hasTradeOffers.filter(item => item.id !== newId);
-  
+
+        usuario.nfts = usuario.nfts.filter(
+          (item) => item.id !== thenft.id && item.colection !== thenft.colection
+        );
+
+        usuario.hasTradeOffers = usuario.hasTradeOffers.filter(
+          (item) => item.id !== newId
+        );
+
         await usuario.save();
-  
-        res.status(200).send('Trade successfully completed');
+
+        res.status(200).send("Trade successfully completed");
       } else {
-        usuario.hasTradeOffers = usuario.hasTradeOffers.filter(item => item.id !== newId);
+        usuario.hasTradeOffers = usuario.hasTradeOffers.filter(
+          (item) => item.id !== newId
+        );
         await usuario.save();
-  
-        res.status(200).send('Trade successfully rejected');
+
+        res.status(200).send("Trade successfully rejected");
       }
-  
     } else {
-      res.status(400).send({msg: `This trade offer does not exists`})
+      res.status(400).send({ msg: `This trade offer does not exists` });
     }
-    
   } catch (error) {
     res.status(400).send(error);
   }
-
-}
+};
 
 const añadirFavNft = async (req, res) => {
   const { id } = req.params;
@@ -363,7 +389,9 @@ const añadirFavNft = async (req, res) => {
       (nft) => nft.id === NFT.id && nft.colection === NFT.colection
     );
     if (nftFav) {
-     return res.status(401).json({ msg: `${NFT.id} ya está en sus favoritos` });
+      return res
+        .status(401)
+        .json({ msg: `${NFT.id} ya está en sus favoritos` });
     } else {
       //console.log(NFT);
       user.favoritos.push(NFT);
@@ -387,99 +415,95 @@ const eliminarFavNft = async (req, res) => {
     );
     user.favoritos = favFiltrados;
     await user.save();
-   return res.json({ msg: `${NFT.id} fue eliminado de favoritos` });
+    return res.json({ msg: `${NFT.id} fue eliminado de favoritos` });
   } catch (error) {
-    res.status(404).json({msg: error.message})
+    res.status(404).json({ msg: error.message });
   }
 };
-
 
 const likeNft = async (req, res) => {
   const { id } = req.params;
   try {
     const nft = await NftCreated.findById(id).populate("userLikes");
     const nftOwner = nft.ownerId;
-    const likeUser = nft.userLikes.find( user => user.nombre === req.usuario.nombre );
+    const likeUser = nft.userLikes.find(
+      (user) => user.nombre === req.usuario.nombre
+    );
 
-    const propietario = await Usuario.findOne({nombre: nftOwner});
+    const propietario = await Usuario.findOne({ nombre: nftOwner });
     // console.log (propietario.nfts)
 
     if (likeUser) {
       //si el usuario ya le dio like puede quitarselo
       nft.ranking = nft.ranking - 1;
-      const userFiltrados = nft.userLikes.filter( user => user.nombre !== req.usuario.nombre);
+      const userFiltrados = nft.userLikes.filter(
+        (user) => user.nombre !== req.usuario.nombre
+      );
       nft.userLikes = userFiltrados;
       await nft.save();
 
       //actualizar el nft en propietario
       const actualizado = propietario.nfts.map((n) => {
-        if(n.id === nft.id && n.colection === nft.colection) {
+        if (n.id === nft.id && n.colection === nft.colection) {
           n.ranking = nft.ranking;
           n.userLikes = nft.userLikes;
-          return n
+          return n;
         } else {
-          return n
+          return n;
         }
-      }
-      ); 
+      });
       propietario.nfts = actualizado;
-     
-      await Usuario.findOneAndUpdate({nombre: nftOwner}, propietario);
-       
-      
-     return res.json({ alert: `Ya no le gusta ${nft.id}` });
 
+      await Usuario.findOneAndUpdate({ nombre: nftOwner }, propietario);
+
+      return res.json({ alert: `Ya no le gusta ${nft.id}` });
     } else if (!likeUser) {
       //si el usuario no esta en la lista de likes, puede darle su like
       nft.ranking = nft.ranking + 1;
-      nft.userLikes.push(req.usuario)
+      nft.userLikes.push(req.usuario);
       await nft.save();
 
       //actualizar el nft en propietario
       const actualizado = propietario.nfts.map((NFT) => {
-        if(NFT.id === nft.id && NFT.colection === nft.colection) {
-          
+        if (NFT.id === nft.id && NFT.colection === nft.colection) {
           NFT.ranking = nft.ranking;
           NFT.userLikes = nft.userLikes;
-         
-          return NFT
+
+          return NFT;
         } else {
-          return NFT
+          return NFT;
         }
-      }
-      );
-      propietario.nfts = actualizado;  
-     
-      await Usuario.findOneAndUpdate({nombre: nftOwner}, propietario);
+      });
+      propietario.nfts = actualizado;
+
+      await Usuario.findOneAndUpdate({ nombre: nftOwner }, propietario);
 
       res.json({ msg: `Le gusta ${nft.id}` });
     }
-    
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
 const ordenarNFT = (req, res) => {
   //recibe por body {sort: que puede ser 'price_asc' o 'price_desc'
   //                 nfts: nfts de usuario}
-  const { nfts } = req.body
-  const { sort } = req.body
-  var nftOrdenados = nfts.sort((a,b) => {
-    if(sort === 'price_asc'){
-      return a.price - b.price
+  const { nfts } = req.body;
+  const { sort } = req.body;
+  var nftOrdenados = nfts.sort((a, b) => {
+    if (sort === "price_asc") {
+      return a.price - b.price;
+    } else if (sort === "price_desc") {
+      return b.price - a.price;
     }
-    else if(sort === 'price_desc'){
-      return b.price - a.price
-    }
-  })
-  res.status(200).send(nftOrdenados)
-}
+  });
+  res.status(200).send(nftOrdenados);
+};
 
 const getPortfolioValue = async (req, res) => {
   const { usuario } = req;
-  const user = await Usuario.findOne({ nombre: usuario.nombre })
-  let allnftsprice = user.nfts.map(nft => nft.price);
+  const user = await Usuario.findOne({ nombre: usuario.nombre });
+  let allnftsprice = user.nfts.map((nft) => nft.price);
 
   let sum = 0;
 
@@ -496,23 +520,19 @@ const getPortfolioValue = async (req, res) => {
 
 const topPortfolios = async (req, res) => {
   const { usuario } = req;
-
-  const allusers = await Usuario.find().select("-hasTradeOffers -email -coins -transacciones -favoritos -password -confirmado -token -createdAt -updatedAt -__v");
-  
+  const allusers = await Usuario.find().select(
+    "-hasTradeOffers -email -coins -transacciones -favoritos -password -confirmado -token -createdAt -updatedAt -__v"
+  );
   allusers.sort((userA, userB) => {
     if (userA.portfolioValue < userB.portfolioValue) {
-      return 1
+      return 1;
     }
     if (userA.portfolioValue > userB.portfolioValue) {
-      return -1
+      return -1;
     }
-    return 0
-  })
-
+    return 0;
+  });
   const wealthy = allusers.slice(0, 5);
-
-  
-
   res.status(200).json(wealthy);
 };
 
@@ -536,5 +556,4 @@ export {
   likeNft,
   getPortfolioValue,
   topPortfolios,
-  
 };

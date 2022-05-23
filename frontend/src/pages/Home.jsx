@@ -12,7 +12,11 @@ import SearchBar from "../componentes/home/SearchBar";
 import io from "socket.io-client";
 import TopPortfolios from "../componentes/home/TopPortfolios";
 import Paginado from "./Paginas";
-import { getValuePortfolio, topPortfolios, usuarioActual } from "../../redux/actions/actionUSER";
+import {
+  getValuePortfolio,
+  topPortfolios,
+  usuarioActual,
+} from "../../redux/actions/actionUSER";
 let socket;
 
 export default function Home() {
@@ -20,21 +24,24 @@ export default function Home() {
   const todosLosNFT = useSelector((state) => state.allNft);
   const usuario = useSelector((state) => state.usuario);
   const usuarioAct = useSelector((state) => state.usuarioActual);
+  const nftUser = useSelector((state) => state.nftUser);
   const params = window.location.href;
-  const ranking = useSelector(state=> state.ranking)
+  const ranking = useSelector((state) => state.ranking);
   //const token = localStorage.getItem("token");
-  const [orden, setOrden] = useState('')
-  const [selectedSort, setSelectedSort] = useState('sort')
-  const [orderPop, setOrderPop] = useState('')
-  const like = useSelector(state => state.likeNft)
+  const [orden, setOrden] = useState("");
+  const [selectedSort, setSelectedSort] = useState("sort");
+  const [orderPop, setOrderPop] = useState("");
+  const like = useSelector((state) => state.likeNft);
 
-  //Paginado 
+  //Paginado
   const [currentPage, setCurrentPage] = useState(1);
   const [nftByPage, setNftByPage] = useState(8);
   const indexOfLastNft = currentPage * nftByPage;
   const indexOfFirstNft = indexOfLastNft - nftByPage;
-  let currentNft = todosLosNFT.filter(e=>e.avaliable === true && usuario.nombre !== e.ownerId)
-  let currentNftFilter = currentNft.slice(indexOfFirstNft,indexOfLastNft);
+  let currentNft = todosLosNFT.filter(
+    (e) => e.avaliable === true && usuario.nombre !== e.ownerId
+  );
+  let currentNftFilter = currentNft.slice(indexOfFirstNft, indexOfLastNft);
   const [screen, setScreen] = useState(window.innerWidth);
 
   const paginas = (pageNumber) => {
@@ -46,8 +53,8 @@ export default function Home() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
   useEffect(() => {
-    dispatch(usuarioActual())
-    dispatch(topPortfolios())
+    dispatch(usuarioActual());
+    dispatch(topPortfolios());
     function handleResize() {
       setScreen(window.innerWidth);
     }
@@ -60,24 +67,31 @@ export default function Home() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
- 
- const test = todosLosNFT.map(el => el.ranking)
- console.log(test)
+
+  const test = todosLosNFT.map((el) => el.ranking);
+
   useEffect(() => {
     //recibir la respuesta del back
     socket.on("homeUpdate", () => {
       dispatch(allNftMarket());
       dispatch(usuarioActual());
-      dispatch(allNFTUser())
-      dispatch(topPortfolios())
+      dispatch(allNFTUser());
+      dispatch(topPortfolios());
     });
   });
-  if(!usuarioAct) 'cargando'
+
+  if (!usuarioAct) "cargando";
   return (
     <div className="contentHome">
-      <NavBar usuario={usuario} />
+      <NavBar usuario={usuarioAct} />
       <div>
-        <SearchBar setOrden={setOrden} selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas} OrderPop={setOrderPop}/>
+        <SearchBar
+          setOrden={setOrden}
+          selectedSort={selectedSort}
+          setSelectedSort={setSelectedSort}
+          paginas={paginas}
+          OrderPop={setOrderPop}
+        />
       </div>
       <main id="main" className="main">
         {currentNftFilter.length !== 0 ? (
@@ -87,8 +101,8 @@ export default function Home() {
                 <div key={nft.id}>
                   {
                     <ComponentNFT
-                    todosLosNFT={todosLosNFT}
-                    like={like}
+                      todosLosNFT={todosLosNFT}
+                      like={like}
                       usuario={usuarioAct}
                       _id={nft._id}
                       id={nft.id}
@@ -108,21 +122,24 @@ export default function Home() {
             }
           })
         ) : (
-          <div><h3 className="textGray">no hay NFT en venta</h3></div>
+          <div>
+            <h3 className="textGray">no hay NFT en venta</h3>
+          </div>
         )}
-       
       </main>
-       <Paginado
-             goToNextPage={goToNextPage}
-             goToPreviousPage={goToPreviousPage}
-             paginas={paginas}
-             currentPage={currentPage}
-             allElemtns={currentNft.length}
-             elementsByPage={nftByPage}
-        /> 
-     { usuario ? 
-        <TopPortfolios ranking={ranking} screen={screen} usuario={usuario} /> : <p>Aweit</p>
-     }
+      <Paginado
+        goToNextPage={goToNextPage}
+        goToPreviousPage={goToPreviousPage}
+        paginas={paginas}
+        currentPage={currentPage}
+        allElemtns={currentNft.length}
+        elementsByPage={nftByPage}
+      />
+      {usuario ? (
+        <TopPortfolios ranking={ranking} screen={screen} usuario={usuario} />
+      ) : (
+        <p>Aweit</p>
+      )}
     </div>
   );
 }
