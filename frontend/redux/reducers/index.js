@@ -161,7 +161,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case RESET_PASSWORD:
-      //console.log(action.payload.error);
       return {
         ...state,
         errorEmail: action.payload,

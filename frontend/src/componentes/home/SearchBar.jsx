@@ -4,10 +4,8 @@ import { SearchNFT, sort, sortPopularity } from "../../../redux/actions/actionNF
 import { useState } from "react";
 
 export default function SearchBar({selectedSort, setSelectedSort, paginas, OrderPop}) {
-  console.log(selectedSort)
   const dispatch = useDispatch();
   function onChangeValues(e) {
-    // console.log(e.target.value)
     dispatch(SearchNFT(e.target.value));
   }
 

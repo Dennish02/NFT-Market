@@ -48,7 +48,6 @@ export default function Home() {
   const [screen, setScreen] = useState(window.innerWidth);
 
   const paginas = (pageNumber) => {
-    //console.log(pageNumber);
     setCurrentPage(pageNumber);
     dispatch(guardarPagina(pageNumber))
   };
@@ -88,7 +87,7 @@ export default function Home() {
       dispatch(allNFTUser());
       dispatch(topPortfolios());
     });
-  });
+  },[]);
 
   if (!usuarioAct) "cargando";
   return (
@@ -97,6 +96,14 @@ export default function Home() {
       <div>
         <SearchBar selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas} OrderPop={setOrderPop}/>
       </div>
+      <Paginado
+        goToNextPage={goToNextPage}
+        goToPreviousPage={goToPreviousPage}
+        paginas={paginas}
+        currentPage={currentPage}
+        allElemtns={currentNft.length}
+        elementsByPage={nftByPage}
+      />
       <main id="main" className="main">
         {currentNftFilter.length !== 0 ? (
           currentNftFilter?.map((nft) => {
@@ -131,14 +138,7 @@ export default function Home() {
           </div>
         )}
       </main>
-      <Paginado
-        goToNextPage={goToNextPage}
-        goToPreviousPage={goToPreviousPage}
-        paginas={paginas}
-        currentPage={currentPage}
-        allElemtns={currentNft.length}
-        elementsByPage={nftByPage}
-      />
+     
       {usuario ? (
         <TopPortfolios ranking={ranking} screen={screen} usuario={usuario} />
       ) : (

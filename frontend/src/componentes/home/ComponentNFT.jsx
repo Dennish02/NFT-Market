@@ -64,7 +64,6 @@ export default function ComponentNFT(props) {
       setLikeFlag(true);
       nftfilter = todosLosNFT.find((e) => e._id === _id);
       like.like ? setImglike(likeOn) : setImglike(likeOf);
-      // console.log(like.like);
       dispatch(darLike(_id));
       setTimeout(() => {
         setLikeFlag(false);
@@ -82,7 +81,7 @@ export default function ComponentNFT(props) {
       </div>
 
       <div className="contNFTinfo">
-        <p>{`ranking: ${ranking}`}</p>
+       
         <h2>{`${colection}  ${id}`}</h2>
         <p>{`creator:  ${creatorId}`}</p>
         <p>
@@ -125,12 +124,15 @@ export default function ComponentNFT(props) {
         ) : null}
       </div>
 
-      <img
-        className="buttonlike"
-        onClick={(e) => handleLike(e)}
-        src={likeOn}
-        alt="likeOn"
-      />
+      <div className="contLike">
+
+    </div>
+     <p className="cantlike">{`${ranking}`}</p>      
+    
+     <img 
+     className="buttonlike" 
+     onClick={(e) => handleLike(e)} 
+     src={imglike} alt="likeOn" />
 
       {!extraerId.includes(_id) ? (
         <img

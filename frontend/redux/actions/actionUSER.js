@@ -20,20 +20,6 @@ import axios from "axios";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
-// export function allNftMarket() {
-//   return async function (dispatch) {
-//     try {
-//       var json = await axios.get("http://localhost:3001/api/nft/");
-//       return dispatch({
-//         type: "ALL_NFT_MARKET",
-//         payload: json.data,
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// }
-
 export function loguinGoogle(googleData) {
   return async function (dispatch) {
     const token = googleData.tokenId;
@@ -72,10 +58,10 @@ export function registroUsuario({ nombre, email, password1 }) {
       };
 
       const response = await clienteAxios.post(`/usuario`, body);
-      //console.log(response);
+  
       toast.success(response.data);
     } catch (e) {
-      //   console.log(e);
+    
       toast.error(e.response.data.msg);
     }
   };
@@ -129,15 +115,11 @@ export function resetPassword(data) {
       let json = await clienteAxios.post(`/usuario/olvide-password/${token}`, {
         password,
       });
-      //console.log(json.data);
-      //toast.success('Contraseña Actualiada')
       return dispatch({
         type: RESET_PASSWORD,
         payload: json.data,
       });
     } catch (error) {
-      //console.log(error.response.data);
-      //toast.error(error.response.data.msg)
       return dispatch({
         type: RESET_PASSWORD,
         payload: { error: error.response.data.msg },
@@ -249,8 +231,6 @@ export function cambiarImagen(payload) {
       console.log(error);
       toast.error(error.response.data.msg);
 
-      // console.log(error.response.data.msg);
-      // toast.error(error.response.data.msg);
     }
   };
 }

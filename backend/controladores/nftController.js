@@ -54,7 +54,7 @@ const crearNft = async (req, res) => {
     if (req.files.image) {
       const res = await uploadImage(req.files.image.tempFilePath);
       await fs.remove(req.files.image.tempFilePath);
-      // console.log(res);
+     
       const image = {
         url: res.secure_url,
         public_id: res.public_id,
@@ -393,7 +393,7 @@ const añadirFavNft = async (req, res) => {
         .status(401)
         .json({ msg: `${NFT.id} ya está en sus favoritos` });
     } else {
-      //console.log(NFT);
+      
       user.favoritos.push(NFT);
       await user.save();
       return res.json({ msg: `${NFT.id} fue agregado a favoritos` });
@@ -431,7 +431,7 @@ const likeNft = async (req, res) => {
     );
 
     const propietario = await Usuario.findOne({ nombre: nftOwner });
-    // console.log (propietario.nfts)
+  
 
     if (likeUser) {
       //si el usuario ya le dio like puede quitarselo

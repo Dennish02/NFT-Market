@@ -94,7 +94,7 @@ const autenticar = async (req, res) => {
     return res.status(403).json({ msg: error.message });
   }
   //consifmar su password
-  // console.log(password);
+  
   if (await usuario.comprobarPassword(password)) {
     res.json({
       _id: usuario._id,
@@ -178,7 +178,7 @@ const nuevoPassword = async (req, res) => {
 
   const { token } = req.params;
   const { password } = req.body;
-  console.log({ token, password });
+ 
   const usuario = await Usuario.findOne({ token });
 
   if (usuario) {
