@@ -7,8 +7,6 @@ import { autenticarUser } from "../../redux/actions/actionUSER";
 export default function VerificacionUsuario() {
   const dispatch = useDispatch();
   let usuario = useSelector((state) => state.usuario);
-  //const cargando = useSelector(state => state.loginUser)
-  //console.log(usuario);
   const token = localStorage.getItem("token");
   useEffect(() => {
     if (!token) {

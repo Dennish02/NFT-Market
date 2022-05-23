@@ -34,7 +34,7 @@ export default function Portfolio() {
     socket.on("colectionUser", () => {
       dispatch(coleccionesUsuario());
     });
-  });
+  },[]);
 
   return (
     <div className="contentHome">
@@ -61,7 +61,7 @@ export default function Portfolio() {
             );
           })
         ) : (
-          <p>loading</p>
+          <h3>No tenes NFT</h3>
         )}
       </div>
     </div>

@@ -60,7 +60,6 @@ function Wallet() {
   }, []);
 
   const paginas = (pageNumber) => {
-    //console.log(pageNumber);
     setCurrentPage(pageNumber);
   };
   const goToNextPage = () => setCurrentPage(currentPage + 1);
@@ -92,7 +91,7 @@ function Wallet() {
     socket.on("TransferenciaOk", () => {
       dispatch(usuarioActual())
     })
-  });
+  },[]);
 
   function MostrarModal () {
     setMostrarModal(true);
@@ -120,7 +119,6 @@ function Wallet() {
         error: ""
       })
     }
-    console.log(transferencias)
   }
 
   const handleInputCl = (e) => {
@@ -137,7 +135,7 @@ function Wallet() {
         clerror:""
       })
     }
-    console.log(e.target.value)
+  
   }
 
   const handleSubmitTransfer = (e) => {

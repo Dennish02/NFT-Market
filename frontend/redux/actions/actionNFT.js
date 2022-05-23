@@ -131,26 +131,6 @@ export function reset(payload) {
   };
 }
 
-// export function nftWithUser() {
-//   return async function(dispatch){
-//     const token = localStorage.getItem('token')
-
-//     if(!token){return }
-
-//     const config = {
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         Authorization: `Bearer ${token}`,
-//       },
-//     };
-//       let json= await clienteAxios.get(`/nft/portfolio`, config)
-//     return dispatch({
-//       type: NFT_USER,
-//       payload: json.data
-//     })
-//   }
-// }
-
 export function comprarNFT(payload) {
   return async function () {
     const token = localStorage.getItem("token");
@@ -210,7 +190,7 @@ export function venta(payload) {
             progress: undefined,
           });
       //socket.io
-      // socket.emit("renderHome");
+      socket.emit("Render");
       socket.emit("update");
     } catch (e) {
       toast.error(e.response.data.msg);

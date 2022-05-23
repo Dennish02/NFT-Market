@@ -849,7 +849,7 @@ img {
 .contNFT .buttonFav {
   width: 30px;
   position: absolute;
-  bottom: 95px;
+  bottom: 200px;
   left: 85%;
 }
 .contNFT .buttonFav:hover {
@@ -858,10 +858,28 @@ img {
 .contNFT .buttonlike {
   width: 30px;
   position: absolute;
-  bottom: 200px;
-  left: 85%;
+  top: 4px;
+  left: 5%;
 }
 .contNFT .buttonlike:hover {
+  cursor: pointer;
+}
+.contNFT .contLike {
+  height: 35px;
+  width: 98%;
+  position: absolute;
+  top: 3px;
+  left: 1%;
+  background-color: #3a3a3a;
+  opacity: 0.8;
+}
+.contNFT .cantlike {
+  width: 30px;
+  position: absolute;
+  top: 10px;
+  left: 17%;
+}
+.contNFT .cantlike:hover {
   cursor: pointer;
 }
 

@@ -25,7 +25,7 @@ function Settings() {
     socket.on("nftUser2", () => {
       dispatch(usuarioActual());
     });
-  });
+  },[]);
 
   function handleImage(image) {
     dispatch(cambiarImagen(image));
