@@ -205,13 +205,12 @@ function rootReducer(state = initialState, action) {
     case TRANSFERIR_CL:
       return {
         ...state,
-
+      }
  case RANKING_PORTFOLIOS:
         return {
           ...state,
           ranking: action.payload
         }
-
 
     case SORT:
       const NFTOrdenados = state.allNft.sort((a,b) => {

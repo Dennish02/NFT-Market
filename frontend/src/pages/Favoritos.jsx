@@ -12,7 +12,20 @@ export default function Favoritos() {
     useEffect(()=>{ 
         dispatch(usuarioActual())
     },[])
-
+    // console.log('favs', miUser.favoritos)
+    // console.log('mis nft', miUser.nfts)
+    const  userFavs = miUser.favoritos?  miUser.favoritos : null
+    const userNfts = miUser.nfts ?  miUser.nfts: null 
+     let filtroNftObtenidos = ''
+     
+      filtroNftObtenidos = userFavs.filter( (el) => {
+        !userNfts.includes(el)
+     })
+      console.log('no')
+    // let test = miUser.nfts.includes(favsId)
+    console.log('mis fav ', userFavs)
+    console.log('los q tengo en mi portfolio', userNfts)
+    console.log('filtro', filtroNftObtenidos)
     return (
       miUser.length !== 0 ? <div className="contentHome">
 
@@ -23,8 +36,8 @@ export default function Favoritos() {
 
             <h1 style={{color: 'white'}}>favoritos</h1>
             {miUser.favoritos.length > 0  ? miUser.favoritos.map(fav => {
+                
                 return (
-                    
                     <FavNFTS key={fav._id} image={fav.image} id={fav.id} 
                     colection={fav.colection} avaliable={fav.avaliable}
                     creatorId={fav.creatorId} ownerId={fav.ownerId}
