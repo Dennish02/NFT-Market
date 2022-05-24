@@ -8,24 +8,13 @@ import { usuarioActual } from '../../redux/actions/actionUSER'
 export default function Favoritos() {
     const dispatch = useDispatch()
     const miUser = useSelector(state => state.usuarioActual)
-   
+    
     useEffect(()=>{ 
         dispatch(usuarioActual())
     },[])
-    // console.log('favs', miUser.favoritos)
-    // console.log('mis nft', miUser.nfts)
-    const  userFavs = miUser.favoritos?  miUser.favoritos : null
-    const userNfts = miUser.nfts ?  miUser.nfts: null 
-     let filtroNftObtenidos = ''
-     
-      filtroNftObtenidos = userFavs.filter( (el) => {
-        !userNfts.includes(el)
-     })
-      console.log('no')
-    // let test = miUser.nfts.includes(favsId)
-    console.log('mis fav ', userFavs)
-    console.log('los q tengo en mi portfolio', userNfts)
-    console.log('filtro', filtroNftObtenidos)
+    let userId = ''
+    miUser.nfts? userId = miUser.nfts[0].ownerId : null
+    
     return (
       miUser.length !== 0 ? <div className="contentHome">
 
@@ -37,13 +26,19 @@ export default function Favoritos() {
             <h1 style={{color: 'white'}}>favoritos</h1>
             {miUser.favoritos.length > 0  ? miUser.favoritos.map(fav => {
                 
-                return (
-                    <FavNFTS key={fav._id} image={fav.image} id={fav.id} 
-                    colection={fav.colection} avaliable={fav.avaliable}
-                    creatorId={fav.creatorId} ownerId={fav.ownerId}
-                    _id={fav._id} priceBase={fav.priceBase} price={fav.price}
-                    />
-                )
+                if(fav.ownerId != userId){
+                    return (
+                        <FavNFTS key={fav._id} image={fav.image} id={fav.id} 
+                        colection={fav.colection} avaliable={fav.avaliable}
+                        creatorId={fav.creatorId} ownerId={fav.ownerId}
+                        _id={fav._id} priceBase={fav.priceBase} price={fav.price}
+                        />
+                    )
+                } else{
+                    null
+                }
+                    
+               
             })
 
 
@@ -58,6 +53,6 @@ export default function Favoritos() {
             {/* ACA SE TIENEN QUE RENDERIZAR LOS NFT QUE ESTEN AGREGADOS A FAVORITOS  */}
             <Link to='/home/usuario/portfolio'> <button className='back-button' >VOLVER AL PORTFOLIO </button></Link>
             </div>
-        </div> : <p>Cargadno</p>
+        </div> : <p>Cargando</p>
     )
 }
