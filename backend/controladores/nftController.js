@@ -259,31 +259,47 @@ const venderNft = async (req, res) => {
 const tradeOffer = async (req, res) => {
   try {
     const { usuario } = req;
-    const { nftOffered, nftOfferedColection, nftId, owner, nftColection } =
-      req.body;
+    // const { nftOffered, nftOfferedColection, nftId, owner, nftColection } =
+    //   req.body;
+    const { nftId, nftOffered,owner} = req.body
 
+    //?nft que se quiere cambiar 
     const nft = await NftCreated.findOne({
-      ownerId: owner,
-      colection: nftColection,
+      //ownerId: owner,
+      //colection: nftColection,
       id: nftId,
-    });
+    }).select('-_id -createdAt -updatedAt -__v -userLikes');
 
+    //?nft que se envia para intercambio
     const offer = await NftCreated.findOne({
-      ownerId: usuario.nombre,
-      colection: nftOfferedColection,
+      //ownerId: usuario.nombre,
+      //colection: nftOfferedColection,
       id: nftOffered,
-    });
+    }).select('-_id -createdAt -updatedAt -__v -userLikes');
 
+    //?usuario al que se le manda la oferta
     const nftOwner = await Usuario.findOne({ nombre: owner });
+    //*usuario que recibe la oferta
+    const userOffer = await Usuario.findOne({nombre : usuario.nombre})
 
-    nftOwner.hasTradeOffers.push({
+    //?oferta armada
+    const offerObject = {
       id: makeGeneratorIDRandom(5),
-      offer: offer,
-      nft: nft,
+      userSend: usuario.nombre,
+      userReceived: owner,
+      nftSend: offer,
+      nftReceived: nft,
       status: null,
-    });
+    }
+    //?se guarda en el usuario que recibe la oferta
+    nftOwner.hasTradeOffers.push(offerObject);
+    
+    //?se guarda en el que envia la oferta
+    userOffer.hasTradeOffers.push(offerObject)
 
+    //?guarda los dos usuarios
     await nftOwner.save();
+    await userOffer.save()
 
     res.json(nftOwner.hasTradeOffers);
   } catch (error) {
@@ -305,46 +321,46 @@ const responseOffer = async (req, res) => {
   try {
     const { usuario } = req;
     const { response, newId } = req.body;
-
+   
     let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
 
     let r = JSON.parse(response);
-
+    
     if (oferta) {
       if (r) {
+        
         const userToGive = await Usuario.findOne({
-          nombre: oferta.offer.ownerId,
-        }); // usuario al que hay que darle el nft - ofertante
-
-        usuario.nfts.filter(
+          nombre: oferta.nftSend.ownerId,
+        }); //? usuario al que hay que darle el nft - ofertante
+       
+       const nftFilter = await usuario.nfts.filter(
           (value) =>
-            value.id !== oferta.nft.id ||
-            value.colection !== oferta.nft.colection
-        ); // quitamos el nft del arreglo del ex dueño
-
+            value.id !== oferta.nftReceived.id
+        ); //? quitamos el nft del arreglo del ex dueño
+     
         const thenft = await NftCreated.findOne({
-          id: oferta.nft.id,
-          colection: oferta.nft.colection,
-        }); // buscamos el nft
+          id: oferta.nftReceived.id}).select('-__v -createdAt -updatedAt'); //? buscamos el nft
+        
+        thenft.ownerId = userToGive.nombre; //? cambiamos el owner
+       
+        await thenft.save(); // ?guardamos cambios
 
-        thenft.ownerId = userToGive.nombre; // cambiamos el owner
+        userToGive.nfts.push(thenft); //? le damos el nft
 
-        await thenft.save(); // guardamos cambios
-
-        userToGive.nfts.push(thenft); // le damos el nft
+        
 
         const theOtherNft = await NftCreated.findOne({
-          id: oferta.offer.id,
-          colection: oferta.offer.colection,
-        });
+          id: oferta.nftSend.id});
+        
+
 
         userToGive.nfts = userToGive.nfts.filter(
           (item) =>
-            item.id !== theOtherNft.id &&
-            item.colection !== theOtherNft.colection
-        );
+            item.id !== theOtherNft.id );
 
-        userToGive.save();
+        console.log({aVerSI:  userToGive.nfts});
+
+        await userToGive.save();
 
         theOtherNft.ownerId = usuario.nombre;
 
@@ -362,17 +378,17 @@ const responseOffer = async (req, res) => {
 
         await usuario.save();
 
-        res.status(200).send("Trade successfully completed");
+        res.status(200).json({ msg: "Trade successfully completed" });
       } else {
         usuario.hasTradeOffers = usuario.hasTradeOffers.filter(
           (item) => item.id !== newId
         );
         await usuario.save();
 
-        res.status(200).send("Trade successfully rejected");
+        res.status(200).json({ msg: "Trade successfully rejected" });
       }
     } else {
-      res.status(400).send({ msg: `This trade offer does not exists` });
+      res.status(400).json({ msg: `This trade offer does not exists` });
     }
   } catch (error) {
     res.status(400).send(error);
