@@ -31,7 +31,7 @@ export default function NavBar({usuario}) {
             <span className="iconBalance">{formateoPrecio(usuario.coins)}</span>
           ) : null}
         </div>
-        <p>{`Hola ${usuario.nombre}`}</p>
+        <p>{`Hi! ${usuario.nombre}`}</p>
         {usuario.length !== 0 ? (
           <img
             src={usuario.image.url ? usuario.image.url : profile}

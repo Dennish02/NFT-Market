@@ -57,22 +57,22 @@ export default function PortfoliOptions() {
       <div className="contButton">
         <div className="center">
           <Link to="/home/usuario/nft/crear/">
-            <button className="buttonPrimary">CREAR NFT</button>
+            <button className="buttonPrimary">CREATE NFT</button>
           </Link>
         </div>
         <div className="center">
           <button className="buttonOrange" onClick={showModal}>
-            CREAR COLECCION
+            CREATE COLECTION
           </button>
         </div>
         <div className="center">
           <Link to="/usuario/favoritos">
-            <button className="buttonMorado">MIS FAVORITOS</button>
+            <button className="buttonMorado">MY FAV</button>
           </Link>
         </div>
       </div>
       <div className="contTittle">
-        <h2 className="tuPortfolio">your portfolio</h2>
+        <h2 className="tuPortfolio">Your Portfolio</h2>
         <div>
           <select
             className="coleccion"
@@ -80,7 +80,7 @@ export default function PortfoliOptions() {
             value={coleccion}
             id="colection"
           >
-            <option value="todos">todos</option>
+            <option value="todos">All</option>
             {colecciones.length !== 0
               ? colecciones.map((el) => (
                   <option key={el._id} value={el.name}>
@@ -88,7 +88,7 @@ export default function PortfoliOptions() {
                   </option>
                 ))
               : null}
-            <option value="comprados">comprados</option>
+            <option value="comprados">Purchased</option>
           </select>
         </div>
       </div>
@@ -100,7 +100,7 @@ export default function PortfoliOptions() {
               X
             </button>
             <div className="contInput">
-              <span>Create colllection</span>
+              <span>Create colection</span>
               <input
                 className="input"
                 type="text"

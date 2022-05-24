@@ -76,7 +76,7 @@ export default function OlvidePassword() {
               )}
         
              {respuesta.msg? <Link to='/'> <button type="submit" className="buttonMorado">
-                Volver a inicio
+                Go back Home
               </button> </Link> :  <button type="submit" className="buttonPrimary">
                 Reset password
               </button>}

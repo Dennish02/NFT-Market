@@ -15,7 +15,7 @@ function    FavnFTS({id, image, _id, colection, avaliable, priceBase, price, cre
   }
 
   function handleBuy() {
-    confirm("Estas seguro?")
+    confirm("Are you sure?")
       ? dispatch(comprarNFT(_id))
       : null;
   }
@@ -24,23 +24,23 @@ function    FavnFTS({id, image, _id, colection, avaliable, priceBase, price, cre
     
     <div className='contNFTWallet'  >
       <div className='imgFav'>
-      <img  src={image.url} alt="not image"  />
+      <img  src={image.url} alt="no image"  />
       </div>
-      <h2 className='second-grid' >{ `${colection} ${id}`} <p>{`creator:  ${creatorId}`}</p> </h2>
+      <h2 className='second-grid' >{ `${colection} ${id}`} <p>{`Creator:  ${creatorId}`}</p> </h2>
       
       <div className='third-grid'>
       <p className="contPrice">
-          last-price: <small> {formateoPrecio(priceBase)}</small>
+          Last-price: <small> {formateoPrecio(priceBase)}</small>
         </p>
         <p className="contPrice">
-          price: <span> {formateoPrecio(price)}</span>
+          Price: <span> {formateoPrecio(price)}</span>
         </p>
         </div>
         
       {/* <p  className='text'>{`price: ${price}`}</p> */}
       <div className='btn-group'>
-      {avaliable==true?  <button onClick={() =>handleBuy() } className='buy-button'> BUY</button> : <button className='disabled'>not for sale</button> }
-      <button  className='delete-button' onClick={() => deleteFav()}>ELIMINAR DE FAVORITOS</button>
+      {avaliable==true?  <button onClick={() =>handleBuy() } className='buy-button'> BUY</button> : <button className='disabled'>Not for sale</button> }
+      <button  className='delete-button' onClick={() => deleteFav()}>DELETE FROM FAVS</button>
       </div>
       
      
