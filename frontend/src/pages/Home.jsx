@@ -34,7 +34,7 @@ export default function Home() {
   const homeGuardado = useSelector(state => state.homeGuardado)
   const [selectedSort, setSelectedSort] = useState(homeGuardado.ordenamiento)
   const [orderPop, setOrderPop] = useState('')
-  const like = useSelector(state => state.likeNft)
+  
 
   //Paginado 
   const [currentPage, setCurrentPage] = useState(homeGuardado.pagina);
@@ -113,7 +113,6 @@ export default function Home() {
                   {
                     <ComponentNFT
                       todosLosNFT={todosLosNFT}
-                      like={like}
                       usuario={usuarioAct}
                       _id={nft._id}
                       id={nft.id}
