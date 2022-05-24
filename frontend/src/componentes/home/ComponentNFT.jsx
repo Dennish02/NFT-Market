@@ -47,7 +47,7 @@ export default function ComponentNFT(props) {
   let validarBoton2 = "";
   usuario.nftLikes ? (validarBoton2 = usuario.nftLikes) : null;
   usuario.nftLikes ? ( idNftLike = usuario.nftLikes) : null;
-  idNftLike? nftfilter = idNftLike.map((e) => e) : null;
+  idNftLike.length > 0 ? nftfilter = idNftLike.map((e) => e) : null;
 
 
   const [favFlag, setFavFlag] = useState(false);
@@ -136,7 +136,7 @@ export default function ComponentNFT(props) {
      
 
     {
-      nftfilter.includes(_id) ? (
+      nftfilter?.includes(_id) ? (
         <img 
      className="buttonlike" 
      onClick={(e) => handleLike(e)} 
