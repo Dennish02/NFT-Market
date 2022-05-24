@@ -12,10 +12,13 @@ let socket;
 export default function Favoritos() {
     const dispatch = useDispatch()
     const miUser = useSelector(state => state.usuarioActual)
-    const params = window.location.href;
+
+    
+=======    const params = window.location.href;
 
 
   
+
     useEffect(()=>{ 
         dispatch(usuarioActual())
         socket = io(import.meta.env.VITE_BACKEND_URL);
@@ -29,7 +32,9 @@ export default function Favoritos() {
           })
         
     },[])
-
+    let userId = ''
+    miUser.nfts? userId = miUser.nfts[0].ownerId : null
+    
     return (
       miUser.length !== 0 ? <div className="contentHome">
 
@@ -40,14 +45,20 @@ export default function Favoritos() {
 
             <h1 style={{color: 'white'}}>favoritos</h1>
             {miUser.favoritos.length > 0  ? miUser.favoritos.map(fav => {
-                return (
+                
+                if(fav.ownerId != userId){
+                    return (
+                        <FavNFTS key={fav._id} image={fav.image} id={fav.id} 
+                        colection={fav.colection} avaliable={fav.avaliable}
+                        creatorId={fav.creatorId} ownerId={fav.ownerId}
+                        _id={fav._id} priceBase={fav.priceBase} price={fav.price}
+                        />
+                    )
+                } else{
+                    null
+                }
                     
-                    <FavNFTS key={fav._id} image={fav.image} id={fav.id} 
-                    colection={fav.colection} avaliable={fav.avaliable}
-                    creatorId={fav.creatorId} ownerId={fav.ownerId}
-                    _id={fav._id} priceBase={fav.priceBase} price={fav.price}
-                    />
-                )
+               
             })
                 : <p>no hay favoritos </p>
             }
@@ -57,6 +68,6 @@ export default function Favoritos() {
             {/* ACA SE TIENEN QUE RENDERIZAR LOS NFT QUE ESTEN AGREGADOS A FAVORITOS  */}
             <Link to='/home/usuario/portfolio'> <button className='back-button' >VOLVER AL PORTFOLIO </button></Link>
             </div>
-        </div> : <p>Cargadno</p>
+        </div> : <p>Cargando</p>
     )
 }
