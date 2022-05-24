@@ -3,6 +3,7 @@ import NftCreated from "../models/nft.js";
 import { uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 import Usuario from "../models/Usuarios.js";
+import * as emails from '../helpers/emails.js';
 
 const allNftUser = async (req, res) => {
   const { usuario } = req;
@@ -198,6 +199,22 @@ const comprarNft = async (req, res, next) => {
       comprador.nfts.push(NFT);
       await comprador.save();
 
+      emails.boughtdNFT({
+        email: comprador.email,
+        buyer: req.usuario.nombre,
+        price: precio,
+        nft: `${NFT.colection} ${NFT.id}`
+      })
+
+      //NO FUNCIONA
+      emails.soldNFT({
+        email: vendedor.email,
+        seller: vendedor.nombre,
+        buyer: comprador.nombre,
+        price: precio,
+        nft: `${NFT.colection} ${NFT.id}`
+      })
+
       const data = {
         actual_owner_Id: comprador.nombre,
         seller_Id: vendedor.nombre,
@@ -246,6 +263,14 @@ const venderNft = async (req, res) => {
       );
 
       await Usuario.findOneAndUpdate({ _id: req.usuario._id }, req.usuario);
+
+      emails.forSale({
+        email: req.usuario.email,
+        user: req.usuario.nombre,
+        price: Nft.price,
+        sale: Nft.avaliable,
+        nft: `${Nft.colection} ${Nft.id}`
+      })
 
       res.json({ msg: "NFT actualizado" });
     } else {
@@ -544,7 +569,7 @@ const ordenarNFT = (req, res) => {
 const getPortfolioValue = async (req, res) => {
   const { usuario } = req;
   const user = await Usuario.findOne({ nombre: usuario.nombre });
-  let allnftsprice = user.nfts.map((nft) => nft.price);
+  let allnftsprice = user.nfts.map((nft) => nft.lastPrice);
 
   let sum = 0;
 
@@ -560,7 +585,6 @@ const getPortfolioValue = async (req, res) => {
 };
 
 const topPortfolios = async (req, res) => {
-  const { usuario } = req;
   const allusers = await Usuario.find().select(
     "-hasTradeOffers -email -coins -transacciones -favoritos -password -confirmado -token -createdAt -updatedAt -__v"
   );

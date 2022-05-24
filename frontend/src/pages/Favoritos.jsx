@@ -12,12 +12,8 @@ let socket;
 export default function Favoritos() {
     const dispatch = useDispatch()
     const miUser = useSelector(state => state.usuarioActual)
-
     
 const params = window.location.href;
-
-
-  
 
     useEffect(()=>{ 
         dispatch(usuarioActual())
