@@ -44,6 +44,10 @@ const usuarioSchema = mongoose.Schema(
         ref: "NftCreated",
     }]
     ,
+    nftLikes:[{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "NftCreated",
+    }],
     transacciones: {
       type: Array,
     },

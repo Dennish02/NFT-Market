@@ -147,6 +147,7 @@ const regalarNft = async (req, res) => {
     if (nft) {
       //...
       nft.ownerId = giftTo.nombre;
+      nft.avaliable = false;
       nft.save();
       //...
 
@@ -430,8 +431,10 @@ const likeNft = async (req, res) => {
       (user) => user.nombre === req.usuario.nombre
     );
 
-    const propietario = await Usuario.findOne({ nombre: nftOwner });
-  
+    const propietario = await Usuario.findOne({ nombre: nftOwner }).populate("nftLikes");
+
+    //usuario que le da like
+    const userL = await Usuario.findOne({ nombre: req.usuario.nombre }).populate("nftLikes");
 
     if (likeUser) {
       //si el usuario ya le dio like puede quitarselo
@@ -441,6 +444,20 @@ const likeNft = async (req, res) => {
       );
       nft.userLikes = userFiltrados;
       await nft.save();
+      
+      //sacar like de usuario // si es un nft propio lo pasa a propietario para realizar el update
+      if(userL.nombre === propietario.nombre) {
+        const likesFiltrados = propietario.nftLikes.filter(
+          (NFT) => NFT.id !== nft.id || NFT.colection !== nft.colection
+        );
+        propietario.nftLikes = likesFiltrados;
+      }else {
+        const likesFiltrados = userL.nftLikes.filter(
+          (NFT) => NFT.id !== nft.id || NFT.colection !== nft.colection
+        );
+        userL.nftLikes = likesFiltrados;
+        await userL.save();
+      };
 
       //actualizar el nft en propietario
       const actualizado = propietario.nfts.map((n) => {
@@ -462,6 +479,14 @@ const likeNft = async (req, res) => {
       nft.ranking = nft.ranking + 1;
       nft.userLikes.push(req.usuario);
       await nft.save();
+      
+      //agregar like al usuario // si es un nft propio lo pasa a propietario para realizar el update
+      if(userL.nombre === propietario.nombre) {
+        propietario.nftLikes.push(nft);
+      }else {
+        userL.nftLikes.push(nft);
+        await userL.save();
+      };
 
       //actualizar el nft en propietario
       const actualizado = propietario.nfts.map((NFT) => {
