@@ -23,9 +23,9 @@ import {
   RANKING_PORTFOLIOS,
   LIKE_NFT,
   SORT,
-  LOAD_COLECCIONES
-
-
+  LOAD_COLECCIONES,
+  SORT_POP,
+  GUARDAR_PAGINA
 } from "../constantes";
 
 const initialState = {
@@ -47,16 +47,22 @@ const initialState = {
   ranking:[],
   likeNft:[],
   transferencias:[],
+  allNftFlag: true,
+  homeGuardado: {
+    ordenamiento: 'sort',
+    pagina: 1
+  }
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_NFT_MARKET:
-      if (state.allNft.length === state.backUpAllNft.length) {
+    if (state.allNft.length === state.backUpAllNft.length) {
         return {
           ...state,
           allNft: action.payload.nftAlldb,
           backUpAllNft: action.payload.nftAlldb,
+          allNftFlag:false
           //usuario: action.payload.usuario,
         };
       }
@@ -65,38 +71,36 @@ function rootReducer(state = initialState, action) {
         backUpAllNft: action.payload.nftAlldb,
         //usuario: action.payload.usuario,
       };
-
+  
     case CREATE_NFT:
       return {
         ...state,
         creado: true,
       };
+
     case RESET:
       return {
         ...state,
         creado: false,
         // colecciones: [],
       };
+
     case SET_COLECCIONES:
       return {
         ...state,
         colecciones: action.payload,
       };
-      case LOAD_COLECCIONES:
-        return {
-          ...state
-        }
-    // case USER_NFT:
-    //   const filter = state.allNft.filter((e) => e.ownerId === action.payload);
-    //   return {
-    //     ...state,
-    //     nftUser: filter,
-    //   };
+
+    case LOAD_COLECCIONES:
+      return {
+        ...state,
+      };
+
     case USER_NFT:
       return {
         ...state,
         nftUser: action.payload,
-        backUpNftUser: action.payload
+        backUpNftUser: action.payload,
       };
 
     case ACTUAL:
@@ -120,7 +124,7 @@ function rootReducer(state = initialState, action) {
         nftUser: [],
         backUpNftUser: [],
         usuario: [],
-        usuarioActual:[],
+        usuarioActual: [],
         allUsuarios: [],
         confirmacion: {},
         errorEmail: [],
@@ -129,6 +133,11 @@ function rootReducer(state = initialState, action) {
         creado: false,
         colecciones: [],
         usersInfo: [],
+        valor: [],
+        ranking: [],
+        likeNft: [],
+        transferencias: [],
+        allNftFlag: true,
       };
     case AUTH_USER:
       return {
@@ -152,7 +161,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case RESET_PASSWORD:
-      //console.log(action.payload.error);
       return {
         ...state,
         errorEmail: action.payload,
@@ -187,52 +195,111 @@ function rootReducer(state = initialState, action) {
     case SAVE_VALUE:
       return {
         ...state,
-      }
+      };
     case FILTER_COLECTION:
-      const nftForFilter = state.backUpNftUser
-      const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
-
+      if (action.payload === "todos") {
+        return {
+          ...state,
+          nftUser: state.backUpNftUser,
+        };
+      }
+      const nftForFilter = state.backUpNftUser;
+      let filter = [];
+      if (action.payload === "comprados") {
+        const cols = state.colecciones.map((e) => e.name);
+        filter = nftForFilter.filter((el) => !cols.includes(el.colection));
+      } else {
+        filter = nftForFilter.filter((el) => el.colection === action.payload);
+      }
 
       return {
         ...state,
-        nftUser: action.payload == 'todos' ? state.backUpNftUser : filter
-      }
+        nftUser: filter,
+      };
     case SAVE_VALUE:
       return {
         ...state,
-      }    
+      };
 
     case TRANSFERIR_CL:
       return {
         ...state,
+
       }
- case RANKING_PORTFOLIOS:
-        return {
-          ...state,
-          ranking: action.payload
-        }
+
+    case RANKING_PORTFOLIOS:
+      return {
+        ...state,
+        ranking: action.payload,
+      };
+
 
     case SORT:
-      const NFTOrdenados = state.allNft.sort((a,b) => {
+      //comentario para poder comitear
+      const allNft = state.allNft.sort((a,b) => {
         if(action.payload === 'price_asc'){
           return a.price - b.price
         }
         else if(action.payload === 'price_desc'){
           return b.price - a.price
         }
+        else if(action.payload === 'ranking_asc'){
+          return a.ranking - b.ranking
+        }
+        else if(action.payload === 'ranking_desc'){
+          return b.ranking - a.ranking
+        }
       })
-      let aux = NFTOrdenados.map(el => el)
+      const backUpAllNft = state.backUpAllNft.sort((a,b) => {
+        if(action.payload === 'price_asc'){
+          return a.price - b.price
+        }
+        else if(action.payload === 'price_desc'){
+          return b.price - a.price
+        }
+        else if(action.payload === 'ranking_asc'){
+          return a.ranking - b.ranking
+        }
+        else if(action.payload === 'ranking_desc'){
+          return b.ranking - a.ranking
+        }
+      });
+      // let aux = NFTOrdenados.map(el => el)
       return {
         ...state,
-        allNFT: aux,
-
+        allNft,
+        backUpAllNft,
+        homeGuardado: {
+          ...state.homeGuardado,
+          ordenamiento: action.payload
+        }
       }
+
     case LIKE_NFT:
-      const like = action.payload.msg ? { msg: action.payload.msg, like :true} : { msg: action.payload.alert, like :false}
-      return{
+      const like = action.payload.msg
+        ? { msg: action.payload.msg, like: true }
+        : { msg: action.payload.alert, like: false };
+      return {
         ...state,
-        likeNft: like
-      }  
+        likeNft: like,
+      };
+
+    case SORT_POP:        
+        let nftForSort =   action.payload == 'high'? state.allNft.sort((a,b) => {  return b.ranking - a.ranking }) : action.payload == 'low'? state.allNft.sort((a,b) => {  return a.ranking - b.ranking }) : state.backUpAllNft
+        let auxiliar = nftForSort.map(el => el )
+        return{
+          ...state,
+          allNFT : auxiliar
+        }
+      case GUARDAR_PAGINA:
+        return {
+          ...state,
+          homeGuardado: {
+            ...state.homeGuardado,
+            pagina: action.payload
+          }
+        }
+
     default:
       return state;
   }

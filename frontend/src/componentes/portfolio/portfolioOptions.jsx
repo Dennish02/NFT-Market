@@ -4,9 +4,7 @@ import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { crearColeccion } from "../../../redux/actions/actionColeccion";
 import { toast } from "react-toastify";
-
 import { filterColection } from "../../../redux/actions/actionNFT";
-
 import { coleccionesUsuario } from "../../../redux/actions/actionColeccion";
 
 const customStyles = {
@@ -22,7 +20,7 @@ const customStyles = {
 };
 
 export default function PortfoliOptions() {
-  const [coleccion, setColeccion] = useState(" ");
+  const [coleccion, setColeccion] = useState("");
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [input, setInput] = useState("");
@@ -33,11 +31,13 @@ export default function PortfoliOptions() {
     setOpenModal(true);
   }
 
-  function filtrarColeccion() {
-    dispatch(filterColection(coleccion));
+  function filtrarColeccion(e) {
+    setColeccion(e);
+    dispatch(filterColection(e));
   }
 
   function closeModal() {
+    setInput("");
     setOpenModal(false);
   }
 
@@ -49,7 +49,6 @@ export default function PortfoliOptions() {
     if (input.length > 8)
       return toast.error("el nombre puede tener hasta 8 caracteres");
     dispatch(crearColeccion(input));
-    setInput("");
     closeModal();
   }
 
@@ -77,24 +76,19 @@ export default function PortfoliOptions() {
         <div>
           <select
             className="coleccion"
-            onChange={(e) => setColeccion(e.target.value)}
+            onChange={(e) => filtrarColeccion(e.target.value)}
             value={coleccion}
             id="colection"
           >
-            <option onClick={() => filtrarColeccion()} value="todos">
-              todos
-            </option>
+            <option value="todos">todos</option>
             {colecciones.length !== 0
               ? colecciones.map((el) => (
-                  <option
-                    key={el._id}
-                    onClick={() => filtrarColeccion()}
-                    value={el.name}
-                  >
+                  <option key={el._id} value={el.name}>
                     {el.name}
                   </option>
                 ))
               : null}
+            <option value="comprados">comprados</option>
           </select>
         </div>
       </div>

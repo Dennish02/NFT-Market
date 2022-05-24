@@ -4,13 +4,33 @@ import { Link } from 'react-router-dom'
 import FavNFTS from '../componentes/favoritos/FavNFTS'
 import { useDispatch, useSelector } from 'react-redux'
 import { usuarioActual } from '../../redux/actions/actionUSER'
+import io from "socket.io-client";
+import { allNftMarket } from '../../redux/actions/actionNFT'
+let socket;
+
 
 export default function Favoritos() {
     const dispatch = useDispatch()
     const miUser = useSelector(state => state.usuarioActual)
+
     
+=======    const params = window.location.href;
+
+
+  
+
     useEffect(()=>{ 
         dispatch(usuarioActual())
+        socket = io(import.meta.env.VITE_BACKEND_URL);
+        socket.emit("RenderFav", params);
+    },[])
+
+    useEffect(()=>{ 
+        socket.on("updatefav", () => {
+            dispatch(usuarioActual())
+            dispatch(allNftMarket());
+          })
+        
     },[])
     let userId = ''
     miUser.nfts? userId = miUser.nfts[0].ownerId : null
@@ -40,12 +60,7 @@ export default function Favoritos() {
                     
                
             })
-
-
-
-
                 : <p>no hay favoritos </p>
-
             }
 
             

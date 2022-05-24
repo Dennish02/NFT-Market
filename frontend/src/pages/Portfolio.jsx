@@ -13,10 +13,11 @@ let socket;
 export default function Portfolio() {
   const dispatch = useDispatch();
   const usuario = useSelector((state) => state.usuario);
+  const usuarioAct = useSelector((state) => state.usuarioActual);
   const usuarios = useSelector((state) => state.usersInfo);
   const nftUser = useSelector((state) => state.nftUser);
   const params = window.location.href;
-  
+
   useEffect(() => {
     dispatch(allNFTUser());
     dispatch(showUsers());
@@ -28,16 +29,16 @@ export default function Portfolio() {
   useEffect(() => {
     //recibir la respuesta del back
     socket.on("nftUser", () => {
-      dispatch(allNFTUser());
+      dispatch(allNFTUser(nftUser));
     });
     socket.on("colectionUser", () => {
       dispatch(coleccionesUsuario());
     });
-  });
+  },[]);
 
   return (
     <div className="contentHome">
-      <NavBar usuario={usuario} />
+      <NavBar usuario={usuarioAct} />
       <OptionsPortfolio />
       <div className="main">
         {nftUser.length > 0 ? (
@@ -60,7 +61,7 @@ export default function Portfolio() {
             );
           })
         ) : (
-          <p>loading</p>
+          <h3>No tenes NFT</h3>
         )}
       </div>
     </div>

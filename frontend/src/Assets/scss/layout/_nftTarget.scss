@@ -91,7 +91,7 @@
   .buttonFav{
     width: 30px;
     position: absolute;
-    bottom: 95px;
+    bottom: 200px;
     left: 85%;
     &:hover{
       cursor: pointer;
@@ -100,13 +100,32 @@
   .buttonlike{
     width: 30px;
     position: absolute;
-    bottom: 200px;
-    left: 85%;
+    top:4px;
+    left: 5%;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .contLike{
+    height: 35px;
+    width: 98%;
+    position: absolute;
+    top:3px;
+    left: 1%;
+    background-color:v.$grisoscuro;
+    opacity: 0.8;
+  }
+  .cantlike{
+    width: 30px;
+    position: absolute;
+    top:10px;
+    left: 17%;
     &:hover{
       cursor: pointer;
     }
   }
 }
+
 .contPrice {
   display: flex;
   justify-content: flex-start;

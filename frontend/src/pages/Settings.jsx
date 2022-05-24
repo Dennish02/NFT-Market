@@ -11,11 +11,11 @@ let socket;
 function Settings() {
   const dispatch = useDispatch();
   const params = window.location.href;
-  const usuario = useSelector((state) => state.usuario);
+
+  const usuarioAct = useSelector((state) => state.usuarioActual);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // dispatch(usuarioActual());
     socket = io(import.meta.env.VITE_BACKEND_URL);
     socket.emit("Settings", params);
   }, []);
@@ -25,33 +25,33 @@ function Settings() {
     socket.on("nftUser2", () => {
       dispatch(usuarioActual());
     });
-  });
+  },[]);
 
   function handleImage(image) {
     dispatch(cambiarImagen(image));
   }
   return (
     <div className="contSettings">
-      <NavBar usuario={usuario} />
+      <NavBar usuario={usuarioAct} />
       <div className="contSettings-info">
         <div className="enlace">
-          
-          <Link  to="/update-password">
-            <button >Change password</button>
+          <Link to="/update-password">
+            <button>Change password</button>
           </Link>
         </div>
         <div className="contFile">
           <p>cambiar foto de perfil</p>
-          <label className="labelmiinput" htmlFor="mifile">Subir img</label>
+          <label className="labelmiinput" htmlFor="mifile">
+            Subir img
+          </label>
           <input
             type="file"
             name="image"
             className="file"
-            id='mifile'
+            id="mifile"
             onChange={(e) => handleImage(e.target.files[0])}
           />
         </div>
-        
       </div>
     </div>
   );
