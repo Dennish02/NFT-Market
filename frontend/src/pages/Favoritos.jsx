@@ -33,7 +33,7 @@ const params = window.location.href;
         
     },[])
     let userId = ''
-    miUser.nfts? userId = miUser.nfts[0].ownerId : null
+    miUser.nfts.length > 0? userId = miUser.nfts[0].ownerId : null
     
     return (
       miUser.length !== 0 ? <div className="contentHome">
