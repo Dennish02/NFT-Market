@@ -47,11 +47,6 @@ const initialState = {
   ranking:[],
   likeNft:[],
   transferencias:[],
-  allNftFlag: true,
-  homeGuardado: {
-    ordenamiento: 'sort',
-    pagina: 1
-  }
 };
 
 function rootReducer(state = initialState, action) {
@@ -62,7 +57,6 @@ function rootReducer(state = initialState, action) {
           ...state,
           allNft: action.payload.nftAlldb,
           backUpAllNft: action.payload.nftAlldb,
-          allNftFlag:false
           //usuario: action.payload.usuario,
         };
       }
@@ -269,10 +263,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft,
         backUpAllNft,
-        homeGuardado: {
-          ...state.homeGuardado,
-          ordenamiento: action.payload
-        }
       }
 
     case LIKE_NFT:

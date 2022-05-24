@@ -31,13 +31,12 @@ export default function Home() {
   //const token = localStorage.getItem("token");
 
   // const [orden, setOrden] = useState('')
-  const homeGuardado = useSelector(state => state.homeGuardado)
-  const [selectedSort, setSelectedSort] = useState(homeGuardado.ordenamiento)
+  const [selectedSort, setSelectedSort] = useState('sort')
   const [orderPop, setOrderPop] = useState('')
   
 
   //Paginado 
-  const [currentPage, setCurrentPage] = useState(homeGuardado.pagina);
+  const [currentPage, setCurrentPage] = useState(1);
   const [nftByPage, setNftByPage] = useState(8);
   const indexOfLastNft = currentPage * nftByPage;
   const indexOfFirstNft = indexOfLastNft - nftByPage;
@@ -49,16 +48,13 @@ export default function Home() {
 
   const paginas = (pageNumber) => {
     setCurrentPage(pageNumber);
-    dispatch(guardarPagina(pageNumber))
   };
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
-    dispatch(guardarPagina(currentPage + 1))
   }
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      dispatch(guardarPagina(currentPage - 1))
     }
   };
   useEffect(() => {
