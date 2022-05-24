@@ -68,6 +68,9 @@ io.on("connection", (socket) => {
   socket.on("renderHome", () => {
     socket.to(`${process.env.FRONTEND_URL}/home`).emit("homeUpdate");
   });
+  socket.on("changelike", () => {
+    socket.to(`${process.env.FRONTEND_URL}/home`).emit("changelikeicon");
+  });
 
   socket.on("balanceUser", () => {
     socket.to(`${process.env.FRONTEND_URL}/home`).emit("balance");

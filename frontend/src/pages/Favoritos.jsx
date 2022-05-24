@@ -14,7 +14,7 @@ export default function Favoritos() {
     const miUser = useSelector(state => state.usuarioActual)
 
     
-=======    const params = window.location.href;
+const params = window.location.href;
 
 
   

@@ -545,6 +545,7 @@ img {
 }
 .buttonPrimary:hover {
   cursor: pointer;
+  background: #1f7929;
 }
 .buttonPrimary:hover {
   cursor: pointer;
@@ -624,6 +625,7 @@ img {
 }
 .contLogin .contLogin-content .buttonPrimary:hover {
   cursor: pointer;
+  background: #1f7929;
 }
 .contLogin .contLogin-content .buttonPrimary:hover {
   cursor: pointer;
@@ -642,6 +644,7 @@ img {
 }
 .contLogin .contLogin-content .buttonSecondary:hover {
   cursor: pointer;
+  background: #c8c8c8;
 }
 .contLogin .contLogin-content .buttonSecondary:hover {
   cursor: pointer;
@@ -845,6 +848,7 @@ img {
 }
 .contNFT .buttonTrade:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 .contNFT .buttonFav {
   width: 30px;
@@ -1102,6 +1106,7 @@ img {
 }
 .portfolioCreateNft:hover {
   cursor: pointer;
+  background: #1f7929;
 }
 @media (min-width: 768px) {
   .portfolioCreateNft {
@@ -1126,6 +1131,7 @@ img {
 }
 .portfolioCreateColection:hover {
   cursor: pointer;
+  background: #c6700b;
 }
 @media (min-width: 768px) {
   .portfolioCreateColection {
@@ -1150,6 +1156,7 @@ img {
 }
 .portfolioFavoritos:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 @media (min-width: 768px) {
   .portfolioFavoritos {
@@ -1175,6 +1182,7 @@ img {
 }
 .buttonOrange:hover {
   cursor: pointer;
+  background: #c6700b;
 }
 
 .buttonMorado {
@@ -1191,6 +1199,7 @@ img {
 }
 .buttonMorado:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 
 .wallet-panel {
@@ -1333,6 +1342,12 @@ img {
   grid-column-end: 2;
 }
 
+.iconFav {
+  width: 25px;
+  height: 25px;
+  stroke-width: 2.5px;
+}
+
 .contNFTWallet h2 {
   color: #f28b12;
   font-size: 2.9rem;
@@ -1375,6 +1390,7 @@ img {
 }
 .last-grid:hover {
   cursor: pointer;
+  background: #1f7929;
 }
 
 .third-grid {
@@ -1413,6 +1429,7 @@ img {
 }
 .buy-button:hover {
   cursor: pointer;
+  background: #1f7929;
 }
 
 .delete-button {
@@ -1431,6 +1448,7 @@ img {
 }
 .delete-button:hover {
   cursor: pointer;
+  background: #621c1c;
 }
 
 .back-button {
@@ -1448,6 +1466,7 @@ img {
 }
 .back-button:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 
 .disabled {
@@ -1467,6 +1486,7 @@ img {
 }
 .disabled:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 .disabled:hover {
   cursor: not-allowed;
@@ -1550,6 +1570,7 @@ img {
 }
 .contSettings-info button:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 .contSettings-info .contFile {
   text-align: center;
