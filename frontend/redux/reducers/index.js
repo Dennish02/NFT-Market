@@ -24,8 +24,14 @@ import {
   LIKE_NFT,
   SORT,
   LOAD_COLECCIONES,
+
+  GOOGLE_LOGIN
+
+
+
   SORT_POP,
   GUARDAR_PAGINA
+
 } from "../constantes";
 
 const initialState = {
@@ -102,7 +108,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         usuarioActual: action.payload,
       };
-
+      case GOOGLE_LOGIN:
+        return{
+          ...state,
+          usuario: action.payload
+        }
     case LOGIN_USER:
       return {
         ...state,

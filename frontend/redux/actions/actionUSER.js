@@ -14,11 +14,31 @@ import {
   ACTUAL,
   TRANSFERIR_CL,
   RANKING_PORTFOLIOS,
+
+  GOOGLE_LOGIN,
+
+
+
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
+
+
+export function registroGoogle(googleData){
+  return async function(dispatch){
+    const token = googleData.credential
+    console.log(token)
+    try{
+
+     const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/google`, {idToken: token});
+     localStorage.setItem("token", response.data.token);
+     console.log('response', response.data)
+      
+      
+      // console.log('data', response.data)
+      // toast.success(response.data);
 
 export function loguinGoogle(googleData) {
   return async function (dispatch) {
@@ -37,15 +57,18 @@ export function loguinGoogle(googleData) {
         config,
         googleId,
       });
+
       return dispatch({
-        type: LOGIN_USER,
-        payload: json.data,
+        type: GOOGLE_LOGIN,
+        payload: response.data,
       });
-    } catch (error) {
-      console.log(error);
+    }catch(err){
+      toast.error(err)
     }
-  };
+
+    }
 }
+
 
 export function registroUsuario({ nombre, email, password1 }) {
   // const n = Math.floor(Math.random() * 10) % 3;
@@ -336,5 +359,37 @@ export function transferirCL({ cl, user }) {
       console.log(error);
       toast.error(error.response.data.msg);
     }
+
+  }
+}
+
+export function loguinGoogle(googleData) {
+  return async function (dispatch) {
+    const token = googleData.credential;
+   
+    let api = import.meta.env.VITE_API;
+    const config = {
+      headers: {
+        api: api,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      var json = await clienteAxios.post(`/usuario/login`, {
+        config,
+        
+      });
+      return dispatch({
+        type: LOGIN_USER,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
+
+  };
+}
+
