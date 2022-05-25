@@ -325,6 +325,24 @@ const notificaciones = async (req, res) => {
   }
 }
 
+const notificacionVista = async (req, res) => {
+  try {
+    const {id} = req.params
+    var notificacion = Notificacion.findById(id)
+    if(notificacion === null){
+      const error = new Error("la notificación no existe")
+      return res.json({msg: error.message})
+    }
+    else{
+      notificacion.visto = true
+      notificacion = await notificacion.save()
+      res.send(notificacion)
+    }
+  } catch (error) {
+    res.send(error)
+  }
+}
+
 export {
   googleLogin,
   registrar,
@@ -338,5 +356,6 @@ export {
   cambiarImage,
   usuario,
   transferirCl,
-  notificaciones
+  notificaciones,
+  notificacionVista
 };
