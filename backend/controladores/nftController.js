@@ -153,6 +153,13 @@ const regalarNft = async (req, res) => {
       nft.save();
       //...
 
+      //notificación
+      const notificacion = new Notificacion({
+        msg: `${req.usuario.nombre} te ha regalado el NFT ${nft.colection} ${nft.id}`,
+      })
+      giftTo.notificaciones.unshift(notificacion)
+      await notificacion.save()
+
       giftTo.nfts.push(nft);
       giftTo.save();
 
@@ -194,7 +201,7 @@ const comprarNft = async (req, res, next) => {
       //notificación
 
       const notificacion = new Notificacion({
-        msg: `${comprador.nombre} te ha comprado ${NFT.id}`,
+        msg: `${comprador.nombre} te ha comprado el NFT ${NFT.colection} ${NFT.id}`,
         visto: false
       })
       vendedor.notificaciones.unshift(notificacion)
