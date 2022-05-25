@@ -4,6 +4,7 @@ import { uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 import Usuario from "../models/Usuarios.js";
 import * as emails from '../helpers/emails.js';
+import Notificacion from "../models/Notificacion.js"
 
 const allNftUser = async (req, res) => {
   const { usuario } = req;
@@ -189,6 +190,16 @@ const comprarNft = async (req, res, next) => {
         (nft) => nft.id !== NFT.id || nft.colection !== NFT.colection
       );
       vendedor.nfts = nftFiltrados;
+
+      //notificación
+
+      const notificacion = new Notificacion({
+        msg: `${comprador.nombre} te ha comprado ${NFT.id}`,
+        visto: false
+      })
+      vendedor.notificaciones.unshift(notificacion)
+      await notificacion.save()
+
       await vendedor.save();
       NFT.ownerId = comprador.nombre;
       NFT.avaliable = false;
