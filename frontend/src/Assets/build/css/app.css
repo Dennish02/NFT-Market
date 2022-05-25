@@ -413,9 +413,11 @@ img {
 
 .contentNav {
   display: block;
+  overflow: hidden;
   width: 100%;
   margin: 0 auto;
   box-shadow: 0px 4px 4px 0px rgb(11, 12, 41);
+  z-index: 10;
   margin: 2rem auto;
 }
 @media (min-width: 768px) {
@@ -452,6 +454,27 @@ img {
   display: inline-block;
   width: 50px;
   height: 50px;
+}
+.contentNav .perfil .contBell {
+  position: relative;
+  width: 35px;
+}
+.contentNav .perfil .contBell:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.contentNav .perfil .contBell .contBell-text {
+  position: absolute;
+  color: #e1e1e1;
+  top: -8px;
+  left: 19px;
+  font-size: 9px;
+}
+.contentNav .perfil .contBell .bell {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  transition: 0.4s;
 }
 
 .logo {
@@ -1593,4 +1616,79 @@ img {
   width: fit-content;
   text-align: center;
   display: block;
+}
+
+.displayNone {
+  display: none;
+}
+
+.displayBlock {
+  display: block;
+}
+
+#contNotification {
+  z-index: 1000;
+  margin: 0 auto;
+}
+#contNotification ul {
+  padding: 0;
+}
+#contNotification .notification {
+  background-color: rgba(11, 12, 41, 0.5607843137);
+  padding: 1rem;
+  margin: 1rem auto;
+  list-style: none;
+  color: #e1e1e1;
+}
+#contNotification .notification:hover {
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  #contNotification {
+    position: absolute;
+    background-color: #1d1e3e;
+    border: solid 1px #e1e1e1;
+    border-radius: 0.5rem;
+    width: 250px;
+    padding: 1rem;
+    top: 12%;
+    right: 12%;
+  }
+}
+@media (min-width: 1200px) {
+  #contNotification {
+    right: 12%;
+    top: 10%;
+  }
+}
+@media (min-width: 320px) {
+  .customStylesNotification {
+    z-index: 5;
+    position: absolute;
+    top: 10rem;
+    left: 0;
+    width: 300px;
+    padding: 0.5rem;
+    background-color: #1d1e3e;
+    color: #e1e1e1;
+    border-radius: 0.5rem;
+  }
+}
+@media (min-width: 570px) {
+  .customStylesNotification {
+    top: 32rem;
+    left: 70%;
+    width: 300px;
+  }
+}
+@media (min-width: 768px) {
+  .customStylesNotification {
+    top: 30rem;
+    left: 81%;
+    width: 300px;
+  }
+}
+.ReactModalPortal .ReactModalOverlay.ReactModalOverlay--after-open {
+  background-color: unset !important;
 }

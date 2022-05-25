@@ -71,9 +71,9 @@ export default function ComponentNFT(props) {
     <div className="contNFT">
       <div className="venta">
         {avaliable ? (
-          <small className="textVenta">Not for sale</small>
-        ) : (
           <small className="textVenta">For sale</small>
+        ) : (
+          <small className="textVenta"> Not for sale</small>
         )}
         <div
           className={avaliable ? "enVenta" : "noVenta"}
