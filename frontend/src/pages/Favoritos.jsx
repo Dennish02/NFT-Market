@@ -16,7 +16,7 @@ export default function Favoritos() {
     miUser.nfts? userId = miUser.nfts[0].ownerId : null
     
     return (
-      miUser.length !== 0 ? <div className="contentHome">
+      miUser.length > 0 ? <div className="contentHome">
 
             <NavBar usuario={miUser} />
 

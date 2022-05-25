@@ -3,9 +3,11 @@ import logo from "../img/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { login, resetErrorLoginUser } from "../../redux/actions/actionUSER";
+import { login, resetErrorLoginUser, loguinGoogle, registroGoogle } from "../../redux/actions/actionUSER";
 import validarEmail from "../middleware/validarEmail";
 import validatePassword from "../middleware/validarPassword";
+import { GoogleOAuthProvider } from '@react-oauth/google'
+import { GoogleLogin } from '@react-oauth/google';
 // import { Link } from "react-router-dom"
 
 function validate(email, password) {
@@ -76,34 +78,7 @@ export default function Loguin() {
     e.preventDefault();
 
 
-    // if (usuario.email === "") {
-    //   setErrors({
-    //     ...errors,
-    //     email: "this field is required",
-    //   });
-    // } else if (validarEmail(usuario.email)) {
-    //   usuario.email > 40
-    //     ? setErrors({
-    //         ...errors,
-    //         email: "invalid length",
-    //       })
-    //     : setErrors({
-    //         ...errors,
-    //         email: "invalid format",
-    //       });
-    // }
 
-    // if (usuario.password === "") {
-    //   setErrors({
-    //     ...errors,
-    //     password: "this field is required",
-    //   });
-    // } else if (validatePassword(usuario.password)) {
-    //   setErrors({
-    //     ...errors,
-    //     password: "Your password must be at least 8 characters",
-    //   });
-    // }
 
     let val = validate(usuario.email, usuario.password);
     if (Object.keys(val).length === 0) {
@@ -120,7 +95,13 @@ export default function Loguin() {
       }
     } else setErrors(val);
   };
+  function responseGoogle(el) {
+    dispatch(registroGoogle(el))
+    
 
+    
+    
+  }
   return (
     <div className="contRegister">
       <Link to="/">
@@ -168,9 +149,17 @@ export default function Loguin() {
                 LOGIN
               </button>
             </form>
-            <button type="button" className="buttonSecondary">
+            <button className="buttonSecondary">
               LOGIN WITH GOOGLE
             </button>
+            <GoogleOAuthProvider clientId={`${import.meta.env.VITE_URL_CLIENT_ID}`}>
+
+            <GoogleLogin
+              login_uri=""
+              onSuccess={responseGoogle}               
+              
+            />
+            </GoogleOAuthProvider>
             <Link to="/olvide-password/" className="a">
               {" "}
               <h4>Olvide Password</h4>

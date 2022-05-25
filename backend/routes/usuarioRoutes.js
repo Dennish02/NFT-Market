@@ -2,6 +2,7 @@ import express from "express";
 import { ultimasVentas } from "../controladores/transaccionesController.js";
 const router = express.Router();
 import {
+  googleLogin,
   registrar,
   autenticar,
   confimrar,
@@ -16,7 +17,7 @@ import {
 } from "../controladores/usuarioController.js";
 import checkOut from "../middleware/checkOut.js";
 //Autenticacion, Registro y Confirmacion de Usuarios
-
+router.post('/google', googleLogin);
 router.post("/", registrar); //crea usuario
 router.post("/login", autenticar);
 router.get("/confirmar/:token", confimrar);

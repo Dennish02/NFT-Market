@@ -23,7 +23,8 @@ import {
   RANKING_PORTFOLIOS,
   LIKE_NFT,
   SORT,
-  LOAD_COLECCIONES
+  LOAD_COLECCIONES,
+  GOOGLE_LOGIN
 
 
 } from "../constantes";
@@ -104,7 +105,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         usuarioActual: action.payload,
       };
-
+      case GOOGLE_LOGIN:
+        return{
+          ...state,
+          usuario: action.payload
+        }
     case LOGIN_USER:
       return {
         ...state,

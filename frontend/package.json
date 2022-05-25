@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.2.2",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.27.2",
     "formik": "^2.2.9",
