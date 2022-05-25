@@ -8,6 +8,9 @@ import { filterColection } from "../../../redux/actions/actionNFT";
 import { coleccionesUsuario } from "../../../redux/actions/actionColeccion";
 
 const customStyles = {
+  overlay :{
+    backgroundColor: 'rgba(11,12,41,0.48)',
+  },
   content: {
     top: "50%",
     left: "50%",

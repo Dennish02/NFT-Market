@@ -19,6 +19,7 @@ import {
 } from "../../redux/actions/actionUSER";
 let socket;
 import { guardarPagina } from "../../redux/actions/actionPaginado";
+import NotificationModal from "../componentes/home/NotificationModal";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -89,7 +90,8 @@ export default function Home() {
   return (
     <div className="contentHome">
       <NavBar usuario={usuarioAct} />
-      <div>
+     <NotificationModal/>
+      <div> 
         <SearchBar selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas} OrderPop={setOrderPop}/>
       </div>
       <Paginado
