@@ -13,7 +13,8 @@ import {
   traerUsuarios,
   cambiarImage,
   usuario,
-  transferirCl
+  transferirCl,
+  notificaciones
 } from "../controladores/usuarioController.js";
 import checkOut from "../middleware/checkOut.js";
 //Autenticacion, Registro y Confirmacion de Usuarios
@@ -30,5 +31,7 @@ router.put("/imagen", checkOut, cambiarImage);
 router.get("/actual", checkOut, usuario);
 
 router.put("/transferir", checkOut, transferirCl);
+
+router.get("/notificaciones", checkOut, notificaciones)
 
 export default router;
