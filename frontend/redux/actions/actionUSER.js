@@ -14,13 +14,17 @@ import {
   ACTUAL,
   TRANSFERIR_CL,
   RANKING_PORTFOLIOS,
+
   GOOGLE_LOGIN,
+
+
 
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
+
 
 export function registroGoogle(googleData){
   return async function(dispatch){
@@ -35,6 +39,25 @@ export function registroGoogle(googleData){
       
       // console.log('data', response.data)
       // toast.success(response.data);
+
+export function loguinGoogle(googleData) {
+  return async function (dispatch) {
+    const token = googleData.tokenId;
+    const googleId = googleData.googleId;
+    let api = import.meta.env.VITE_API;
+    const config = {
+      headers: {
+        api: api,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      var json = await clienteAxios.post(`/usuario/login`, {
+        config,
+        googleId,
+      });
+
       return dispatch({
         type: GOOGLE_LOGIN,
         payload: response.data,
@@ -58,10 +81,10 @@ export function registroUsuario({ nombre, email, password1 }) {
       };
 
       const response = await clienteAxios.post(`/usuario`, body);
-      //console.log(response);
+  
       toast.success(response.data);
     } catch (e) {
-      //   console.log(e);
+    
       toast.error(e.response.data.msg);
     }
   };
@@ -115,15 +138,11 @@ export function resetPassword(data) {
       let json = await clienteAxios.post(`/usuario/olvide-password/${token}`, {
         password,
       });
-      //console.log(json.data);
-      //toast.success('Contraseña Actualiada')
       return dispatch({
         type: RESET_PASSWORD,
         payload: json.data,
       });
     } catch (error) {
-      //console.log(error.response.data);
-      //toast.error(error.response.data.msg)
       return dispatch({
         type: RESET_PASSWORD,
         payload: { error: error.response.data.msg },
@@ -167,6 +186,7 @@ export function resetErrorLoginUser() {
     });
   };
 }
+
 export function autenticarUser(config) {
   return async function (dispatch) {
     try {
@@ -182,11 +202,11 @@ export function autenticarUser(config) {
   };
 }
 
-export function userLogout() {
+export function userLogout(dispatch) {
   localStorage.clear();
-  return {
+  return dispatch({
     type: LOGOUT_USER,
-  };
+  });
 }
 
 export function showUsers() {
@@ -233,9 +253,7 @@ export function cambiarImagen(payload) {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.msg);
-      
-      // console.log(error.response.data.msg);
-      // toast.error(error.response.data.msg);
+
     }
   };
 }
@@ -276,47 +294,51 @@ export function comprarCL(cuantity) {
   };
 }
 
-export function topPortfolios(){
-  return async function(dispatch){
-    try {
-      const id = localStorage.getItem("token");
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${id}`,
-      },
-    };
-        const json = await clienteAxios.get(`${import.meta.env.VITE_BACKEND_URL}/api/nft/wealthyportfolios`, config)
-        return dispatch({
-          type: RANKING_PORTFOLIOS,
-          payload: json.data,
-        });
-      } catch (error) {
-      console.log(error);
-    }
-  }
-}
-export function getValuePortfolio(){
-  return async function(){
+export function topPortfolios() {
+  return async function (dispatch) {
     try {
       const id = localStorage.getItem("token");
       const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${id}`,
-      },
-    };
-      await clienteAxios.get(`${import.meta.env.VITE_BACKEND_URL}/api/nft/valueport`, config)
-     
-      } catch (error) {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${id}`,
+        },
+      };
+      const json = await clienteAxios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/wealthyportfolios`,
+        config
+      );
+      return dispatch({
+        type: RANKING_PORTFOLIOS,
+        payload: json.data,
+      });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
+}
+export function getValuePortfolio() {
+  return async function () {
+    try {
+      const id = localStorage.getItem("token");
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${id}`,
+        },
+      };
+      await clienteAxios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/valueport`,
+        config
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
-export function transferirCL({cl,user}){
-
-  return async function(dispatch){
+export function transferirCL({ cl, user }) {
+  return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = axios.create({
       headers: {
@@ -324,16 +346,20 @@ export function transferirCL({cl,user}){
       },
     });
     try {
-      const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/transferir`, {cl,user} )
-      toast.success(json.data.msg)
-      socket.emit('Transferencia')
+      const json = await authAxios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/usuario/transferir`,
+        { cl, user }
+      );
+      toast.success(json.data.msg);
+      socket.emit("Transferencia");
       return dispatch({
         type: TRANSFERIR_CL,
-      })
+      });
     } catch (error) {
-      console.log(error)
-      toast.error(error.response.data.msg)
+      console.log(error);
+      toast.error(error.response.data.msg);
     }
+
   }
 }
 
@@ -363,3 +389,7 @@ export function loguinGoogle(googleData) {
     }
   };
 }
+
+  };
+}
+

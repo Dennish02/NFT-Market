@@ -15,7 +15,8 @@ import {
   ADD_NFT_FAVORITE,
   SORT,
   SAVE_VALUE,
-  LIKE_NFT
+  LIKE_NFT,
+  SORT_POP,
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -31,7 +32,7 @@ export function allNftMarket() {
     if (!token) {
       return;
     }
-    
+
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -59,14 +60,15 @@ export function allNFTUser() {
         Authorization: `Bearer ${token}`,
       },
     };
-    let json = await clienteAxios.get(`/nft/portfolio`, config);
 
+    let json = await clienteAxios.get(`/nft/portfolio`, config);
     return dispatch({
       type: USER_NFT,
       payload: json.data,
     });
   };
 }
+
 export function userNfts(name) {
   return async function (dispatch) {
     return dispatch({
@@ -129,26 +131,6 @@ export function reset(payload) {
   };
 }
 
-// export function nftWithUser() {
-//   return async function(dispatch){
-//     const token = localStorage.getItem('token')
-
-//     if(!token){return }
-
-//     const config = {
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         Authorization: `Bearer ${token}`,
-//       },
-//     };
-//       let json= await clienteAxios.get(`/nft/portfolio`, config)
-//     return dispatch({
-//       type: NFT_USER,
-//       payload: json.data
-//     })
-//   }
-// }
-
 export function comprarNFT(payload) {
   return async function () {
     const token = localStorage.getItem("token");
@@ -208,9 +190,7 @@ export function venta(payload) {
             progress: undefined,
           });
       //socket.io
-
-      socket.emit("renderHome");
-
+      socket.emit("Render");
       socket.emit("update");
     } catch (e) {
       toast.error(e.response.data.msg);
@@ -265,9 +245,12 @@ export function Gift_NFT(iduser, idnft, colection) {
 }
 
 export function filterColection(payload) {
-  return {
-    type: FILTER_COLECTION,
-    payload,
+  return async function (dispatch) {
+    // socket.emit("renderHome");
+    return dispatch({
+      type: FILTER_COLECTION,
+      payload,
+    });
   };
 }
 
@@ -285,15 +268,13 @@ export function AñadirFav(id) {
         `${import.meta.env.VITE_BACKEND_URL}/api/nft/favoritos/${id}`
       );
 
-      socket.emit('renderHome')
-      toast.success(json.data.msg)
+      socket.emit("renderHome");
+      toast.success(json.data.msg);
     } catch (error) {
-      toast.error(error)
+      toast.error(error);
     }
-
-  }
-};
-
+  };
+}
 
 export function eliminarFav(id) {
   return async function () {
@@ -309,24 +290,22 @@ export function eliminarFav(id) {
         `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${id}`
       );
 
-      socket.emit('renderHome')
-      toast.success(json.data.msg)
+      socket.emit("renderHome");
+      toast.success(json.data.msg);
     } catch (error) {
       console.log(error);
     }
-   
-  }
+  };
 }
 
-export function sort(payload){
-  return async function(dispatch){
+export function sort(payload) {
+  return async function (dispatch) {
     return dispatch({
       type: SORT,
-      payload
-    })
-  }
+      payload,
+    });
+  };
 }
-
 
 export function setNewCoin(value) {
   return async function (dispatch) {
@@ -353,28 +332,38 @@ export function setNewCoin(value) {
     }
   };
 }
-export function darLike(id){
-    return async function(dispatch){
-      const token = localStorage.getItem("token");
+export function darLike(id) {
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     });
-      try {
-        const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/nft/like/${id}`);
-        json.data.alert ? 
-        toast.warning(json.data.alert)     
-        :
-        toast.success(json.data.msg)
-        socket.emit('renderHome')
-        return dispatch({
-          type: LIKE_NFT,
-          payload:  json.data
-        })
-      } catch (error) {
-        toast.warning(error.response.data.msg);
-      }
+    try {
+      const json = await authAxios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/like/${id}`
+      );
+      json.data.alert
+        ? toast.warning(json.data.alert)
+        : toast.success(json.data.msg);
+      socket.emit("renderHome");
+      return dispatch({
+        type: LIKE_NFT,
+        payload: json.data,
+      });
+    } catch (error) {
+      toast.warning(error.response.data.msg);
     }
+  };
+}
+
+export function sortPopularity(payload) {
+  return async function (dispatch) {
+    return dispatch({
+      type: SORT_POP,
+      payload,
+    });
+  };
 }

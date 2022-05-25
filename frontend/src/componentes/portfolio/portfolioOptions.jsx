@@ -4,12 +4,13 @@ import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { crearColeccion } from "../../../redux/actions/actionColeccion";
 import { toast } from "react-toastify";
-
 import { filterColection } from "../../../redux/actions/actionNFT";
-
 import { coleccionesUsuario } from "../../../redux/actions/actionColeccion";
 
 const customStyles = {
+  overlay :{
+    backgroundColor: 'rgba(11,12,41,0.48)',
+  },
   content: {
     top: "50%",
     left: "50%",
@@ -22,7 +23,7 @@ const customStyles = {
 };
 
 export default function PortfoliOptions() {
-  const [coleccion, setColeccion] = useState(" ");
+  const [coleccion, setColeccion] = useState("");
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [input, setInput] = useState("");
@@ -33,11 +34,13 @@ export default function PortfoliOptions() {
     setOpenModal(true);
   }
 
-  function filtrarColeccion() {
-    dispatch(filterColection(coleccion));
+  function filtrarColeccion(e) {
+    setColeccion(e);
+    dispatch(filterColection(e));
   }
 
   function closeModal() {
+    setInput("");
     setOpenModal(false);
   }
 
@@ -49,7 +52,6 @@ export default function PortfoliOptions() {
     if (input.length > 8)
       return toast.error("el nombre puede tener hasta 8 caracteres");
     dispatch(crearColeccion(input));
-    setInput("");
     closeModal();
   }
 
@@ -58,43 +60,38 @@ export default function PortfoliOptions() {
       <div className="contButton">
         <div className="center">
           <Link to="/home/usuario/nft/crear/">
-            <button className="buttonPrimary">CREAR NFT</button>
+            <button className="buttonPrimary">CREATE NFT</button>
           </Link>
         </div>
         <div className="center">
           <button className="buttonOrange" onClick={showModal}>
-            CREAR COLECCION
+            CREATE COLECTION
           </button>
         </div>
         <div className="center">
           <Link to="/usuario/favoritos">
-            <button className="buttonMorado">MIS FAVORITOS</button>
+            <button className="buttonMorado">MY FAV</button>
           </Link>
         </div>
       </div>
       <div className="contTittle">
-        <h2 className="tuPortfolio">your portfolio</h2>
+        <h2 className="tuPortfolio">Your Portfolio</h2>
         <div>
           <select
             className="coleccion"
-            onChange={(e) => setColeccion(e.target.value)}
+            onChange={(e) => filtrarColeccion(e.target.value)}
             value={coleccion}
             id="colection"
           >
-            <option onClick={() => filtrarColeccion()} value="todos">
-              todos
-            </option>
+            <option value="todos">All</option>
             {colecciones.length !== 0
               ? colecciones.map((el) => (
-                  <option
-                    key={el._id}
-                    onClick={() => filtrarColeccion()}
-                    value={el.name}
-                  >
+                  <option key={el._id} value={el.name}>
                     {el.name}
                   </option>
                 ))
               : null}
+            <option value="comprados">Purchased</option>
           </select>
         </div>
       </div>
@@ -106,7 +103,7 @@ export default function PortfoliOptions() {
               X
             </button>
             <div className="contInput">
-              <span>Create colllection</span>
+              <span>Create colection</span>
               <input
                 className="input"
                 type="text"
