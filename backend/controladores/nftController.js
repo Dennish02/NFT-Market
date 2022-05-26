@@ -376,7 +376,7 @@ const responseOffer = async (req, res) => {
     
     let r = JSON.parse(response);
     
-    if (oferta) {
+    if (oferta && oferta.status !== false) {
       if (r) {
         
         const userToGive = await Usuario.findOne({
@@ -469,6 +469,44 @@ const añadirFavNft = async (req, res) => {
     console.log(error);
   }
 };
+
+const cancelOffer = async (req, res) => {
+  const { usuario } = req;
+  
+  const { id } = req.body;
+
+  let offer = usuario.hasTradeOffers.find(element => element.id === id);
+
+  if (offer) {
+    offer.status = false
+
+    //GUARDAMOS LA OFERTA CON EL NUEVO STATUS
+    usuario.hasTradeOffers = usuario.hasTradeOffers.filter(element => element.id !== id);
+
+    usuario.hasTradeOffers.push(offer);
+
+    await usuario.save();
+
+    //HACEMOS LO MISMO EN EL USUARIO QUE RECIBE
+
+    let offerReciver = await Usuario.find({ nombre: offer.userReceived});
+
+    offerReciver = offerReciver.pop();
+
+    console.log(offerReciver);
+
+    offerReciver.hasTradeOffers = offerReciver.hasTradeOffers.filter(element => element.id !== id);
+
+    offerReciver.hasTradeOffers.push(offer);
+
+    await offerReciver.save();
+
+    res.json(offer);
+  } else {
+    res.json(`You can't cancel this offer because you're not the sender`);
+  }
+
+}
 
 const eliminarFavNft = async (req, res) => {
   const { id } = req.params;
@@ -646,4 +684,5 @@ export {
   likeNft,
   getPortfolioValue,
   topPortfolios,
+  cancelOffer
 };

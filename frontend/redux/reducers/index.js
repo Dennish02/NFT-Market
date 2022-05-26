@@ -28,10 +28,7 @@ import {
   SORT_POP,
   GUARDAR_PAGINA,
   TRADE_OFFER,
-  SEE_OFFER,
-  GUARDAR_PAGINA
-
-
+  SEE_OFFER
 } from "../constantes";
 
 const initialState = {
