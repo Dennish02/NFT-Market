@@ -12,7 +12,8 @@ export default function Formulario() {
             <div className='contDescription'>
                 <div>
                  <p>
-                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad 
+                    In NFT market you can create your own NFTs, sell them, collect them, and interact with the NFT community. 
+                    Discover the most fun and exclusive NFT collections.
                  </p>
                 </div>
               <Link to='/register'>
