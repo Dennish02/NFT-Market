@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { crearNFT, reset } from "../../redux/actions/actionNFT";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
 
 function validate(value) {
@@ -48,6 +49,9 @@ export default function CrearNFT() {
       <div className="contLogin">
         <div className="contLogin-content">
           <h3>Crear NFT</h3>
+          <Link to="/home/usuario/portfolio/">
+            <button className="close">X</button>
+          </Link>
           <Formik
             initialValues={estado}
             validate={validate}
