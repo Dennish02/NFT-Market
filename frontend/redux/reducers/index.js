@@ -25,7 +25,7 @@ import {
   SORT,
   LOAD_COLECCIONES,
 
-  GOOGLE_LOGIN
+  GOOGLE_LOGIN,
 
 
 

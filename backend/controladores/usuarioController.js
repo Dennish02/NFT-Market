@@ -45,6 +45,13 @@ const googleLogin = async (req,res) => {
               let nuevoUsuario = new Usuario({nombre: given_name, email, image: { public_id: "", url: "" },})
               nuevoUsuario.confirmado= true;
               nuevoUsuario.save()
+              const token =  generarJWT(nuevoUsuario._id)
+              res.json({
+                _id: nuevoUsuario._id,
+                nombre: nuevoUsuario.given_name,
+                email: nuevoUsuario.email,
+                token : token
+              })
             }
           }
         })
