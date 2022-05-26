@@ -7,8 +7,9 @@ import Modal from "react-modal";
 import ProfileSettings from "../modalProfile/profileSettings";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import NotificationModal from "./NotificationModal";
+import { searchNotification } from "../../../redux/actions/actionUSER";
 
 const customStyles = {
     overlay :{
@@ -16,11 +17,22 @@ const customStyles = {
     },
 };
 export default function NavBar({usuario}) {
+  const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false);
   const [showModalNotification, setShowModalNotification] = useState(false)
+  useEffect(()=>{
+    dispatch(searchNotification())
+  },[])
+  const notification = useSelector(state=> state.notification)
+
+  let noti = 0
+  notification.map(e=> !e.visto ? noti ++ : null )
+ 
   function handleButton() {
     setShowModal(true);
   }
+  
+  if(!usuario) " "
   
   function viewNoti(){
      let noti = document.querySelector('#contNotification')
@@ -53,10 +65,19 @@ export default function NavBar({usuario}) {
           ) : null}
         </div>
         <p>{`¡Hi ${usuario.nombre}!`}</p>
-        <div onClick={viewNoti} className="contBell">
-          <p className="contBell-text">5+</p>
-          <img src={bell1} className='bell' alt="bell" />
-        </div>
+        {noti === 0 ? 
+         <div onClick={viewNoti} className="contBell">
+         <img src={bell2} className='bell' alt="bell" />
+       </div>
+       
+         : 
+         <div onClick={viewNoti} className="contBell">
+         <p className="contBell-text">{noti > 10 ? <small>9+</small>: noti}</p>
+         <img src={bell1} className='bell' alt="bell" />
+       </div>
+       
+         }
+       
         
             
             

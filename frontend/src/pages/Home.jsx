@@ -14,6 +14,7 @@ import TopPortfolios from "../componentes/home/TopPortfolios";
 import Paginado from "./Paginas";
 import {
   getValuePortfolio,
+  searchNotification,
   topPortfolios,
   usuarioActual,
 } from "../../redux/actions/actionUSER";
@@ -83,14 +84,16 @@ export default function Home() {
       dispatch(usuarioActual());
       dispatch(allNFTUser());
       dispatch(topPortfolios());
+      dispatch(searchNotification())
     });
   },[]);
 
   if (!usuarioAct) "cargando";
+  console.log(usuarioAct);
   return (
     <div className="contentHome">
       <NavBar usuario={usuarioAct} />
-     <NotificationModal/>
+     <NotificationModal usuario={usuarioAct}/>
       <div> 
         <SearchBar selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas} OrderPop={setOrderPop}/>
       </div>
