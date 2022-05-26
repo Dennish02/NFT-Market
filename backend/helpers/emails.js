@@ -145,6 +145,33 @@ export const forSale = async (data) => {
   }
 }
 
+export const giftNFT = async (data) => {
+  const { email, from, to, nft } = data
+
+  var transport = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: process.env.EMAIL_SECURE,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    }
+  });
+
+  const info = await transport.sendMail({
+    from: '"NFT Market" <cuentas@nftmarket.com>',
+    to: email,
+    subject: "NFT Market - You have received a gift",
+    text: "You have received a gift",
+    html: `
+    <p>Hi ${to}, congratulations, you received the NFT <span style="font-weight: bold;">${nft}</span> as a gift from ${from}</p>
+    <p>go to </p>
+    <h3><a href="${process.env.FRONTEND_URL}">NFT Market</a></h3>
+    `
+  })
+};
+
+
 // export const topPortfolioMail = async (data) => {
 //   const { email, name} = data
 

@@ -163,6 +163,14 @@ const regalarNft = async (req, res) => {
       giftTo.nfts.push(nft);
       giftTo.save();
 
+      //notificacion por mail
+      emails.giftNFT({
+        email: giftTo.email,
+        from: req.usuario.nombre,
+        to: giftTo.nombre,
+        nft: `${nft.colection} ${nft.id}`
+      });
+
       res.status(200).json(giftTo.nfts);
     } else {
       res.status(404).send("this NFT does not exist");
