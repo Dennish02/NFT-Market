@@ -35,39 +35,18 @@ export function registroGoogle(googleData){
      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/google`, {idToken: token});
      localStorage.setItem("token", response.data.token);
      console.log('response', response.data)
-      
-      
-      // console.log('data', response.data)
-      // toast.success(response.data);
-
-export function loguinGoogle(googleData) {
-  return async function (dispatch) {
-    const token = googleData.tokenId;
-    const googleId = googleData.googleId;
-    let api = import.meta.env.VITE_API;
-    const config = {
-      headers: {
-        api: api,
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    try {
-      var json = await clienteAxios.post(`/usuario/login`, {
-        config,
-        googleId,
-      });
-
-      return dispatch({
-        type: GOOGLE_LOGIN,
-        payload: response.data,
-      });
+     return dispatch({
+      type: GOOGLE_LOGIN,
+      payload: response.data,
+    });
     }catch(err){
       toast.error(err)
     }
-
-    }
+  }
 }
+      // console.log('data', response.data)
+      // toast.success(response.data);
+
 
 
 export function registroUsuario({ nombre, email, password1 }) {
@@ -363,33 +342,5 @@ export function transferirCL({ cl, user }) {
   }
 }
 
-export function loguinGoogle(googleData) {
-  return async function (dispatch) {
-    const token = googleData.credential;
-   
-    let api = import.meta.env.VITE_API;
-    const config = {
-      headers: {
-        api: api,
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    try {
-      var json = await clienteAxios.post(`/usuario/login`, {
-        config,
-        
-      });
-      return dispatch({
-        type: LOGIN_USER,
-        payload: json.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
 
-  };
-}
-
+  
