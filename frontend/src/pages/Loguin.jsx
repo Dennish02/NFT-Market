@@ -3,12 +3,13 @@ import logo from "../img/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { login, resetErrorLoginUser, loguinGoogle, registroGoogle } from "../../redux/actions/actionUSER";
+import { login, resetErrorLoginUser,  registroGoogle } from "../../redux/actions/actionUSER";
 import validarEmail from "../middleware/validarEmail";
 import validatePassword from "../middleware/validarPassword";
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { GoogleLogin } from '@react-oauth/google';
-// import { Link } from "react-router-dom"
+
+import { toast } from "react-toastify";
 
 function validate(email, password) {
   let objeto = {};
@@ -95,9 +96,14 @@ export default function Loguin() {
       }
     } else setErrors(val);
   };
+ 
+//wasu wasol 
   function responseGoogle(el) {
     dispatch(registroGoogle(el))
-    
+    toast.success('login succesfully')
+    setTimeout(function () {
+      window.location.reload(1);
+  }, 1500);  // After 1,5 secs
 
     
     
@@ -149,9 +155,6 @@ export default function Loguin() {
                 LOGIN
               </button>
             </form>
-            <button className="buttonSecondary">
-              LOGIN WITH GOOGLE
-            </button>
             <GoogleOAuthProvider clientId={`${import.meta.env.VITE_URL_CLIENT_ID}`}>
 
             <GoogleLogin
