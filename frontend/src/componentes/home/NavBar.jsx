@@ -82,12 +82,15 @@ export default function NavBar({usuario}) {
             
             
         {usuario.length !== 0 ? (
-          <img
+          <div className="image-click">
+              <img
             src={usuario.image.url ? usuario.image.url : profile}
             alt="Profile User"
             onClick={handleButton}
-            className="image-click"
+            
           />
+          </div>
+       
         ) : null}
 
         <Modal style={customStyles} isOpen={showModal} className='customStyles'>

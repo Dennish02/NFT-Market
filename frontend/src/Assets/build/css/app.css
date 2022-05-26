@@ -450,10 +450,18 @@ img {
   font-weight: 700;
   font-size: 3rem;
 }
-.contentNav .perfil img {
+.contentNav .perfil .image-click {
   display: inline-block;
   width: 50px;
   height: 50px;
+  background-size: cover;
+}
+@supports (object-fit: cover) {
+  .contentNav .perfil .image-click img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
 }
 .contentNav .perfil .contBell {
   position: relative;
@@ -958,6 +966,7 @@ img {
 }
 
 .buyModal {
+  width: 100%;
   background-color: #1d1e3e;
 }
 .buyModal h1 {
@@ -1385,27 +1394,36 @@ img {
   width: 50%;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 .paginacion:hover {
   cursor: pointer;
 }
 .paginacion button {
-  padding: 1rem;
-  margin: 0 auto;
+  padding: 0.5rem;
+  margin: 0;
   border: none;
-  background-color: #f28b12;
+  background-color: rgba(11, 12, 41, 0.5607843137);
   border-radius: 0.5rem;
   color: #e1e1e1;
   font-weight: bold;
 }
-.paginacion button::hover {
+.paginacion button:hover {
   cursor: pointer;
+  background: #965508;
 }
 .paginacion .buttonCentro {
-  padding: 2 rem;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   border: solid 1px #e1e1e1;
+  background-color: #c6700b;
+}
+.paginacion .icon {
+  transition: 0.3s;
+  height: 45px;
+}
+.paginacion .icon:hover {
+  stroke: #965508;
 }
 
 .contFavoritos {
@@ -1424,30 +1442,100 @@ img {
   stroke-width: 2.5px;
 }
 
-.contNFTWallet h2 {
-  color: #f28b12;
-  font-size: 2.9rem;
-  margin: 0;
+@media (min-width: 320px) {
+  .contNFTWallet {
+    display: block;
+  }
+  .contNFTWallet .imgFav {
+    height: 300px;
+    width: 100%;
+  }
+  .contNFTWallet .btn-group {
+    width: 80%;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+  }
 }
-.contNFTWallet p {
+@media (min-width: 768px) {
+  .contNFTWallet {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1fr;
+    align-items: center;
+    gap: 2rem;
+  }
+  .contNFTWallet h2 {
+    color: #f28b12;
+    font-size: 2.9rem;
+    margin: 0;
+  }
+  .contNFTWallet p {
+    color: #e1e1e1;
+    font-size: 2rem;
+  }
+  .contNFTWallet span {
+    color: #f28b12;
+    font-size: 2.3rem;
+    font-weight: bold;
+  }
+  .contNFTWallet .imgFav {
+    height: 250px;
+    width: 350px;
+  }
+  @supports (object-fit: cover) {
+    .contNFTWallet .imgFav img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    width: 100px;
+    border-radius: 0.5rem;
+    gap: 1rem;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+.buy-button {
+  margin: 0;
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
   color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
   font-size: 2rem;
 }
-.contNFTWallet span {
-  color: #f28b12;
-  font-size: 2.3rem;
-  font-weight: bold;
+.buy-button:hover {
+  cursor: pointer;
+  background: #1f7929;
 }
-.contNFTWallet .imgFav {
-  height: 250px;
-  width: 250px;
+
+.delete-button {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  font-size: 2rem;
+  margin: 0;
 }
-@supports (object-fit: cover) {
-  .contNFTWallet .imgFav img {
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-  }
+.delete-button:hover {
+  cursor: pointer;
+  background: #621c1c;
 }
 
 .last-grid {
@@ -1478,53 +1566,6 @@ img {
 .first-grid {
   grid-column-start: 1;
   grid-column-end: 1;
-}
-
-.btn-group {
-  display: flex;
-  width: 100%;
-  border-radius: 0.5rem;
-  gap: 2rem;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.buy-button {
-  margin: 0;
-  width: fit-content;
-  background-color: #29a237;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem 0;
-  font-size: 2rem;
-}
-.buy-button:hover {
-  cursor: pointer;
-  background: #1f7929;
-}
-
-.delete-button {
-  margin: 0;
-  width: fit-content;
-  background-color: #c53838;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem auto;
-  font-size: 2rem;
-}
-.delete-button:hover {
-  cursor: pointer;
-  background: #621c1c;
 }
 
 .back-button {
@@ -1648,9 +1689,26 @@ img {
   cursor: pointer;
   background: #4c2b6b;
 }
-.contSettings-info .contFile {
+.contSettings-info .contProfile {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+}
+.contSettings-info .contProfile img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+.contSettings-info .contProfile .contFile {
+  position: absolute;
+  right: 0;
+  bottom: 0rem;
   text-align: center;
   color: #e1e1e1;
+}
+.contSettings-info .contProfile .contFile label {
+  margin: 0;
 }
 .contSettings-info #mifile {
   display: none;
@@ -1671,6 +1729,14 @@ img {
   display: block;
 }
 
+@media (min-width: 768px) {
+  .contSettings-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1fr;
+    align-items: center;
+  }
+}
 .contenedorCard {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
