@@ -20,6 +20,9 @@ import Modal from 'react-modal'
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
   const customStyles = {
+    overlay :{
+      backgroundColor: 'rgba(11,12,41,0.48)',
+    },
     content: {
       top: "50%",
       left: "50%",
@@ -28,7 +31,7 @@ export default function ComponentNFT(props) {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       padding: "0",
-      
+      width: '380px'
     },
   };
   const {
@@ -150,8 +153,8 @@ export default function ComponentNFT(props) {
             <Modal isOpen={openModal } style={customStyles} >
               <div  className="buyModal">
            <button className="closeButton" onClick={() => closeModal()}>X</button>
-            <div   >
-              <h1>{`you wanna buy this nft for : ${price}CL?`} </h1>
+            <div  >
+              <h3>{`you wanna buy this nft for : ${price}CL?`} </h3>
               <img src={image.url} alt="" />
               <p>{`your balance is : ${usuario.coins}CL`}</p>
               <p>{`your balance after buy : ${usuario.coins - price}CL`}</p>

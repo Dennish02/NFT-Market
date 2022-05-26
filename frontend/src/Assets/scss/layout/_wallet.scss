@@ -100,30 +100,41 @@
     }
 }
 .paginacion{
-    margin: 0 auto;
+        margin: 0 auto;
         width: 50%;
         display: flex;
         align-items: center;
+       justify-content: center;
         gap: 0.5rem;
         &:hover{
             cursor: pointer;
         }
         button {
-            padding: 1rem;
-            margin: 0 auto;
+            
+            padding:  0.5rem;
+            margin: 0 ;
             border: none;
-            background-color: v.$naranja;
+            background-color: v.$fondoOscuro;
             @include m.borderRadius;
             color: v.$grisclaro;
             font-weight: bold;
-            &::hover{
-                    cursor: pointer;
+            &:hover{
+                cursor: pointer;
+                background: darken(v.$naranja, 20%)
             }
         }
         .buttonCentro{
-            padding: 2 rem;
-            font-size: 2.5rem;
+           
+            font-size: 2.2rem;
             border: solid 1px v.$grisclaro;
-        }   
+            background-color: darken($color: v.$naranja, $amount:10%);
+        } 
+        .icon{
+            transition: 0.3s;
+            height: 45px;
+            &:hover{
+                stroke: darken(v.$naranja, 20%)
+            }
+        }  
 }    
 

@@ -26,7 +26,8 @@ function    FavnFTS({id, image, _id, colection, avaliable, priceBase, price, cre
       <div className='imgFav'>
       <img  src={image.url} alt="no image"  />
       </div>
-      <h2 className='second-grid' >{ `${colection} ${id}`} <p>{`Creator:  ${creatorId}`}</p> </h2>
+      <h2 className='second-grid' >{ `${colection} ${id}`} 
+      <p>{`Creator:  ${creatorId}`}</p> </h2>
       
       <div className='third-grid'>
       <p className="contPrice">

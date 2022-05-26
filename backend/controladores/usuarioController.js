@@ -24,7 +24,7 @@ const googleLogin = async (req,res) => {
   try {
     
     client.verifyIdToken({idToken, audience: "191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com"}).then(response => {
-      const {email_verified, given_name, email} = response.payload
+      const {email_verified,picture, given_name, email} = response.payload
       if(email_verified){
         Usuario.findOne({email}).exec((err, user) => {
           if(err){
@@ -43,7 +43,7 @@ const googleLogin = async (req,res) => {
                 })
             } else{
               
-              let nuevoUsuario = new Usuario({nombre: given_name, email, image: { public_id: "", url: "" },})
+              let nuevoUsuario = new Usuario({nombre: given_name, email, image: { public_id: "", url: picture },})
               nuevoUsuario.confirmado= true;
               nuevoUsuario.save()
               const token =  generarJWT(nuevoUsuario._id)
