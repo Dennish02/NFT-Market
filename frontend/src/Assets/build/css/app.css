@@ -1023,6 +1023,9 @@ img {
   margin: 0;
   color: #3a3a3a;
 }
+.divPortfolio:hover {
+  background-color: #c5c5c5;
+}
 
 .icon {
   height: 60px;
@@ -1697,6 +1700,18 @@ img {
 }
 #contNotification .notiFalse:hover {
   cursor: pointer;
+}
+#contNotification .viewAll {
+  margin: 0 auto;
+  transition: 0.5s;
+  width: fit-content;
+}
+#contNotification .viewAll a {
+  color: #f28b12;
+  text-align: center;
+}
+#contNotification .viewAll a:hover {
+  color: #e1e1e1;
 }
 
 @media (min-width: 768px) {

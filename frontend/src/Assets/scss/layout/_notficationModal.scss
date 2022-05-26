@@ -35,6 +35,20 @@
       cursor: pointer;
     }
   }
+  .viewAll{
+   
+    margin: 0 auto;
+    transition: 0.5s;
+    width: fit-content;
+    a{
+      color: v.$naranja;
+      text-align: center;
+      &:hover{
+        color: v.$grisclaro;
+      }
+    }
+    
+  }
 }
 
 @include m.desktop{

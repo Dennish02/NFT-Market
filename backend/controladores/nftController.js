@@ -501,7 +501,7 @@ const likeNft = async (req, res) => {
 
     //usuario que le da like
     const userL = await Usuario.findOne({ nombre: req.usuario.nombre }).populate("nftLikes");
-
+     
     if (likeUser) {
       //si el usuario ya le dio like puede quitarselo
       nft.ranking = nft.ranking - 1;
