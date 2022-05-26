@@ -5,6 +5,7 @@ import { emailRegistro, emailOlvidePassword } from "../helpers/emails.js";
 import { uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 import { OAuth2Client } from'google-auth-library'
+import Notificacion from "../models/Notificacion.js";
 
 // const googleValidate = async (req,res) => {
 //   const {email, tokenGoogle} = req.body
@@ -315,6 +316,33 @@ const transferirCl = async (req, res) => {
     }
 };
 
+const notificaciones = async (req, res) => {
+  try {
+    const {notificaciones} = await Usuario.findOne({ nombre: req.usuario.nombre}).populate('notificaciones') 
+    res.status(200).send(notificaciones)
+  } catch (error) {
+    res.send(error)
+  }
+}
+
+const notificacionVista = async (req, res) => {
+  try {
+    const {id} = req.params
+    var notificacion = Notificacion.findById(id)
+    if(notificacion === null){
+      const error = new Error("la notificación no existe")
+      return res.json({msg: error.message})
+    }
+    else{
+      notificacion.visto = true
+      notificacion = await notificacion.save()
+      res.send(notificacion)
+    }
+  } catch (error) {
+    res.send(error)
+  }
+}
+
 export {
   googleLogin,
   registrar,
@@ -328,5 +356,6 @@ export {
   cambiarImage,
   usuario,
   transferirCl,
-
+  notificaciones,
+  notificacionVista
 };

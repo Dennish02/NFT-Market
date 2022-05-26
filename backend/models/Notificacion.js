@@ -8,6 +8,7 @@ const notificacionSchema = mongoose.Schema({
     },
     visto:{
         type: Boolean,
+        default: false
     }
 },{
     timestamps: true
