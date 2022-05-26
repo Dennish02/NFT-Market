@@ -16,7 +16,8 @@ import {
   RANKING_PORTFOLIOS,
 
   GOOGLE_LOGIN,
-
+  NOTIFICATION_USER,
+  NOTIFICATION_USER_TRUE
 
 
 } from "../constantes";
@@ -343,5 +344,42 @@ export function transferirCL({ cl, user }) {
   }
 }
 
-
+export function searchNotification(){
+  return async function(dispatch){
+    const token = localStorage.getItem("token");
+    const authAxios = axios.create({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    try { 
+        const json = await authAxios.get(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/notificaciones`)
+        return dispatch({
+          type: NOTIFICATION_USER,
+          payload: json.data
+        })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+export function viewNotification(id){
+  return async function(dispatch){
+    const token = localStorage.getItem("token");
+    const authAxios = axios.create({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    try { 
+         await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/notificacion/${id}`)
+       
+        return dispatch({
+          type: NOTIFICATION_USER_TRUE,
+        }) 
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
   

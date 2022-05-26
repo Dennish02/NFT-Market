@@ -34,7 +34,7 @@ function Settings() {
   return (
     <div className="contSettings">
       <NavBar usuario={usuarioAct} />
-      <NotificationModal/>
+      <NotificationModal usuario={usuarioAct}/>
       <div className="contSettings-info">
         <div className="enlace">
           <Link to="/update-password">

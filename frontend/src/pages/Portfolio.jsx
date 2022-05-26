@@ -40,7 +40,7 @@ export default function Portfolio() {
   return (
     <div className="contentHome">
       <NavBar usuario={usuarioAct} />
-      <NotificationModal/>
+      <NotificationModal usuario={usuarioAct}/>
       <OptionsPortfolio />
       <div className="main">
         {nftUser.length > 0 ? (

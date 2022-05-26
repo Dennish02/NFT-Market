@@ -1618,7 +1618,6 @@ img {
   display: block;
 }
 
-
 .contenedorCard {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1662,6 +1661,7 @@ img {
 .contenedorCard .buttonReject:hover {
   cursor: pointer;
   background: #4c2b6b;
+}
 
 .displayNone {
   display: none;
@@ -1686,6 +1686,16 @@ img {
   color: #e1e1e1;
 }
 #contNotification .notification:hover {
+  cursor: pointer;
+}
+#contNotification .notiFalse {
+  background-color: rgba(11, 12, 41, 0.5607843137);
+  padding: 1rem;
+  margin: 1rem auto;
+  list-style: none;
+  color: #f28b12;
+}
+#contNotification .notiFalse:hover {
   cursor: pointer;
 }
 
@@ -1733,7 +1743,4 @@ img {
     left: 81%;
     width: 300px;
   }
-}
-.ReactModalPortal .ReactModalOverlay.ReactModalOverlay--after-open {
-  background-color: unset !important;
 }
