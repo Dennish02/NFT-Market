@@ -148,7 +148,9 @@ export function comprarNFT(payload) {
         {},
         config
       );
-
+      let json = await clienteAxios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${payload}`, {}, config
+      );   
       //socket.io
       toast.success(`Compraste este NFT: ${nft.data.NFT_id}`);
       socket.emit("renderHome");
