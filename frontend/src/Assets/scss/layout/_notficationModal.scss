@@ -24,6 +24,17 @@
       cursor: pointer;
     }
   }
+  .notiFalse{
+    background-color: v.$fondoOscuro;
+    padding: 1rem;
+    margin: 1rem auto;
+    list-style: none;
+    color: v.$naranja;
+   
+    &:hover{
+      cursor: pointer;
+    }
+  }
 }
 
 @include m.desktop{
@@ -72,12 +83,3 @@
 }
 }
 
-// .customOverlay {
-//   background-color: rgba(36, 123, 160, 0);
-// }
-// .customModal {
-//   background-color: #b2dbbf00;
-//   //max-width: 500px;
-//   //width: 100%;
-// }
-.ReactModalPortal .ReactModalOverlay.ReactModalOverlay--after-open {   background-color: unset !important; }

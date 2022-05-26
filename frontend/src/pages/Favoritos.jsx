@@ -28,11 +28,10 @@ const params = window.location.href;
           })
         
     },[])
-    let userId = ''
-    miUser.nfts.length > 0? userId = miUser.nfts[0].ownerId : null
+  
     
     return (
-      miUser.length > 0 ? <div className="contentHome">
+      miUser  ? <div className="contentHome">
 
             <NavBar usuario={miUser} />
 
@@ -41,19 +40,13 @@ const params = window.location.href;
 
             <h1 style={{color: 'white'}}>favoritos</h1>
             {miUser.favoritos.length > 0  ? miUser.favoritos.map(fav => {
-                
-                if(fav.ownerId != userId){
                     return (
                         <FavNFTS key={fav._id} image={fav.image} id={fav.id} 
                         colection={fav.colection} avaliable={fav.avaliable}
                         creatorId={fav.creatorId} ownerId={fav.ownerId}
                         _id={fav._id} priceBase={fav.priceBase} price={fav.price}
                         />
-                    )
-                } else{
-                    null
-                }
-                    
+                    )     
                
             })
                 : <p>no hay favoritos </p>

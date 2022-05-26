@@ -1,16 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { searchNotification, viewNotification } from '../../../redux/actions/actionUSER'
 
-export default function NotificationModal() {
+export default function NotificationModal({usuario}) {
+  if(!usuario) " "
+ const dispatch = useDispatch()
+  const notification = useSelector(state=> state.notification)
+  useEffect(()=>{
+    dispatch(searchNotification())
+  },[])
+  console.log(notification);
+  function setTrue(e){
+    //console.log(e._id);
+    dispatch(viewNotification(e._id))
+    dispatch(searchNotification())
+  }
   return (
+    notification ?
     <div id="contNotification" className="contNotification displayNone">
             <ul>
-              <li className="notification">Notificacion 1</li>
-              <li className="notification">Notificacion 1</li>
-              <li className="notification">Notificacion 1</li>
-              <li className="notification">Notificacion 1</li>
-              <li className="notification">Notificacion 1</li>
+              {notification.length > 0 ? notification?.map((e ,i)=>{
+              if (i < 4 ){
+                return(
+                  <li onClick={()=>setTrue(e)} className={e.visto ? "notification" : 'notiFalse'}>{e.msg}</li>
+                ) 
+              }else{
+               return
+              }
+              
+              }): <li className="notification">Not notification</li>}
+             
             </ul>
-    </div>
-     
+    </div> : null
+    
   )
 }
