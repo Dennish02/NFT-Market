@@ -304,7 +304,14 @@ const transferirCl = async (req, res) => {
         
       usuarioB.coins = usuarioB.coins + Number(cl);
       usuarioB.save();
-  
+      
+      //notificación
+      const notificacion = new Notificacion({
+        msg: `${usuarioA.nombre} te ha transferido ${cl}CL`
+      })
+      usuarioB.notificaciones.unshift(notificacion)
+      await notificacion.save()
+
       res.json({ msg: `${usuarioA.nombre} Ha enviado ${cl}CL a ${usuarioB.nombre}` });
   
       }  
