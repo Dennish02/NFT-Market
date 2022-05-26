@@ -762,7 +762,7 @@ img {
   color: #e1e1e1;
 }
 
-.contNFT {
+.contNFT, .buyModal {
   position: relative;
   padding: 1rem;
   width: 280px;
@@ -772,12 +772,12 @@ img {
   margin: 0 auto;
   border-radius: 0.5rem;
 }
-.contNFT .venta {
+.contNFT .venta, .buyModal .venta {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1px;
 }
-.contNFT .enVenta {
+.contNFT .enVenta, .buyModal .enVenta {
   width: 20px;
   height: 20px;
   border-radius: 100%;
@@ -786,13 +786,13 @@ img {
   display: inline-block;
   cursor: pointer;
 }
-.contNFT .verde {
+.contNFT .verde, .buyModal .verde {
   background-color: #29a237;
 }
-.contNFT .rojo {
+.contNFT .rojo, .buyModal .rojo {
   background-color: #c53838;
 }
-.contNFT .noVenta {
+.contNFT .noVenta, .buyModal .noVenta {
   width: 20px;
   height: 20px;
   border-radius: 100%;
@@ -801,62 +801,62 @@ img {
   display: inline-block;
   cursor: pointer;
 }
-.contNFT .textVenta {
+.contNFT .textVenta, .buyModal .textVenta {
   color: #e1e1e1;
   margin-right: 1rem;
 }
-.contNFT .contImg {
+.contNFT .contImg, .buyModal .contImg {
   position: relative;
   height: 260px;
   width: 100%;
   background-size: cover;
 }
 @supports (object-fit: cover) {
-  .contNFT .contImg img {
+  .contNFT .contImg img, .buyModal .contImg img {
     height: 100%;
     object-fit: cover;
     object-position: center center;
   }
 }
-.contNFT .contImg img {
+.contNFT .contImg img, .buyModal .contImg img {
   height: 100%;
 }
-.contNFT h2 {
+.contNFT h2, .buyModal h2 {
   color: #f28b12;
   font-size: 2.9rem;
   margin: 0;
 }
-.contNFT p {
+.contNFT p, .buyModal p {
   color: #e1e1e1;
   font-size: 2rem;
   line-height: 1.2;
   margin: 0;
 }
-.contNFT p span {
+.contNFT p span, .buyModal p span {
   color: #f28b12;
   font-size: 2.3rem;
   font-weight: bold;
 }
-.contNFT .contNFTinfo {
+.contNFT .contNFTinfo, .buyModal .contNFTinfo {
   width: 100%;
 }
-.contNFT .contNFTinfo .porcentajeMenos {
+.contNFT .contNFTinfo .porcentajeMenos, .buyModal .contNFTinfo .porcentajeMenos {
   color: #c53838;
   font-weight: bold;
 }
-.contNFT .contNFTinfo .porcentajeMas {
+.contNFT .contNFTinfo .porcentajeMas, .buyModal .contNFTinfo .porcentajeMas {
   color: #29a237;
   font-weight: bold;
 }
-.contNFT .contButtons {
+.contNFT .contButtons, .buyModal .contButtons {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
 }
-.contNFT .w-50 {
+.contNFT .w-50, .buyModal .w-50 {
   width: 50%;
 }
-.contNFT .buttonTrade {
+.contNFT .buttonTrade, .buyModal .buttonTrade {
   width: fit-content;
   background-color: #663a8f;
   padding: 1rem;
@@ -869,29 +869,29 @@ img {
   margin: 1rem 0;
   width: 50%;
 }
-.contNFT .buttonTrade:hover {
+.contNFT .buttonTrade:hover, .buyModal .buttonTrade:hover {
   cursor: pointer;
   background: #4c2b6b;
 }
-.contNFT .buttonFav {
+.contNFT .buttonFav, .buyModal .buttonFav {
   width: 30px;
   position: absolute;
   bottom: 200px;
   left: 85%;
 }
-.contNFT .buttonFav:hover {
+.contNFT .buttonFav:hover, .buyModal .buttonFav:hover {
   cursor: pointer;
 }
-.contNFT .buttonlike {
+.contNFT .buttonlike, .buyModal .buttonlike {
   width: 30px;
   position: absolute;
   top: 4px;
   left: 5%;
 }
-.contNFT .buttonlike:hover {
+.contNFT .buttonlike:hover, .buyModal .buttonlike:hover {
   cursor: pointer;
 }
-.contNFT .contLike {
+.contNFT .contLike, .buyModal .contLike {
   height: 35px;
   width: 98%;
   position: absolute;
@@ -900,13 +900,13 @@ img {
   background-color: #3a3a3a;
   opacity: 0.8;
 }
-.contNFT .cantlike {
+.contNFT .cantlike, .buyModal .cantlike {
   width: 30px;
   position: absolute;
   top: 10px;
   left: 17%;
 }
-.contNFT .cantlike:hover {
+.contNFT .cantlike:hover, .buyModal .cantlike:hover {
   cursor: pointer;
 }
 
@@ -955,6 +955,56 @@ img {
 .heigth {
   height: 100%;
   background: none;
+}
+
+.buyModal {
+  background-color: #1d1e3e;
+}
+.buyModal h1 {
+  color: #f28b12;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: bold;
+}
+.buyModal p {
+  color: #f28b12;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: bold;
+}
+
+.noButton {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 1rem;
+}
+.noButton:hover {
+  cursor: pointer;
+  background: #621c1c;
+}
+
+.closeButton {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 0;
+}
+.closeButton:hover {
+  cursor: pointer;
+  background: #621c1c;
 }
 
 @media (min-width: 320px) {
