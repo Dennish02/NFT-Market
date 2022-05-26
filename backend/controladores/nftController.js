@@ -287,7 +287,7 @@ const tradeOffer = async (req, res) => {
     // const { nftOffered, nftOfferedColection, nftId, owner, nftColection } =
     //   req.body;
     const { nftId, nftOffered,owner} = req.body
-
+    
     //?nft que se quiere cambiar 
     const nft = await NftCreated.findOne({
       //ownerId: owner,
@@ -325,7 +325,6 @@ const tradeOffer = async (req, res) => {
     //?guarda los dos usuarios
     await nftOwner.save();
     await userOffer.save()
-
     res.json(nftOwner.hasTradeOffers);
   } catch (error) {
     res.status(400).send(error);
@@ -348,7 +347,7 @@ const responseOffer = async (req, res) => {
     const { response, newId } = req.body;
    
     let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
-
+    
     let r = JSON.parse(response);
     
     if (oferta) {

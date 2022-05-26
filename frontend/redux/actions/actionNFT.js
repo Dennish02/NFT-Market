@@ -1,6 +1,6 @@
 import axios from "axios";
 import clienteAxios from "../../src/config/clienteAxios";
-import { useEffect } from "react";
+
 import {
   CREATE_NFT,
   RESET,
@@ -17,6 +17,8 @@ import {
   SAVE_VALUE,
   LIKE_NFT,
   SORT_POP,
+  TRADE_OFFER,
+  SEE_OFFER,
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -366,4 +368,58 @@ export function sortPopularity(payload) {
       payload,
     });
   };
+}
+
+export function tradeOffer(nftId, nftOffered,owner) {
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    
+    try {
+      const json = await authAxios.post (
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/tradeoffer`,{ nftId, nftOffered,owner})
+        
+        console.log(json.data)
+
+        toast.success(json.data.msg);
+        return dispatch ({
+          type: TRADE_OFFER,
+          payload: json.data
+        })
+        
+    } catch (error) {
+      toast.warning(error.response.data.msg);
+    }
+  }
+}
+
+export function seeOffers() {
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    
+    try {
+      const json = await authAxios.get (
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/seeoffers`)
+        
+        // console.log(json.data)
+        return dispatch ({
+          type: SEE_OFFER,
+          payload: json.data
+        })
+        
+    } catch (error) {
+      toast.warning(error.response.data.msg);
+    }
+  }
 }

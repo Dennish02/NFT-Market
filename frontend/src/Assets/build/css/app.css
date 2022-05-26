@@ -1594,3 +1594,48 @@ img {
   text-align: center;
   display: block;
 }
+
+.contenedorCard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1fr;
+  align-items: center;
+  max-width: 800px;
+  margin: 6rem auto;
+  border: solid 1px #f28b12;
+  padding: 2rem 0;
+}
+.contenedorCard .buttonAccept {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  margin: 0 auto;
+}
+.contenedorCard .buttonAccept:hover {
+  cursor: pointer;
+  background: #1f7929;
+}
+.contenedorCard .buttonReject {
+  width: fit-content;
+  background-color: #663a8f;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 2rem auto;
+}
+.contenedorCard .buttonReject:hover {
+  cursor: pointer;
+  background: #4c2b6b;
+}
