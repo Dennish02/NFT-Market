@@ -57,7 +57,11 @@ const usuarioSchema = mongoose.Schema(
     portfolioValue: {
       type: Number,
       default: 0
-    }
+    },
+    notificaciones: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Notificacion"
+    }]
   },
 
   {

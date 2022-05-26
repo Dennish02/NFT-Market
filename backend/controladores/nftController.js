@@ -4,6 +4,7 @@ import { uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
 import Usuario from "../models/Usuarios.js";
 import * as emails from '../helpers/emails.js';
+import Notificacion from "../models/Notificacion.js"
 
 const allNftUser = async (req, res) => {
   const { usuario } = req;
@@ -152,6 +153,13 @@ const regalarNft = async (req, res) => {
       nft.save();
       //...
 
+      //notificación
+      const notificacion = new Notificacion({
+        msg: `${req.usuario.nombre} te ha regalado el NFT ${nft.colection} ${nft.id}`,
+      })
+      giftTo.notificaciones.unshift(notificacion)
+      await notificacion.save()
+
       giftTo.nfts.push(nft);
       giftTo.save();
 
@@ -189,6 +197,16 @@ const comprarNft = async (req, res, next) => {
         (nft) => nft.id !== NFT.id || nft.colection !== NFT.colection
       );
       vendedor.nfts = nftFiltrados;
+
+      //notificación
+
+      const notificacion = new Notificacion({
+        msg: `${comprador.nombre} te ha comprado el NFT ${NFT.colection} ${NFT.id}`,
+        visto: false
+      })
+      vendedor.notificaciones.unshift(notificacion)
+      await notificacion.save()
+
       await vendedor.save();
       NFT.ownerId = comprador.nombre;
       NFT.avaliable = false;

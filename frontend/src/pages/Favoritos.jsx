@@ -32,7 +32,7 @@ const params = window.location.href;
     miUser.nfts.length > 0? userId = miUser.nfts[0].ownerId : null
     
     return (
-      miUser.length !== 0 ? <div className="contentHome">
+      miUser.length > 0 ? <div className="contentHome">
 
             <NavBar usuario={miUser} />
 

@@ -3,17 +3,30 @@ import NavWallet from "../componentes/wallet/NavWallet";
 import ComponentNFTWallet from "../componentes/wallet/ComponentNFTWallet";
 import { useSelector, useDispatch } from "react-redux";
 import formateoPrecio from "../middleware/formateoPrecio";
-
-import { allNftMarket} from  "../../redux/actions/actionNFT"
-
 import Modal from "react-modal";
 import mp from "../img/mp.png";
 import { toast } from "react-toastify";
 import Paginado from "./Paginas";
-import { usuarioActual , transferirCL, showUsers} from "../../redux/actions/actionUSER";
+import { usuarioActual , transferirCL} from "../../redux/actions/actionUSER";
 import { comprarCL } from '../../redux/actions/actionUSER';
 import io from "socket.io-client";
 
+
+const customStyles = {
+  overlay :{
+    backgroundColor: 'rgba(11,12,41,0.48)',
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    padding: "0",
+    width: '700px',
+  },
+};
 
 
 let socket;
@@ -154,6 +167,7 @@ function Wallet() {
   return (
     <div className="contentHome" >
       <NavWallet />
+  
       <div className="ContenedorGeneralWallet">
         <div className="wallet-panel">
           <div className='balanceWallet'>
@@ -188,7 +202,7 @@ function Wallet() {
 
               <p>Transferí CL a otro usuario</p>
               <button className="buttonPrimary" onClick={MostrarModal}>Transferir</button>
-              <Modal isOpen={mostrarModal}>
+              <Modal style={customStyles} isOpen={mostrarModal}>
               <div className='InpcutLogo'>
                 <div className='regalar'>
                 <button className="close" onClick={OcultarModal}>

@@ -8,6 +8,7 @@ import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
 
 import io from "socket.io-client";
 import { showUsers, usuarioActual } from "../../redux/actions/actionUSER";
+import NotificationModal from "../componentes/home/NotificationModal";
 let socket;
 
 export default function Portfolio() {
@@ -39,6 +40,7 @@ export default function Portfolio() {
   return (
     <div className="contentHome">
       <NavBar usuario={usuarioAct} />
+      <NotificationModal/>
       <OptionsPortfolio />
       <div className="main">
         {nftUser.length > 0 ? (

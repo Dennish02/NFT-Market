@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import io from "socket.io-client";
+import NotificationModal from "../componentes/home/NotificationModal";
 let socket;
 
 function Settings() {
@@ -33,6 +34,7 @@ function Settings() {
   return (
     <div className="contSettings">
       <NavBar usuario={usuarioAct} />
+      <NotificationModal/>
       <div className="contSettings-info">
         <div className="enlace">
           <Link to="/update-password">

@@ -14,11 +14,40 @@ import {
   ACTUAL,
   TRANSFERIR_CL,
   RANKING_PORTFOLIOS,
+
+  GOOGLE_LOGIN,
+
+
+
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
+
+
+export function registroGoogle(googleData){
+  return async function(dispatch){
+    const token = googleData.credential
+    console.log(token)
+    try{
+
+     const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuario/google`, {idToken: token});
+     localStorage.setItem("token", response.data.token);
+     console.log('response', response.data)
+     return dispatch({
+      type: GOOGLE_LOGIN,
+      payload: response.data,
+    });
+    }catch(err){
+      toast.error(err)
+    }
+  }
+}
+      // console.log('data', response.data)
+      // toast.success(response.data);
+
+
 
 
 export function registroUsuario({ nombre, email, password1 }) {
@@ -310,5 +339,9 @@ export function transferirCL({ cl, user }) {
       console.log(error);
       toast.error(error.response.data.msg);
     }
-  };
+
+  }
 }
+
+
+  
