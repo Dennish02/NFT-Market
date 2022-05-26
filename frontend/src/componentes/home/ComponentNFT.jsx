@@ -13,11 +13,24 @@ import favOn from "../../img/favOn.png";
 import favOf from "../../img/favOf.png";
 import likeOn from "../../img/likeOn.png";
 import likeOf from "../../img/likeOff.png";
+import Modal from 'react-modal'
 
 
 
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "0",
+      
+    },
+  };
   const {
     _id,
     id,
@@ -51,10 +64,16 @@ export default function ComponentNFT(props) {
   usuario.nftLikes ? ( idNftLike = usuario.nftLikes) : null;
   idNftLike.length > 0 ? nftfilter = idNftLike.map((e) => e) : null;
 
-
+  const [openModal, setOpenModal] = useState(false)
   const [favFlag, setFavFlag] = useState(false);
   const [likeFlag, setLikeFlag] = useState(false);
 
+  function showModal(){
+    setOpenModal(true)
+  }
+  function closeModal(){
+    setOpenModal(false)
+  }
   function añadirFavorito() {
     if (!favFlag) {
       setFavFlag(true);
@@ -77,7 +96,8 @@ export default function ComponentNFT(props) {
     }
   }
   function handleBuy() {
-    confirm("Queres comprar este nft?") ? dispatch(comprarNFT(_id)) : null;
+     dispatch(comprarNFT(_id)) 
+     setOpenModal(false)
   }
 
   return (
@@ -121,10 +141,29 @@ export default function ComponentNFT(props) {
             <button
               disabled={avaliable === false ? true : false}
               className={avaliable ? "w-50 buttonPrimary" : "disabled"}
-              onClick={() => handleBuy()}
+              onClick={()=> showModal()}
             >
+              
               BUY
             </button>{" "}
+
+            <Modal isOpen={openModal } style={customStyles} >
+              <div  className="buyModal">
+           <button className="closeButton" onClick={() => closeModal()}>X</button>
+            <div   >
+              <h1>{`you wanna buy this nft for : ${price}CL?`} </h1>
+              <img src={image.url} alt="" />
+              <p>{`your balance is : ${usuario.coins}CL`}</p>
+              <p>{`your balance after buy : ${usuario.coins - price}CL`}</p>
+            </div>
+            <div className="contButtons">
+            <button onClick={() => handleBuy()} className="buttonPrimary">BUY</button>
+            <button onClick={()=> closeModal()} className="noButton"> NO</button>
+            </div>
+              </div>
+            </Modal>
+           
+           
             <button className="w-50 buttonTrade">Trade</button>{" "}
           </>
         ) : null}
