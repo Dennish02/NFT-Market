@@ -49,6 +49,7 @@ export function registroGoogle(googleData){
 
 
 
+
 export function registroUsuario({ nombre, email, password1 }) {
   // const n = Math.floor(Math.random() * 10) % 3;
   return async function () {

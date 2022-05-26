@@ -39,6 +39,13 @@ export default function ProfileSettings({ closeModal }) {
       </div>
 
       <div className="divPortfolio">
+        <Link to="/home/usuario/trades">
+          <h3>trades</h3>
+          <MdMonetizationOn className="icon" />
+        </Link>
+      </div>
+
+      <div className="divPortfolio">
         <Link to="/home/usuario/setting">
           <h3>settings</h3>
           <MdSettingsApplications className="icon" />

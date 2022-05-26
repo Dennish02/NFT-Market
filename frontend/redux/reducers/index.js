@@ -24,13 +24,13 @@ import {
   LIKE_NFT,
   SORT,
   LOAD_COLECCIONES,
-
   GOOGLE_LOGIN,
-
-
-
   SORT_POP,
+  GUARDAR_PAGINA,
+  TRADE_OFFER,
+  SEE_OFFER,
   GUARDAR_PAGINA
+
 
 } from "../constantes";
 
@@ -53,6 +53,7 @@ const initialState = {
   ranking:[],
   likeNft:[],
   transferencias:[],
+  trades:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -141,6 +142,7 @@ function rootReducer(state = initialState, action) {
         ranking: [],
         likeNft: [],
         transferencias: [],
+        trades:[],
         allNftFlag: true,
       };
     case AUTH_USER:
@@ -298,6 +300,16 @@ function rootReducer(state = initialState, action) {
             ...state.homeGuardado,
             pagina: action.payload
           }
+        }
+      case TRADE_OFFER: 
+        return {
+          ...state,
+          trades: action.payload
+        }
+      case SEE_OFFER: 
+        return {
+          ...state,
+          trades: action.payload
         }
 
     default:

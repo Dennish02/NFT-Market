@@ -1,0 +1,20 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.contenedorCard{
+    @include m.grid(2, 1fr);
+    max-width: 800px;
+    margin: 6rem auto;
+    border:solid 1px v.$naranja;
+    padding: 2rem 0;
+
+    .buttonAccept{
+        @include m.buttonPrimary;
+        margin: 0 auto;
+    }
+    .buttonReject{
+        @include m.buttonMorado;
+        margin: 2rem auto;
+    }
+}
+

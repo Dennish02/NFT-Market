@@ -14,6 +14,8 @@ import favOf from "../../img/favOf.png";
 import likeOn from "../../img/likeOn.png";
 import likeOf from "../../img/likeOff.png";
 
+
+
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
   const {

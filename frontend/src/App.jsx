@@ -23,7 +23,7 @@ import Register from "./pages/Register.jsx";
 import Wallet from "./pages/Wallet.jsx";
 import Settings from "./pages/Settings.jsx";
 import UpdatePassword from "./componentes/settings/updatePassword"
-
+import Trades from "./pages/Trades.jsx";
 
 import Favoritos from './pages/Favoritos'
 
@@ -82,6 +82,13 @@ function App() {
           <Route index element={<Failure />} />
         </Route>
 
+        <Route
+          path="home/usuario/trades"
+          element={<VerificacionUsuario />}
+        >
+          <Route index element={<Trades/>} />
+        </Route>
+        
         
 
 
