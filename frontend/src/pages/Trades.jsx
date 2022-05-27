@@ -16,12 +16,6 @@ function Trades() {
     dispatch(seeOffers());
     dispatch(usuarioActual())
   }, []);
-
-//   const handleAccept = (e) => {
-//     e.preventDefault();
-//   };
-
- 
  
   if (!usuarioAct) "cargando";
   return (
@@ -92,47 +86,3 @@ function Trades() {
 
 export default Trades;
 
-{
-  /* <>{AllTrades && AllTrades.map((e) => (
-    <div >
-         <div key={e.id} className="contenedorCard">
-
-            <div>
-                <CardTrade
-                userSend= {e.userSend}
-                userReceived= {e.userReceived}
-                id={e.nftReceived.id}
-                creatorId={e.nftReceived.creatorId}
-                ownerId= {e.nftReceived.ownerId}
-                image={e.nftReceived.image.url}
-                colection= {e.nftReceived.colection}
-                category={e.nftReceived.category}
-                price= {e.nftReceived.price}
-                ranking= {e.nftReceived.ranking}
-
-                />
-            </div>
-
-            <div>
-                          
-                <CardTrade
-                userSend= {e.userSend}
-                userReceived= {e.userReceived}
-                id={e.nftSend.id}
-                creatorId={e.nftSend.creatorId}
-                ownerId= {e.nftSend.ownerId}
-                image={e.nftSend.image.url}
-                colection= {e.nftSend.colection}
-                category={e.nftSend.category}
-                price= {e.nftSend.price}
-                ranking= {e.nftSend.ranking}
-
-                />
-            </div>
-            <button onClick={handleAccept} className='buttonAccept'>accept</button>
-            <button className='buttonReject'>reject</button>
-        </div>
-    </div>
-))}
-</> */
-}
