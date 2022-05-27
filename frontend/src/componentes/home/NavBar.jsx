@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NotificationModal from "./NotificationModal";
 import { searchNotification } from "../../../redux/actions/actionUSER";
 
-const customStyles = {
+const customStyls = {
     overlay :{
       backgroundColor: 'rgba(11,12,41,0.48)',
     },
@@ -93,7 +93,7 @@ export default function NavBar({usuario}) {
        
         ) : null}
 
-        <Modal style={customStyles} isOpen={showModal} className='customStyles'>
+        <Modal style={customStyls} isOpen={showModal} className='customStyles'>
           <ProfileSettings />
         </Modal>
       </div>

@@ -592,95 +592,107 @@ img {
     margin: 0 auto;
   }
 }
-.contLogin {
-  position: relative;
-  width: 600px;
-  max-height: 700px;
-  background-color: #3a3a3a;
-  color: #e1e1e1;
-  border-radius: 0.5rem;
-  padding: 2rem;
+@media (min-width: 320px) {
+  .contLogin {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    max-height: fit-content;
+    background-color: #3a3a3a;
+    color: #e1e1e1;
+    border-radius: 0.5rem;
+    padding: 1rem 0;
+  }
+  .contLogin .close {
+    position: absolute;
+    right: 18px;
+    top: 10px;
+    background: none;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  .contLogin .close:hover {
+    cursor: pointer;
+    background-color: #e1e1e1;
+  }
+  .contLogin .contLogin-content {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .contLogin .contLogin-content input {
+    font-family: "Ubuntu", sans-serif;
+    display: block;
+    margin: 1rem auto 2rem auto;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #e1e1e1;
+    outline: none;
+  }
+  .contLogin .contLogin-content select {
+    font-family: "Ubuntu", sans-serif;
+    display: block;
+    margin: 1rem auto 2rem auto;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #e1e1e1;
+    outline: none;
+  }
+  .contLogin .contLogin-content .file {
+    background-color: transparent;
+    padding: 0;
+  }
+  .contLogin .contLogin-content .buttonPrimary {
+    width: fit-content;
+    background-color: #29a237;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #e1e1e1;
+    font-weight: 700;
+    margin: 1rem 0;
+  }
+  .contLogin .contLogin-content .buttonPrimary:hover {
+    cursor: pointer;
+    background: #1f7929;
+  }
+  .contLogin .contLogin-content .buttonPrimary:hover {
+    cursor: pointer;
+  }
+  .contLogin .contLogin-content .buttonSecondary {
+    width: fit-content;
+    background-color: #e1e1e1;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #3a3a3a;
+    font-weight: 700;
+    margin: 1rem 0;
+  }
+  .contLogin .contLogin-content .buttonSecondary:hover {
+    cursor: pointer;
+    background: #c8c8c8;
+  }
+  .contLogin .contLogin-content .buttonSecondary:hover {
+    cursor: pointer;
+  }
 }
-.contLogin .close {
-  position: absolute;
-  right: 18px;
-  top: 10px;
-  background: none;
-  border: none;
-  padding: 1rem;
-  border-radius: 0.5rem;
+@media (min-width: 768px) {
+  .contLogin {
+    width: 600px;
+    max-height: 700px;
+    padding: 2rem;
+  }
+  .contLogin .contLogin-content {
+    width: 70%;
+  }
 }
-.contLogin .close:hover {
-  cursor: pointer;
-  background-color: #e1e1e1;
-}
-.contLogin .contLogin-content {
-  width: 70%;
-  margin: 0 auto;
-}
-.contLogin .contLogin-content input {
-  font-family: "Ubuntu", sans-serif;
-  display: block;
-  margin: 1rem auto 2rem auto;
-  padding: 2rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  background-color: #e1e1e1;
-  outline: none;
-}
-.contLogin .contLogin-content select {
-  font-family: "Ubuntu", sans-serif;
-  display: block;
-  margin: 1rem auto 2rem auto;
-  padding: 2rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  background-color: #e1e1e1;
-  outline: none;
-}
-.contLogin .contLogin-content .file {
-  background-color: transparent;
-  padding: 0;
-}
-.contLogin .contLogin-content .buttonPrimary {
-  width: fit-content;
-  background-color: #29a237;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem 0;
-}
-.contLogin .contLogin-content .buttonPrimary:hover {
-  cursor: pointer;
-  background: #1f7929;
-}
-.contLogin .contLogin-content .buttonPrimary:hover {
-  cursor: pointer;
-}
-.contLogin .contLogin-content .buttonSecondary {
-  width: fit-content;
-  background-color: #e1e1e1;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #3a3a3a;
-  font-weight: 700;
-  margin: 1rem 0;
-}
-.contLogin .contLogin-content .buttonSecondary:hover {
-  cursor: pointer;
-  background: #c8c8c8;
-}
-.contLogin .contLogin-content .buttonSecondary:hover {
-  cursor: pointer;
-}
-
 .error {
   color: #c53838;
 }
@@ -884,7 +896,7 @@ img {
 .contNFT .buttonFav, .buyModal .buttonFav {
   width: 30px;
   position: absolute;
-  bottom: 200px;
+  bottom: 190px;
   left: 85%;
 }
 .contNFT .buttonFav:hover, .buyModal .buttonFav:hover {
@@ -1287,20 +1299,30 @@ img {
   background: #4c2b6b;
 }
 
-.wallet-panel {
-  width: 30%;
-  border-radius: 0.5rem;
-  border: solid 1px #f28b12;
-  margin: 1rem auto;
-  text-align: center;
-  height: fit-content;
+@media (min-width: 320px) {
+  .wallet-panel {
+    width: 30%;
+    border-radius: 0.5rem;
+    border: solid 1px #f28b12;
+    margin: 1rem auto;
+    text-align: center;
+    height: fit-content;
+    width: 80%;
+    padding: 2rem 0;
+  }
 }
-
+@media (min-width: 768px) {
+  .wallet-panel {
+    width: 30%;
+    width: fit-content;
+  }
+}
 .contNFTWallet {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1fr;
   align-items: center;
+  width: fit-content;
   align-items: center;
   text-align: left;
   width: 90%;
@@ -1314,13 +1336,21 @@ img {
   margin: 0;
 }
 
-.ContenedorGeneralWallet {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  margin: 0 auto;
+@media (min-width: 320px) {
+  .ContenedorGeneralWallet {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+  }
 }
-
+@media (min-width: 768px) {
+  .ContenedorGeneralWallet {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
 .ContenedorCardsWallet {
   width: 90%;
   margin: 0 auto;
@@ -1358,20 +1388,74 @@ img {
   color: #e1e1e1;
 }
 
-.InpcutLogo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.subtitulo {
+  color: #e1e1e1;
+  text-align: center;
+  margin: 2rem auto;
 }
 
-.contInput {
-  width: 50%;
-  display: inline-block;
-}
-.contInput .dinner {
-  padding: 1rem;
-}
+@media (min-width: 320px) {
+  .InpcutLogo {
+    display: block;
+  }
 
+  .contInput {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .buttonMP {
+    width: fit-content;
+    background-color: #663a8f;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #e1e1e1;
+    font-weight: 700;
+    margin: 1rem auto;
+    margin: 0 auto 0 1rem;
+    width: 90%;
+  }
+  .buttonMP:hover {
+    cursor: pointer;
+    background: #4c2b6b;
+  }
+}
+@media (min-width: 768px) {
+  .InpcutLogo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .contInput {
+    width: 50%;
+    display: inline-block;
+  }
+  .contInput .dinner {
+    padding: 1rem;
+  }
+
+  .buttonMP {
+    width: fit-content;
+    background-color: #663a8f;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #e1e1e1;
+    font-weight: 700;
+    margin: 1rem auto;
+  }
+  .buttonMP:hover {
+    cursor: pointer;
+    background: #4c2b6b;
+  }
+}
 .contLogoMP {
   width: 30%;
   margin: 0 auto;
@@ -1431,11 +1515,6 @@ img {
   width: 90%;
 }
 
-.second-grid {
-  grid-column-start: 2;
-  grid-column-end: 2;
-}
-
 .iconFav {
   width: 25px;
   height: 25px;
@@ -1447,10 +1526,10 @@ img {
     display: block;
   }
   .contNFTWallet .imgFav {
-    height: 300px;
     width: 100%;
   }
   .contNFTWallet .btn-group {
+    display: flex;
     width: 80%;
     justify-content: space-around;
     align-items: center;
@@ -1464,6 +1543,7 @@ img {
     gap: 1fr;
     align-items: center;
     gap: 2rem;
+    width: fit-content;
   }
   .contNFTWallet h2 {
     color: #f28b12;
@@ -1566,6 +1646,11 @@ img {
 .first-grid {
   grid-column-start: 1;
   grid-column-end: 1;
+}
+
+.second-grid {
+  color: #f28b12;
+  margin: 0;
 }
 
 .back-button {
