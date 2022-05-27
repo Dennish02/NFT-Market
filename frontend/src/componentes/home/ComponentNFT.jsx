@@ -1,20 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   comprarNFT,
   AñadirFav,
   eliminarFav,
   darLike,
+  tradeOffer,
 } from "../../../redux/actions/actionNFT";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import pocentajeAumento from "../../middleware/pocentajeAumento";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import favOn from "../../img/favOn.png";
 import favOf from "../../img/favOf.png";
 import likeOn from "../../img/likeOn.png";
 import likeOf from "../../img/likeOff.png";
+import Modal from "react-modal";
+import ComponentNftTrade from "../../componentes/home/ComponentNftTrade"
+// import { tradeOffer } from "../../../redux/actions/actionNFT";
 
-
+const customStyles = {
+  overlay :{
+    backgroundColor: 'rgba(11,12,41,0.48)',
+  },
+  content: {
+    margin: "0",
+    padding: "0",
+  },
+};
 
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
@@ -55,6 +67,18 @@ export default function ComponentNFT(props) {
   const [favFlag, setFavFlag] = useState(false);
   const [likeFlag, setLikeFlag] = useState(false);
 
+  const [ mostrarModal, setMostrarModal ] = useState(false)
+  const User = useSelector(state => state.usuarioActual)
+  const UserFilter = User.nfts.filter(e => e.avaliable !== false)
+  // console.log(UserFilter);
+
+  const [ trade, setTrade ] = useState({
+    owner: "",
+    nftId: "",
+    nftOffered: "",
+  })
+  // console.log(trade)
+
   function añadirFavorito() {
     if (!favFlag) {
       setFavFlag(true);
@@ -79,6 +103,35 @@ export default function ComponentNFT(props) {
   function handleBuy() {
     confirm("Queres comprar este nft?") ? dispatch(comprarNFT(_id)) : null;
   }
+
+
+  const setnftOffered = (id) => {
+    setTrade({
+      ...trade, 
+      nftOffered: id
+    })
+  }
+
+  function MostrarModal (e) {
+    setMostrarModal(true);
+    setTrade({
+      ...trade, 
+      owner: ownerId,
+      nftId: id,
+    })
+    
+    console.log(trade)
+  } 
+
+  function OcultarModal (){
+    console.log(trade)
+    setMostrarModal(false);
+    setTimeout(() => {
+      dispatch(tradeOffer(trade))
+    }, 2000);
+    
+  }
+
 
   return (
     <div className="contNFT">
@@ -125,7 +178,52 @@ export default function ComponentNFT(props) {
             >
               BUY
             </button>{" "}
-            <button className="w-50 buttonTrade">Trade</button>{" "}
+
+            <button onClick={(e) => MostrarModal(e)} className="w-50 buttonTrade">Trade</button>
+
+            <Modal style={customStyles}  isOpen={mostrarModal}>
+            <div className="padreModal">
+
+            <div>
+              <button className="close" onClick={OcultarModal}>
+                X
+              </button>
+            </div>
+
+            <div>
+              <h3>Choose the nft that you want to trade</h3>
+            </div>
+
+            <div  className="contenedorCardTrade">
+            {UserFilter && UserFilter.map((nft) => (
+              <div key={nft.id}>
+                { 
+                  <div>
+                    <div>
+                   <ComponentNftTrade
+                    OcultarModal= {OcultarModal}
+                    trade= {trade}
+                    setnftOffered={setnftOffered}
+                    usuario={User.nombre}
+                    _id={nft._id}
+                    id={nft.id}
+                    image={nft.image}
+                    colection={nft.colection}
+                    category={nft.category}
+                    priceBase={nft.priceBase}
+                    price={nft.price}
+                    creatorId={nft.creatorId}
+                    ownerId={nft.ownerId}
+                    ranking={nft.ranking}
+                                    />
+                    </div>
+                  </div>
+                }
+              </div>
+            )) }
+              </div>
+            </div>
+            </Modal>
           </>
         ) : null}
       </div>

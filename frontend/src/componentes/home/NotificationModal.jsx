@@ -9,9 +9,7 @@ export default function NotificationModal({usuario}) {
   useEffect(()=>{
     dispatch(searchNotification())
   },[])
-  console.log(notification);
   function setTrue(e){
-    //console.log(e._id);
     dispatch(viewNotification(e._id))
     dispatch(searchNotification())
   }

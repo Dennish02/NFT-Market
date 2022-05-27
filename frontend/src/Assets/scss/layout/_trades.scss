@@ -1,6 +1,8 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
 
+
+
 .contenedorCard{
     @include m.grid(2, 1fr);
     max-width: 800px;
@@ -18,3 +20,27 @@
     }
 }
 
+
+.padreModal{
+    background-color: v.$fondo;
+    width: 100%;
+    min-height: 100%;
+    padding-bottom: 2rem
+}
+
+.contenedorCardTrade{
+    @include m.grid(2, 1fr);
+    gap:2rem;
+    max-width: 800px;
+    margin:auto;
+    padding: 2rem 0;
+    border:solid 1px v.$naranja;
+    // @include 
+}
+
+.buttonTrade1{
+    @include m.buttonPrimary;
+    margin: 1rem auto;
+    display: flex;
+    
+}

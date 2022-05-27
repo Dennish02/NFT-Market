@@ -26,7 +26,7 @@ export default function NavBar({usuario}) {
   const notification = useSelector(state=> state.notification)
 
   let noti = 0
-  notification.map(e=> !e.visto ? noti ++ : null )
+  notification?.map(e=> !e.visto ? noti ++ : null )
  
   function handleButton() {
     setShowModal(true);

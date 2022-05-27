@@ -370,7 +370,8 @@ export function sortPopularity(payload) {
   };
 }
 
-export function tradeOffer(nftId, nftOffered,owner) {
+export function tradeOffer({nftId, nftOffered,owner}) {
+  console.log({nftId , nftOffered, owner})
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
@@ -384,7 +385,7 @@ export function tradeOffer(nftId, nftOffered,owner) {
       const json = await authAxios.post (
         `${import.meta.env.VITE_BACKEND_URL}/api/nft/tradeoffer`,{ nftId, nftOffered,owner})
         
-        console.log(json.data)
+        
 
         toast.success(json.data.msg);
         return dispatch ({
@@ -419,7 +420,7 @@ export function seeOffers() {
         })
         
     } catch (error) {
-      toast.warning(error.response.data.msg);
+      toast.warning(error);
     }
   }
 }

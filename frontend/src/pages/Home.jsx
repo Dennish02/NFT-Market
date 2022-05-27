@@ -89,7 +89,6 @@ export default function Home() {
   },[]);
 
   if (!usuarioAct) "cargando";
-  console.log(usuarioAct);
   return (
     <div className="contentHome">
       <NavBar usuario={usuarioAct} />
