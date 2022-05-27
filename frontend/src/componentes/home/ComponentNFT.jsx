@@ -89,8 +89,9 @@ export default function ComponentNFT(props) {
 
 
   const [ mostrarModal, setMostrarModal ] = useState(false)
-  const User = useSelector(state => state.usuarioActual)
-  const UserFilter = User.nfts.filter(e => e.avaliable !== false)
+  // const User = useSelector(state => state.usuarioActual)
+  // if(!User) ''
+  const UserFilter = usuario.nfts.filter(e => e.avaliable !== false)
   // console.log(UserFilter);
 
   const [ trade, setTrade ] = useState({
@@ -234,7 +235,7 @@ export default function ComponentNFT(props) {
                     OcultarModal= {OcultarModal}
                     trade= {trade}
                     setnftOffered={setnftOffered}
-                    usuario={User.nombre}
+                    usuario={usuario.nombre}
                     _id={nft._id}
                     id={nft.id}
                     image={nft.image}
