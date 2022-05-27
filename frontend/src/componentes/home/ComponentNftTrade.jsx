@@ -16,15 +16,13 @@ function ComponentNftTrade({
     usuario,
     ranking,
     trade,
-    setnftOffered,
     OcultarModal,
 }) {
 
   const dispatch = useDispatch()
 
   const handleTrade = ()=> {
-    setnftOffered(id)
-    OcultarModal()
+    OcultarModal(id)
   }
 
   return (

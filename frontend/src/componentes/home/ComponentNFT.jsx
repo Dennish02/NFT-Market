@@ -135,13 +135,6 @@ export default function ComponentNFT(props) {
   }
 
 
-  const setnftOffered = (id) => {
-    setTrade({
-      ...trade, 
-      nftOffered: id
-    })
-  }
-
   function MostrarModal (e) {
     setMostrarModal(true);
     setTrade({
@@ -157,11 +150,9 @@ export default function ComponentNFT(props) {
     console.log(trade)
     setMostrarModal(false);
     setTimeout(() => {
-      dispatch(tradeOffer(trade))
+      dispatch(tradeOffer({...trade , nftOffered: id}))
     }, 2000);
-    
   }
-
 
   return (
     <div className="contNFT">
@@ -234,7 +225,6 @@ export default function ComponentNFT(props) {
                    <ComponentNftTrade
                     OcultarModal= {OcultarModal}
                     trade= {trade}
-                    setnftOffered={setnftOffered}
                     usuario={usuario.nombre}
                     _id={nft._id}
                     id={nft.id}
