@@ -23,8 +23,9 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    padding: "0",
-    width: '700px',
+    padding: "2rem",
+    width: '90%',
+    backgroundColor: '#1d1e3e',
   },
 };
 
@@ -189,7 +190,7 @@ function Wallet() {
                       value={compra} />
                   </div>
 
-                  <button className='buttonMorado' onClick={handleButton}>Enviar</button>
+                  <button className='buttonMP' onClick={handleButton}>Enviar</button>
 
 
                 </div> </> : <a href={ruta}>
@@ -250,11 +251,15 @@ function Wallet() {
 
         {usuario.length !== 0 ? (
           <section>
+            <h3 className="subtitulo">buy and sell  </h3>
             <div className="ContenedorCardsWallet">
+            
               {currentTransaction.length !== 0 ? (
                 currentTransaction?.map((nft, index) => {
+                 const fecha =  nft.updatedAt.split('T')
                   return (
                     <div key={index}>
+                      
                       {
                         <ComponentNFTWallet
                           NFT_colection={nft.NFT_colection}
@@ -264,7 +269,7 @@ function Wallet() {
                           price={nft.price}
                           seller_Id={nft.seller_Id}
                           transactionType={nft.transactionType}
-                          updatedAt={nft.updatedAt}
+                          updatedAt={fecha[0]}
                           __v={nft.__v}
                           _id={nft._id}
                         />

@@ -7,11 +7,7 @@
     width: 90%;
 }
 
-.second-grid{
-    grid-column-start: 2;
-    grid-column-end: 2;
-    
-}
+
 
 .iconFav{
     width: 25px;
@@ -22,11 +18,11 @@
     .contNFTWallet{
         display: block;
         .imgFav{
-            height: 300px;
+           // height: 300px;
             width: 100%;
         }
         .btn-group {
-            
+            display: flex;
             width: 80%;
             justify-content:space-around;
             align-items: center;
@@ -38,6 +34,7 @@
     .contNFTWallet {
        @include m.grid(4, 1fr);
        gap: 2rem;
+       width: fit-content;
         h2 {
             color: v.$naranja;
             font-size: 2.9rem;
@@ -47,6 +44,7 @@
         p {
             color: v.$grisclaro;
             font-size: 2rem;
+           
     
         }
     
@@ -116,7 +114,10 @@
     grid-column-start: 1;
     grid-column-end: 1;
 }
-
+.second-grid{
+    color: v.$naranja;
+    margin: 0
+}
 
 .back-button{
     @include m.buttonMorado;
