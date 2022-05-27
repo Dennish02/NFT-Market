@@ -22,6 +22,7 @@ export default function Portfolio() {
   useEffect(() => {
     dispatch(allNFTUser());
     dispatch(showUsers());
+    dispatch(usuarioActual())
     dispatch(coleccionesUsuario());
     socket = io(import.meta.env.VITE_BACKEND_URL);
     socket.emit("Portfolio", params);
