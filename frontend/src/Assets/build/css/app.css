@@ -1823,10 +1823,6 @@ img {
   }
 }
 .contenedorCard {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1fr;
-  align-items: center;
   max-width: 800px;
   margin: 6rem auto;
   border: solid 1px #f28b12;
@@ -1865,6 +1861,54 @@ img {
 .contenedorCard .buttonReject:hover {
   cursor: pointer;
   background: #4c2b6b;
+}
+@media (min-width: 768px) {
+  .contenedorCard .contTrades {
+    width: 90%;
+    margin: 2rem auto;
+    background-color: rgba(11, 12, 41, 0.5607843137);
+    padding: 2rem 0;
+    border-radius: 0.5rem;
+  }
+  .contenedorCard .contTrades h3 {
+    margin: 1rem auto;
+    text-align: center;
+    color: #e1e1e1;
+  }
+  .contenedorCard .contTrades .contTrades-cards {
+    margin: 2rem auto;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+  }
+  .contenedorCard .contTrades .contTrades-cards .contTrades-flechas {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.contenedorCard .contButtonTrade {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.contenedorCard .contButtonTrade .buttonRojos {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 0;
+}
+.contenedorCard .contButtonTrade .buttonRojos:hover {
+  cursor: pointer;
+  background: #621c1c;
 }
 
 .padreModal {

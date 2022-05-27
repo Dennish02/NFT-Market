@@ -17,7 +17,7 @@ const {
 
 }  = props
 
-console.log(props)
+
 
   return (
     <div className='contNFT'>
@@ -26,10 +26,10 @@ console.log(props)
                 <img src={image} alt="NFT IMAGE" height="280px" />
             </div>
 
-            <div className='contNFTinfo'>
+            {/* <div className='contNFTinfo'>
                 <p>userSend: {`${userSend}`}</p>
                 <p>userReceived: {`${userReceived}`}</p>
-            </div>
+            </div> */}
 
             <div className='contNFTinfo'>
                 <p>id: {`${id}`}</p>
@@ -47,9 +47,9 @@ console.log(props)
                 
             <div>
                 <p>colection: {`${colection}`}</p>
-                <p>
+                {/* <p>
                 category: {category}
-                </p>
+                </p> */}
             </div>
 
             <div>
