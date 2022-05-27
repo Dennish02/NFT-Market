@@ -150,8 +150,10 @@ export function comprarNFT(payload) {
       );
 
       let json = await clienteAxios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${payload}`, {}, config
-      );   
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${payload}`,
+        {},
+        config
+      );
 
       //socket.io
       toast.success(`Compraste este NFT: ${nft.data.NFT_id}`);
@@ -374,10 +376,11 @@ export function sortPopularity(payload) {
   };
 }
 
-
-
-export function tradeOffer(nftId, nftOffered, owner) {
-
+export function tradeOffer(trade) {
+  const { nftId, nftOffered, owner } = trade;
+  console.log(nftId);
+  console.log(nftOffered);
+  console.log(owner);
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
@@ -388,17 +391,16 @@ export function tradeOffer(nftId, nftOffered, owner) {
     });
 
     try {
+      const json = await authAxios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/tradeoffer`,
+        { nftId, nftOffered, owner }
+      );
 
-      const json = await authAxios.post (
-        `${import.meta.env.VITE_BACKEND_URL}/api/nft/tradeoffer`,{ nftId, nftOffered,owner})
-        
-        
-
-        toast.success(json.data.msg);
-        return dispatch ({
-          type: TRADE_OFFER,
-          payload: json.data
-        })
+      toast.success(json.data.msg);
+      return dispatch({
+        type: TRADE_OFFER,
+        payload: json.data,
+      });
     } catch (error) {
       toast.warning(error.response.data.msg);
     }

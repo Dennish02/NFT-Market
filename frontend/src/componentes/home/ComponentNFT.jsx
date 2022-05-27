@@ -16,12 +16,11 @@ import likeOn from "../../img/likeOn.png";
 import likeOf from "../../img/likeOff.png";
 import Modal2 from "react-modal";
 import Modal from "react-modal";
-import ComponentNftTrade from "../../componentes/home/ComponentNftTrade"
-// import { tradeOffer } from "../../../redux/actions/actionNFT";
+import ComponentNftTrade from "../../componentes/home/ComponentNftTrade";
 
 const customStyles = {
-  overlay :{
-    backgroundColor: 'rgba(11,12,41,0.48)',
+  overlay: {
+    backgroundColor: "rgba(11,12,41,0.48)",
   },
   content: {
     margin: "0",
@@ -29,14 +28,11 @@ const customStyles = {
   },
 };
 
-
-
-
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
   const customStyles = {
-    overlay :{
-      backgroundColor: 'rgba(11,12,41,0.48)',
+    overlay: {
+      backgroundColor: "rgba(11,12,41,0.48)",
     },
     content: {
       top: "50%",
@@ -46,7 +42,7 @@ export default function ComponentNFT(props) {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       padding: "0",
-      width: '380px'
+      width: "380px",
     },
   };
   const {
@@ -79,33 +75,34 @@ export default function ComponentNFT(props) {
   let validarBoton2 = "";
   usuario.nftLikes ? (validarBoton2 = usuario.nftLikes) : null;
 
-  usuario.nftLikes ? ( idNftLike = usuario.nftLikes) : null;
-  idNftLike.length > 0 ? nftfilter = idNftLike.map((e) => e) : null;
+  usuario.nftLikes ? (idNftLike = usuario.nftLikes) : null;
+  idNftLike.length > 0 ? (nftfilter = idNftLike.map((e) => e)) : null;
 
-  const [openModal, setOpenModal] = useState(false)
+  const [openModal, setOpenModal] = useState(false);
 
   const [favFlag, setFavFlag] = useState(false);
   const [likeFlag, setLikeFlag] = useState(false);
 
-
-  const [ mostrarModal, setMostrarModal ] = useState(false)
+  const [mostrarModal, setMostrarModal] = useState(false);
   // const User = useSelector(state => state.usuarioActual)
   // if(!User) ''
-  const UserFilter = usuario.nfts.filter(e => e.avaliable !== false)
+
+  const UserFilter = usuario.nfts;
+
   // console.log(UserFilter);
 
-  const [ trade, setTrade ] = useState({
+  const [trade, setTrade] = useState({
     owner: "",
     nftId: "",
     nftOffered: "",
-  })
+  });
   // console.log(trade)
 
-  function showModal(){
-    setOpenModal(true)
+  function showModal() {
+    setOpenModal(true);
   }
-  function closeModal(){
-    setOpenModal(false)
+  function closeModal() {
+    setOpenModal(false);
   }
 
   function añadirFavorito() {
@@ -130,29 +127,36 @@ export default function ComponentNFT(props) {
     }
   }
   function handleBuy() {
-     dispatch(comprarNFT(_id)) 
-     setOpenModal(false)
+    dispatch(comprarNFT(_id));
+    setOpenModal(false);
   }
 
 
-  function MostrarModal (e) {
+  function MostrarModal(e) {
+
     setMostrarModal(true);
     setTrade({
-      ...trade, 
+      ...trade,
       owner: ownerId,
       nftId: id,
+
     })
     
     console.log(trade)
   } 
 
-  function OcultarModal (){
-    console.log(trade)
+
+  function OcultarModal(id) {
+    console.log(trade);
+    if (id) {
+      console.log(id);
+      setTimeout(() => {
+        dispatch(tradeOffer({ ...trade, nftOffered: id }));
+      }, 2000);
+    }
     setMostrarModal(false);
-    setTimeout(() => {
-      dispatch(tradeOffer({...trade , nftOffered: id}))
-    }, 2000);
   }
+
 
   return (
     <div className="contNFT">
@@ -194,75 +198,83 @@ export default function ComponentNFT(props) {
             <button
               disabled={avaliable === false ? true : false}
               className={avaliable ? "w-50 buttonPrimary" : "disabled"}
-              onClick={()=> showModal()}
+              onClick={() => showModal()}
             >
-              
               BUY
             </button>{" "}
+            <button
+              onClick={(e) => MostrarModal(e)}
+              className="w-50 buttonTrade"
+            >
+              Trade
+            </button>
+            <Modal2 style={customStyles} isOpen={mostrarModal}>
+              <div className="padreModal">
+                <div>
+                  <button className="close" onClick={() => OcultarModal()}>
+                    X
+                  </button>
+                </div>
+
+                <div>
+                  <h3>Choose the nft that you want to trade</h3>
+                </div>
 
 
-            <button onClick={(e) => MostrarModal(e)} className="w-50 buttonTrade">Trade</button>
+                <div className="contenedorCardTrade">
+                  {UserFilter &&
+                    UserFilter.map((nft) => (
+                      <div key={nft.id}>
+                        {
+                          <div>
+                            <div>
+                              <ComponentNftTrade
+                                OcultarModal={OcultarModal}
+                                trade={trade}
+                                // setnftOffered={setnftOffered}
+                                usuario={usuario.nombre}
+                                _id={nft._id}
+                                id={nft.id}
+                                image={nft.image}
+                                colection={nft.colection}
+                                category={nft.category}
+                                priceBase={nft.priceBase}
+                                price={nft.price}
+                                creatorId={nft.creatorId}
+                                ownerId={nft.ownerId}
+                                ranking={nft.ranking}
+                              />
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    ))}
+                </div>
 
-            <Modal2 style={customStyles}  isOpen={mostrarModal}>
-            <div className="padreModal">
-
-            <div>
-              <button className="close" onClick={OcultarModal}>
-                X
-              </button>
-            </div>
-
-            <div>
-              <h3>Choose the nft that you want to trade</h3>
-            </div>
-
-            <div  className="contenedorCardTrade">
-            {UserFilter && UserFilter.map((nft) => (
-              <div key={nft.id}>
-                { 
-                  <div>
-                    <div>
-                   <ComponentNftTrade
-                    OcultarModal= {OcultarModal}
-                    trade= {trade}
-                    usuario={usuario.nombre}
-                    _id={nft._id}
-                    id={nft.id}
-                    image={nft.image}
-                    colection={nft.colection}
-                    category={nft.category}
-                    priceBase={nft.priceBase}
-                    price={nft.price}
-                    creatorId={nft.creatorId}
-                    ownerId={nft.ownerId}
-                    ranking={nft.ranking}
-                                    />
-                    </div>
-                  </div>
-                }
               </div>
-            )) }
-              </div>
-            </div>
             </Modal2>
-
-            <Modal isOpen={openModal } style={customStyles} >
-              <div  className="buyModal">
-           <button className="closeButton" onClick={() => closeModal()}>X</button>
-            <div  >
-              <h3>{`you wanna buy this nft for : ${price}CL?`} </h3>
-              <img src={image.url} alt="" />
-              <p>{`your balance is : ${usuario.coins}CL`}</p>
-              <p>{`your balance after buy : ${usuario.coins - price}CL`}</p>
-            </div>
-            <div className="contButtons">
-            <button onClick={() => handleBuy()} className="buttonPrimary">BUY</button>
-            <button onClick={()=> closeModal()} className="noButton"> NO</button>
-            </div>
+            <Modal isOpen={openModal} style={customStyles}>
+              <div className="buyModal">
+                <button className="closeButton" onClick={() => closeModal()}>
+                  X
+                </button>
+                <div>
+                  <h3>{`you wanna buy this nft for : ${price}CL?`} </h3>
+                  <img src={image.url} alt="" />
+                  <p>{`your balance is : ${usuario.coins}CL`}</p>
+                  <p>{`your balance after buy : ${usuario.coins - price}CL`}</p>
+                </div>
+                <div className="contButtons">
+                  <button onClick={() => handleBuy()} className="buttonPrimary">
+                    BUY
+                  </button>
+                  <button onClick={() => closeModal()} className="noButton">
+                    {" "}
+                    NO
+                  </button>
+                </div>
               </div>
             </Modal>
-          
-
           </>
         ) : null}
       </div>

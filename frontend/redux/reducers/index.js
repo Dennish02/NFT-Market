@@ -304,7 +304,7 @@ function rootReducer(state = initialState, action) {
     case TRADE_OFFER:
       return {
         ...state,
-        trades: action.payload
+        trades: {...trades, ...action.payload}
       }
     case SEE_OFFER:
       return {
