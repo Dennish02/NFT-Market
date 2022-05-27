@@ -18,7 +18,7 @@ const checkOut = async (req, res, next) => {
       req.usuario = await Usuario.findById(decoded.id).select(
         "-password -confirmado -token -createdAt -updatedAt -__v"
       ); //saca del modleo tood loq eu esta en el parentesis
-     
+     console.log({checkout: req.usuario.nombre});
 
       return next();
     } catch (error) {

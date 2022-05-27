@@ -1,35 +1,35 @@
 import React from "react";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import likeOf from "../../img/likeOff.png";
-import { tradeOffer } from "../../../redux/actions/actionNFT"
-import { useDispatch } from "react-redux"
+import { tradeOffer } from "../../../redux/actions/actionNFT";
+import { useDispatch } from "react-redux";
 
 function ComponentNftTrade({
-    _id,
-    id,
-    image,
-    colection,
-    priceBase,
-    price,
-    creatorId,
-    ownerId,
-    usuario,
-    ranking,
-    trade,
-    setnftOffered,
-    OcultarModal,
+  _id,
+  id,
+  image,
+  colection,
+  priceBase,
+  price,
+  creatorId,
+  ownerId,
+  usuario,
+  ranking,
+  trade,
+  // setnftOffered,
+  OcultarModal,
 }) {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  const handleTrade = () => {
+    // setnftOffered(id);
+    OcultarModal(id);
+  };
 
-  const handleTrade = ()=> {
-    setnftOffered(id)
-    OcultarModal()
-  }
+  console.log(trade);
 
   return (
     <div className="contNFT">
-
       <div className="contImg">
         <img src={image.url} alt="NFT IMAGE" height="280px" />
       </div>
@@ -56,7 +56,9 @@ function ComponentNftTrade({
           ranking: <small> {ranking}</small>
         </p>
       </div>
-      <button onClick={handleTrade} className="buttonTrade1">Trade</button>
+      <button onClick={handleTrade} className="buttonTrade1">
+        Trade
+      </button>
 
       <div className="contLike"></div>
       <p className="cantlike">{`${ranking}`}</p>

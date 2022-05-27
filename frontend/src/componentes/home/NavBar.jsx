@@ -12,9 +12,9 @@ import NotificationModal from "./NotificationModal";
 import { searchNotification } from "../../../redux/actions/actionUSER";
 
 const customStyls = {
-    overlay :{
-      backgroundColor: 'rgba(11,12,41,0.48)',
-    },
+  overlay: {
+    backgroundColor: "rgba(11,12,41,0.48)",
+  },
 };
 export default function NavBar({ usuario }) {
   const dispatch = useDispatch();
@@ -25,19 +25,54 @@ export default function NavBar({ usuario }) {
   }, []);
   const notification = useSelector((state) => state.notification);
 
-  let noti = 0
-  notification?.map(e=> !e.visto ? noti ++ : null )
- 
+  let noti = 0;
+  notification?.map((e) => (!e.visto ? noti++ : null));
+
   function handleButton() {
     setShowModal(true);
   }
-  
-  if(!notification) " "
-  
-  function viewNoti(){
-     let noti = document.querySelector('#contNotification')
-     if ( noti.className.match(/(?:^|\s)displayNone(?!\S)/) ){
 
+  function formatoMoneda(coins) {
+    let monedas = coins.toString();
+    if (monedas.length < 4) return monedas;
+    if (monedas.length === 4) {
+      if (monedas[1] === 0) return `${monedas[0]}K`;
+      else return `${monedas[0]}.${monedas[1]}K`;
+    }
+    let monedas2 = "";
+    if (monedas.length < 7) {
+      let medio = monedas.length / 2;
+      for (let i = 0; i < monedas.length; i++) {
+        if (i === Math.floor(medio)) {
+          if (monedas[i] === "0") {
+            break;
+          } else {
+            monedas2 += `.${monedas[i]}`;
+            break;
+          }
+        }
+        monedas2 += monedas[i];
+      }
+      monedas2 += "K";
+      return monedas2;
+    } else {
+      let end = monedas.length === 7 ? 1 : monedas.length === 8 ? 2 : 3;
+      for (let i = 0; i < end; i++) {
+        monedas2 += monedas[i];
+      }
+      if (monedas[monedas2.length] !== "0")
+        monedas2 += `.${monedas[monedas2.length]}`;
+
+      monedas2 += "M";
+      return monedas2;
+    }
+  }
+
+  if (!notification) " ";
+
+  function viewNoti() {
+    let noti = document.querySelector("#contNotification");
+    if (noti.className.match(/(?:^|\s)displayNone(?!\S)/)) {
       noti.classList.remove("displayNone");
       noti.classList.add("displayBlock");
     } else {
@@ -60,7 +95,9 @@ export default function NavBar({ usuario }) {
       <div className="perfil">
         <div className="contBalance">
           {usuario.length !== 0 ? (
-            <span className="iconBalance">{formateoPrecio(usuario.coins)}</span>
+            <span className="iconBalance">
+              {formateoPrecio(formatoMoneda(usuario.coins))}
+            </span>
           ) : null}
         </div>
         <p>{`¡Hi ${usuario.nombre}!`}</p>
@@ -79,16 +116,14 @@ export default function NavBar({ usuario }) {
 
         {usuario.length !== 0 ? (
           <div className="image-click">
-              <img
-            src={usuario.image.url ? usuario.image.url : profile}
-            alt="Profile User"
-            onClick={handleButton}
-            
-          />
+            <img
+              src={usuario.image.url ? usuario.image.url : profile}
+              alt="Profile User"
+              onClick={handleButton}
+            />
           </div>
-       
         ) : null}
-        <Modal style={customStyls} isOpen={showModal} className='customStyles'>
+        <Modal style={customStyls} isOpen={showModal} className="customStyles">
           <ProfileSettings />
         </Modal>
       </div>
