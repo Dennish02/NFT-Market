@@ -15,8 +15,6 @@ import likeOn from "../../img/likeOn.png";
 import likeOf from "../../img/likeOff.png";
 import Modal from 'react-modal'
 
-
-
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
   const customStyles = {
@@ -51,7 +49,7 @@ export default function ComponentNFT(props) {
 
   //const user = useSelector(state => state.usuario)
   if (!usuario) "cargando";
-  
+
   let idFavorito = "";
   let validarBoton = "";
   usuario.favoritos ? (validarBoton = usuario.favoritos) : null;
@@ -59,15 +57,16 @@ export default function ComponentNFT(props) {
   let extraerId = "";
   idFavorito ? (extraerId = idFavorito.map((el) => el._id)) : null;
 
-
   let nftfilter;
   let idNftLike = "";
   let validarBoton2 = "";
   usuario.nftLikes ? (validarBoton2 = usuario.nftLikes) : null;
+
   usuario.nftLikes ? ( idNftLike = usuario.nftLikes) : null;
   idNftLike.length > 0 ? nftfilter = idNftLike.map((e) => e) : null;
 
   const [openModal, setOpenModal] = useState(false)
+
   const [favFlag, setFavFlag] = useState(false);
   const [likeFlag, setLikeFlag] = useState(false);
 
@@ -92,7 +91,7 @@ export default function ComponentNFT(props) {
   function handleLike() {
     if (!likeFlag) {
       setLikeFlag(true);
-        dispatch(darLike(_id));  
+      dispatch(darLike(_id));
       setTimeout(() => {
         setLikeFlag(false);
       }, 2500);
@@ -110,7 +109,6 @@ export default function ComponentNFT(props) {
       </div>
 
       <div className="contNFTinfo">
-       
         <h2>{`${colection}  ${id}`}</h2>
         <p>{`creator:  ${creatorId}`}</p>
         <p>
@@ -172,26 +170,24 @@ export default function ComponentNFT(props) {
         ) : null}
       </div>
 
-      <div className="contLike">
+      <div className="contLike"></div>
+      <p className="cantlike">{`${ranking}`}</p>
 
-    </div>
-     <p className="cantlike">{`${ranking}`}</p>      
-    
-     
-
-    {
-      nftfilter?.includes(_id) ? (
-        <img 
-     className="buttonlike" 
-     onClick={(e) => handleLike(e)} 
-     src={likeOn} alt="likeOn" />
-      ) : ( 
-        <img 
-     className="buttonlike" 
-     onClick={(e) => handleLike(e)} 
-     src={likeOf} alt="likeOf" />
-      )
-    }
+      {nftfilter?.includes(_id) ? (
+        <img
+          className="buttonlike"
+          onClick={(e) => handleLike(e)}
+          src={likeOn}
+          alt="likeOn"
+        />
+      ) : (
+        <img
+          className="buttonlike"
+          onClick={(e) => handleLike(e)}
+          src={likeOf}
+          alt="likeOf"
+        />
+      )}
 
       {!extraerId.includes(_id) ? (
         <img
