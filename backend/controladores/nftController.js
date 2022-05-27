@@ -398,19 +398,20 @@ const responseOffer = async (req, res) => {
     const { usuario } = req;
     const { response, newId } = req.body;
 
-<<<<<<< HEAD
-    let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
-=======
 
     
    // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
 
->>>>>>> 94153ed5e53588ae33f928ec973814d2047cb2b6
     const oferta = await Trade.findById(newId);
+    
     // let oferta = user.hasTradeOffers.find((value) => value.id === newId);
 
+    
+    
     let r = JSON.parse(response);
+    
 
+    
     if (oferta) {
     if (oferta && oferta.status !== false) {
 
@@ -426,28 +427,17 @@ const responseOffer = async (req, res) => {
             value.id !== oferta.nftB.id
         ); //? quitamos el nft del arreglo del ex dueño
         
-<<<<<<< HEAD
-        const thenft = await NftCreated.findOne({
-          id: oferta.nftReceived.id}).select('-__v -createdAt -updatedAt'); //? buscamos el nft
-
-        thenft.ownerId = userToGive.nombre; //? cambiamos el owner
-          id: oferta.nftB.id}).select('-__v -createdAt -updatedAt'); //? buscamos el nft
-=======
         const thenft = await NftCreated.findOne({id: oferta.nftB.id}).select('-__v -createdAt -updatedAt'); //? buscamos el nft
->>>>>>> 94153ed5e53588ae33f928ec973814d2047cb2b6
         
         thenft.ownerId = userToGive.nombre; //? cambiamos el owner
-        thenft.avaliable = false;
-        await thenft.save(); // ?guardamos cambios
-        userToGive.nfts.push(thenft); //? le damos el nft
-<<<<<<< HEAD
-        const theOtherNft = await NftCreated.findOne({
-          id: oferta.nftSend.id}).select('-__v -createdAt -updatedAt');
-         
 
-=======
+        thenft.avaliable = false;
+       
+
+        await thenft.save(); // ?guardamos cambios
+
+        userToGive.nfts.push(thenft); //? le damos el nft
         
->>>>>>> 94153ed5e53588ae33f928ec973814d2047cb2b6
         //cambia el status de todas las ofertas donde este el NFT
         await Trade.updateMany({ $or: [{ "nftA_id": thenft.id }, { "nftB_id": thenft.id }]}, { status: false });
 

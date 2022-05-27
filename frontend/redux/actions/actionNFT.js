@@ -376,15 +376,11 @@ export function sortPopularity(payload) {
   };
 }
 
-<<<<<<< HEAD
-export function tradeOffer({ nftId, nftOffered, owner }) {
-  console.log({ nftId, nftOffered, owner });
-=======
-
-
-export function tradeOffer(nftId, nftOffered, owner) {
->>>>>>> 94153ed5e53588ae33f928ec973814d2047cb2b6
-
+export function tradeOffer(trade) {
+  const { nftId, nftOffered, owner } = trade;
+  console.log(nftId);
+  console.log(nftOffered);
+  console.log(owner);
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
@@ -400,37 +396,11 @@ export function tradeOffer(nftId, nftOffered, owner) {
         { nftId, nftOffered, owner }
       );
 
-<<<<<<< HEAD
       toast.success(json.data.msg);
       return dispatch({
         type: TRADE_OFFER,
         payload: json.data,
       });
-
-      const json = await authAxios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/nft/tradeoffer`,
-        { nftId, nftOffered, owner }
-      );
-
-      console.log(json.data);
-
-      toast.success(json.data.msg);
-      return dispatch({
-        type: TRADE_OFFER,
-        payload: json.data,
-      });
-=======
-      const json = await authAxios.post (
-        `${import.meta.env.VITE_BACKEND_URL}/api/nft/tradeoffer`,{ nftId, nftOffered,owner})
-        
-        
-
-        toast.success(json.data.msg);
-        return dispatch ({
-          type: TRADE_OFFER,
-          payload: json.data
-        })
->>>>>>> 94153ed5e53588ae33f928ec973814d2047cb2b6
     } catch (error) {
       toast.warning(error.response.data.msg);
     }
