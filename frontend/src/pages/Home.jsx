@@ -84,6 +84,7 @@ export default function Home() {
       dispatch(usuarioActual());
       dispatch(allNFTUser());
       dispatch(topPortfolios());
+      dispatch(getValuePortfolio())
       dispatch(searchNotification())
     });
   },[]);

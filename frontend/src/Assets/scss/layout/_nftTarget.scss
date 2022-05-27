@@ -160,3 +160,34 @@
   height: 100%;
   background: none;
 }
+
+.buyModal{
+  @extend .contNFT;
+  width: 100%;
+  background-color: v.$fondo;
+  h1{ 
+    color: v.$naranja; 
+    font-family: v.$fuente_principal; 
+    font-weight: bold;}
+
+  p{ 
+    color: v.$naranja; 
+    font-family: v.$fuente_principal; 
+    font-weight: bold;}
+  
+    
+  
+  
+}
+
+.noButton{
+  @include m.buttonRojo;
+    margin: 1rem;
+  
+  
+}
+
+.closeButton{
+  @include m.buttonRojo;
+    margin: 0;
+}
