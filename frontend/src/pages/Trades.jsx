@@ -27,7 +27,7 @@ function Trades() {
       <NavBar usuario={usuarioAct} />
       <div className="contenedorCard">
         {AllTrades.length !== 0 ? (
-            AllTrades.map((e) => {
+            AllTrades?.map((e) => {
             return (
               AllTrades.nftReceived && AllTrades.nftSend ? (
 
