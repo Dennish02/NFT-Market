@@ -398,20 +398,12 @@ const responseOffer = async (req, res) => {
     const { usuario } = req;
     const { response, newId } = req.body;
 
-
-    
     let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
-
     const oferta = await Trade.findById(newId);
-    
     // let oferta = user.hasTradeOffers.find((value) => value.id === newId);
 
-    
-    
     let r = JSON.parse(response);
-    
 
-    
     if (oferta) {
     if (oferta && oferta.status !== false) {
 
@@ -428,24 +420,15 @@ const responseOffer = async (req, res) => {
         ); //? quitamos el nft del arreglo del ex dueño
         
         const thenft = await NftCreated.findOne({
-
           id: oferta.nftReceived.id}).select('-__v -createdAt -updatedAt'); //? buscamos el nft
-          
-        thenft.ownerId = userToGive.nombre; //? cambiamos el owner
-        
 
+        thenft.ownerId = userToGive.nombre; //? cambiamos el owner
           id: oferta.nftB.id}).select('-__v -createdAt -updatedAt'); //? buscamos el nft
         
         thenft.ownerId = userToGive.nombre; //? cambiamos el owner
-
         thenft.avaliable = false;
-       
-
         await thenft.save(); // ?guardamos cambios
-
         userToGive.nfts.push(thenft); //? le damos el nft
-        
-
         const theOtherNft = await NftCreated.findOne({
           id: oferta.nftSend.id}).select('-__v -createdAt -updatedAt');
          
