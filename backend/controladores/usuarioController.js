@@ -4,25 +4,26 @@ import generarJWT from "../helpers/generarJWT.js";
 import { emailRegistro, emailOlvidePassword } from "../helpers/emails.js";
 import { uploadImage } from "../libs/cloudinary.js";
 import fs from "fs-extra";
-import { OAuth2Client } from'google-auth-library'
+import { OAuth2Client } from "google-auth-library";
 import Notificacion from "../models/Notificacion.js";
 
 // const googleValidate = async (req,res) => {
 //   const {email, tokenGoogle} = req.body
 //   const usuario = await Usuario.findOne({ email });
 //   if (!usuario) {
-    
+
 //     const error = new Error("EL USUARIO NO EXISTE");
 //     return res.status(404).json({ msg: error.message });
 //   }
 // }
-const client = new OAuth2Client("191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com");
+const client = new OAuth2Client(
+  "191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com"
+);
 
-const googleLogin = async (req,res) => {
+const googleLogin = async (req, res) => {
   const { idToken } = req.body;
   // console.log('soy backend', idToken)
   try {
-    
     client.verifyIdToken({idToken, audience: "191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com"}).then(response => {
       const {email_verified,picture, given_name, email} = response.payload
       if(email_verified){
@@ -34,11 +35,12 @@ const googleLogin = async (req,res) => {
                
                 const token =  generarJWT(user._id)
                 const {_id ,nombre, email} = user
+
                 res.json({
                   _id: user._id,
                   nombre: user.nombre,
                   email: user.email,
-                  token : token
+                  token: token,
                   // { token, _id, nombre,  email}
                 })
             } else{
@@ -53,18 +55,17 @@ const googleLogin = async (req,res) => {
                 email: nuevoUsuario.email,
                 token : token
               })
+
             }
-          }
-        })
-      }
-    })
-    
-    const usuario = new Usuario({})
-     
+          });
+        }
+      });
+
+    const usuario = new Usuario({});
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const cambiarImage = async (req, res) => {
   const nombre = req.usuario.nombre;
@@ -91,8 +92,8 @@ const cambiarImage = async (req, res) => {
 const usuario = async (req, res) => {
   try {
     const user = await Usuario.findOne({ nombre: req.usuario.nombre })
-                        .populate("favoritos")
-                        .select(" -password -confirmado  -createdAt -updatedAt -__v");
+      .populate("favoritos")
+      .select(" -password -confirmado  -createdAt -updatedAt -__v");
     return res.send(user);
   } catch (e) {
     return res.status(400).json({ msg: "error" });
@@ -145,7 +146,6 @@ const autenticar = async (req, res) => {
   //comprobar si existe
   const usuario = await Usuario.findOne({ email });
   if (!usuario) {
-    
     const error = new Error("EL USUARIO NO EXISTE");
     return res.status(404).json({ msg: error.message });
   }
@@ -155,7 +155,7 @@ const autenticar = async (req, res) => {
     return res.status(403).json({ msg: error.message });
   }
   //consifmar su password
-  
+
   if (await usuario.comprobarPassword(password)) {
     res.json({
       _id: usuario._id,
@@ -239,7 +239,7 @@ const nuevoPassword = async (req, res) => {
 
   const { token } = req.params;
   const { password } = req.body;
- 
+
   const usuario = await Usuario.findOne({ token });
 
   if (usuario) {
@@ -260,8 +260,10 @@ const nuevoPassword = async (req, res) => {
 
 const perfil = async (req, res) => {
   // const { usuario } = req; // se lee del server
-  const user = await Usuario.findOne({ nombre: req.usuario.nombre }).select("-password -hasTradeOffers -email -transacciones -favoritos -confirmado  -createdAt -updatedAt -__v"); //populate trae la data de la referencia
- 
+  const user = await Usuario.findOne({ nombre: req.usuario.nombre }).select(
+    "-password -hasTradeOffers -email -transacciones -favoritos -confirmado  -createdAt -updatedAt -__v"
+  ); //populate trae la data de la referencia
+
   res.json(user);
 };
 
@@ -284,26 +286,26 @@ const transferirCl = async (req, res) => {
   const usuarioA = await Usuario.findOne({ nombre: req.usuario.nombre });
   const coinsA = usuarioA.coins;
 
+  const usuarioB = await Usuario.findOne({ nombre: user });
+  // const usuarioB = await Usuario.findById( user );
+  if (!usuarioB) {
+    return res.status(401).json({ msg: "No existe el usuario" });
+  }
 
-   const usuarioB = await Usuario.findOne({ nombre: user });
-    // const usuarioB = await Usuario.findById( user );
-    if(!usuarioB){
-      return res.status(401).json({msg: "No existe el usuario"})
-    }
-
-    const coinsB = await usuarioB.coins;
+  const coinsB = await usuarioB.coins;
 
   if (usuarioA.coins < cl) {
     res.status(401).json({ msg: "No tienes CL suficientes para enviar" });
   }
 
-    try {
-      if (usuarioA.coins >= cl) {
+  try {
+    if (usuarioA.coins >= cl) {
       usuarioA.coins = usuarioA.coins - Number(cl);
       usuarioA.save();
-        
+
       usuarioB.coins = usuarioB.coins + Number(cl);
       usuarioB.save();
+
       
       //notificación
       const notificacion = new Notificacion({
@@ -326,39 +328,51 @@ const transferirCl = async (req, res) => {
   
       res.status(401).json({ msg: "No se pudo transferir CL"});
 
-
+      res.json({
+        msg: `${usuarioA.nombre} Ha enviado ${cl}CL a ${usuarioB.nombre}`,
+      });
     }
+  } catch (error) {
+    //si falla devuelve las coins a su estado inicial
+    usuarioA.coins = coinsA;
+    usuarioA.save();
+
+    usuarioB.coins = coinsB;
+    usuarioB.save();
+
+    res.status(401).json({ msg: "No se pudo transferir CL" });
+  }
 };
 
 const notificaciones = async (req, res) => {
   try {
-    const {notificaciones} = await Usuario.findOne({ nombre: req.usuario.nombre}).populate('notificaciones') 
-    res.status(200).send(notificaciones)
+    const { notificaciones } = await Usuario.findOne({
+      nombre: req.usuario.nombre,
+    }).populate("notificaciones");
+    res.status(200).send(notificaciones);
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-}
+};
 
 const notificacionVista = async (req, res) => {
   try {
-   
-    const {id} = req.params
-    var notificacion = await Notificacion.findById(id)
-  
-    if(notificacion === null){
-      const error = new Error("la notificación no existe")
-      return res.json({msg: error.message})
-    }
-    else{
-      notificacion.visto = true
-      notificacion = await notificacion.save()
-      
-      res.send(notificacion)
+    const { id } = req.params;
+    var notificacion = await Notificacion.findById(id);
+
+    if (notificacion === null) {
+      const error = new Error("la notificación no existe");
+      return res.json({ msg: error.message });
+    } else {
+      notificacion.visto = true;
+      notificacion = await notificacion.save();
+
+      res.send(notificacion);
     }
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-}
+};
 
 export {
   googleLogin,
@@ -374,5 +388,5 @@ export {
   usuario,
   transferirCl,
   notificaciones,
-  notificacionVista
+  notificacionVista,
 };
