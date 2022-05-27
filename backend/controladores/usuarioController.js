@@ -325,20 +325,6 @@ const transferirCl = async (req, res) => {
       }  
     
     } catch (error) {
-      //si falla devuelve las coins a su estado inicial
-      usuarioA.coins = coinsA;
-      usuarioA.save();
-  
-      usuarioB.coins = coinsB;
-      usuarioB.save();
-  
-      res.status(401).json({ msg: "No se pudo transferir CL"});
-
-      res.json({
-        msg: `${usuarioA.nombre} Ha enviado ${cl}CL a ${usuarioB.nombre}`,
-      });
-    }
-  } catch (error) {
     //si falla devuelve las coins a su estado inicial
     usuarioA.coins = coinsA;
     usuarioA.save();
