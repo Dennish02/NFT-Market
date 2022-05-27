@@ -3,11 +3,15 @@ import logo from "../img/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { login, resetErrorLoginUser,  registroGoogle } from "../../redux/actions/actionUSER";
+import {
+  login,
+  resetErrorLoginUser,
+  registroGoogle,
+} from "../../redux/actions/actionUSER";
 import validarEmail from "../middleware/validarEmail";
 import validatePassword from "../middleware/validarPassword";
-import { GoogleOAuthProvider } from '@react-oauth/google'
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 
 import { toast } from "react-toastify";
 
@@ -78,9 +82,6 @@ export default function Loguin() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
-
-
     let val = validate(usuario.email, usuario.password);
     if (Object.keys(val).length === 0) {
       dispatch(login(usuario));
@@ -96,17 +97,14 @@ export default function Loguin() {
       }
     } else setErrors(val);
   };
- 
-//wasu wasol 
+
+  //wasu wasol
   function responseGoogle(el) {
-    dispatch(registroGoogle(el))
-    toast.success('login succesfully')
+    dispatch(registroGoogle(el));
+    toast.success("login succesfully");
     setTimeout(function () {
       window.location.reload(1);
-  }, 1500);  // After 1,5 secs
-
-    
-    
+    }, 1500); // After 1,5 secs
   }
   return (
     <div className="contRegister">
@@ -155,13 +153,10 @@ export default function Loguin() {
                 LOGIN
               </button>
             </form>
-            <GoogleOAuthProvider clientId={`${import.meta.env.VITE_URL_CLIENT_ID}`}>
-
-            <GoogleLogin
-              login_uri=""
-              onSuccess={responseGoogle}               
-              
-            />
+            <GoogleOAuthProvider
+              clientId={`${import.meta.env.VITE_URL_CLIENT_ID}`}
+            >
+              <GoogleLogin login_uri="" onSuccess={responseGoogle} />
             </GoogleOAuthProvider>
             <Link to="/olvide-password/" className="a">
               {" "}
