@@ -4,7 +4,7 @@
 
 
 .contenedorCard{
-    @include m.grid(2, 1fr);
+   
     max-width: 800px;
     margin: 6rem auto;
     border:solid 1px v.$naranja;
@@ -17,6 +17,44 @@
     .buttonReject{
         @include m.buttonMorado;
         margin: 2rem auto;
+    }
+    @include m.desktop{
+        .contTrades{
+            width: 90%;
+            margin: 2rem auto;
+            background-color: v.$fondoOscuro;
+            padding: 2rem 0;
+            @include m.borderRadius;
+            h3{
+                margin: 1rem auto;
+                text-align: center;
+                color: v.$grisclaro;
+            }
+            .contTrades-cards{
+                margin: 2rem auto;
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                align-items: center;
+                .contTrades-flechas{
+                    display: flex;
+                    flex-direction: column;
+                }
+               
+                
+            }
+           
+        }
+    }
+    .contButtonTrade{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        .buttonRojos{
+            @include m.buttonRojo;
+            margin: 0;
+        }
     }
 }
 
