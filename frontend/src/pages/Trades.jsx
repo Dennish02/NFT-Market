@@ -7,65 +7,61 @@ import { usuarioActual } from "../../redux/actions/actionUSER";
 
 function Trades() {
   const dispatch = useDispatch();
-  let array = []
+  let array = [];
   const AllTrades = useSelector((state) => state.trades);
   const usuarioAct = useSelector((state) => state.usuarioActual);
 
   useEffect(() => {
     dispatch(seeOffers());
-    dispatch(usuarioActual())
+    dispatch(usuarioActual());
   }, []);
 
-//   const handleAccept = (e) => {
-//     e.preventDefault();
-//   };
+  //   const handleAccept = (e) => {
+  //     e.preventDefault();
+  //   };
 
- 
- 
   if (!usuarioAct) "cargando";
   return (
     <div>
       <NavBar usuario={usuarioAct} />
       <div className="contenedorCard">
         {!AllTrades.msg ? (
-            AllTrades.map((e) => {
+          AllTrades.map((e) => {
             return (
-              AllTrades.nftA && AllTrades.nftB ? (
-
-                <div key={e.id}>
+              <div key={e.id}>
                 <div>
-                  <CardTrade                
-                  id={e.nftA.id}
-                  creatorId={e.nftA.creatorId}                
-                  image={e.nftA.image.url}
-                  colection={e.nftA.colection}                  
-                  price={e.nftA.price}
-                  ranking={e.nftA.ranking}
+                  <CardTrade
+                    id={e.nftA.id}
+                    creatorId={e.nftA.creatorId}
+                    image={e.nftA.image.url}
+                    colection={e.nftA.colection}
+                    price={e.nftA.price}
+                    ranking={e.nftA.ranking}
                   />
                 </div>
 
                 <div>
-                <CardTrade          
-                id={e.nftB.id}
-                creatorId={e.nftB.creatorId}             
-                image={e.nftB.image.url}
-                colection={e.nftB.colection}              
-                price={e.nftB.price}
-                ranking={e.nftB.ranking}
-                />
-              </div> 
-            </div>
-              ) : <p>{AllTrades.msg}</p>
-
-                
-            )}
-  )) : <div><p>{AllTrades.msg}</p></div>} 
+                  <CardTrade
+                    id={e.nftB.id}
+                    creatorId={e.nftB.creatorId}
+                    image={e.nftB.image.url}
+                    colection={e.nftB.colection}
+                    price={e.nftB.price}
+                    ranking={e.nftB.ranking}
+                  />
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div>
+            <p>{AllTrades.msg}</p>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-  
-) 
+  );
 }
-
 
 export default Trades;
 

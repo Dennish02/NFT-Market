@@ -324,15 +324,11 @@ const tradeOffer = async (req, res) => {
     const { usuario } = req;
     // const { nftOffered, nftOfferedColection, nftId, owner, nftColection } =
     //   req.body;
-<<<<<<< HEAD
     const { nftId, nftOffered, owner } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     //?nft que se quiere cambiar
-=======
-    const { nftId, nftOffered,owner} = req.body
     //console.log(req.body)
-    //?nft que se quiere cambiar 
->>>>>>> 1a157a7ce01c3b4e862df14e5c6693a1cc7bde87
+    //?nft que se quiere cambiar
     const nft = await NftCreated.findOne({
       //ownerId: owner,
       //colection: nftColection,
@@ -395,19 +391,14 @@ const tradeOffer = async (req, res) => {
 
 const seeOffers = async (req, res) => {
   const { usuario } = req;
-<<<<<<< HEAD
 
+  //console.log(usuario.nombre);
   const user = await Usuario.findOne({ nombre: usuario.nombre }).populate(
     "hasTradeOffers"
   );
+  console.log(user.hasTradeOffers);
 
-  if (user.hasTradeOffers.length > 0) {
-=======
-  //console.log(usuario.nombre);
-  const user = await Usuario.findOne({ nombre: usuario.nombre }).populate("hasTradeOffers");
-  //console.log(user);
   if (user.hasTradeOffers && user.hasTradeOffers.length > 0) {
->>>>>>> 1a157a7ce01c3b4e862df14e5c6693a1cc7bde87
     return res.status(200).json(user.hasTradeOffers);
   } else {
     return res.json({ msg: `No trade offers here yet` });
