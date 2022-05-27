@@ -4,8 +4,6 @@ import formateoPrecio from "../../middleware/formateoPrecio";
 function CardTrade(props) {
   const { id, creatorId, image, colection, price, ranking } = props;
 
-  //   console.log(props);
-
   return (
     <div className="contNFT">
       <div className="contImg">
@@ -34,6 +32,7 @@ function CardTrade(props) {
       </div>
     </div>
   );
+
 }
 
 export default CardTrade;
