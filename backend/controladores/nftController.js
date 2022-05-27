@@ -319,7 +319,7 @@ const tradeOffer = async (req, res) => {
     // const { nftOffered, nftOfferedColection, nftId, owner, nftColection } =
     //   req.body;
     const { nftId, nftOffered,owner} = req.body
-    
+    console.log(req.body)
     //?nft que se quiere cambiar 
     const nft = await NftCreated.findOne({
       //ownerId: owner,
@@ -398,17 +398,27 @@ const responseOffer = async (req, res) => {
     const { usuario } = req;
     const { response, newId } = req.body;
 
+
+    
+    let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
+
     const oferta = await Trade.findById(newId);
     
     // let oferta = user.hasTradeOffers.find((value) => value.id === newId);
+
+    
     
     let r = JSON.parse(response);
     
+
+    
+    if (oferta) {
     if (oferta && oferta.status !== false) {
 
       const userToGive = await Usuario.findOne({
         nombre: oferta.userA,
       }); //? usuario al que hay que darle el nft - ofertante
+
 
       if (r) {
        
@@ -416,24 +426,37 @@ const responseOffer = async (req, res) => {
           (value) =>
             value.id !== oferta.nftB.id
         ); //? quitamos el nft del arreglo del ex dueño
-     
+        
         const thenft = await NftCreated.findOne({
+
+          id: oferta.nftReceived.id}).select('-__v -createdAt -updatedAt'); //? buscamos el nft
+          
+        thenft.ownerId = userToGive.nombre; //? cambiamos el owner
+        
+
           id: oferta.nftB.id}).select('-__v -createdAt -updatedAt'); //? buscamos el nft
         
         thenft.ownerId = userToGive.nombre; //? cambiamos el owner
 
         thenft.avaliable = false;
        
+
         await thenft.save(); // ?guardamos cambios
 
         userToGive.nfts.push(thenft); //? le damos el nft
         
+
+        const theOtherNft = await NftCreated.findOne({
+          id: oferta.nftSend.id}).select('-__v -createdAt -updatedAt');
+         
+
         //cambia el status de todas las ofertas donde este el NFT
         await Trade.updateMany({ $or: [{ "nftA_id": thenft.id }, { "nftB_id": thenft.id }]}, { status: false });
 
         
         const theOtherNft = await NftCreated.findOne({
           id: oferta.nftA.id}); 
+
 
         userToGive.nfts = userToGive.nfts.filter(
           (item) =>
@@ -460,11 +483,14 @@ const responseOffer = async (req, res) => {
 
         await theOtherNft.save();
 
+
+
         //cambia el status de todas las ofertas donde este el NFT
         await Trade.updateMany({ $or: [{ "nftA_id": theOtherNft.id }, { "nftB_id": theOtherNft.id}]}, { status: false });
 
-        usuario.nfts.push(theOtherNft);
 
+        usuario.nfts.push(theOtherNft);
+    
         usuario.nfts = usuario.nfts.filter(
           (item) => item.id !== thenft.id || item.colection !== thenft.colection
         );

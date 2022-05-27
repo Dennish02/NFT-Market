@@ -1867,6 +1867,44 @@ img {
   background: #4c2b6b;
 }
 
+.padreModal {
+  background-color: #1d1e3e;
+  width: 100%;
+  min-height: 100%;
+  padding-bottom: 2rem;
+}
+
+.contenedorCardTrade {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1fr;
+  align-items: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem 0;
+  border: solid 1px #f28b12;
+}
+
+.buttonTrade1 {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  margin: 1rem auto;
+  display: flex;
+}
+.buttonTrade1:hover {
+  cursor: pointer;
+  background: #1f7929;
+}
+
 .displayNone {
   display: none;
 }

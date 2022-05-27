@@ -9,13 +9,15 @@ export default function NotificationModal({usuario}) {
   useEffect(()=>{
     dispatch(searchNotification())
   },[])
+
+
   function viewAll(){
     notification?.map(e=>{
       dispatch(viewNotification(e._id))
     })
   }
+
   function setTrue(e){
-    //console.log(e._id);
     dispatch(viewNotification(e._id))
     dispatch(searchNotification())
   }
