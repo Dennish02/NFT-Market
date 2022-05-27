@@ -17,7 +17,6 @@ import likeOf from "../../img/likeOff.png";
 import Modal2 from "react-modal";
 import Modal from "react-modal";
 import ComponentNftTrade from "../../componentes/home/ComponentNftTrade";
-// import { tradeOffer } from "../../../redux/actions/actionNFT";
 
 const customStyles = {
   overlay: {
@@ -87,7 +86,9 @@ export default function ComponentNFT(props) {
   const [mostrarModal, setMostrarModal] = useState(false);
   // const User = useSelector(state => state.usuarioActual)
   // if(!User) ''
+
   const UserFilter = usuario.nfts;
+
   // console.log(UserFilter);
 
   const [trade, setTrade] = useState({
