@@ -24,43 +24,49 @@ const googleLogin = async (req, res) => {
   const { idToken } = req.body;
   // console.log('soy backend', idToken)
   try {
-    client.verifyIdToken({idToken, audience: "191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com"}).then(response => {
-      const {email_verified,picture, given_name, email} = response.payload
-      if(email_verified){
-        Usuario.findOne({email}).exec((err, user) => {
-          if(err){
-            return res.status(400).json({error: 'Something went wrong '})
-          }else {
-            if(user){
-               
-                const token =  generarJWT(user._id)
-                const {_id ,nombre, email} = user
-
+    client
+      .verifyIdToken({
+        idToken,
+        audience:
+          "191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com",
+      })
+      .then((response) => {
+        const { email_verified,picture, given_name, email } = response.payload;
+        if (email_verified) {
+          Usuario.findOne({ email }).exec((err, user) => {
+            if (err) {
+              return res.status(400).json({ error: "Something went wrong " });
+            } else {
+              if (user) {
+                const token = generarJWT(user._id);
+                const { _id, nombre, email } = user;
                 res.json({
                   _id: user._id,
                   nombre: user.nombre,
                   email: user.email,
                   token: token,
                   // { token, _id, nombre,  email}
-                })
-            } else{
-              
-              let nuevoUsuario = new Usuario({nombre: given_name, email, image: { public_id: "", url: picture },})
-              nuevoUsuario.confirmado= true;
-              nuevoUsuario.save()
-              const token =  generarJWT(nuevoUsuario._id)
-              res.json({
-                _id: nuevoUsuario._id,
-                nombre: nuevoUsuario.given_name,
-                email: nuevoUsuario.email,
-                token : token
-              })
-
+                });
+              } else {
+                let nuevoUsuario = new Usuario({
+                  nombre: given_name,
+                  email,
+                  image: { public_id: "", url: picture },
+                });
+                nuevoUsuario.confirmado = true;
+                nuevoUsuario.save();
+                const token = generarJWT(nuevoUsuario._id);
+                res.json({
+                  _id: nuevoUsuario._id,
+                  nombre: nuevoUsuario.given_name,
+                  email: nuevoUsuario.email,
+                  token: token,
+                });
+              }
             }
           });
         }
       });
-
     const usuario = new Usuario({});
   } catch (error) {
     console.log(error);
