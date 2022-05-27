@@ -7,55 +7,95 @@
     width: 90%;
 }
 
-.second-grid{
-   
-    grid-column-start: 2;
-    grid-column-end: 2;
-    
-}
+
 
 .iconFav{
     width: 25px;
     height: 25px;
     stroke-width: 2.5px;
 }
-
-
-.contNFTWallet{
-
-    h2 {
-        color: v.$naranja;
-        font-size: 2.9rem;
-        margin :0;
-      }
-      p {
-        color: v.$grisclaro;
-        font-size: 2rem;
-        
+@include m.telefono{
+    .contNFTWallet{
+        display: block;
+        .imgFav{
+           // height: 300px;
+            width: 100%;
+        }
+        .btn-group {
+            display: flex;
+            width: 80%;
+            justify-content:space-around;
+            align-items: center;
+            margin: 0 auto;
+        }
     }
-        span {
-          color: v.$naranja;
-          font-size: 2.3rem;
-          font-weight: bold;
+}
+@include m.desktop{
+    .contNFTWallet {
+       @include m.grid(4, 1fr);
+       gap: 2rem;
+       width: fit-content;
+        h2 {
+            color: v.$naranja;
+            font-size: 2.9rem;
+            margin: 0;
         }
     
-        
-        .imgFav{
-            
+        p {
+            color: v.$grisclaro;
+            font-size: 2rem;
+           
+    
+        }
+    
+        span {
+            color: v.$naranja;
+            font-size: 2.3rem;
+            font-weight: bold;
+        }
+    
+    
+        .imgFav {
+    
             height: 250px;
-            width: 250px;
-            @supports(object-fit: cover){
-                img{
+            width: 350px;
+    
+            @supports(object-fit: cover) {
+                img {
                     height: 100%;
                     object-fit: cover;
                     object-position: center center;
-                  }
-          
-           
-           
-          }
-
+                }
+            }
+        }
+    
+    
+    
+    }
+    .btn-group {
+        display: flex;
+        width: 100px;
+        @include m.borderRadius;
+        gap: 1rem;
+        justify-content: flex-end;
+        align-items: center;
+    
+    }
 }
+
+
+
+.buy-button {
+    margin: 0;
+    @include m.buttonPrimary;
+    font-size: 2rem;
+}
+
+.delete-button {
+    
+    @include m.buttonRojo;
+    font-size: 2rem;
+    margin: 0;
 }
 
 .last-grid{
@@ -74,27 +114,9 @@
     grid-column-start: 1;
     grid-column-end: 1;
 }
-
-.btn-group {
-    display: flex;
-    width: 100%;
-    @include m.borderRadius;
-    gap: 2rem;
-    justify-content: flex-end;
-    align-items: center;
-    
-}
-
-.buy-button{
-    margin: 0;
-    @include m.buttonPrimary;
-    font-size: 2rem;
-}
-
-.delete-button{
-    margin: 0;
-    @include m.buttonRojo;
-    font-size: 2rem;
+.second-grid{
+    color: v.$naranja;
+    margin: 0
 }
 
 .back-button{

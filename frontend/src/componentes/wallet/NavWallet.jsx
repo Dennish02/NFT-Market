@@ -7,16 +7,9 @@ import formateoPrecio from "../../middleware/formateoPrecio";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const customStyles = {
-  content: {
-    top: "32%",
-    left: "80%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    padding: "0",
-    width: "400px",
+const customStyls = {
+  overlay :{
+    backgroundColor: 'rgba(11,12,41,0.48)',
   },
 };
 
@@ -49,7 +42,7 @@ export default function NavBar() {
           />
         ) : null}
 
-        <Modal isOpen={showModal} style={customStyles}>
+        <Modal isOpen={showModal} className='customStyles' style={customStyls}>
           <ProfileSettings />
         </Modal>
       </div>

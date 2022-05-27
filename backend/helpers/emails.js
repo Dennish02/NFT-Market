@@ -3,7 +3,6 @@ import nodemailer from "nodemailer";
 export const emailRegistro = async (datos) => {
   const { email, nombre, token } = datos;
 
-
   //Pollo
   var transport = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
@@ -12,7 +11,7 @@ export const emailRegistro = async (datos) => {
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
-    }
+    },
   });
 
   //INFORMACION EMAIL
@@ -40,7 +39,7 @@ export const emailOlvidePassword = async (datos) => {
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
-    }
+    },
   });
 
   //INFORMACION EMAIL
@@ -58,7 +57,7 @@ export const emailOlvidePassword = async (datos) => {
 };
 
 export const soldNFT = async (data) => {
-  const { email, seller, buyer, nft, price} = data
+  const { email, seller, buyer, nft, price } = data;
 
   var transport = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
@@ -67,7 +66,7 @@ export const soldNFT = async (data) => {
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
-    }
+    },
   });
 
   const info = await transport.sendMail({
@@ -78,11 +77,11 @@ export const soldNFT = async (data) => {
     html: `
     <h3>Hi ${seller} your NFT ${nft} has been purchased by ${buyer} for ${price}CryptoLies</h3>
     <small>(This is just an informative email)</small>
-    `
-  })
-}
+    `,
+  });
+};
 export const boughtdNFT = async (data) => {
-  const { email, buyer, nft, price} = data
+  const { email, buyer, nft, price } = data;
 
   var transport = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
@@ -91,7 +90,7 @@ export const boughtdNFT = async (data) => {
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
-    }
+    },
   });
 
   const info = await transport.sendMail({
@@ -102,12 +101,12 @@ export const boughtdNFT = async (data) => {
     html: `
     <h3>Hi ${buyer}, congratulations, you just bought this NFT ${nft} at ${price} CryptoLies</h3>
     <small>(This is just an informative email)</small>
-    `
-  })
-}
+    `,
+  });
+};
 
 export const forSale = async (data) => {
-  const { email, user, nft, price, sale} = data
+  const { email, user, nft, price, sale } = data;
 
   var transport = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
@@ -116,7 +115,7 @@ export const forSale = async (data) => {
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
-    }
+    },
   });
 
   if (sale) {
@@ -129,8 +128,8 @@ export const forSale = async (data) => {
         <h3>Hi ${user} your NFT ${nft} is now for sale for ${price} CryptoLies</h3>
         <p>You can remove it from the sale at any time</p>
         <small>(This is just an informative email)</small>
-      `
-    })
+      `,
+    });
   } else {
     const info = await transport.sendMail({
       from: '"NFT Market" <cuentas@nftmarket.com>',
@@ -140,13 +139,13 @@ export const forSale = async (data) => {
       html: `
         <h3>Hi ${user} your NFT ${nft} is no longer for sale</h3>
         <small>(This is just an informative email)</small>
-      `
-    })
+      `,
+    });
   }
-}
+};
 
 export const giftNFT = async (data) => {
-  const { email, from, to, nft } = data
+  const { email, from, to, nft } = data;
 
   var transport = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
@@ -155,7 +154,7 @@ export const giftNFT = async (data) => {
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
-    }
+    },
   });
 
   const info = await transport.sendMail({
@@ -167,10 +166,9 @@ export const giftNFT = async (data) => {
     <p>Hi ${to}, congratulations, you received the NFT <span style="font-weight: bold;">${nft}</span> as a gift from ${from}</p>
     <p>go to </p>
     <h3><a href="${process.env.FRONTEND_URL}">NFT Market</a></h3>
-    `
-  })
+    `,
+  });
 };
-
 
 // export const topPortfolioMail = async (data) => {
 //   const { email, name} = data

@@ -1,18 +1,28 @@
 @use '../base/variables' as v;
 @use '../base/mixins' as m;
 
-.wallet-panel {
-    width: 30%;
-    @include m.borderRadius;
-    border: solid 1px v.$naranja;
-    margin: 1rem auto;
-    text-align: center;
-    height: fit-content;
-    
-}
 
+@include m.telefono{
+    .wallet-panel {
+        width: 30%;
+        @include m.borderRadius;
+        border: solid 1px v.$naranja;
+        margin: 1rem auto;
+        text-align: center;
+        height: fit-content;
+        width: 80%;
+        padding: 2rem 0;
+    }
+}
+@include m.desktop{
+    .wallet-panel {
+        width: 30%;
+        width: fit-content;
+    }
+}
 .contNFTWallet {
     @include m.grid(4,1fr);
+    width: fit-content;
     align-items: center;
     text-align: left;
     width: 90%;
@@ -26,11 +36,22 @@
     }
 }
 
-.ContenedorGeneralWallet {
-    display: flex;
-    flex-direction: row;
-    width: 90%;
-    margin: 0 auto;
+
+@include m.telefono{
+    .ContenedorGeneralWallet {
+        display: block;
+       
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+@include m.desktop{
+    .ContenedorGeneralWallet {
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        margin: 0 auto;
+    }
 }
 
 .ContenedorCardsWallet {
@@ -70,18 +91,45 @@
     text-align: left;
     color: v.$grisclaro;
 }
-.InpcutLogo{
-   display: flex;
-   flex-direction: row;
-   align-items: center;
+.subtitulo{
+    color: v.$grisclaro;
+    text-align: center;
+    margin: 2rem auto;
 }
-.contInput{
-    width: 50%;
-    display: inline-block;
-    .dinner{
-        padding: 1rem;
+@include m.telefono{
+    .InpcutLogo{
+       display: block;
+     }
+     .contInput{
+        width: 90%;
+        display: block;
+        margin: 0 auto;
+    }
+    .buttonMP{
+        @include m.buttonMorado;
+        margin: 0 auto 0 1rem;
+        width: 90%;
     }
 }
+@include m.desktop{
+    .InpcutLogo{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+     }
+     .contInput{
+        width: 50%;
+        display: inline-block;
+        .dinner{
+            padding: 1rem;
+        }
+    }
+    .buttonMP{
+        @include m.buttonMorado;
+    }
+}
+
+
 
 .contLogoMP{
     width: 30%;
@@ -100,30 +148,41 @@
     }
 }
 .paginacion{
-    margin: 0 auto;
+        margin: 0 auto;
         width: 50%;
         display: flex;
         align-items: center;
+       justify-content: center;
         gap: 0.5rem;
         &:hover{
             cursor: pointer;
         }
         button {
-            padding: 1rem;
-            margin: 0 auto;
+            
+            padding:  0.5rem;
+            margin: 0 ;
             border: none;
-            background-color: v.$naranja;
+            background-color: v.$fondoOscuro;
             @include m.borderRadius;
             color: v.$grisclaro;
             font-weight: bold;
-            &::hover{
-                    cursor: pointer;
+            &:hover{
+                cursor: pointer;
+                background: darken(v.$naranja, 20%)
             }
         }
         .buttonCentro{
-            padding: 2 rem;
-            font-size: 2.5rem;
+           
+            font-size: 2.2rem;
             border: solid 1px v.$grisclaro;
-        }   
+            background-color: darken($color: v.$naranja, $amount:10%);
+        } 
+        .icon{
+            transition: 0.3s;
+            height: 45px;
+            &:hover{
+                stroke: darken(v.$naranja, 20%)
+            }
+        }  
 }    
 

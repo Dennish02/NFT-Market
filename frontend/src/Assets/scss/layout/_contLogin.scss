@@ -12,51 +12,64 @@
   }
  
 }
-.contLogin {
-  position: relative;
-  width: 600px;
-  max-height: 700px;
-  background-color: v.$grisoscuro;
-  color: v.$grisclaro;
-  @include m.borderRadius;
-  padding: 2rem;
-
-  .close {
-    position: absolute;
-    right: 18px;
-    top: 10px;
-    background: none;
-    border: none;
-    padding: 1rem;
+@include m.telefono{
+  .contLogin {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    max-height: fit-content;
+    background-color: v.$grisoscuro;
+    color: v.$grisclaro;
     @include m.borderRadius;
-    &:hover {
-      cursor: pointer;
-      background-color: v.$grisclaro;
+    padding: 1rem 0;
+  
+    .close {
+      position: absolute;
+      right: 18px;
+      top: 10px;
+      background: none;
+      border: none;
+      padding: 1rem;
+      @include m.borderRadius;
+      &:hover {
+        cursor: pointer;
+        background-color: v.$grisclaro;
+      }
+    }
+    .contLogin-content {
+      width: 95%;
+      margin: 0 auto;
+      input {
+        @include m.inputs;
+      }
+      select {
+        @include m.inputs;
+      }
+      .file {
+        @include m.file;
+      }
+      .buttonPrimary {
+        @include m.buttonPrimary;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .buttonSecondary {
+        @include m.buttonSecondary;
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
-  .contLogin-content {
-    width: 70%;
-    margin: 0 auto;
-    input {
-      @include m.inputs;
-    }
-    select {
-      @include m.inputs;
-    }
-    .file {
-      @include m.file;
-    }
-    .buttonPrimary {
-      @include m.buttonPrimary;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    .buttonSecondary {
-      @include m.buttonSecondary;
-      &:hover {
-        cursor: pointer;
-      }
+}
+@include m.desktop{
+  .contLogin {
+    width: 600px;
+    max-height: 700px;
+    padding: 2rem;
+    .contLogin-content {
+      width: 70%;
     }
   }
 }

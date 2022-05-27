@@ -149,6 +149,10 @@ export function comprarNFT(payload) {
         config
       );
 
+      let json = await clienteAxios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${payload}`, {}, config
+      );   
+
       //socket.io
       toast.success(`Compraste este NFT: ${nft.data.NFT_id}`);
       socket.emit("renderHome");
@@ -370,8 +374,12 @@ export function sortPopularity(payload) {
   };
 }
 
+
 export function tradeOffer({nftId, nftOffered,owner}) {
   console.log({nftId , nftOffered, owner})
+
+export function tradeOffer(nftId, nftOffered, owner) {
+
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
@@ -380,8 +388,9 @@ export function tradeOffer({nftId, nftOffered,owner}) {
         Authorization: `Bearer ${token}`,
       },
     });
-    
+
     try {
+
       const json = await authAxios.post (
         `${import.meta.env.VITE_BACKEND_URL}/api/nft/tradeoffer`,{ nftId, nftOffered,owner})
         
@@ -393,10 +402,24 @@ export function tradeOffer({nftId, nftOffered,owner}) {
           payload: json.data
         })
         
+
+      const json = await authAxios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/tradeoffer`,
+        { nftId, nftOffered, owner }
+      );
+
+      console.log(json.data);
+
+      toast.success(json.data.msg);
+      return dispatch({
+        type: TRADE_OFFER,
+        payload: json.data,
+      });
+
     } catch (error) {
       toast.warning(error.response.data.msg);
     }
-  }
+  };
 }
 
 export function seeOffers() {
@@ -408,19 +431,19 @@ export function seeOffers() {
         Authorization: `Bearer ${token}`,
       },
     });
-    
+
     try {
-      const json = await authAxios.get (
-        `${import.meta.env.VITE_BACKEND_URL}/api/nft/seeoffers`)
-        
-        // console.log(json.data)
-        return dispatch ({
-          type: SEE_OFFER,
-          payload: json.data
-        })
-        
+      const json = await authAxios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/seeoffers`
+      );
+
+      // console.log(json.data)
+      return dispatch({
+        type: SEE_OFFER,
+        payload: json.data,
+      });
     } catch (error) {
       toast.warning(error);
     }
-  }
+  };
 }

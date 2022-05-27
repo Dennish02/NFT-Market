@@ -78,7 +78,6 @@ io.on("connection", (socket) => {
 
   socket.on("Portfolio", (room) => {
     socket.join(room);
-
   });
   socket.on("update", () => {
     socket
@@ -111,19 +110,18 @@ io.on("connection", (socket) => {
   });
 
   socket.on("Transferencia", (ruta) => {
-    socket.to(`${process.env.FRONTEND_URL}/home/usuario/wallet`).emit("TransferenciaOk", ruta);
+    socket
+      .to(`${process.env.FRONTEND_URL}/home/usuario/wallet`)
+      .emit("TransferenciaOk", ruta);
   });
   //favoritos
-socket.on("RenderFav", (room) => {
-  socket.join(room);
+  socket.on("RenderFav", (room) => {
+    socket.join(room);
+  });
+
+  socket.on("Render", () => {
+    socket
+      .to(`${process.env.FRONTEND_URL}/usuario/favoritos`)
+      .emit("updatefav");
+  });
 });
-
-socket.on("Render", () => {
-  socket
-    .to(`${process.env.FRONTEND_URL}/usuario/favoritos`)
-    .emit("updatefav");
-});
-
-});
-
-

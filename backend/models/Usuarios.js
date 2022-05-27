@@ -51,9 +51,10 @@ const usuarioSchema = mongoose.Schema(
     transacciones: {
       type: Array,
     },
-    hasTradeOffers: {
-      type: Array
-    },
+    hasTradeOffers: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Trade",
+    }],
     portfolioValue: {
       type: Number,
       default: 0

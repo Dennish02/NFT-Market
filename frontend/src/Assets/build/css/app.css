@@ -450,10 +450,18 @@ img {
   font-weight: 700;
   font-size: 3rem;
 }
-.contentNav .perfil img {
+.contentNav .perfil .image-click {
   display: inline-block;
   width: 50px;
   height: 50px;
+  background-size: cover;
+}
+@supports (object-fit: cover) {
+  .contentNav .perfil .image-click img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
 }
 .contentNav .perfil .contBell {
   position: relative;
@@ -584,95 +592,107 @@ img {
     margin: 0 auto;
   }
 }
-.contLogin {
-  position: relative;
-  width: 600px;
-  max-height: 700px;
-  background-color: #3a3a3a;
-  color: #e1e1e1;
-  border-radius: 0.5rem;
-  padding: 2rem;
+@media (min-width: 320px) {
+  .contLogin {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    max-height: fit-content;
+    background-color: #3a3a3a;
+    color: #e1e1e1;
+    border-radius: 0.5rem;
+    padding: 1rem 0;
+  }
+  .contLogin .close {
+    position: absolute;
+    right: 18px;
+    top: 10px;
+    background: none;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  .contLogin .close:hover {
+    cursor: pointer;
+    background-color: #e1e1e1;
+  }
+  .contLogin .contLogin-content {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .contLogin .contLogin-content input {
+    font-family: "Ubuntu", sans-serif;
+    display: block;
+    margin: 1rem auto 2rem auto;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #e1e1e1;
+    outline: none;
+  }
+  .contLogin .contLogin-content select {
+    font-family: "Ubuntu", sans-serif;
+    display: block;
+    margin: 1rem auto 2rem auto;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #e1e1e1;
+    outline: none;
+  }
+  .contLogin .contLogin-content .file {
+    background-color: transparent;
+    padding: 0;
+  }
+  .contLogin .contLogin-content .buttonPrimary {
+    width: fit-content;
+    background-color: #29a237;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #e1e1e1;
+    font-weight: 700;
+    margin: 1rem 0;
+  }
+  .contLogin .contLogin-content .buttonPrimary:hover {
+    cursor: pointer;
+    background: #1f7929;
+  }
+  .contLogin .contLogin-content .buttonPrimary:hover {
+    cursor: pointer;
+  }
+  .contLogin .contLogin-content .buttonSecondary {
+    width: fit-content;
+    background-color: #e1e1e1;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #3a3a3a;
+    font-weight: 700;
+    margin: 1rem 0;
+  }
+  .contLogin .contLogin-content .buttonSecondary:hover {
+    cursor: pointer;
+    background: #c8c8c8;
+  }
+  .contLogin .contLogin-content .buttonSecondary:hover {
+    cursor: pointer;
+  }
 }
-.contLogin .close {
-  position: absolute;
-  right: 18px;
-  top: 10px;
-  background: none;
-  border: none;
-  padding: 1rem;
-  border-radius: 0.5rem;
+@media (min-width: 768px) {
+  .contLogin {
+    width: 600px;
+    max-height: 700px;
+    padding: 2rem;
+  }
+  .contLogin .contLogin-content {
+    width: 70%;
+  }
 }
-.contLogin .close:hover {
-  cursor: pointer;
-  background-color: #e1e1e1;
-}
-.contLogin .contLogin-content {
-  width: 70%;
-  margin: 0 auto;
-}
-.contLogin .contLogin-content input {
-  font-family: "Ubuntu", sans-serif;
-  display: block;
-  margin: 1rem auto 2rem auto;
-  padding: 2rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  background-color: #e1e1e1;
-  outline: none;
-}
-.contLogin .contLogin-content select {
-  font-family: "Ubuntu", sans-serif;
-  display: block;
-  margin: 1rem auto 2rem auto;
-  padding: 2rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  background-color: #e1e1e1;
-  outline: none;
-}
-.contLogin .contLogin-content .file {
-  background-color: transparent;
-  padding: 0;
-}
-.contLogin .contLogin-content .buttonPrimary {
-  width: fit-content;
-  background-color: #29a237;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem 0;
-}
-.contLogin .contLogin-content .buttonPrimary:hover {
-  cursor: pointer;
-  background: #1f7929;
-}
-.contLogin .contLogin-content .buttonPrimary:hover {
-  cursor: pointer;
-}
-.contLogin .contLogin-content .buttonSecondary {
-  width: fit-content;
-  background-color: #e1e1e1;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #3a3a3a;
-  font-weight: 700;
-  margin: 1rem 0;
-}
-.contLogin .contLogin-content .buttonSecondary:hover {
-  cursor: pointer;
-  background: #c8c8c8;
-}
-.contLogin .contLogin-content .buttonSecondary:hover {
-  cursor: pointer;
-}
-
 .error {
   color: #c53838;
 }
@@ -762,7 +782,7 @@ img {
   color: #e1e1e1;
 }
 
-.contNFT {
+.contNFT, .buyModal {
   position: relative;
   padding: 1rem;
   width: 280px;
@@ -772,12 +792,12 @@ img {
   margin: 0 auto;
   border-radius: 0.5rem;
 }
-.contNFT .venta {
+.contNFT .venta, .buyModal .venta {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1px;
 }
-.contNFT .enVenta {
+.contNFT .enVenta, .buyModal .enVenta {
   width: 20px;
   height: 20px;
   border-radius: 100%;
@@ -786,13 +806,13 @@ img {
   display: inline-block;
   cursor: pointer;
 }
-.contNFT .verde {
+.contNFT .verde, .buyModal .verde {
   background-color: #29a237;
 }
-.contNFT .rojo {
+.contNFT .rojo, .buyModal .rojo {
   background-color: #c53838;
 }
-.contNFT .noVenta {
+.contNFT .noVenta, .buyModal .noVenta {
   width: 20px;
   height: 20px;
   border-radius: 100%;
@@ -801,62 +821,62 @@ img {
   display: inline-block;
   cursor: pointer;
 }
-.contNFT .textVenta {
+.contNFT .textVenta, .buyModal .textVenta {
   color: #e1e1e1;
   margin-right: 1rem;
 }
-.contNFT .contImg {
+.contNFT .contImg, .buyModal .contImg {
   position: relative;
   height: 260px;
   width: 100%;
   background-size: cover;
 }
 @supports (object-fit: cover) {
-  .contNFT .contImg img {
+  .contNFT .contImg img, .buyModal .contImg img {
     height: 100%;
     object-fit: cover;
     object-position: center center;
   }
 }
-.contNFT .contImg img {
+.contNFT .contImg img, .buyModal .contImg img {
   height: 100%;
 }
-.contNFT h2 {
+.contNFT h2, .buyModal h2 {
   color: #f28b12;
   font-size: 2.9rem;
   margin: 0;
 }
-.contNFT p {
+.contNFT p, .buyModal p {
   color: #e1e1e1;
   font-size: 2rem;
   line-height: 1.2;
   margin: 0;
 }
-.contNFT p span {
+.contNFT p span, .buyModal p span {
   color: #f28b12;
   font-size: 2.3rem;
   font-weight: bold;
 }
-.contNFT .contNFTinfo {
+.contNFT .contNFTinfo, .buyModal .contNFTinfo {
   width: 100%;
 }
-.contNFT .contNFTinfo .porcentajeMenos {
+.contNFT .contNFTinfo .porcentajeMenos, .buyModal .contNFTinfo .porcentajeMenos {
   color: #c53838;
   font-weight: bold;
 }
-.contNFT .contNFTinfo .porcentajeMas {
+.contNFT .contNFTinfo .porcentajeMas, .buyModal .contNFTinfo .porcentajeMas {
   color: #29a237;
   font-weight: bold;
 }
-.contNFT .contButtons {
+.contNFT .contButtons, .buyModal .contButtons {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
 }
-.contNFT .w-50 {
+.contNFT .w-50, .buyModal .w-50 {
   width: 50%;
 }
-.contNFT .buttonTrade {
+.contNFT .buttonTrade, .buyModal .buttonTrade {
   width: fit-content;
   background-color: #663a8f;
   padding: 1rem;
@@ -869,29 +889,29 @@ img {
   margin: 1rem 0;
   width: 50%;
 }
-.contNFT .buttonTrade:hover {
+.contNFT .buttonTrade:hover, .buyModal .buttonTrade:hover {
   cursor: pointer;
   background: #4c2b6b;
 }
-.contNFT .buttonFav {
+.contNFT .buttonFav, .buyModal .buttonFav {
   width: 30px;
   position: absolute;
-  bottom: 200px;
+  bottom: 190px;
   left: 85%;
 }
-.contNFT .buttonFav:hover {
+.contNFT .buttonFav:hover, .buyModal .buttonFav:hover {
   cursor: pointer;
 }
-.contNFT .buttonlike {
+.contNFT .buttonlike, .buyModal .buttonlike {
   width: 30px;
   position: absolute;
   top: 4px;
   left: 5%;
 }
-.contNFT .buttonlike:hover {
+.contNFT .buttonlike:hover, .buyModal .buttonlike:hover {
   cursor: pointer;
 }
-.contNFT .contLike {
+.contNFT .contLike, .buyModal .contLike {
   height: 35px;
   width: 98%;
   position: absolute;
@@ -900,13 +920,13 @@ img {
   background-color: #3a3a3a;
   opacity: 0.8;
 }
-.contNFT .cantlike {
+.contNFT .cantlike, .buyModal .cantlike {
   width: 30px;
   position: absolute;
   top: 10px;
   left: 17%;
 }
-.contNFT .cantlike:hover {
+.contNFT .cantlike:hover, .buyModal .cantlike:hover {
   cursor: pointer;
 }
 
@@ -955,6 +975,57 @@ img {
 .heigth {
   height: 100%;
   background: none;
+}
+
+.buyModal {
+  width: 100%;
+  background-color: #1d1e3e;
+}
+.buyModal h1 {
+  color: #f28b12;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: bold;
+}
+.buyModal p {
+  color: #f28b12;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: bold;
+}
+
+.noButton {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 1rem;
+}
+.noButton:hover {
+  cursor: pointer;
+  background: #621c1c;
+}
+
+.closeButton {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 0;
+}
+.closeButton:hover {
+  cursor: pointer;
+  background: #621c1c;
 }
 
 @media (min-width: 320px) {
@@ -1022,6 +1093,9 @@ img {
   grid-column: 1/3;
   margin: 0;
   color: #3a3a3a;
+}
+.divPortfolio:hover {
+  background-color: #c5c5c5;
 }
 
 .icon {
@@ -1225,20 +1299,30 @@ img {
   background: #4c2b6b;
 }
 
-.wallet-panel {
-  width: 30%;
-  border-radius: 0.5rem;
-  border: solid 1px #f28b12;
-  margin: 1rem auto;
-  text-align: center;
-  height: fit-content;
+@media (min-width: 320px) {
+  .wallet-panel {
+    width: 30%;
+    border-radius: 0.5rem;
+    border: solid 1px #f28b12;
+    margin: 1rem auto;
+    text-align: center;
+    height: fit-content;
+    width: 80%;
+    padding: 2rem 0;
+  }
 }
-
+@media (min-width: 768px) {
+  .wallet-panel {
+    width: 30%;
+    width: fit-content;
+  }
+}
 .contNFTWallet {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1fr;
   align-items: center;
+  width: fit-content;
   align-items: center;
   text-align: left;
   width: 90%;
@@ -1252,13 +1336,21 @@ img {
   margin: 0;
 }
 
-.ContenedorGeneralWallet {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  margin: 0 auto;
+@media (min-width: 320px) {
+  .ContenedorGeneralWallet {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+  }
 }
-
+@media (min-width: 768px) {
+  .ContenedorGeneralWallet {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
 .ContenedorCardsWallet {
   width: 90%;
   margin: 0 auto;
@@ -1296,20 +1388,74 @@ img {
   color: #e1e1e1;
 }
 
-.InpcutLogo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.subtitulo {
+  color: #e1e1e1;
+  text-align: center;
+  margin: 2rem auto;
 }
 
-.contInput {
-  width: 50%;
-  display: inline-block;
-}
-.contInput .dinner {
-  padding: 1rem;
-}
+@media (min-width: 320px) {
+  .InpcutLogo {
+    display: block;
+  }
 
+  .contInput {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .buttonMP {
+    width: fit-content;
+    background-color: #663a8f;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #e1e1e1;
+    font-weight: 700;
+    margin: 1rem auto;
+    margin: 0 auto 0 1rem;
+    width: 90%;
+  }
+  .buttonMP:hover {
+    cursor: pointer;
+    background: #4c2b6b;
+  }
+}
+@media (min-width: 768px) {
+  .InpcutLogo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .contInput {
+    width: 50%;
+    display: inline-block;
+  }
+  .contInput .dinner {
+    padding: 1rem;
+  }
+
+  .buttonMP {
+    width: fit-content;
+    background-color: #663a8f;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #e1e1e1;
+    font-weight: 700;
+    margin: 1rem auto;
+  }
+  .buttonMP:hover {
+    cursor: pointer;
+    background: #4c2b6b;
+  }
+}
 .contLogoMP {
   width: 30%;
   margin: 0 auto;
@@ -1332,37 +1478,41 @@ img {
   width: 50%;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 .paginacion:hover {
   cursor: pointer;
 }
 .paginacion button {
-  padding: 1rem;
-  margin: 0 auto;
+  padding: 0.5rem;
+  margin: 0;
   border: none;
-  background-color: #f28b12;
+  background-color: rgba(11, 12, 41, 0.5607843137);
   border-radius: 0.5rem;
   color: #e1e1e1;
   font-weight: bold;
 }
-.paginacion button::hover {
+.paginacion button:hover {
   cursor: pointer;
+  background: #965508;
 }
 .paginacion .buttonCentro {
-  padding: 2 rem;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   border: solid 1px #e1e1e1;
+  background-color: #c6700b;
+}
+.paginacion .icon {
+  transition: 0.3s;
+  height: 45px;
+}
+.paginacion .icon:hover {
+  stroke: #965508;
 }
 
 .contFavoritos {
   margin: 0 auto;
   width: 90%;
-}
-
-.second-grid {
-  grid-column-start: 2;
-  grid-column-end: 2;
 }
 
 .iconFav {
@@ -1371,30 +1521,101 @@ img {
   stroke-width: 2.5px;
 }
 
-.contNFTWallet h2 {
-  color: #f28b12;
-  font-size: 2.9rem;
-  margin: 0;
+@media (min-width: 320px) {
+  .contNFTWallet {
+    display: block;
+  }
+  .contNFTWallet .imgFav {
+    width: 100%;
+  }
+  .contNFTWallet .btn-group {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+  }
 }
-.contNFTWallet p {
+@media (min-width: 768px) {
+  .contNFTWallet {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1fr;
+    align-items: center;
+    gap: 2rem;
+    width: fit-content;
+  }
+  .contNFTWallet h2 {
+    color: #f28b12;
+    font-size: 2.9rem;
+    margin: 0;
+  }
+  .contNFTWallet p {
+    color: #e1e1e1;
+    font-size: 2rem;
+  }
+  .contNFTWallet span {
+    color: #f28b12;
+    font-size: 2.3rem;
+    font-weight: bold;
+  }
+  .contNFTWallet .imgFav {
+    height: 250px;
+    width: 350px;
+  }
+  @supports (object-fit: cover) {
+    .contNFTWallet .imgFav img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    width: 100px;
+    border-radius: 0.5rem;
+    gap: 1rem;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+.buy-button {
+  margin: 0;
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
   color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
   font-size: 2rem;
 }
-.contNFTWallet span {
-  color: #f28b12;
-  font-size: 2.3rem;
-  font-weight: bold;
+.buy-button:hover {
+  cursor: pointer;
+  background: #1f7929;
 }
-.contNFTWallet .imgFav {
-  height: 250px;
-  width: 250px;
+
+.delete-button {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  font-size: 2rem;
+  margin: 0;
 }
-@supports (object-fit: cover) {
-  .contNFTWallet .imgFav img {
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-  }
+.delete-button:hover {
+  cursor: pointer;
+  background: #621c1c;
 }
 
 .last-grid {
@@ -1427,51 +1648,9 @@ img {
   grid-column-end: 1;
 }
 
-.btn-group {
-  display: flex;
-  width: 100%;
-  border-radius: 0.5rem;
-  gap: 2rem;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.buy-button {
+.second-grid {
+  color: #f28b12;
   margin: 0;
-  width: fit-content;
-  background-color: #29a237;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem 0;
-  font-size: 2rem;
-}
-.buy-button:hover {
-  cursor: pointer;
-  background: #1f7929;
-}
-
-.delete-button {
-  margin: 0;
-  width: fit-content;
-  background-color: #c53838;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem auto;
-  font-size: 2rem;
-}
-.delete-button:hover {
-  cursor: pointer;
-  background: #621c1c;
 }
 
 .back-button {
@@ -1595,9 +1774,26 @@ img {
   cursor: pointer;
   background: #4c2b6b;
 }
-.contSettings-info .contFile {
+.contSettings-info .contProfile {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+}
+.contSettings-info .contProfile img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+.contSettings-info .contProfile .contFile {
+  position: absolute;
+  right: 0;
+  bottom: 0rem;
   text-align: center;
   color: #e1e1e1;
+}
+.contSettings-info .contProfile .contFile label {
+  margin: 0;
 }
 .contSettings-info #mifile {
   display: none;
@@ -1618,6 +1814,14 @@ img {
   display: block;
 }
 
+@media (min-width: 768px) {
+  .contSettings-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1fr;
+    align-items: center;
+  }
+}
 .contenedorCard {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1735,6 +1939,18 @@ img {
 }
 #contNotification .notiFalse:hover {
   cursor: pointer;
+}
+#contNotification .viewAll {
+  margin: 0 auto;
+  transition: 0.5s;
+  width: fit-content;
+}
+#contNotification .viewAll a {
+  color: #f28b12;
+  text-align: center;
+}
+#contNotification .viewAll a:hover {
+  color: #e1e1e1;
 }
 
 @media (min-width: 768px) {

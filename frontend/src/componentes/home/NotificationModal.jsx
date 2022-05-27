@@ -9,6 +9,14 @@ export default function NotificationModal({usuario}) {
   useEffect(()=>{
     dispatch(searchNotification())
   },[])
+
+
+  function viewAll(){
+    notification?.map(e=>{
+      dispatch(viewNotification(e._id))
+    })
+  }
+
   function setTrue(e){
     dispatch(viewNotification(e._id))
     dispatch(searchNotification())
@@ -29,6 +37,10 @@ export default function NotificationModal({usuario}) {
               }): <li className="notification">Not notification</li>}
              
             </ul>
+            <div className='viewAll'>
+            <a  onClick={()=>viewAll()}>-- view all --</a>
+            </div>
+            
     </div> : null
     
   )

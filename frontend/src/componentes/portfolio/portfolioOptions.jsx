@@ -19,6 +19,9 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: "0",
+    margin:'0',
+    width: '90%',
+    backgroundColor: '#3a3a3a'
   },
 };
 
@@ -97,7 +100,7 @@ export default function PortfoliOptions() {
       </div>
 
       <Modal isOpen={openModal} style={customStyles}>
-        <div className="heigth">
+        
           <div className="contLogin">
             <button className="close" onClick={closeModal}>
               X
@@ -118,7 +121,7 @@ export default function PortfoliOptions() {
               </button>
             }
           </div>
-        </div>
+        
       </Modal>
     </div>
   );

@@ -39,7 +39,7 @@ const params = window.location.href;
             <div className='contFavoritos'>
 
             <h1 style={{color: 'white'}}>favoritos</h1>
-            {miUser.favoritos.length > 0  ? miUser.favoritos.map(fav => {
+            {miUser.favoritos  ? miUser.favoritos.map(fav => {
                     return (
                         <FavNFTS key={fav._id} image={fav.image} id={fav.id} 
                         colection={fav.colection} avaliable={fav.avaliable}
