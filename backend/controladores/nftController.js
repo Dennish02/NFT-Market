@@ -545,6 +545,7 @@ const cancelOffer = async (req, res) => {
 
   if (offer && offer.userA === usuario.nombre) {
     offer.status = false;
+    offer.condition = "rejected";
     await offer.save();
 
     //GUARDAMOS LA OFERTA CON EL NUEVO STATUS
@@ -558,7 +559,7 @@ const cancelOffer = async (req, res) => {
 
     //HACEMOS LO MISMO EN EL USUARIO QUE RECIBE
 
-    let offerReciver = await Usuario.find({ nombre: offer.userB });
+    const offerReciver = await Usuario.findOne({ nombre: offer.userB });
 
     // offerReciver = offerReciver.pop();
 
@@ -577,7 +578,7 @@ const cancelOffer = async (req, res) => {
 
     await offerReciver.save();
 
-    res.json(offer);
+    res.json({msg: `You cancel the offer ${offer._id}`});
   } else {
     res.json({msg: `You can't cancel this offer because you're not the sender`});
   }
