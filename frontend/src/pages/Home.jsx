@@ -33,11 +33,10 @@ export default function Home() {
   //const token = localStorage.getItem("token");
 
   // const [orden, setOrden] = useState('')
-  const [selectedSort, setSelectedSort] = useState('sort')
-  const [orderPop, setOrderPop] = useState('')
-  
+  const [selectedSort, setSelectedSort] = useState("sort");
+  const [orderPop, setOrderPop] = useState("");
 
-  //Paginado 
+  //Paginado
   const [currentPage, setCurrentPage] = useState(1);
   const [nftByPage, setNftByPage] = useState(8);
   const indexOfLastNft = currentPage * nftByPage;
@@ -53,7 +52,7 @@ export default function Home() {
   };
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
-  }
+  };
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -84,18 +83,23 @@ export default function Home() {
       dispatch(usuarioActual());
       dispatch(allNFTUser());
       dispatch(topPortfolios());
-      dispatch(getValuePortfolio())
-      dispatch(searchNotification())
+      dispatch(getValuePortfolio());
+      dispatch(searchNotification());
     });
-  },[]);
+  }, []);
 
-  if (!usuarioAct) "cargando";
+  if (!usuarioAct) "Loading";
   return (
     <div className="contentHome">
       <NavBar usuario={usuarioAct} />
-     <NotificationModal usuario={usuarioAct}/>
-      <div> 
-        <SearchBar selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas} OrderPop={setOrderPop}/>
+      <NotificationModal usuario={usuarioAct} />
+      <div>
+        <SearchBar
+          selectedSort={selectedSort}
+          setSelectedSort={setSelectedSort}
+          paginas={paginas}
+          OrderPop={setOrderPop}
+        />
       </div>
       <Paginado
         goToNextPage={goToNextPage}
@@ -113,6 +117,7 @@ export default function Home() {
                 <div key={nft.id}>
                   {
                     <ComponentNFT
+                      screen={screen}
                       todosLosNFT={todosLosNFT}
                       usuario={usuarioAct}
                       _id={nft._id}
@@ -134,11 +139,11 @@ export default function Home() {
           })
         ) : (
           <div>
-            <h3 className="textGray">no hay NFT en venta</h3>
+            <h3 className="textGray">There aren't NFTs on sale</h3>
           </div>
         )}
       </main>
-     
+
       {usuario ? (
         <TopPortfolios ranking={ranking} screen={screen} usuario={usuario} />
       ) : (

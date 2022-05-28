@@ -104,7 +104,7 @@ export default function Loguin() {
     toast.success("login succesfully");
     setTimeout(function () {
       window.location.reload(1);
-    }, 1500); // After 1,5 secs
+    }, 2500); // After 2,5 secs
   }
   return (
     <div className="contRegister">
@@ -160,7 +160,7 @@ export default function Loguin() {
             </GoogleOAuthProvider>
             <Link to="/olvide-password/" className="a">
               {" "}
-              <h4>Olvide Password</h4>
+              <h4>forget your password</h4>
             </Link>
           </div>
         </div>
