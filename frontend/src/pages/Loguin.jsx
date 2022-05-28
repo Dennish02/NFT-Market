@@ -160,7 +160,7 @@ export default function Loguin() {
             </GoogleOAuthProvider>
             <Link to="/olvide-password/" className="a">
               {" "}
-              <h4>Olvide Password</h4>
+              <h4>forget your password</h4>
             </Link>
           </div>
         </div>

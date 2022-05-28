@@ -31,7 +31,7 @@ const googleLogin = async (req, res) => {
           "191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com",
       })
       .then((response) => {
-        const { email_verified,picture, given_name, email } = response.payload;
+        const { email_verified, picture, given_name, email } = response.payload;
         if (email_verified) {
           Usuario.findOne({ email }).exec((err, user) => {
             if (err) {
@@ -88,10 +88,10 @@ const cambiarImage = async (req, res) => {
 
       user.image = image;
       await user.save();
-      return res.json({ msg: "imagen modificada" });
+      return res.json({ msg: "Image updated" });
     }
   } catch (e) {
-    return res.status(400).json({ msg: "error" });
+    return res.status(400).json({ msg: "Error" });
   }
 };
 
@@ -102,7 +102,7 @@ const usuario = async (req, res) => {
       .select(" -password -confirmado  -createdAt -updatedAt -__v");
     return res.send(user);
   } catch (e) {
-    return res.status(400).json({ msg: "error" });
+    return res.status(400).json({ msg: "Error" });
   }
 };
 
@@ -111,7 +111,7 @@ const registrar = async (req, res) => {
   //* * Este controlador esta termiando
   const { email, nombre } = req.body;
   if (nombre.length > 10) {
-    const error = new Error("El usuario no puede tener mas de 10 caracteres");
+    const error = new Error("The username cannot have more than 10 characters");
     return res.status(400).json({ msg: error.message });
   }
 
@@ -119,7 +119,9 @@ const registrar = async (req, res) => {
   const exiteUsiario = await Usuario.findOne({ email }); //busca si existe
 
   if (exiteUsiario || usuarioRepetido) {
-    const error = new Error(usuarioRepetido ? "Usuario en uso" : "Mail en uso");
+    const error = new Error(
+      usuarioRepetido ? "User already exists" : "Mail already exists"
+    );
     return res.status(400).json({ msg: error.message });
   }
   try {
@@ -140,7 +142,7 @@ const registrar = async (req, res) => {
 
     res
       .status(200)
-      .send("Usuario creado, Revisa tu email para confirmar tu cuenta");
+      .send("User created, check your email to confirm your account");
   } catch (error) {
     console.log(error);
   }
@@ -152,12 +154,12 @@ const autenticar = async (req, res) => {
   //comprobar si existe
   const usuario = await Usuario.findOne({ email });
   if (!usuario) {
-    const error = new Error("EL USUARIO NO EXISTE");
+    const error = new Error("User don't exists");
     return res.status(404).json({ msg: error.message });
   }
   //comprobar sui esta confirnadi
   if (!usuario.confirmado) {
-    const error = new Error("Tu cuenta no ha sido confirmada");
+    const error = new Error("Your account hasn't been confirmed");
     return res.status(403).json({ msg: error.message });
   }
   //consifmar su password
@@ -171,7 +173,7 @@ const autenticar = async (req, res) => {
       token: generarJWT(usuario._id), //mandar el id por JWT
     });
   } else {
-    const error = new Error("la contraseña es incorrecta");
+    const error = new Error("Password is incorrect");
     res.status(403).json({ msg: error.message });
   }
 };
@@ -182,14 +184,16 @@ const confimrar = async (req, res) => {
   const { token } = req.params;
   const usuarioConfirmar = await Usuario.findOne({ token }); //buscar el usuario por el token
   if (!usuarioConfirmar) {
-    const error = new Error("EL usuario ya se confirmó o el token es inválido");
+    const error = new Error(
+      "The user wasn't confirmed or the token is invalid"
+    );
     return res.status(404).json({ msg: error.message });
   }
   try {
     usuarioConfirmar.confirmado = true; //cambiando estado para que esté confirmado
     usuarioConfirmar.token = ""; //elimianr token porque se usa una vez
     await usuarioConfirmar.save(); //almacenar con los cambios
-    res.json({ msg: "Usuario confirmado correctamente" });
+    res.json({ msg: "User confirmed successfully" });
   } catch (error) {
     console.log(error);
   }
@@ -202,7 +206,7 @@ const olvidePassword = async (req, res) => {
   const usuario = await Usuario.findOne({ email });
 
   if (!usuario) {
-    const error = new Error("EL USUARIO NO EXISTE");
+    const error = new Error("User don't exists");
     res.status(404).json({ msg: error.message });
   } else {
     try {
@@ -217,7 +221,7 @@ const olvidePassword = async (req, res) => {
         token: usuario.token,
       });
 
-      res.json({ msg: "Eviamos un correo con las instrucciones" });
+      res.json({ msg: "An email was sent with instructions." });
     } catch (error) {
       console.log(error);
     }
@@ -233,9 +237,9 @@ const comporbarToken = async (req, res) => {
   const tokenValido = await Usuario.findOne({ token });
 
   if (tokenValido) {
-    registrar.json({ msg: "El usuario Existe" });
+    registrar.json({ msg: "The user is already exists" });
   } else {
-    const error = new Error("Token Incorrecto");
+    const error = new Error("Token invalid");
     res.status(404).json({ msg: error.message });
   }
 };
@@ -254,12 +258,12 @@ const nuevoPassword = async (req, res) => {
 
     try {
       await usuario.save();
-      res.json({ msg: "Contraseña actualizada" });
+      res.json({ msg: "Password updated" });
     } catch (error) {
       console.log(error);
     }
   } else {
-    const error = new Error("Token Incorrecto");
+    const error = new Error("Token Invalid");
     res.status(404).json({ msg: error.message });
   }
 };
@@ -295,13 +299,13 @@ const transferirCl = async (req, res) => {
   const usuarioB = await Usuario.findOne({ nombre: user });
   // const usuarioB = await Usuario.findById( user );
   if (!usuarioB) {
-    return res.status(401).json({ msg: "No existe el usuario" });
+    return res.status(401).json({ msg: "User doesn't exist" });
   }
 
   const coinsB = await usuarioB.coins;
 
   if (usuarioA.coins < cl) {
-    res.status(401).json({ msg: "No tienes CL suficientes para enviar" });
+    res.status(401).json({ msg: "You don't have enough CL to sendr" });
   }
 
   try {
@@ -312,19 +316,18 @@ const transferirCl = async (req, res) => {
       usuarioB.coins = usuarioB.coins + Number(cl);
       usuarioB.save();
 
-      
       //notificación
       const notificacion = new Notificacion({
-        msg: `${usuarioA.nombre} te ha transferido ${cl}CL`
-      })
-      usuarioB.notificaciones.unshift(notificacion)
-      await notificacion.save()
+        msg: `${usuarioA.nombre} has transferred you ${cl}CL`,
+      });
+      usuarioB.notificaciones.unshift(notificacion);
+      await notificacion.save();
 
-      res.json({ msg: `${usuarioA.nombre} Ha enviado ${cl}CL a ${usuarioB.nombre}` });
-  
-      }  
-    
-    } catch (error) {
+      res.json({
+        msg: `${usuarioA.nombre} has sent ${cl}CL to ${usuarioB.nombre}`,
+      });
+    }
+  } catch (error) {
     //si falla devuelve las coins a su estado inicial
     usuarioA.coins = coinsA;
     usuarioA.save();
@@ -332,7 +335,7 @@ const transferirCl = async (req, res) => {
     usuarioB.coins = coinsB;
     usuarioB.save();
 
-    res.status(401).json({ msg: "No se pudo transferir CL" });
+    res.status(401).json({ msg: "Could not transfer CL" });
   }
 };
 
@@ -353,7 +356,7 @@ const notificacionVista = async (req, res) => {
     var notificacion = await Notificacion.findById(id);
 
     if (notificacion === null) {
-      const error = new Error("la notificación no existe");
+      const error = new Error("Notification doesn't exist");
       return res.json({ msg: error.message });
     } else {
       notificacion.visto = true;
