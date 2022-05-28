@@ -396,7 +396,7 @@ const seeOffers = async (req, res) => {
   const user = await Usuario.findOne({ nombre: usuario.nombre }).populate(
     "hasTradeOffers"
   );
-  console.log(user.hasTradeOffers);
+  
 
   if (user.hasTradeOffers && user.hasTradeOffers.length > 0) {
     return res.status(200).json(user.hasTradeOffers);
