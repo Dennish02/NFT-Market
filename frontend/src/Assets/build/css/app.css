@@ -1488,7 +1488,7 @@ img {
   padding: 0.5rem;
   margin: 0;
   border: none;
-  background-color: rgba(11, 12, 41, 0.5607843137);
+  background-color: #0b0c29;
   border-radius: 0.5rem;
   color: #e1e1e1;
   font-weight: bold;
@@ -1724,7 +1724,7 @@ img {
   color: #e1e1e1;
 }
 .contentTopPortfolios .contentTopPortfolios--contendio {
-  background-color: rgba(11, 12, 41, 0.5607843137);
+  background-color: #0b0c29;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -1822,7 +1822,7 @@ img {
   font-size: 14px;
   font-weight: bold;
   color: #e1e1e1;
-  background-color: rgba(11, 12, 41, 0.5607843137);
+  background-color: #0b0c29;
   transition: all 0.5s;
   cursor: pointer;
   padding: 15px 40px !important;
@@ -1843,7 +1843,6 @@ img {
 .contenedorCard {
   max-width: 800px;
   margin: 6rem auto;
-  border: solid 1px #f28b12;
   padding: 2rem 0;
 }
 .contenedorCard .buttonAccept {
@@ -1884,7 +1883,7 @@ img {
   .contenedorCard .contTrades {
     width: 90%;
     margin: 2rem auto;
-    background-color: rgba(11, 12, 41, 0.5607843137);
+    background-color: #0b0c29;
     padding: 2rem 0;
     border-radius: 0.5rem;
   }
@@ -1929,25 +1928,71 @@ img {
   background: #621c1c;
 }
 
-.padreModal {
-  background-color: #1d1e3e;
-  width: 100%;
-  min-height: 100%;
-  padding-bottom: 2rem;
+@media (min-width: 320px) {
+  .modalBuy {
+    width: 90%;
+    margin: 12rem auto;
+    height: 70vh;
+  }
+  .modalBuy .buyModal {
+    margin: 0 auto;
+  }
+  .modalBuy .subtituloBuy {
+    color: #e1e1e1;
+  }
 }
-
-.contenedorCardTrade {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1fr;
-  align-items: center;
-  gap: 2rem;
-  max-width: 800px;
-  margin: auto;
-  padding: 2rem 0;
-  border: solid 1px #f28b12;
+@media (min-width: 768px) {
+  .modalBuy {
+    width: 400px;
+    margin: 2rem auto;
+  }
 }
-
+@media (min-width: 320px) {
+  .modalTrade {
+    width: 95%;
+    margin: 1rem auto;
+    background-color: #0b0c29;
+    padding: 1rem;
+    height: fit-content;
+    border: solid 1px #f28b12;
+    position: relative;
+    border-radius: 0.5rem;
+  }
+  .modalTrade .contenedorCardTrade {
+    display: block;
+    border: none;
+    padding: 0;
+    margin: 1rem auto;
+  }
+  .modalTrade .subtituloTrade {
+    color: #e1e1e1;
+    margin: 1rem;
+  }
+  .modalTrade .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #c53838;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    color: #e1e1e1;
+  }
+}
+@media (min-width: 768px) {
+  .contenedorCardTrade {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1fr;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+  .contenedorCardTrade .swiper {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
 .buttonTrade1 {
   width: fit-content;
   background-color: #29a237;
@@ -1983,7 +2028,7 @@ img {
   padding: 0;
 }
 #contNotification .notification {
-  background-color: rgba(11, 12, 41, 0.5607843137);
+  background-color: #0b0c29;
   padding: 1rem;
   margin: 1rem auto;
   list-style: none;
@@ -1993,7 +2038,7 @@ img {
   cursor: pointer;
 }
 #contNotification .notiFalse {
-  background-color: rgba(11, 12, 41, 0.5607843137);
+  background-color: #0b0c29;
   padding: 1rem;
   margin: 1rem auto;
   list-style: none;
