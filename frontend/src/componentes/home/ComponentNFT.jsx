@@ -17,34 +17,34 @@ import likeOf from "../../img/likeOff.png";
 import Modal2 from "react-modal";
 import Modal from "react-modal";
 import ComponentNftTrade from "../../componentes/home/ComponentNftTrade";
+import { Swiper, SwiperSlide } from "swiper/react";
+//import "swiper/css";
+//import "swiper/css/pagination";
 
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(11,12,41,0.48)",
   },
-  content: {
-    margin: "0",
-    padding: "0",
-  },
+ 
 };
-
+// const customStyles = {
+//   overlay: {
+//     backgroundColor: "rgba(11,12,41,0.48)",
+//   },
+//   content: {
+//     top: "50%",
+//     left: "50%",
+//     right: "auto",
+//     bottom: "auto",
+//     marginRight: "-50%",
+//     transform: "translate(-50%, -50%)",
+//     padding: "0",
+//     width: "380px",
+//   },
+// };
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
-  const customStyles = {
-    overlay: {
-      backgroundColor: "rgba(11,12,41,0.48)",
-    },
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      padding: "0",
-      width: "380px",
-    },
-  };
+ 
   const {
     _id,
     id,
@@ -57,6 +57,7 @@ export default function ComponentNFT(props) {
     ownerId,
     usuario,
     ranking,
+    screen
   } = props;
   let porcentaje = pocentajeAumento(priceBase, price);
 
@@ -209,25 +210,32 @@ export default function ComponentNFT(props) {
             >
               Trade
             </button>
-            <Modal2 style={customStyles} isOpen={mostrarModal}>
-              <div className="padreModal">
+            <Modal2 style={customStyles} className='modalTrade' isOpen={mostrarModal}>
+              <div >
                 <div>
                   <button className="close" onClick={() => OcultarModal()}>
                     X
                   </button>
                 </div>
 
-                <div>
-                  <h3>Choose the nft that you want to trade</h3>
-                </div>
+               
+                  <h3 className="subtituloTrade" >Choose the nft that you want to trade</h3>
+              
 
                 <div className="contenedorCardTrade">
+                <Swiper
+                           slidesPerView={
+                            screen > 1650 ? 4 : screen > 1300 ? 3 : screen > 920 ? 2 : 1
+                          }
+                            spaceBetween={30}
+                            navigation
+                        >
                   {UserFilter &&
                     UserFilter.map((nft) => (
                       <div key={nft.id}>
                         {
-                          <div>
-                            <div>
+                          <SwiperSlide key={nft._id}>
+                            
                               <ComponentNftTrade
                                 OcultarModal={OcultarModal}
                                 trade={trade}
@@ -244,25 +252,29 @@ export default function ComponentNFT(props) {
                                 ownerId={nft.ownerId}
                                 ranking={nft.ranking}
                               />
-                            </div>
-                          </div>
+                          </SwiperSlide>
+                          
                         }
                       </div>
                     ))}
+                  </Swiper>
                 </div>
               </div>
             </Modal2>
-            <Modal isOpen={openModal} style={customStyles}>
+            <Modal isOpen={openModal} className='modalBuy' style={customStyles}>
               <div className="buyModal">
                 <button className="closeButton" onClick={() => closeModal()}>
                   X
                 </button>
-                <div>
-                  <h3>{`you wanna buy this nft for : ${price}CL?`} </h3>
-                  <img src={image.url} alt="" />
+                
+                  <h3 className="subtituloBuy">{`you wanna buy this nft for : ${price}CL?`} </h3>
+                  <div className="contImg">
+                     <img src={image.url} alt="nft image" />    
+                  </div>
+                 
                   <p>{`your balance is : ${usuario.coins}CL`}</p>
                   <p>{`your balance after buy : ${usuario.coins - price}CL`}</p>
-                </div>
+                
                 <div className="contButtons">
                   <button onClick={() => handleBuy()} className="buttonPrimary">
                     BUY

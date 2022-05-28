@@ -113,6 +113,7 @@ export default function Home() {
                 <div key={nft.id}>
                   {
                     <ComponentNFT
+                    screen={screen}
                       todosLosNFT={todosLosNFT}
                       usuario={usuarioAct}
                       _id={nft._id}
