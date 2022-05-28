@@ -29,8 +29,12 @@ import {
   GUARDAR_PAGINA,
   TRADE_OFFER,
   SEE_OFFER,
+  RESPONSE_OFFER,
   NOTIFICATION_USER,
   NOTIFICATION_USER_TRUE,
+
+  CANCEL_OFFER,
+
 } from "../constantes";
 
 const initialState = {
@@ -306,12 +310,22 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         trades: [...trades, action.payload],
-      };
+
+      }
     case SEE_OFFER:
       return {
         ...state,
         trades: action.payload,
-      };
+
+      }
+    case RESPONSE_OFFER:
+        return {
+          ...state
+      }
+    case CANCEL_OFFER: 
+      return {
+        ...state
+      }
     case NOTIFICATION_USER:
       return {
         ...state,

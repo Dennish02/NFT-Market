@@ -124,4 +124,14 @@ io.on("connection", (socket) => {
       .to(`${process.env.FRONTEND_URL}/usuario/favoritos`)
       .emit("updatefav");
   });
+
+  socket.on("Trades", (room) => {
+    socket.join(room);
+  });
+
+  socket.on("updateTrades", () => {
+    socket
+      .to(`${process.env.FRONTEND_URL}/home/usuario/trades`)
+      .emit("update5");
+  });
 });

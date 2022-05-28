@@ -1,30 +1,30 @@
 import React from "react";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import likeOf from "../../img/likeOff.png";
-import { tradeOffer } from "../../../redux/actions/actionNFT";
-import { useDispatch } from "react-redux";
+
 
 function ComponentNftTrade({
-  _id,
-  id,
-  image,
-  colection,
-  priceBase,
-  price,
-  creatorId,
-  ownerId,
-  usuario,
-  ranking,
-  trade,
-  // setnftOffered,
-  OcultarModal,
+
+    _id,
+    id,
+    image,
+    colection,
+    priceBase,
+    price,
+    creatorId,
+    ownerId,
+    usuario,
+    ranking,
+    trade,
+    OcultarModal,
+
 }) {
-  const dispatch = useDispatch();
 
   const handleTrade = () => {
     // setnftOffered(id);
     OcultarModal(id);
   };
+
 
   return (
     <div className="contNFT">

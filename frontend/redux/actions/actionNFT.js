@@ -19,6 +19,9 @@ import {
   SORT_POP,
   TRADE_OFFER,
   SEE_OFFER,
+  RESPONSE_OFFER,
+  CANCEL_OFFER,
+  DELETE_OFFER,
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -382,9 +385,9 @@ export function sortPopularity(payload) {
 
 export function tradeOffer(trade) {
   const { nftId, nftOffered, owner } = trade;
-  console.log(nftId);
-  console.log(nftOffered);
-  console.log(owner);
+  // console.log(nftId);
+  // console.log(nftOffered);
+  // console.log(owner);
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
@@ -400,7 +403,12 @@ export function tradeOffer(trade) {
         { nftId, nftOffered, owner }
       );
 
-      toast.success(json.data.msg);
+
+      toast.success("your send offert succesfully");
+
+      socket.emit("updateTrades")
+      socket.emit("update")
+      socket.emit("renderHome");
       return dispatch({
         type: TRADE_OFFER,
         payload: json.data,
@@ -425,7 +433,6 @@ export function seeOffers() {
       const json = await authAxios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/nft/seeoffers`
       );
-
       // console.log(json.data)
       return dispatch({
         type: SEE_OFFER,
@@ -436,3 +443,57 @@ export function seeOffers() {
     }
   };
 }
+
+export function responseOffer ({ response, newId }){
+  console.log(response, newId)
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create ({
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+    try {
+      const json = await authAxios.post(`${import.meta.env.VITE_BACKEND_URL}/api/nft/responseoffer`, { response, newId })
+
+      socket.emit("updateTrades")
+      socket.emit("update")
+      socket.emit("renderHome");
+
+      toast.success(json.data.msg);
+      return dispatch({
+        type: RESPONSE_OFFER,
+      })
+    } catch (error) {
+      toast.error(error.response.msg);
+    }
+  }
+}
+
+export function cancelOffer ({id}) {
+  console.log(id)
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create ({
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`
+      },
+    });
+    try {
+      const json = await authAxios.post(`${import.meta.env.VITE_BACKEND_URL}/api/nft/canceloffer`,{id})
+
+      socket.emit("updateTrades")
+      socket.emit("update")
+      socket.emit("renderHome");
+      toast.success(json.data.msg);
+      return dispatch ({
+        type: CANCEL_OFFER, 
+      })
+    } catch (error) {
+      toast.warning(error.response.msg)
+    }
+  }
+}
+
