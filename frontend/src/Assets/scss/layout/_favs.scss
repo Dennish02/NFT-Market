@@ -132,4 +132,10 @@
     background-color: v.$verdeOscuro;
     width: 50%;
     opacity: 0.5;
+    
+}
+
+.disableCreate{
+    @include m.buttonPrimary;
+    opacity: 0.5;
 }
