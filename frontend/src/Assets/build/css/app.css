@@ -1694,6 +1694,24 @@ img {
   cursor: not-allowed;
 }
 
+.disableCreate {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  opacity: 0.5;
+}
+.disableCreate:hover {
+  cursor: pointer;
+  background: #1f7929;
+}
+
 .contentTopPortfolios {
   width: 95%;
   margin: 2rem auto;

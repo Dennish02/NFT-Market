@@ -41,9 +41,9 @@ const googleLogin = async (req, res) => {
                 const token = generarJWT(user._id);
                 const { _id, nombre, email } = user;
                 res.json({
-                  _id: user._id,
-                  nombre: user.nombre,
-                  email: user.email,
+                  _id: _id,
+                  nombre: nombre,
+                  email: email,
                   token: token,
                   // { token, _id, nombre,  email}
                 });

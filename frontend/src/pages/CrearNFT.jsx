@@ -5,6 +5,7 @@ import { crearNFT, reset } from "../../redux/actions/actionNFT";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
+import { toast } from "react-toastify";
 
 function validate(value) {
   let errores = {};
@@ -21,6 +22,7 @@ function validate(value) {
 export default function CrearNFT() {
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
+  let [validate2, setValidate2] = useState(0)
   const [estado, setEstado] = useState({
     colection: "",
     category: "",
@@ -28,7 +30,7 @@ export default function CrearNFT() {
     image: null,
     id: token,
   });
-
+  
   const navigate = useNavigate();
   const creado = useSelector((state) => state.creado);
   const colecciones = useSelector((state) => state.colecciones);
@@ -36,7 +38,7 @@ export default function CrearNFT() {
   useEffect(() => {
     dispatch(coleccionesUsuario());
   }, []);
-
+ 
   useEffect(() => {
     if (creado) {
       dispatch(reset());
@@ -44,6 +46,9 @@ export default function CrearNFT() {
     }
   }, [creado]);
 
+
+   
+ 
   return (
     <div className="flex">
       <div className="contLogin">
@@ -60,8 +65,11 @@ export default function CrearNFT() {
                 crearNFT({
                   ...values,
                   flag: colecciones.length === 0 ? false : true,
+                  
                 })
-              );
+                );
+                setValidate2(1)
+                
             }}
           >
             {({ setFieldValue }) => (
@@ -122,10 +130,10 @@ export default function CrearNFT() {
                   className="file"
                   onChange={(e) => setFieldValue("image", e.target.files[0])}
                 />
-
-                <button type="submit" className="buttonPrimary">
-                  Crear
-                </button>
+                {validate2>0? <button  disabled type="submit" className="disableCreate">loading</button> :  <button  onClick={() => validation()} type="submit" className="buttonPrimary">    Crear </button>}
+                
+              
+              
               </Form>
             )}
           </Formik>
