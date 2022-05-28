@@ -21,7 +21,7 @@ export default function VerificacionUsuario() {
     dispatch(autenticarUser(config));
   }, []);
 
-  if (!token) "Cargando";
+  if (!token) "Loading";
 
   return <>{token ? <Outlet /> : <Navigate to="/" />}</>;
 }

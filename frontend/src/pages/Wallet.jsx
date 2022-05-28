@@ -7,14 +7,13 @@ import Modal from "react-modal";
 import mp from "../img/mp.png";
 import { toast } from "react-toastify";
 import Paginado from "./Paginas";
-import { usuarioActual , transferirCL} from "../../redux/actions/actionUSER";
-import { comprarCL } from '../../redux/actions/actionUSER';
+import { usuarioActual, transferirCL } from "../../redux/actions/actionUSER";
+import { comprarCL } from "../../redux/actions/actionUSER";
 import io from "socket.io-client";
 
-
 const customStyles = {
-  overlay :{
-    backgroundColor: 'rgba(11,12,41,0.48)',
+  overlay: {
+    backgroundColor: "rgba(11,12,41,0.48)",
   },
   content: {
     top: "50%",
@@ -24,11 +23,10 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: "2rem",
-    width: '90%',
-    backgroundColor: '#1d1e3e',
+    width: "90%",
+    backgroundColor: "#1d1e3e",
   },
 };
-
 
 let socket;
 
@@ -38,22 +36,20 @@ function Wallet() {
   const usuario = useSelector((state) => state.usuarioActual);
   const [compra, setCompra] = useState();
   const [errors, setErrors] = useState({
-    clerror:"",
-    error:""
-  })
-  const [ mostrarModal, setMostrarModal ] = useState(false)
+    clerror: "",
+    error: "",
+  });
+  const [mostrarModal, setMostrarModal] = useState(false);
   const [transferencias, setTransferencias] = useState({
-    cl:"",
-    user:"",
-  })
+    cl: "",
+    user: "",
+  });
 
   //paginacion
 
   const [currentPage, setCurrentPage] = useState(1);
 
   const [transactionByPage, setTransactionByPage] = useState(5);
-
-
 
   const [elementsByPage, setElementsByPage] = useState(5);
   const indexOfLastTransactions = currentPage * elementsByPage;
@@ -80,13 +76,14 @@ function Wallet() {
   const goToPreviousPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
-  const [ruta, setRuta ] = useState()
+  const [ruta, setRuta] = useState();
   const params = window.location.href;
 
   function handleButton(e) {
-    e.preventDefault()
-    !compra ? toast.info("Deebes ingresar in monto") :  
-    localStorage.setItem('valor', `${compra}`)
+    e.preventDefault();
+    !compra
+      ? toast.info("You must enter the amount")
+      : localStorage.setItem("valor", `${compra}`);
     dispatch(comprarCL(compra));
   }
   function closeModal() {
@@ -103,147 +100,190 @@ function Wallet() {
       setRuta(ruta);
     });
     socket.on("TransferenciaOk", () => {
-      dispatch(usuarioActual())
-    })
-  },[]);
+      dispatch(usuarioActual());
+    });
+  }, []);
 
-  function MostrarModal () {
+  function MostrarModal() {
     setMostrarModal(true);
-  } 
-  function OcultarModal () {
+  }
+  function OcultarModal() {
     setMostrarModal(false);
-    setErrors({})
+    setErrors({});
     setTransferencias({
-      cl:"",
-      user:"",
-    })
-  } 
+      cl: "",
+      user: "",
+    });
+  }
 
   const handleChangeInputTransfer = (e) => {
     setTransferencias({
       ...transferencias.user,
-      [e.target.name]: e.target.value
-    })
-    if(e.target.value.length > 10){
+      [e.target.name]: e.target.value,
+    });
+    if (e.target.value.length > 10) {
       setErrors({
-        error: "Invalid length"
-      })
-    }else {
+        error: "Invalid length",
+      });
+    } else {
       setErrors({
-        error: ""
-      })
+        error: "",
+      });
     }
-  }
+  };
 
   const handleInputCl = (e) => {
     setTransferencias({
       ...transferencias,
-      [e.target.name]: e.target.value
-    })
-    if(e.target.value < 0 ){
+      [e.target.name]: e.target.value,
+    });
+    if (e.target.value < 0) {
       setErrors({
-        clerror: "Enter a number greater than 1"
-      })
-    }else if (!e.target.value){
+        clerror: "Enter a number greater than 1",
+      });
+    } else if (!e.target.value) {
       setErrors({
-        clerror:""
-      })
+        clerror: "",
+      });
     }
-  
+  };
+
+  function formatoMoneda(coins) {
+    let monedas = coins.toString();
+    let monedas2 = "";
+    if (monedas.length < 4) return monedas;
+    if (monedas.length === 4) {
+      if (monedas[1] === "0") return `${monedas[0]}K`;
+      else return `${monedas[0]}.${monedas[1]}K`;
+    }
+    if (monedas.length < 7) {
+      let medio = monedas.length / 2;
+      for (let i = 0; i < monedas.length; i++) {
+        if (i === Math.floor(medio)) {
+          if (monedas[i] === "0") {
+            break;
+          } else {
+            monedas2 += `.${monedas[i]}`;
+            break;
+          }
+        }
+        monedas2 += monedas[i];
+      }
+      monedas2 += "K";
+      return monedas2;
+    } else {
+      let end = monedas.length === 7 ? 1 : monedas.length === 8 ? 2 : 3;
+      for (let i = 0; i < end; i++) {
+        monedas2 += monedas[i];
+      }
+      if (monedas[monedas2.length] !== "0")
+        monedas2 += `.${monedas[monedas2.length]}`;
+
+      monedas2 += "M";
+      return monedas2;
+    }
   }
 
   const handleSubmitTransfer = (e) => {
-    e.preventDefault()
-    dispatch(transferirCL(transferencias))
-    setMostrarModal(false)
+    e.preventDefault();
+    dispatch(transferirCL(transferencias));
+    setMostrarModal(false);
     setTransferencias({
-        cl:"",
-        user:"",
-      })
-    setErrors({})
-  }
-
-  
+      cl: "",
+      user: "",
+    });
+    setErrors({});
+  };
 
   return (
-    <div className="contentHome" >
+    <div className="contentHome">
       <NavWallet />
-  
+
       <div className="ContenedorGeneralWallet">
         <div className="wallet-panel">
-          <div className='balanceWallet'>
-            <h3>your balance:</h3> <h3> {formateoPrecio(usuario.coins)}</h3>
+          <div className="balanceWallet">
+            <h3>Your balance:</h3>{" "}
+            <h3> {formateoPrecio(formatoMoneda(usuario.coins))}</h3>
           </div>
           <div>
-            <div className='contAgrgarCl'>
+            <div className="contAgrgarCl">
+              <p>Charge CL with Mercado-Pago</p>
+              {!ruta ? (
+                <>
+                  {" "}
+                  <label htmlFor="monto">Enter the amount to deposit</label>
+                  <div className="InpcutLogo">
+                    <div className="contInput">
+                      <input
+                        id="valorMP"
+                        placeholder="Enter the amount of CL"
+                        onChange={(e) => setCompra(e.target.value)}
+                        className="dinner input"
+                        value={compra}
+                      />
+                    </div>
 
-              <p>Recargá CL con Mercado Pago</p>
-              {!ruta ? <> <label htmlFor="monto">Enter the amount to deposit</label>
-                <div className='InpcutLogo'>
-                  <div className='contInput'>
+                    <button className="buttonMP" onClick={handleButton}>
+                      Enviar
+                    </button>
+                  </div>{" "}
+                </>
+              ) : (
+                <a href={ruta}>
+                  <button>
+                    <p>Pagar</p>
+                    <img className="logomp" src={mp} />
+                  </button>{" "}
+                </a>
+              )}
 
-                    <input
-                      id='valorMP'
-                      placeholder='Ingresa la cantidad de CL'
-                      onChange={(e) => setCompra(e.target.value)}
-                      className='dinner input'
-                      value={compra} />
-                  </div>
-
-                  <button className='buttonMP' onClick={handleButton}>Enviar</button>
-
-
-                </div> </> : <a href={ruta}>
-                <button  >
-                  <p>Pagar</p>
-                  <img className='logomp' src={mp} />
-                </button>  </a>
-              }
-
-
-              <p>Transferí CL a otro usuario</p>
-              <button className="buttonPrimary" onClick={MostrarModal}>Transferir</button>
+              <p>Transfer CL to another user</p>
+              <button className="buttonPrimary" onClick={MostrarModal}>
+                Transfer
+              </button>
               <Modal style={customStyles} isOpen={mostrarModal}>
-              <div className='InpcutLogo'>
-                <div className='regalar'>
-                <button className="close" onClick={OcultarModal}>
-                    X
-                </button>
-                <form onSubmit={handleSubmitTransfer}>
-                    <input
-                    className= "input"
-                    name="user"
-                    type="text"
-                    placeholder='insert user'
-                    onChange={handleChangeInputTransfer}
-                    value={transferencias.user}
-                    />
-                    {errors.error && (
-                      <div>
-                        <p className="error">{errors.error}</p>
-                      </div>
-                    )}
-                    
-                    <input 
-                    min="1"
-                    pattern="[0-9]+"
-                    className= "input"
-                    name="cl"
-                    type="number"
-                    placeholder="insert coins"
-                    value={transferencias.cl}
-                    onChange={handleInputCl}
-                    />
+                <div className="InpcutLogo">
+                  <div className="regalar">
+                    <button className="close" onClick={OcultarModal}>
+                      X
+                    </button>
+                    <form onSubmit={handleSubmitTransfer}>
+                      <input
+                        className="input"
+                        name="user"
+                        type="text"
+                        placeholder="insert user"
+                        onChange={handleChangeInputTransfer}
+                        value={transferencias.user}
+                      />
+                      {errors.error && (
+                        <div>
+                          <p className="error">{errors.error}</p>
+                        </div>
+                      )}
+
+                      <input
+                        min="1"
+                        pattern="[0-9]+"
+                        className="input"
+                        name="cl"
+                        type="number"
+                        placeholder="insert coins"
+                        value={transferencias.cl}
+                        onChange={handleInputCl}
+                      />
                       {errors.clerror && (
-                      <div>
-                        <p className="error">{errors.clerror}</p>
-                      </div>
-                    )}
-                    
-                    <button className="buttonPrimary" type="submit">Submit Coins</button>
-                </form>
+                        <div>
+                          <p className="error">{errors.clerror}</p>
+                        </div>
+                      )}
+
+                      <button className="buttonPrimary" type="submit">
+                        Submit Coins
+                      </button>
+                    </form>
+                  </div>
                 </div>
-              </div>
               </Modal>
             </div>
           </div>
@@ -251,15 +291,13 @@ function Wallet() {
 
         {usuario.length !== 0 ? (
           <section>
-            <h3 className="subtitulo">buy and sell  </h3>
+            <h3 className="subtitulo">Buy and Sell </h3>
             <div className="ContenedorCardsWallet">
-            
               {currentTransaction.length !== 0 ? (
                 currentTransaction?.map((nft, index) => {
-                 const fecha =  nft.updatedAt.split('T')
+                  const fecha = nft.updatedAt.split("T");
                   return (
                     <div key={index}>
-                      
                       {
                         <ComponentNFTWallet
                           NFT_colection={nft.NFT_colection}
@@ -278,7 +316,7 @@ function Wallet() {
                   );
                 })
               ) : (
-                <div>No hay transacciones aun</div>
+                <div>there aren't transactions yet</div>
               )}
             </div>
             <div>
@@ -294,8 +332,6 @@ function Wallet() {
           </section>
         ) : null}
       </div>
-
-
     </div>
   );
 }

@@ -11,18 +11,18 @@ const crearColeccion = async (req, res) => {
   if (name.length > 8)
     return res
       .status(400)
-      .send({ msg: "Las colecciones no pueden tener mas de 8 caracteres" });
+      .send({ msg: "the collections can't have more than 8 characters" });
   try {
     const existe = await Coleccion.findOne({ name });
     if (!existe) {
       const coleccion = new Coleccion({ creator, name });
       await coleccion.save();
-      return res.send({ msg: "Coleccion creada" });
+      return res.send({ msg: "Collection created" });
     } else {
-      return res.status(400).send({ msg: "Ya existe la coleccion" });
+      return res.status(400).send({ msg: "The collection is already exist" });
     }
   } catch (e) {
-    return res.status(400).send({ msg: "ocurrio un error" });
+    return res.status(400).send({ msg: "An error occurred" });
   }
 };
 

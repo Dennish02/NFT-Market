@@ -26,8 +26,6 @@ function ComponentNftTrade({
     OcultarModal(id);
   };
 
-  console.log(trade);
-
   return (
     <div className="contNFT">
       <div className="contImg">
@@ -36,7 +34,7 @@ function ComponentNftTrade({
 
       <div className="contNFTinfo">
         <h2>{`${colection}  ${id}`}</h2>
-        <p>usuario: {`${usuario}`}</p>
+        <p>owner: {`${usuario}`}</p>
       </div>
 
       <div className="contNFTinfo">
@@ -45,7 +43,7 @@ function ComponentNftTrade({
       </div>
 
       <div>
-        <p>priceBase: {priceBase}</p>
+        <p>base-price: {priceBase}</p>
         <p className="contPrice">
           price: <span> {formateoPrecio(price)}</span>
         </p>
