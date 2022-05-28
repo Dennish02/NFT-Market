@@ -1,8 +1,7 @@
 import React from "react";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import likeOf from "../../img/likeOff.png";
-import { tradeOffer } from "../../../redux/actions/actionNFT";
-import { useDispatch } from "react-redux";
+
 
 function ComponentNftTrade({
 
@@ -20,7 +19,6 @@ function ComponentNftTrade({
     OcultarModal,
 
 }) {
-  const dispatch = useDispatch();
 
   const handleTrade = () => {
     // setnftOffered(id);

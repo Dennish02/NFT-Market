@@ -397,7 +397,7 @@ const responseOffer = async (req, res) => {
   try {
     const { usuario } = req;
     const { response, newId } = req.body;
-
+    console.log(req.body)
 
     
    // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
@@ -569,7 +569,7 @@ const cancelOffer = async (req, res) => {
 
     res.json(offer);
   } else {
-    res.json(`You can't cancel this offer because you're not the sender`);
+    res.json({msg: `You can't cancel this offer because you're not the sender`});
   }
 
 };

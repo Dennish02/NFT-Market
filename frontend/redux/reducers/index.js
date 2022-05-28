@@ -29,8 +29,11 @@ import {
   GUARDAR_PAGINA,
   TRADE_OFFER,
   SEE_OFFER,
+  RESPONSE_OFFER,
   NOTIFICATION_USER,
-  NOTIFICATION_USER_TRUE
+  NOTIFICATION_USER_TRUE,
+  CANCEL_OFFER,
+
 } from "../constantes";
 
 const initialState = {
@@ -53,7 +56,8 @@ const initialState = {
   likeNft: [],
   transferencias: [],
   trades: [],
-  notification: []
+  notification: [],
+
 };
 
 function rootReducer(state = initialState, action) {
@@ -304,13 +308,22 @@ function rootReducer(state = initialState, action) {
     case TRADE_OFFER:
       return {
         ...state,
-        trades: {...trades, ...action.payload}
+        trades: [...trades, action.payload],
       }
     case SEE_OFFER:
       return {
         ...state,
-        trades: action.payload
+        trades: action.payload,
       }
+    case RESPONSE_OFFER:
+        return {
+          ...state
+      }
+    case CANCEL_OFFER: 
+      return {
+        ...state
+      }
+    
     case NOTIFICATION_USER:
       return {
         ...state,
