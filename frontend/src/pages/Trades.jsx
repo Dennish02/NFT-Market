@@ -122,13 +122,15 @@ const handleReject = (e) => {
               <button onClick={() => handleReject(e._id)} className="buttonRojos">Reject</button>
             </div>:
               <div className="contButtonTrade">
-              
-              <button onClick={() => handleCancel(e._id)} className="buttonRojos">Cancel</button>
+                {e.condition === 'pending' &&   <button onClick={() => handleCancel(e._id)} className="buttonRojos">Cancel</button> }
+                { e.condition === 'accepted' && <div> <p className="Disponible">this offer is accepted</p> </div>}
+                {e.condition === 'reject' && <div> <p className="noDisponible">this offer is ended</p> </div> } 
+                {/*button delete */}
             </div>}
-          
+              
             </div>
               ) 
-            )}
+            }
   )) : <div><p>{AllTrades.msg}</p></div>} 
     </div>
   </div>
