@@ -34,12 +34,12 @@ export default function NavBar({ usuario }) {
 
   function formatoMoneda(coins) {
     let monedas = coins.toString();
+    let monedas2 = "";
     if (monedas.length < 4) return monedas;
     if (monedas.length === 4) {
       if (monedas[1] === 0) return `${monedas[0]}K`;
       else return `${monedas[0]}.${monedas[1]}K`;
     }
-    let monedas2 = "";
     if (monedas.length < 7) {
       let medio = monedas.length / 2;
       for (let i = 0; i < monedas.length; i++) {

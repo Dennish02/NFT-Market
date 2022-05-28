@@ -30,7 +30,7 @@ import {
   TRADE_OFFER,
   SEE_OFFER,
   NOTIFICATION_USER,
-  NOTIFICATION_USER_TRUE
+  NOTIFICATION_USER_TRUE,
 } from "../constantes";
 
 const initialState = {
@@ -53,7 +53,7 @@ const initialState = {
   likeNft: [],
   transferencias: [],
   trades: [],
-  notification: []
+  notification: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -112,8 +112,8 @@ function rootReducer(state = initialState, action) {
     case GOOGLE_LOGIN:
       return {
         ...state,
-        usuario: action.payload
-      }
+        usuario: action.payload,
+      };
     case LOGIN_USER:
       return {
         ...state,
@@ -230,8 +230,7 @@ function rootReducer(state = initialState, action) {
     case TRANSFERIR_CL:
       return {
         ...state,
-
-      }
+      };
 
     case RANKING_PORTFOLIOS:
       return {
@@ -239,35 +238,28 @@ function rootReducer(state = initialState, action) {
         ranking: action.payload,
       };
 
-
     case SORT:
       //comentario para poder comitear
       const allNft = state.allNft.sort((a, b) => {
-        if (action.payload === 'price_asc') {
-          return a.price - b.price
+        if (action.payload === "price_asc") {
+          return a.price - b.price;
+        } else if (action.payload === "price_desc") {
+          return b.price - a.price;
+        } else if (action.payload === "ranking_asc") {
+          return a.ranking - b.ranking;
+        } else if (action.payload === "ranking_desc") {
+          return b.ranking - a.ranking;
         }
-        else if (action.payload === 'price_desc') {
-          return b.price - a.price
-        }
-        else if (action.payload === 'ranking_asc') {
-          return a.ranking - b.ranking
-        }
-        else if (action.payload === 'ranking_desc') {
-          return b.ranking - a.ranking
-        }
-      })
+      });
       const backUpAllNft = state.backUpAllNft.sort((a, b) => {
-        if (action.payload === 'price_asc') {
-          return a.price - b.price
-        }
-        else if (action.payload === 'price_desc') {
-          return b.price - a.price
-        }
-        else if (action.payload === 'ranking_asc') {
-          return a.ranking - b.ranking
-        }
-        else if (action.payload === 'ranking_desc') {
-          return b.ranking - a.ranking
+        if (action.payload === "price_asc") {
+          return a.price - b.price;
+        } else if (action.payload === "price_desc") {
+          return b.price - a.price;
+        } else if (action.payload === "ranking_asc") {
+          return a.ranking - b.ranking;
+        } else if (action.payload === "ranking_desc") {
+          return b.ranking - a.ranking;
         }
       });
       // let aux = NFTOrdenados.map(el => el)
@@ -275,7 +267,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft,
         backUpAllNft,
-      }
+      };
 
     case LIKE_NFT:
       const like = action.payload.msg
@@ -287,39 +279,48 @@ function rootReducer(state = initialState, action) {
       };
 
     case SORT_POP:
-      let nftForSort = action.payload == 'high' ? state.allNft.sort((a, b) => { return b.ranking - a.ranking }) : action.payload == 'low' ? state.allNft.sort((a, b) => { return a.ranking - b.ranking }) : state.backUpAllNft
-      let auxiliar = nftForSort.map(el => el)
+      let nftForSort =
+        action.payload == "high"
+          ? state.allNft.sort((a, b) => {
+              return b.ranking - a.ranking;
+            })
+          : action.payload == "low"
+          ? state.allNft.sort((a, b) => {
+              return a.ranking - b.ranking;
+            })
+          : state.backUpAllNft;
+      let auxiliar = nftForSort.map((el) => el);
       return {
         ...state,
-        allNFT: auxiliar
-      }
+        allNFT: auxiliar,
+      };
     case GUARDAR_PAGINA:
       return {
         ...state,
         homeGuardado: {
           ...state.homeGuardado,
-          pagina: action.payload
-        }
-      }
+          pagina: action.payload,
+        },
+      };
     case TRADE_OFFER:
       return {
         ...state,
-        trades: action.payload
-      }
+        trades: [...trades, action.payload],
+      };
     case SEE_OFFER:
       return {
         ...state,
-        trades: action.payload
-      }
+        trades: action.payload,
+      };
     case NOTIFICATION_USER:
       return {
         ...state,
-        notification: action.payload
-      }
+        notification: action.payload,
+      };
     case NOTIFICATION_USER_TRUE:
       return {
-        ...state
-      }
+        ...state,
+      };
     default:
       return state;
   }

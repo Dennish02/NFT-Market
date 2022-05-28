@@ -16,12 +16,6 @@ function Trades() {
     dispatch(seeOffers());
     dispatch(usuarioActual())
   }, []);
-
-//   const handleAccept = (e) => {
-//     e.preventDefault();
-//   };
-
- 
  
   if (!usuarioAct) "cargando";
   return (
