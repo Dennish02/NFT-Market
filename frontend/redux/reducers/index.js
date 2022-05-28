@@ -54,22 +54,46 @@ const initialState = {
   transferencias: [],
   trades: [],
   notification: [],
+  ordenamiento: 'sort'
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_NFT_MARKET:
+      var {nftAlldb} = action.payload
+      console.log(state.ordenamiento)
+      var {ordenamiento} = state
+      // if(state.ordenamiento === 'price_desc'){
+        nftAlldb = nftAlldb.sort((a, b) => {
+          if (ordenamiento === "price_asc") {
+            return a.price - b.price;
+          } else if (ordenamiento === "price_desc") {
+            return b.price - a.price;
+          } else if (ordenamiento === "ranking_asc") {
+            return a.ranking - b.ranking;
+          } else if (ordenamiento === "ranking_desc") {
+            return b.ranking - a.ranking;
+          } else {
+            return 0
+          }
+        });
+        console.log(nftAlldb)
+  
+      // }
       if (state.allNft.length === state.backUpAllNft.length) {
         return {
           ...state,
-          allNft: action.payload.nftAlldb,
-          backUpAllNft: action.payload.nftAlldb,
+          allNft: nftAlldb,
+          backUpAllNft: nftAlldb
+          // allNft: action.payload.nftAlldb,
+          // backUpAllNft: action.payload.nftAlldb,
           //usuario: action.payload.usuario,
         };
       }
       return {
         ...state,
-        backUpAllNft: action.payload.nftAlldb,
+        allNft: nftAlldb
+        // backUpAllNft: action.payload.nftAlldb,
         //usuario: action.payload.usuario,
       };
 
@@ -267,6 +291,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft,
         backUpAllNft,
+        ordenamiento: action.payload
       };
 
     case LIKE_NFT:
