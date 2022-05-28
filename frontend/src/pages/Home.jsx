@@ -74,12 +74,16 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    dispatch(usuarioActual());
+  }, [todosLosNFT]);
+
   const test = todosLosNFT.map((el) => el.ranking);
 
   useEffect(() => {
     //recibir la respuesta del back
     socket.on("homeUpdate", () => {
-      dispatch(allNftMarket());
+      dispatch(allNftMarket(1));
       dispatch(usuarioActual());
       dispatch(allNFTUser());
       dispatch(topPortfolios());

@@ -409,9 +409,7 @@ const responseOffer = async (req, res) => {
     const { usuario } = req;
     const { response, newId } = req.body;
 
-    
-   // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
-
+    // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
 
     // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
 
@@ -578,9 +576,11 @@ const cancelOffer = async (req, res) => {
 
     await offerReciver.save();
 
-    res.json({msg: `You cancel the offer ${offer._id}`});
+    res.json({ msg: `You cancel the offer ${offer._id}` });
   } else {
-    res.json({msg: `You can't cancel this offer because you're not the sender`});
+    res.json({
+      msg: `You can't cancel this offer because you're not the sender`,
+    });
   }
 };
 
@@ -784,6 +784,18 @@ const topPortfolios = async (req, res) => {
   res.status(200).json(wealthy);
 };
 
+const selectNft = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const json = await NftCreated.findById(id);
+
+    res.json(json);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const obtenerVentas = async (req, res) => {};
 
 export {
@@ -806,4 +818,5 @@ export {
   topPortfolios,
   cancelOffer,
   deleteOffer,
+  selectNft,
 };

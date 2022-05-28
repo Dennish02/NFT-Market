@@ -21,7 +21,8 @@ import {
   getPortfolioValue,
   topPortfolios,
   cancelOffer,
-  deleteOffer
+  deleteOffer,
+  selectNft,
 } from "../controladores/nftController.js";
 
 import { crearTransaccion } from "../controladores/transaccionesController.js";
@@ -29,6 +30,7 @@ router.route("/").get(checkOut, obtenerAllNft).post(checkOut, crearNft);
 router.get("/portfolio", checkOut, allNftUser);
 router.put("/gift", checkOut, regalarNft);
 router.put("/:id", checkOut, editarNft);
+router.get("/select/:id", checkOut, selectNft);
 router.get(checkOut, obtenerNft);
 
 router.post("/tradeoffer", checkOut, tradeOffer);
