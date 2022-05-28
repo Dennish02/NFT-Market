@@ -1,12 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function TradeHome() {
-
-  return (
-    <div>
-        
-    </div>
-  )
+  return <div></div>;
 }
 
-export default TradeHome
+export default TradeHome;

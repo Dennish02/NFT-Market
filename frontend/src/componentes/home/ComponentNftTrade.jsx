@@ -1,32 +1,30 @@
 import React from "react";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import likeOf from "../../img/likeOff.png";
-import { tradeOffer } from "../../../redux/actions/actionNFT";
-import { useDispatch } from "react-redux";
+
 
 function ComponentNftTrade({
-  _id,
-  id,
-  image,
-  colection,
-  priceBase,
-  price,
-  creatorId,
-  ownerId,
-  usuario,
-  ranking,
-  trade,
-  // setnftOffered,
-  OcultarModal,
+
+    _id,
+    id,
+    image,
+    colection,
+    priceBase,
+    price,
+    creatorId,
+    ownerId,
+    usuario,
+    ranking,
+    trade,
+    OcultarModal,
+
 }) {
-  const dispatch = useDispatch();
 
   const handleTrade = () => {
     // setnftOffered(id);
     OcultarModal(id);
   };
 
-  console.log(trade);
 
   return (
     <div className="contNFT">
@@ -36,7 +34,7 @@ function ComponentNftTrade({
 
       <div className="contNFTinfo">
         <h2>{`${colection}  ${id}`}</h2>
-        <p>usuario: {`${usuario}`}</p>
+        <p>owner: {`${usuario}`}</p>
       </div>
 
       <div className="contNFTinfo">
@@ -45,7 +43,7 @@ function ComponentNftTrade({
       </div>
 
       <div>
-        <p>priceBase: {priceBase}</p>
+        <p>base-price: {priceBase}</p>
         <p className="contPrice">
           price: <span> {formateoPrecio(price)}</span>
         </p>

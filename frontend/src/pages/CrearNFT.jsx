@@ -9,20 +9,20 @@ import { toast } from "react-toastify";
 
 function validate(value) {
   let errores = {};
-  !value.colection ? (errores.colection = "Campo obligatorio") : "";
-  !value.category ? (errores.category = "Campo obligatorio") : "";
+  !value.colection ? (errores.colection = "required field") : "";
+  !value.category ? (errores.category = "required field") : "";
   !value.price
-    ? (errores.price = "Campo obligatorio")
+    ? (errores.price = "required field")
     : !Number(value.price)
-    ? (errores.price = "Debe ser un numero")
+    ? (errores.price = "must be a number")
     : "";
-  !value.image ? (errores.image = "Campo obligatorio") : "";
+  !value.image ? (errores.image = "required field") : "";
   return errores;
 }
 export default function CrearNFT() {
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
-  let [validate2, setValidate2] = useState(0)
+  let [validate2, setValidate2] = useState(0);
   const [estado, setEstado] = useState({
     colection: "",
     category: "",
@@ -30,7 +30,7 @@ export default function CrearNFT() {
     image: null,
     id: token,
   });
-  
+
   const navigate = useNavigate();
   const creado = useSelector((state) => state.creado);
   const colecciones = useSelector((state) => state.colecciones);
@@ -38,7 +38,7 @@ export default function CrearNFT() {
   useEffect(() => {
     dispatch(coleccionesUsuario());
   }, []);
- 
+
   useEffect(() => {
     if (creado) {
       dispatch(reset());
@@ -46,9 +46,6 @@ export default function CrearNFT() {
     }
   }, [creado]);
 
-
-   
- 
   return (
     <div className="flex">
       <div className="contLogin">
@@ -65,11 +62,9 @@ export default function CrearNFT() {
                 crearNFT({
                   ...values,
                   flag: colecciones.length === 0 ? false : true,
-                  
                 })
-                );
-                setValidate2(1)
-                
+              );
+              setValidate2(1);
             }}
           >
             {({ setFieldValue }) => (
@@ -93,7 +88,7 @@ export default function CrearNFT() {
                   </div>
                 ) : (
                   <div>
-                    <label>Crear coleccion</label>
+                    <label>Create colection</label>
                     <Field name="colection" type="text" />
                     <p className="error">
                       <ErrorMessage name="colection" />
@@ -101,7 +96,7 @@ export default function CrearNFT() {
                   </div>
                 )}
 
-                <label>Categoria</label>
+                <label>Category</label>
                 <Field name="category" as="select">
                   <option value="" disabled>
                     -- select --
@@ -117,23 +112,29 @@ export default function CrearNFT() {
                   <ErrorMessage name="category" />
                 </p>
 
-                <label>Precio</label>
+                <label>Price</label>
                 <Field name="price" type="text" />
                 <p className="error">
                   <ErrorMessage name="price" />
                 </p>
 
-                <label>Imagen</label>
+                <label>image</label>
                 <input
                   type="file"
                   name="image"
                   className="file"
+                  accept="image/*"
                   onChange={(e) => setFieldValue("image", e.target.files[0])}
                 />
-                {validate2>0? <button  disabled type="submit" className="disableCreate">loading</button> :  <button  onClick={() => validation()} type="submit" className="buttonPrimary">    Crear </button>}
-                
-              
-              
+                {validate2 > 0 ? (
+                  <button disabled type="submit" className="disableCreate">
+                    loading
+                  </button>
+                ) : (
+                  <button type="submit" className="buttonPrimary">
+                    Create
+                  </button>
+                )}
               </Form>
             )}
           </Formik>

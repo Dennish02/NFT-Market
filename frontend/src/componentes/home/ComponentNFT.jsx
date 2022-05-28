@@ -25,7 +25,6 @@ const customStyles = {
   overlay: {
     backgroundColor: "rgba(11,12,41,0.48)",
   },
- 
 };
 // const customStyles = {
 //   overlay: {
@@ -44,7 +43,7 @@ const customStyles = {
 // };
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
- 
+
   const {
     _id,
     id,
@@ -57,7 +56,7 @@ export default function ComponentNFT(props) {
     ownerId,
     usuario,
     ranking,
-    screen
+    screen,
   } = props;
   let porcentaje = pocentajeAumento(priceBase, price);
 
@@ -118,7 +117,8 @@ export default function ComponentNFT(props) {
     }
   }
 
-  function handleLike() {
+  function handleLike(e) {
+    e.preventDefault()
     if (!likeFlag) {
       setLikeFlag(true);
       dispatch(darLike(_id));
@@ -132,22 +132,20 @@ export default function ComponentNFT(props) {
     setOpenModal(false);
   }
 
-  // const setnftOffered = (id) => {
-  //   console.log(id);
-  //   setTrade({
-  //     ...trade,
-  //     nftOffered: id,
-  //   });
-  // };
 
   function MostrarModal(e) {
+
     setMostrarModal(true);
     setTrade({
       ...trade,
       owner: ownerId,
       nftId: id,
-    });
-  }
+
+    })
+    
+    console.log(trade)
+  } 
+
 
   function OcultarModal(id) {
     console.log(trade);
@@ -159,6 +157,7 @@ export default function ComponentNFT(props) {
     }
     setMostrarModal(false);
   }
+
 
   return (
     <div className="contNFT">
@@ -190,7 +189,7 @@ export default function ComponentNFT(props) {
       </div>
       <div>
         <p className={avaliable ? "verde" : "rojo"}>
-          {avaliable ? "En venta" : "No en venta"}
+          {avaliable ? "On sale" : "Not for sale"}
         </p>
       </div>
       <div className="contButtons">
@@ -210,32 +209,42 @@ export default function ComponentNFT(props) {
             >
               Trade
             </button>
-            <Modal2 style={customStyles} className='modalTrade' isOpen={mostrarModal}>
-              <div >
+            <Modal2
+              style={customStyles}
+              className="modalTrade"
+              isOpen={mostrarModal}
+            >
+              <div>
                 <div>
                   <button className="close" onClick={() => OcultarModal()}>
                     X
                   </button>
                 </div>
 
-               
-                  <h3 className="subtituloTrade" >Choose the nft that you want to trade</h3>
-              
+                <h3 className="subtituloTrade">
+                  Choose the nft that you want to trade
+                </h3>
+
 
                 <div className="contenedorCardTrade">
-                <Swiper
-                           slidesPerView={
-                            screen > 1650 ? 4 : screen > 1300 ? 3 : screen > 920 ? 2 : 1
-                          }
-                            spaceBetween={30}
-                            navigation
-                        >
-                  {UserFilter &&
-                    UserFilter.map((nft) => (
-                      <div key={nft.id}>
-                        {
-                          <SwiperSlide key={nft._id}>
-                            
+                  <Swiper
+                    slidesPerView={
+                      screen > 1650
+                        ? 4
+                        : screen > 1300
+                        ? 3
+                        : screen > 920
+                        ? 2
+                        : 1
+                    }
+                    spaceBetween={30}
+                    navigation
+                  >
+                    {UserFilter &&
+                      UserFilter.map((nft) => (
+                        <div key={nft.id}>
+                          {
+                            <SwiperSlide key={nft._id}>
                               <ComponentNftTrade
                                 OcultarModal={OcultarModal}
                                 trade={trade}
@@ -252,29 +261,31 @@ export default function ComponentNFT(props) {
                                 ownerId={nft.ownerId}
                                 ranking={nft.ranking}
                               />
-                          </SwiperSlide>
-                          
-                        }
-                      </div>
-                    ))}
+                            </SwiperSlide>
+                          }
+                        </div>
+                      ))}
                   </Swiper>
                 </div>
+
               </div>
             </Modal2>
-            <Modal isOpen={openModal} className='modalBuy' style={customStyles}>
+            <Modal isOpen={openModal} className="modalBuy" style={customStyles}>
               <div className="buyModal">
                 <button className="closeButton" onClick={() => closeModal()}>
                   X
                 </button>
-                
-                  <h3 className="subtituloBuy">{`you wanna buy this nft for : ${price}CL?`} </h3>
-                  <div className="contImg">
-                     <img src={image.url} alt="nft image" />    
-                  </div>
-                 
-                  <p>{`your balance is : ${usuario.coins}CL`}</p>
-                  <p>{`your balance after buy : ${usuario.coins - price}CL`}</p>
-                
+
+                <h3 className="subtituloBuy">
+                  {`you wanna buy this nft for ${price}CL?`}{" "}
+                </h3>
+                <div className="contImg">
+                  <img src={image.url} alt="nft image" />
+                </div>
+
+                <p>{`your balance is : ${usuario.coins}CL`}</p>
+                <p>{`your balance after buy : ${usuario.coins - price}CL`}</p>
+
                 <div className="contButtons">
                   <button onClick={() => handleBuy()} className="buttonPrimary">
                     BUY

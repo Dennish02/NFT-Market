@@ -32,7 +32,6 @@ function CardTrade(props) {
       </div>
     </div>
   );
-
 }
 
 export default CardTrade;

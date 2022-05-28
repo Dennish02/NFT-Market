@@ -68,6 +68,10 @@ io.on("connection", (socket) => {
   socket.on("renderHome", () => {
     socket.to(`${process.env.FRONTEND_URL}/home`).emit("homeUpdate");
   });
+  socket.on("NFTrender", (id) => {
+    socket.to(`${process.env.FRONTEND_URL}/home`).emit("render", id);
+  });
+  
   socket.on("changelike", () => {
     socket.to(`${process.env.FRONTEND_URL}/home`).emit("changelikeicon");
   });
@@ -123,5 +127,15 @@ io.on("connection", (socket) => {
     socket
       .to(`${process.env.FRONTEND_URL}/usuario/favoritos`)
       .emit("updatefav");
+  });
+
+  socket.on("Trades", (room) => {
+    socket.join(room);
+  });
+
+  socket.on("updateTrades", () => {
+    socket
+      .to(`${process.env.FRONTEND_URL}/home/usuario/trades`)
+      .emit("update5");
   });
 });

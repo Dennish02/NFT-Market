@@ -35,20 +35,20 @@ export default function Register() {
       !estado.password1 ||
       !estado.password2
     )
-      setErrores([0, "faltan valores"]);
+      setErrores([0, "there are empty fields"]);
     else if (estado.nombre.length < 3 || estado.nombre.length > 10)
-      setErrores([1, "Longitud incorrecta username"]);
-    else if (validarEmail(estado.email)) setErrores([2, "Email incorrecto"]);
+      setErrores([1, "username must have between 3 and 10 characters"]);
+    else if (validarEmail(estado.email)) setErrores([2, "invalid email"]);
     else if (validatePassword(estado.password1))
       estado.password1.length < 8
-        ? setErrores([3, "al menos 8 caracteres"])
-        : setErrores([3, "Password incorrecto"]);
+        ? setErrores([3, "the password must have at least 8 characters"])
+        : setErrores([3, "invalid password"]);
     else if (validatePassword(estado.password2))
       estado.password2.length < 8
-        ? setErrores([4, "al menos 8 caracteres"])
-        : setErrores([4, "Password incorrecto"]);
+        ? setErrores([4, "the password must have at least 8 characters"])
+        : setErrores([4, "invalid password"]);
     else if (estado.password1 !== estado.password2)
-      setErrores([5, "Los passwords son distintos"]);
+      setErrores([5, "passwords must be the same"]);
     else {
       setErrores([]);
       dispatch(registroUsuario(estado));
@@ -66,14 +66,14 @@ export default function Register() {
           <div className="contLogin-content">
             <h3>Register</h3>
             <p>
-              you already have an account?{" "}
+              You already have an account?{" "}
               <Link to="/login">
                 {" "}
                 <button className="buttonPrimary">LOGIN</button>{" "}
               </Link>{" "}
             </p>
             <form onSubmit={handleSubmit}>
-              <label htmlFor="user">username</label>
+              <label htmlFor="user">Username</label>
               <input
                 className={errores[0] === 1 ? "inputError" : "input"}
                 name="nombre"
@@ -83,7 +83,7 @@ export default function Register() {
                 type="text"
                 placeholder="Your username"
               />
-              <label htmlFor="email">email</label>
+              <label htmlFor="email">Email</label>
               <input
                 className={errores[0] === 2 ? "inputError" : "input"}
                 name="email"
@@ -93,7 +93,7 @@ export default function Register() {
                 type="text"
                 placeholder="Your email"
               />
-              <label htmlFor="password">password</label>
+              <label htmlFor="password">Password</label>
               <input
                 className={
                   errores[0] === 3 || errores[0] === 5 ? "inputError" : ""
@@ -105,7 +105,7 @@ export default function Register() {
                 type="password"
                 placeholder="Your password"
               />
-              <label htmlFor="password">enter password again</label>
+              <label htmlFor="password">Repeat password</label>
               <input
                 className={
                   errores[0] === 4 || errores[0] === 5 ? "inputError" : ""

@@ -1993,6 +1993,14 @@ img {
     margin: 0 auto;
   }
 }
+.noDisponible {
+  color: #c53838;
+}
+
+.Disponible {
+  color: #29a237;
+}
+
 .buttonTrade1 {
   width: fit-content;
   background-color: #29a237;

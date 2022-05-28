@@ -46,13 +46,13 @@ export function crearColeccion(payload) {
         },
         config
       );
-      socket.emit("updateCollections");
-      toast.success("Coleccion creada");
+      socket.emit("Collections updated");
+      toast.success("Collection created");
       return dispatch({
         type: LOAD_COLECCIONES,
       });
     } else {
-      toast.error("La coleccion ya existe");
+      toast.error("The collection already exists");
     }
   };
 }
