@@ -92,7 +92,7 @@ function rootReducer(state = initialState, action) {
       }
       return {
         ...state,
-        allNft: nftAlldb
+        backUpAllNft: nftAlldb
         // backUpAllNft: action.payload.nftAlldb,
         //usuario: action.payload.usuario,
       };
