@@ -329,12 +329,29 @@ export function eliminarFav(id) {
 }
 
 export function sort(payload) {
-  return async function (dispatch) {
+  return async function (dispatch){
     return dispatch({
       type: SORT,
-      payload,
-    });
-  };
+      payload
+    })
+  }
+  // return async function (){
+  //   const token = localStorage.getItem("token");
+  //   const authAxios = clienteAxios.create({
+  //     headers:{
+  //       "Content-Type": "multipart/form-data",
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   })
+  //   try{
+  //     let {data} = await authAxios.post(
+  //       `${import.meta.env.VITE_BACKEND_URL}/api/nft/ordenar`, payload 
+  //     )
+  //     socket.emit("renderHome")
+  //   } catch(error){
+  //     console.log(error)
+  //   }
+  // }
 }
 
 export function setNewCoin(value) {

@@ -104,6 +104,7 @@ function Trades() {
                     </svg>
                   </div>
 
+
                   <div>
                     <CardTrade
                       id={e.nftB.id}
@@ -166,6 +167,8 @@ function Trades() {
           </div>
         )}
       </div>
+
+
     </div>
   );
 }

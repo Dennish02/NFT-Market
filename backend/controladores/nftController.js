@@ -575,8 +575,8 @@ const cancelOffer = async (req, res) => {
     await notificacion.save();
 
     await offerReciver.save();
+    res.json({msg: `You cancel the offer ${offer._id}`});
 
-    res.json({ msg: `You cancel the offer ${offer._id}` });
   } else {
     res.json({
       msg: `You can't cancel this offer because you're not the sender`,
