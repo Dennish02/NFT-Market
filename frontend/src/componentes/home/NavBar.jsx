@@ -37,8 +37,7 @@ export default function NavBar({ usuario }) {
     let monedas2 = "";
     if (monedas.length < 4) return monedas;
     if (monedas.length === 4) {
-  if (monedas[1] === '0') return `${monedas[0]}K`;
-
+      if (monedas[1] === "0") return `${monedas[0]}K`;
       else return `${monedas[0]}.${monedas[1]}K`;
     }
     if (monedas.length < 7) {

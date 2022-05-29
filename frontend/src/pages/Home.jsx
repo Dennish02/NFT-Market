@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   allNftMarket,
   allNFTUser,
-  renderNFT,
   userNfts,
 } from "../../redux/actions/actionNFT";
 import ComponentNFT from "../componentes/home/ComponentNFT";
@@ -22,10 +21,11 @@ import {
 let socket;
 import { guardarPagina } from "../../redux/actions/actionPaginado";
 import NotificationModal from "../componentes/home/NotificationModal";
+import Chat from "../componentes/home/Chat";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const todosLosNFT = useSelector((state) => state.backUpAllNft);
+  const todosLosNFT = useSelector((state) => state.allNft);
   const usuario = useSelector((state) => state.usuario);
   const usuarioAct = useSelector((state) => state.usuarioActual);
   const nftUser = useSelector((state) => state.nftUser);
@@ -47,7 +47,7 @@ export default function Home() {
   );
   let currentNftFilter = currentNft.slice(indexOfFirstNft, indexOfLastNft);
   const [screen, setScreen] = useState(window.innerWidth);
-
+  const  mensajes = document.querySelector('#ulChat')  
   const paginas = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -60,6 +60,7 @@ export default function Home() {
     }
   };
   useEffect(() => {
+   
     dispatch(usuarioActual());
     dispatch(topPortfolios());
     function handleResize() {
@@ -74,25 +75,23 @@ export default function Home() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  if(!todosLosNFT) 'await'
+
+  useEffect(() => {
+    dispatch(usuarioActual());
+  }, [todosLosNFT]);
+
   const test = todosLosNFT.map((el) => el.ranking);
 
   useEffect(() => {
     //recibir la respuesta del back
     socket.on("homeUpdate", () => {
-      dispatch(allNftMarket());
+      dispatch(allNftMarket(1));
       dispatch(usuarioActual());
       dispatch(allNFTUser());
       dispatch(topPortfolios());
       dispatch(getValuePortfolio());
       dispatch(searchNotification());
     });
-   
-    socket.on('render', (id)=>{
-      //dispatch(allNftMarket());
-      dispatch(renderNFT(id))
-      //dispatch(usuarioActual());
-    })
   }, []);
 
   if (!usuarioAct) "Loading";
@@ -121,7 +120,7 @@ export default function Home() {
           currentNftFilter?.map((nft) => {
             if (usuarioAct.nombre !== nft.ownerId && nft.avaliable) {
               return (
-                <div key={nft.id}>
+                <div key={nft._id}>
                   {
                     <ComponentNFT
                       screen={screen}
@@ -156,6 +155,11 @@ export default function Home() {
       ) : (
         <p>Aweit</p>
       )}
+{socket ? 
+
+   <div className="contChat">
+     <Chat usuario={usuario} socket={socket}/>
+   </div> : ''}
     </div>
   );
 }

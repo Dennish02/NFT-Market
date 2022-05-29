@@ -131,12 +131,7 @@
 }
 //*FIN MODAL TRADE*/
 
-.noDisponible{
-    color: v.$rojo;
-}
-.Disponible{
-    color: v.$verde;
-}
+
 .buttonTrade1{
     @include m.buttonPrimary;
     margin: 1rem auto;

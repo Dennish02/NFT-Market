@@ -32,9 +32,8 @@ import {
   RESPONSE_OFFER,
   NOTIFICATION_USER,
   NOTIFICATION_USER_TRUE,
-
   CANCEL_OFFER,
-  NFT_RENDER
+  LIKE_FAVORITE,
 } from "../constantes";
 
 const initialState = {
@@ -63,28 +62,28 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_NFT_MARKET:
-     //if (state.allNft.length === state.backUpAllNft.length) {
-        return {
-          ...state,
-         // allNft: action.payload.nftAlldb,
-          backUpAllNft: action.payload.nftAlldb,
-          //usuario: action.payload.usuario,
-        };
-      // }
-      // return {
-      //   ...state,
-      //   backUpAllNft: action.payload.nftAlldb,
-      //   //usuario: action.payload.usuario,
-      // };
-      case NFT_RENDER:
-        const newState = state.backUpAllNft.map(e=>{
-          e._id === action.payload._id ? action.payload : e
-        })
-        console.log(newState);
-        return {
-          ...state,
-          backUpAllNft: newState
-        }
+      // console.log(action.payload);
+
+      return {
+        ...state,
+        allNft: action.payload.nftAlldb,
+        backUpAllNft: action.payload.nftAlldb,
+      };
+
+    // if (state.allNft.length === state.backUpAllNft.length) {
+    //   return {
+    //     ...state,
+    //     allNft: action.payload.nftAlldb,
+    //     backUpAllNft: action.payload.nftAlldb,
+    //     //usuario: action.payload.usuario,
+    //   };
+    // }
+    // return {
+    //   ...state,
+    //   backUpAllNft: action.payload.nftAlldb,
+    //   //usuario: action.payload.usuario,
+    // };
+
     case CREATE_NFT:
       return {
         ...state,
@@ -252,8 +251,7 @@ function rootReducer(state = initialState, action) {
 
     case SORT:
       //comentario para poder comitear
-      let allNft = state.backUpAllNft
-       allNft = allNft.sort((a, b) => {
+      const allNft = state.allNft.sort((a, b) => {
         if (action.payload === "price_asc") {
           return a.price - b.price;
         } else if (action.payload === "price_desc") {
@@ -278,17 +276,30 @@ function rootReducer(state = initialState, action) {
       // let aux = NFTOrdenados.map(el => el)
       return {
         ...state,
-       
-       backUpAllNft:  allNft,
+        allNft,
+        // backUpAllNft,
       };
 
-    case LIKE_NFT:
-      const like = action.payload.msg
-        ? { msg: action.payload.msg, like: true }
-        : { msg: action.payload.alert, like: false };
+    // case LIKE_NFT:
+    //   const like = action.payload.msg
+    //     ? { msg: action.payload.msg, like: true }
+    //     : { msg: action.payload.alert, like: false };
+    //   return {
+    //     ...state,
+    //     likeNft: like,
+    //   };
+
+    case LIKE_FAVORITE:
+      const newNfts = state.allNft.map((e) => {
+        if (e._id === action.payload._id) {
+          e = action.payload;
+          return e;
+        } else return e;
+      });
+
       return {
         ...state,
-        likeNft: like,
+        allNft: newNfts,
       };
 
     case SORT_POP:
@@ -319,22 +330,20 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         trades: [...trades, action.payload],
-
-      }
+      };
     case SEE_OFFER:
       return {
         ...state,
         trades: action.payload,
-
-      }
+      };
     case RESPONSE_OFFER:
-        return {
-          ...state
-      }
-    case CANCEL_OFFER: 
       return {
-        ...state
-      }
+        ...state,
+      };
+    case CANCEL_OFFER:
+      return {
+        ...state,
+      };
     case NOTIFICATION_USER:
       return {
         ...state,

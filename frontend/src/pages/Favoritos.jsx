@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { usuarioActual } from "../../redux/actions/actionUSER";
 import io from "socket.io-client";
 import { allNftMarket } from "../../redux/actions/actionNFT";
-import NotificationModal from "../componentes/home/NotificationModal";
 let socket;
 
 export default function Favoritos() {
@@ -31,7 +30,7 @@ export default function Favoritos() {
   return miUser ? (
     <div className="contentHome">
       <NavBar usuario={miUser} />
-      <NotificationModal usuario={miUser} />
+
       <div className="contFavoritos">
         <h1 style={{ color: "white" }}>Favorites</h1>
         {miUser.favoritos ? (

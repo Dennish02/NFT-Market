@@ -73,16 +73,7 @@ const crearNft = async (req, res) => {
     console.log(error);
   }
 };
-const findNft = async ( req, res )=>{
-      const { id }= req.params
-    
-      try {
-        const oneNft = await NftCreated.findOne({id :id});
-        res.json(oneNft)
-      } catch (error) {
-        console.log(error);
-      }
-}
+
 const editarNft = async (req, res) => {
   //manejar errores.
 
@@ -418,9 +409,7 @@ const responseOffer = async (req, res) => {
     const { usuario } = req;
     const { response, newId } = req.body;
 
-    
-   // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
-
+    // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
 
     // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
 
@@ -547,14 +536,14 @@ const cancelOffer = async (req, res) => {
   const { usuario } = req;
 
   const { id } = req.body;
-console.log(id);
+
   const offer = await Trade.findById(id);
 
   // let offer = usuario.hasTradeOffers.find(element => element.id === id);
 
   if (offer && offer.userA === usuario.nombre) {
     offer.status = false;
-    offer.condition = 'rejected'
+    offer.condition = "rejected";
     await offer.save();
 
     //GUARDAMOS LA OFERTA CON EL NUEVO STATUS
@@ -568,8 +557,8 @@ console.log(id);
 
     //HACEMOS LO MISMO EN EL USUARIO QUE RECIBE
 
-    let offerReciver = await Usuario.find({ nombre: offer.userB });
-    
+    const offerReciver = await Usuario.findOne({ nombre: offer.userB });
+
     // offerReciver = offerReciver.pop();
 
     // console.log(offerReciver);
@@ -582,15 +571,16 @@ console.log(id);
     const notificacion = new Notificacion({
       msg: `${usuario.nombre} has canceled the exchange`,
     });
-    console.log(offerReciver[0].notificaciones);
-    offerReciver[0].notificaciones.unshift(notificacion);
+    offerReciver.notificaciones.unshift(notificacion);
     await notificacion.save();
-    console.log(offerReciver);
+
     await offerReciver.save();
 
-    res.json(offer);
+    res.json({ msg: `You cancel the offer ${offer._id}` });
   } else {
-    res.json({msg: `You can't cancel this offer because you're not the sender`});
+    res.json({
+      msg: `You can't cancel this offer because you're not the sender`,
+    });
   }
 };
 
@@ -794,6 +784,18 @@ const topPortfolios = async (req, res) => {
   res.status(200).json(wealthy);
 };
 
+const selectNft = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const json = await NftCreated.findById(id);
+
+    res.json(json);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const obtenerVentas = async (req, res) => {};
 
 export {
@@ -816,5 +818,5 @@ export {
   topPortfolios,
   cancelOffer,
   deleteOffer,
-  findNft
+  selectNft,
 };

@@ -12,18 +12,18 @@ import ComponenteTopPortf from "./ComponenteTopPortf";
 
 export default function TopPortfolios({ usuario, screen, ranking }) {
   // const dispatch = useDispatch()
-if(!ranking) 's'
-  
+
+  const limite = ranking.slice(0, 3);
 
   return (
     <section className="contentTopPortfolios">
       <h3 className="TitleTopPortfolios">top user portfolios</h3>
 
-      {ranking.length !== 0 ? (
-        ranking.map((user) => {
+      {limite.length !== 0 ? (
+        limite.map((user) => {
           return (
-            <div className="contentTopPortfolios--contendio" key={user._id}>
-              <nav className="navTopPortfolio">
+            <div className="contentTopPortfolios--contendio" key={user.nombre}>
+              <nav key={user.nombre} className="navTopPortfolio">
                 <div className="contImgProfile">
                   <img
                     className="profilePicture"
@@ -43,9 +43,9 @@ if(!ranking) 's'
                   navigation
                 >
                   {user.nfts.length !== 0 ? (
-                    user.nfts?.map((nft) => {
+                    user.nfts?.map((nft, i) => {
                       return (
-                        <SwiperSlide key={nft._id}>
+                        <SwiperSlide key={i}>
                           <ComponenteTopPortf
                             id={nft.id}
                             image={nft.image}

@@ -24,7 +24,11 @@ export default function SearchBar({
     setSelectedSort(e.target.value);
     paginas(1);
   }
-  
+  function sortByPopularity(e) {
+    dispatch(sortPopularity(e.target.value));
+    OrderPop(`wasu wasol ${e.target.value}`);
+  }
+
   return (
     <div className="contentSearchBar">
       <div>

@@ -117,8 +117,7 @@ export default function ComponentNFT(props) {
     }
   }
 
-  function handleLike(e) {
-    e.preventDefault()
+  function handleLike() {
     if (!likeFlag) {
       setLikeFlag(true);
       dispatch(darLike(_id));
@@ -132,20 +131,16 @@ export default function ComponentNFT(props) {
     setOpenModal(false);
   }
 
-
   function MostrarModal(e) {
-
     setMostrarModal(true);
     setTrade({
       ...trade,
       owner: ownerId,
       nftId: id,
+    });
 
-    })
-    
-    console.log(trade)
-  } 
-
+    console.log(trade);
+  }
 
   function OcultarModal(id) {
     console.log(trade);
@@ -157,7 +152,6 @@ export default function ComponentNFT(props) {
     }
     setMostrarModal(false);
   }
-
 
   return (
     <div className="contNFT">
@@ -225,7 +219,6 @@ export default function ComponentNFT(props) {
                   Choose the nft that you want to trade
                 </h3>
 
-
                 <div className="contenedorCardTrade">
                   <Swiper
                     slidesPerView={
@@ -267,7 +260,6 @@ export default function ComponentNFT(props) {
                       ))}
                   </Swiper>
                 </div>
-
               </div>
             </Modal2>
             <Modal isOpen={openModal} className="modalBuy" style={customStyles}>
