@@ -21,6 +21,7 @@ import {
 let socket;
 import { guardarPagina } from "../../redux/actions/actionPaginado";
 import NotificationModal from "../componentes/home/NotificationModal";
+import Chat from "../componentes/home/Chat";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ export default function Home() {
   );
   let currentNftFilter = currentNft.slice(indexOfFirstNft, indexOfLastNft);
   const [screen, setScreen] = useState(window.innerWidth);
-
+  const  mensajes = document.querySelector('#ulChat')  
   const paginas = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -59,6 +60,7 @@ export default function Home() {
     }
   };
   useEffect(() => {
+   
     dispatch(usuarioActual());
     dispatch(topPortfolios());
     function handleResize() {
@@ -74,12 +76,16 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    dispatch(usuarioActual());
+  }, [todosLosNFT]);
+
   const test = todosLosNFT.map((el) => el.ranking);
 
   useEffect(() => {
     //recibir la respuesta del back
     socket.on("homeUpdate", () => {
-      dispatch(allNftMarket());
+      dispatch(allNftMarket(1));
       dispatch(usuarioActual());
       dispatch(allNFTUser());
       dispatch(topPortfolios());
@@ -114,7 +120,7 @@ export default function Home() {
           currentNftFilter?.map((nft) => {
             if (usuarioAct.nombre !== nft.ownerId && nft.avaliable) {
               return (
-                <div key={nft.id}>
+                <div key={nft._id}>
                   {
                     <ComponentNFT
                       screen={screen}
@@ -149,6 +155,11 @@ export default function Home() {
       ) : (
         <p>Aweit</p>
       )}
+{socket ? 
+
+   <div className="contChat">
+     <Chat usuario={usuario} socket={socket}/>
+   </div> : ''}
     </div>
   );
 }

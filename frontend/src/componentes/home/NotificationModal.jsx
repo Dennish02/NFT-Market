@@ -31,6 +31,7 @@ export default function NotificationModal({ usuario }) {
             if (i < 4) {
               return (
                 <li
+                key={i}
                   onClick={() => setTrue(e)}
                   className={e.visto ? "notification" : "notiFalse"}
                 >

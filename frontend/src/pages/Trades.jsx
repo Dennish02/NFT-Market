@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { seeOffers, responseOffer, cancelOffer } from "../../redux/actions/actionNFT";
+import {
+  seeOffers,
+  responseOffer,
+  cancelOffer,
+} from "../../redux/actions/actionNFT";
 import CardTrade from "../componentes/trades/CardTrade";
 import NavBar from "../componentes/home/NavBar";
 import { usuarioActual } from "../../redux/actions/actionUSER";
@@ -16,38 +20,34 @@ function Trades() {
   const usuarioAct = useSelector((state) => state.usuarioActual);
   const params = window.location.href;
 
- 
-
   useEffect(() => {
     dispatch(seeOffers());
-    dispatch(usuarioActual())
+    dispatch(usuarioActual());
     socket = io(import.meta.env.VITE_BACKEND_URL);
     socket.emit("Trades", params);
-    
   }, []);
 
   useEffect(() => {
     socket.on("update5", () => {
-      dispatch(seeOffers())
-    })
-  });
+      dispatch(seeOffers());
+    });
+  }, []);
 
-const response = false;
+  const response = false;
 
-const handleCancel = (e) => {
-  dispatch(cancelOffer({id: e}))
-}
+  const handleCancel = (e) => {
+    dispatch(cancelOffer({ id: e }));
+  };
 
+  const handleAccept = (e) => {
+    dispatch(responseOffer({ response: true, newId: e }));
+    console.log({ response: true, newId: e });
+  };
 
-const handleAccept = (e) => {
-  dispatch(responseOffer({response: true , newId: e})) 
-  console.log({response: true , newId: e})
-} 
+  const handleReject = (e) => {
+    dispatch(responseOffer({ response, newId: e }));
+  };
 
-const handleReject = (e) => {
-  dispatch(responseOffer({response , newId: e}))
-}
- 
   if (!usuarioAct) "cargando";
   return (
     <div>
@@ -55,8 +55,8 @@ const handleReject = (e) => {
       <NotificationModal usuario={usuarioAct} />
       <div className="contenedorCard">
         {!AllTrades.msg ? (
-
-            AllTrades?.map((e) => {
+          AllTrades?.map((e) => {
+            console.log(e.condition);
             return (
               <div className="contTrades">
                 <h3> This user {e.userA} sent you this offer</h3>
@@ -104,40 +104,73 @@ const handleReject = (e) => {
                     </svg>
                   </div>
 
-                <div>
-                <CardTrade          
-                id={e.nftB.id}
-                creatorId={e.nftB.creatorId}             
-                image={e.nftB.image.url}
-                colection={e.nftB.colection}              
-                price={e.nftB.price}
-                ranking={e.nftB.ranking}
-                />
-              </div> 
-            </div>
-            
-            {e.userB === usuarioAct.nombre ? 
-              <div className="contButtonTrade">
-              <button  onClick={() => handleAccept(e._id)}   className="buttonPrimary">Accept</button>
-              <button onClick={() => handleReject(e._id)} className="buttonRojos">Reject</button>
-            </div>:
-              <div className="contButtonTrade">
-                {e.condition === 'pending' &&   <button onClick={() => handleCancel(e._id)} className="buttonRojos">Cancel</button> }
-                { e.condition === 'accepted' && <div> <p className="Disponible">this offer is accepted</p> </div>}
-                {e.condition === 'reject' && <div> <p className="noDisponible">this offer is ended</p> </div> } 
-                {/*button delete */}
-            </div>}
-              
-            </div>
-              ) 
-            }
-  )) : <div><p>{AllTrades.msg}</p></div>} 
+
+                  <div>
+                    <CardTrade
+                      id={e.nftB.id}
+                      creatorId={e.nftB.creatorId}
+                      image={e.nftB.image.url}
+                      colection={e.nftB.colection}
+                      price={e.nftB.price}
+                      ranking={e.nftB.ranking}
+                    />
+                  </div>
+                </div>
+
+                {e.userB === usuarioAct.nombre ? (
+                  <div className="contButtonTrade">
+                    <button
+                      onClick={() => handleAccept(e._id)}
+                      className="buttonPrimary"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => handleReject(e._id)}
+                      className="buttonRojos"
+                    >
+                      Reject
+                    </button>
+                  </div>
+                ) : (
+                  <div className="contButtonTrade">
+                    {e.condition === "pending" && (
+                      <button
+                        onClick={() => handleCancel(e._id)}
+                        className="buttonRojos"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                    {e.condition === "accepted" && (
+                      <div>
+                        {" "}
+                        <p className="Disponible">
+                          this offer is accepted
+                        </p>{" "}
+                      </div>
+                    )}
+                    {e.condition === "accepted" && (
+                      <div>
+                        {" "}
+                        <p className="noDisponible">this offer is ended</p>{" "}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })
+        ) : (
+          <div>
+            <p>{AllTrades.msg}</p>
+          </div>
+        )}
+      </div>
+
+
     </div>
-  </div>
-) 
+  );
 }
 
 export default Trades;
-
-
-                

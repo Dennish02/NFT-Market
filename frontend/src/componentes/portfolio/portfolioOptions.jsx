@@ -20,7 +20,7 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     padding: "0",
     margin: "0",
-    width: "90%",
+   // width: "90%",
     backgroundColor: "#3a3a3a",
   },
 };
@@ -115,9 +115,12 @@ export default function PortfoliOptions() {
             />
           </div>
           {
-            <button className="buttonPrimary" onClick={() => crear()}>
-              ok
-            </button>
+            <div className="contButonColection">
+                 <button className="buttonColection" onClick={() => crear()}>
+                 create
+               </button>
+            </div>
+           
           }
         </div>
       </Modal>
