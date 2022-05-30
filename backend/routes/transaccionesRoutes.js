@@ -7,8 +7,6 @@ import {
 } from "../controladores/transaccionesController.js";
 import checkOut from "../middleware/checkOut.js";
 
-// router.post('/', crearTransaccion)
-
 router.get('/ultimasVentas',checkOut, ultimasVentas)
 
 

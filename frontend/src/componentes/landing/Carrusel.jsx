@@ -6,10 +6,8 @@ import image2 from "../../img/nft2.png";
 export default function Carrusel() {
   const [imagen, setImagen] = useState();
   const [verificar, setVerificar] = useState(true);
-
   let indice = 0;
   let imagenes = [image, image1, image2];
-
   useEffect(() => {
     verificar && rotarImagenes();
     setInterval(rotarImagenes, 4000);
@@ -17,7 +15,6 @@ export default function Carrusel() {
       setVerificar(false);
     };
   }, [indice]);
-
   function rotarImagenes() {
     setImagen();
     setImagen(imagenes[indice]);

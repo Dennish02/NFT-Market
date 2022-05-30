@@ -10,14 +10,13 @@ import { Link } from "react-router-dom";
 import { userLogout } from "../../../redux/actions/actionUSER";
 import { useDispatch } from "react-redux";
 
-export default function ProfileSettings({ closeModal }) {
+export default function ProfileSettings() {
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   if (!token) {
     navigate("/");
   }
-
   function logOut() {
     dispatch(userLogout);
   }
