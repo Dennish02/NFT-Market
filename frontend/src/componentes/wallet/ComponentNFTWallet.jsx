@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import formateoPrecio from "../../middleware/formateoPrecio";
 
 function ComponentNFTWallet(props) {
@@ -6,13 +6,10 @@ function ComponentNFTWallet(props) {
     NFT_colection,
     NFT_id,
     actual_owner_Id,
-    createdAt,
     price,
     seller_Id,
     transactionType,
     updatedAt,
-    __v,
-    _id,
   } = props;
 
   return (
@@ -48,14 +45,3 @@ function ComponentNFTWallet(props) {
 }
 
 export default ComponentNFTWallet;
-
-// NFT_colection: "col1"
-// NFT_id: "#VmG0"
-// actual_owner_Id: "pollo"
-// createdAt: "2022-05-15T23:55:09.398Z"
-// price: 250
-// seller_Id: "pablo"
-// transactionType: "sale"
-// updatedAt: "2022-05-15T23:55:09.398Z"
-// __v: 0
-// _id:

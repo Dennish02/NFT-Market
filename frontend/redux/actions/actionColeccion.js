@@ -39,7 +39,7 @@ export function crearColeccion(payload) {
     const response = await clienteAxios.get("/coleccion", config);
     const existe = response.data.filter((col) => col.name === payload);
     if (existe.length === 0) {
-      const response = await clienteAxios.post(
+     await clienteAxios.post(
         "/coleccion",
         {
           name: payload,

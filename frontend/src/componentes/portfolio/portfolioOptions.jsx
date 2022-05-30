@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { crearColeccion } from "../../../redux/actions/actionColeccion";
 import { toast } from "react-toastify";
 import { filterColection } from "../../../redux/actions/actionNFT";
-import { coleccionesUsuario } from "../../../redux/actions/actionColeccion";
+
 
 const customStyles = {
   overlay: {
@@ -20,7 +20,6 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     padding: "0",
     margin: "0",
-   // width: "90%",
     backgroundColor: "#3a3a3a",
   },
 };

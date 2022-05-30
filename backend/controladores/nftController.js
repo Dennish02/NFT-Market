@@ -128,7 +128,6 @@ const regalarNft = async (req, res) => {
     const { usuario } = req;
 
     const nft = await NftCreated.findOne({ id: idnft, colection });
-
     const filtrado = usuario.nfts.filter(
       (NFT) => nft.id !== NFT.id || nft.colection !== NFT.colection
     );
@@ -387,7 +386,6 @@ const responseOffer = async (req, res) => {
     const oferta = await Trade.findById(newId);
 
     let r = JSON.parse(response);
-    console.log(r)
     if (oferta) {
     
       if (oferta && oferta.condition === "pending") {
