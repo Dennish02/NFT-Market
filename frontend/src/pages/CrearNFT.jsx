@@ -5,7 +5,6 @@ import { crearNFT, reset } from "../../redux/actions/actionNFT";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
-import { toast } from "react-toastify";
 
 function validate(value) {
   let errores = {};
@@ -95,7 +94,6 @@ export default function CrearNFT() {
                     </p>
                   </div>
                 )}
-
                 <label>Category</label>
                 <Field name="category" as="select">
                   <option value="" disabled>
@@ -111,13 +109,11 @@ export default function CrearNFT() {
                 <p className="error">
                   <ErrorMessage name="category" />
                 </p>
-
                 <label>Price</label>
                 <Field name="price" type="text" />
                 <p className="error">
                   <ErrorMessage name="price" />
                 </p>
-
                 <label>image</label>
                 <input
                   type="file"

@@ -31,7 +31,6 @@ const customStyles = {
 let socket;
 
 function Wallet() {
-  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const usuario = useSelector((state) => state.usuarioActual);
   const [compra, setCompra] = useState();
@@ -46,11 +45,7 @@ function Wallet() {
   });
 
   //paginacion
-
   const [currentPage, setCurrentPage] = useState(1);
-
-  const [transactionByPage, setTransactionByPage] = useState(5);
-
   const [elementsByPage, setElementsByPage] = useState(5);
   const indexOfLastTransactions = currentPage * elementsByPage;
   const indexOfFirstTransaction = indexOfLastTransactions - elementsByPage;
@@ -85,9 +80,6 @@ function Wallet() {
       ? toast.info("You must enter the amount")
       : localStorage.setItem("valor", `${compra}`);
     dispatch(comprarCL(compra));
-  }
-  function closeModal() {
-    showModal && setShowModal(false);
   }
 
   useEffect(() => {
@@ -198,7 +190,6 @@ function Wallet() {
   return (
     <div className="contentHome">
       <NavWallet />
-
       <div className="ContenedorGeneralWallet">
         <div className="wallet-panel">
           <div className="balanceWallet">
@@ -222,7 +213,6 @@ function Wallet() {
                         value={compra}
                       />
                     </div>
-
                     <button className="buttonMP" onClick={handleButton}>
                       Enviar
                     </button>
@@ -236,7 +226,6 @@ function Wallet() {
                   </button>{" "}
                 </a>
               )}
-
               <p>Transfer CL to another user</p>
               <button className="buttonPrimary" onClick={MostrarModal}>
                 Transfer
@@ -261,7 +250,6 @@ function Wallet() {
                           <p className="error">{errors.error}</p>
                         </div>
                       )}
-
                       <input
                         min="1"
                         pattern="[0-9]+"
@@ -277,7 +265,6 @@ function Wallet() {
                           <p className="error">{errors.clerror}</p>
                         </div>
                       )}
-
                       <button className="buttonPrimary" type="submit">
                         Submit Coins
                       </button>
@@ -288,7 +275,6 @@ function Wallet() {
             </div>
           </div>
         </div>
-
         {usuario.length !== 0 ? (
           <section>
             <h3 className="subtitulo">Buy and Sell </h3>
@@ -316,7 +302,9 @@ function Wallet() {
                   );
                 })
               ) : (
-                <div className="MensajeVacios">there aren't transactions yet</div>
+                <div className="MensajeVacios">
+                  there aren't transactions yet
+                </div>
               )}
             </div>
             <div>

@@ -1,28 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Carrusel from "../componentes/landing/Carrusel";
 import Formulario from "../componentes/landing/Formulario";
-
 import Modal from "react-modal";
-
 import { useDispatch } from "react-redux";
-import {
-  autenticarUser,
-  resetErrorLoginUser,
-} from "../../redux/actions/actionUSER";
+import { autenticarUser } from "../../redux/actions/actionUSER";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    padding: "0",
-  },
-};
 
 Modal.setAppElement("#root");
 

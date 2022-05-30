@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import {
   resetPassword,
@@ -12,7 +11,6 @@ import validatePassword from "../middleware/validarPassword";
 
 export default function ResetPassword() {
   const params = useParams();
-  const navigate = useNavigate();
   const respuesta = useSelector((state) => state.errorEmail);
   const { token } = params;
   const [estado, setEstado] = useState({
@@ -96,7 +94,6 @@ export default function ResetPassword() {
               <p>{respuesta.msg}</p>
             )}
             {errores.error && <p className="error">{errores.error}</p>}
-
             {respuesta.msg ? (
               <Link to="home">
                 {" "}

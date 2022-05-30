@@ -408,49 +408,25 @@ const responseOffer = async (req, res) => {
   try {
     const { usuario } = req;
     const { response, newId } = req.body;
-<<<<<<< HEAD
-=======
-    console.log(req.body)
-
-    // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
-
->>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
-    // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
-    // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
     const oferta = await Trade.findById(newId);
-    // let oferta = user.hasTradeOffers.find((value) => value.id === newId);
+
     let r = JSON.parse(response);
-<<<<<<< HEAD
-=======
-    console.log(r)
->>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
+
     if (oferta) {
-      
       if (oferta && oferta.condition === "pending") {
         const userToGive = await Usuario.findOne({
           nombre: oferta.userA,
         }); //? usuario al que hay que darle el nft - ofertante
-<<<<<<< HEAD
-=======
-        
->>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
         if (r) {
           const nftFilter = await usuario.nfts.filter(
             (value) => value.id !== oferta.nftB.id
           ); //? quitamos el nft del arreglo del ex dueño
-<<<<<<< HEAD
-          const thenft = await NftCreated.findOne({
-            id: oferta.nftB.id,
-          }).select("-__v -createdAt -updatedAt"); //? buscamos el nft
-=======
-            console.log(nftFilter)
           await usuario.save();
 
           const thenft = await NftCreated.findOne({
             id: oferta.nftB.id,
           }).select("-__v -createdAt -updatedAt"); //? buscamos el nft
-          
->>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
+
           thenft.ownerId = userToGive.nombre; //? cambiamos el owner
           thenft.avaliable = false;
           await thenft.save(); // ?guardamos cambios
@@ -567,13 +543,8 @@ const cancelOffer = async (req, res) => {
     await notificacion.save();
 
     await offerReciver.save();
-<<<<<<< HEAD
 
     res.json({ msg: `You cancel the offer ${offer._id}` });
-=======
-    res.json({msg: `You cancel the offer ${offer._id}`});
-
->>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
   } else {
     res.json({
       msg: `You can't cancel this offer because you're not the sender`,
@@ -590,7 +561,7 @@ const deleteOffer = async (req, res) => {
       (element) => element._id.toString() !== id
     );
     usuario.save();
-    await Trade.findByIdAndDelete(id)
+    await Trade.findByIdAndDelete(id);
     res.json({ msg: `You deleted the offer ${id}` });
   } catch (error) {
     res.status(400).send(error);

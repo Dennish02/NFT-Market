@@ -30,7 +30,6 @@ export default function Favoritos() {
   return miUser ? (
     <div className="contentHome">
       <NavBar usuario={miUser} />
-
       <div className="contFavoritos">
         <h1 style={{ color: "white" }}>Favorites</h1>
         {miUser.favoritos ? (
@@ -53,7 +52,6 @@ export default function Favoritos() {
         ) : (
           <p className="MensajeVacios">there aren't favorites</p>
         )}
-
         {/* ACA SE TIENEN QUE RENDERIZAR LOS NFT QUE ESTEN AGREGADOS A FAVORITOS  */}
         <Link to="/home/usuario/portfolio">
           {" "}
