@@ -21,7 +21,7 @@ import {
 let socket;
 import { guardarPagina } from "../../redux/actions/actionPaginado";
 import NotificationModal from "../componentes/home/NotificationModal";
-
+import {AiOutlineArrowUp} from 'react-icons/ai'
 export default function Home() {
   const dispatch = useDispatch();
   const todosLosNFT = useSelector((state) => state.allNft);
@@ -75,7 +75,7 @@ export default function Home() {
     };
   }, []);
 
-  const test = todosLosNFT.map((el) => el.ranking);
+  
 
   useEffect(() => {
     //recibir la respuesta del back
@@ -88,10 +88,17 @@ export default function Home() {
       dispatch(searchNotification())
     });
   },[]);
-
+  function scrollUp(){
+    window.scrollTo({
+      top:0,
+      behavior: 'smooth'
+    })
+  }
+  
   if (!usuarioAct) "cargando";
   return (
     <div className="contentHome">
+      
       <NavBar usuario={usuarioAct} />
      <NotificationModal usuario={usuarioAct}/>
       <div> 
@@ -138,11 +145,13 @@ export default function Home() {
           </div>
         )}
       </main>
-     
+      <AiOutlineArrowUp onClick={() => scrollUp()} className = 'scrollButton'/> 
       {usuario ? (
         <TopPortfolios ranking={ranking} screen={screen} usuario={usuario} />
       ) : (
+        
         <p>Aweit</p>
+        
       )}
     </div>
   );
