@@ -33,6 +33,7 @@ import {
   NOTIFICATION_USER,
   NOTIFICATION_USER_TRUE,
   CANCEL_OFFER,
+  DELETE_OFFER,
   LIKE_FAVORITE,
 } from "../constantes";
 
@@ -383,6 +384,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case DELETE_OFFER:
+        return {
+          ...state,
+        };
     case NOTIFICATION_USER:
       return {
         ...state,
