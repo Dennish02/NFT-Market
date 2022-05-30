@@ -170,27 +170,4 @@ export const giftNFT = async (data) => {
   });
 };
 
-// export const topPortfolioMail = async (data) => {
-//   const { email, name} = data
 
-//   var transport = nodemailer.createTransport({
-//     host: process.env.EMAIL_HOST,
-//     port: process.env.EMAIL_PORT,
-//     secure: process.env.EMAIL_SECURE,
-//     auth: {
-//       user: process.env.EMAIL_USER,
-//       pass: process.env.EMAIL_PASS,
-//     }
-//   });
-
-//   const info = await transport.sendMail({
-//     from: '"NFT Market" <cuentas@nftmarket.com>',
-//     to: email,
-//     subject: "NFT Market - You bought an NFT",
-//     text: "Your NFT has been sold",
-//     html: `
-//     <h3>Hi ${buyer}, congratulations, you just bought this NFT ${nft} at ${price} CryptoLies</h3>
-//     <small>(This is just an informative email)</small>
-//     `
-//   })
-// }
