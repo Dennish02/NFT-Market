@@ -10,7 +10,6 @@ const ultimasVentas = async (req, res) => {
     }
     const sales = allTransactions.filter((t) => t.transactionType === "sale");
     const orderedSales = sales.sort((a, b) => {
-      //los ordeno del más reciente al más antiguo
       return b.createdAt.getTime() - a.createdAt.getTime();
     });
     const recentTransactions = orderedSales.slice(0, 20);
