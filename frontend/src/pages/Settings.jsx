@@ -4,7 +4,6 @@ import profile from "../img/profile.png";
 import { Link } from "react-router-dom";
 import { cambiarImagen, usuarioActual } from "../../redux/actions/actionUSER";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 
 import io from "socket.io-client";
 import NotificationModal from "../componentes/home/NotificationModal";
@@ -13,9 +12,7 @@ let socket;
 function Settings() {
   const dispatch = useDispatch();
   const params = window.location.href;
-
   const usuarioAct = useSelector((state) => state.usuarioActual);
-  const navigate = useNavigate();
 
   useEffect(() => {
     socket = io(import.meta.env.VITE_BACKEND_URL);

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { validateUser } from "../../redux/actions/actionUSER.js";
 
 export default function ConfirmarCuenta() {
-  //const navigate = useNavigate()
   const dispatch = useDispatch();
   const respuesta = useSelector((state) => state.confirmacion);
   const params = useParams();

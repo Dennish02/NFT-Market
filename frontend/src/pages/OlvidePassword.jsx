@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-//import { navigate } from 'react-router-dom';
 
 import {
   sedEmailToResetPassword,
@@ -69,15 +68,11 @@ export default function OlvidePassword() {
               type="email"
               placeholder="Reset email"
             />
-
-            {/* {respuesta.error ? <p  className='error'>{respuesta.error}</p> : <p>{respuesta.msg}</p> } */}
-
             {errors.email && (
               <div>
                 <p className="error">{errors.email}</p>
               </div>
             )}
-
             {respuesta.msg ? (
               <Link to="/">
                 {" "}

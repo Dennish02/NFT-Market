@@ -382,98 +382,74 @@ const responseOffer = async (req, res) => {
   try {
     const { usuario } = req;
     const { response, newId } = req.body;
-
     const oferta = await Trade.findById(newId);
 
     let r = JSON.parse(response);
     if (oferta) {
-    
+
       if (oferta && oferta.condition === "pending") {
         const userToGive = await Usuario.findOne({
           nombre: oferta.userA,
         }); //? usuario al que hay que darle el nft - ofertante
-        
         if (r) {
           const nftFilter = await usuario.nfts.filter(
             (value) => value.id !== oferta.nftB.id
           ); //? quitamos el nft del arreglo del ex dueño
-            console.log(nftFilter)
           await usuario.save();
 
           const thenft = await NftCreated.findOne({
             id: oferta.nftB.id,
           }).select("-__v -createdAt -updatedAt"); //? buscamos el nft
-          
+
           thenft.ownerId = userToGive.nombre; //? cambiamos el owner
-
           thenft.avaliable = false;
-
           await thenft.save(); // ?guardamos cambios
-
           userToGive.nfts.push(thenft); //? le damos el nft
-
           //cambia el status de todas las ofertas donde este el NFT
           await Trade.updateMany(
             { $or: [{ nftA_id: thenft.id }, { nftB_id: thenft.id }] },
             { status: false }
           );
-
           const theOtherNft = await NftCreated.findOne({ id: oferta.nftA.id });
-
           userToGive.nfts = userToGive.nfts.filter(
             (item) => item.id !== theOtherNft.id
           );
-
           console.log({ aVerSI: userToGive.nfts });
-
           userToGive.hasTradeOffers = userToGive.hasTradeOffers.filter(
             (item) => item._id.toString() !== newId
           );
-
           //notificación
           const notificacion = new Notificacion({
             msg: `${usuario.nombre} has accepted the exchange`,
           });
           userToGive.notificaciones.unshift(notificacion);
           await notificacion.save();
-
           await userToGive.save();
-
           theOtherNft.ownerId = usuario.nombre;
-
           theOtherNft.avaliable = false;
-
           await theOtherNft.save();
-
           //cambia el status de todas las ofertas donde este el NFT
           await Trade.updateMany(
             { $or: [{ nftA_id: theOtherNft.id }, { nftB_id: theOtherNft.id }] },
             { status: false }
           );
-
           usuario.nfts.push(theOtherNft);
-
           usuario.nfts = usuario.nfts.filter(
             (item) =>
               item.id !== thenft.id || item.colection !== thenft.colection
           );
-
           usuario.hasTradeOffers = usuario.hasTradeOffers.filter(
             (item) => item._id.toString() !== newId
           );
-
           await usuario.save();
-
           oferta.condition = "accepted";
           oferta.save();
-
           res.status(200).json({ msg: "Trade successfully completed" });
         } else {
           usuario.hasTradeOffers = usuario.hasTradeOffers.filter(
             (item) => item._id.toString() !== newId
           );
           await usuario.save();
-
           oferta.condition = "rejected";
           oferta.status = false;
           oferta.save();
@@ -484,9 +460,7 @@ const responseOffer = async (req, res) => {
           });
           userToGive.notificaciones.unshift(notificacion);
           await notificacion.save();
-
           await userToGive.save();
-
           res.status(200).json({ msg: "Trade successfully rejected" });
         }
       } else {
@@ -526,8 +500,8 @@ const cancelOffer = async (req, res) => {
     await notificacion.save();
 
     await offerReciver.save();
-    res.json({msg: `You cancel the offer ${offer._id}`});
 
+    res.json({ msg: `You cancel the offer ${offer._id}` });
   } else {
     res.json({
       msg: `You can't cancel this offer because you're not the sender`,
@@ -544,7 +518,7 @@ const deleteOffer = async (req, res) => {
       (element) => element._id.toString() !== id
     );
     usuario.save();
-    await Trade.findByIdAndDelete(id)
+    await Trade.findByIdAndDelete(id);
     res.json({ msg: `You deleted the offer ${id}` });
   } catch (error) {
     res.status(400).send(error);
