@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-//import { navigate } from 'react-router-dom';
-
 import {
   sedEmailToResetPassword,
   setStateEmail,
 } from "../../../redux/actions/actionUSER";
-
 import validarEmail from "../../middleware/validarEmail";
 
 export default function OlvidePassword() {

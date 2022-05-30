@@ -13,6 +13,4 @@ router.put("/setcoins",checkOut, setCoins);
 router.post("/", payMercadoPago);
 router.put("/setcoins",checkOut, setCoins);
 
-// router.post(checkOut, añadirFavNft);
-
 export default router;

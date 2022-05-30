@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   allNftMarket,
   allNFTUser,
-  userNfts,
 } from "../../redux/actions/actionNFT";
 import ComponentNFT from "../componentes/home/ComponentNFT";
 import NavBar from "../componentes/home/NavBar";
@@ -19,7 +18,6 @@ import {
   usuarioActual,
 } from "../../redux/actions/actionUSER";
 let socket;
-import { guardarPagina } from "../../redux/actions/actionPaginado";
 import NotificationModal from "../componentes/home/NotificationModal";
 import Chat from "../componentes/home/Chat";
 
@@ -28,7 +26,6 @@ export default function Home() {
   const todosLosNFT = useSelector((state) => state.allNft);
   const usuario = useSelector((state) => state.usuario);
   const usuarioAct = useSelector((state) => state.usuarioActual);
-  const nftUser = useSelector((state) => state.nftUser);
   const params = window.location.href;
   const ranking = useSelector((state) => state.ranking);
   //const token = localStorage.getItem("token");
@@ -46,8 +43,7 @@ export default function Home() {
     (e) => e.avaliable === true && usuario.nombre !== e.ownerId
   );
   let currentNftFilter = currentNft.slice(indexOfFirstNft, indexOfLastNft);
-  const [screen, setScreen] = useState(window.innerWidth);
-  const  mensajes = document.querySelector('#ulChat')  
+  const [screen, setScreen] = useState(window.innerWidth); 
   const paginas = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
