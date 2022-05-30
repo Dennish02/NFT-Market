@@ -87,3 +87,20 @@
 .buttonMorado {
   @include m.buttonMorado;
 }
+.contLogin{
+  .contInput{
+    width: 100%;
+    margin: 0 auto;
+    input{
+      margin: 2rem auto;
+    }
+  }
+  .contButonColection{
+    width: 90%;
+    margin: 0 auto;
+    .buttonColection{
+      @include m.buttonPrimary;
+      width: 100%;
+    }
+  }
+}

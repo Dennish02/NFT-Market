@@ -234,10 +234,10 @@ export default function ComponentNFT(props) {
                     navigation
                   >
                     {UserFilter &&
-                      UserFilter.map((nft) => (
+                      UserFilter.map((nft, i) => (
                         <div key={nft.id}>
                           {
-                            <SwiperSlide key={nft._id}>
+                            <SwiperSlide key={i}>
                               <ComponentNftTrade
                                 OcultarModal={OcultarModal}
                                 trade={trade}

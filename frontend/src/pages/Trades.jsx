@@ -4,6 +4,10 @@ import {
   seeOffers,
   responseOffer,
   cancelOffer,
+<<<<<<< HEAD
+=======
+  deleteOffer
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
 } from "../../redux/actions/actionNFT";
 import CardTrade from "../componentes/trades/CardTrade";
 import NavBar from "../componentes/home/NavBar";
@@ -47,6 +51,13 @@ function Trades() {
   const handleReject = (e) => {
     dispatch(responseOffer({ response, newId: e }));
   };
+<<<<<<< HEAD
+=======
+
+  const handleDelete = (e) => {
+    dispatch(deleteOffer({ id: e }))
+  }
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
 
   if (!usuarioAct) "cargando";
   return (
@@ -104,6 +115,10 @@ function Trades() {
                     </svg>
                   </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
                   <div>
                     <CardTrade
                       id={e.nftB.id}
@@ -149,10 +164,18 @@ function Trades() {
                         </p>{" "}
                       </div>
                     )}
+<<<<<<< HEAD
                     {e.condition === "accepted" && (
                       <div>
                         {" "}
                         <p className="noDisponible">this offer is ended</p>{" "}
+=======
+                    {e.condition === "rejected" && (
+                      <div className="center">
+                        {" "}
+                        <button onClick={() => handleDelete(e._id)} className="buttonRojos">delete</button>
+                        <p className="noDisponible">This offer was rejected</p>{" "}
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
                       </div>
                     )}
                   </div>
@@ -162,10 +185,19 @@ function Trades() {
           })
         ) : (
           <div>
+<<<<<<< HEAD
             <p>{AllTrades.msg}</p>
           </div>
         )}
       </div>
+=======
+            <p className="MensajeVacios">{AllTrades.msg}</p>
+          </div>
+        )}
+      </div>
+
+
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
     </div>
   );
 }

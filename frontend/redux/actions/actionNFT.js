@@ -329,12 +329,29 @@ export function eliminarFav(id) {
 }
 
 export function sort(payload) {
-  return async function (dispatch) {
+  return async function (dispatch){
     return dispatch({
       type: SORT,
-      payload,
-    });
-  };
+      payload
+    })
+  }
+  // return async function (){
+  //   const token = localStorage.getItem("token");
+  //   const authAxios = clienteAxios.create({
+  //     headers:{
+  //       "Content-Type": "multipart/form-data",
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   })
+  //   try{
+  //     let {data} = await authAxios.post(
+  //       `${import.meta.env.VITE_BACKEND_URL}/api/nft/ordenar`, payload 
+  //     )
+  //     socket.emit("renderHome")
+  //   } catch(error){
+  //     console.log(error)
+  //   }
+  // }
 }
 
 export function setNewCoin(value) {
@@ -520,3 +537,32 @@ export function cancelOffer({ id }) {
     }
   };
 }
+<<<<<<< HEAD
+=======
+
+export function deleteOffer ( id ){
+
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create ({
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    try {
+      const json = await authAxios.post (`${import.meta.env.VITE_BACKEND_URL}/api/nft/deleteoffer`,  id );
+      socket.emit("updateTrades");
+      socket.emit("update");
+      socket.emit("renderHome");
+
+      toast.success("Deleted successfully")
+      return dispatch({
+        type: DELETE_OFFER
+      })
+    } catch (error) {
+      toast.error(error)
+    }
+  }
+} 
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e

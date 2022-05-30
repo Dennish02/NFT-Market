@@ -33,6 +33,10 @@ import {
   NOTIFICATION_USER,
   NOTIFICATION_USER_TRUE,
   CANCEL_OFFER,
+<<<<<<< HEAD
+=======
+  DELETE_OFFER,
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
   LIKE_FAVORITE,
 } from "../constantes";
 
@@ -57,17 +61,62 @@ const initialState = {
   transferencias: [],
   trades: [],
   notification: [],
+  ordenamiento: 'sort'
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_NFT_MARKET:
+<<<<<<< HEAD
       // console.log(action.payload);
 
       return {
         ...state,
         allNft: action.payload.nftAlldb,
         backUpAllNft: action.payload.nftAlldb,
+=======
+      return {
+        ...state,
+        allNft: action.payload.nftAlldb,
+        backUpAllNft: action.payload.nftAlldb,
+
+    /*  var {nftAlldb} = action.payload
+      console.log(state.ordenamiento)
+      var {ordenamiento} = state
+      // if(state.ordenamiento === 'price_desc'){
+        nftAlldb = nftAlldb.sort((a, b) => {
+          if (ordenamiento === "price_asc") {
+            return a.price - b.price;
+          } else if (ordenamiento === "price_desc") {
+            return b.price - a.price;
+          } else if (ordenamiento === "ranking_asc") {
+            return a.ranking - b.ranking;
+          } else if (ordenamiento === "ranking_desc") {
+            return b.ranking - a.ranking;
+          } else {
+            return 0
+          }
+        });
+        console.log(nftAlldb)
+  
+      // }
+      if (state.allNft.length === state.backUpAllNft.length) {
+        return {
+          ...state,
+          allNft: nftAlldb,
+          backUpAllNft: nftAlldb
+          // allNft: action.payload.nftAlldb,
+          // backUpAllNft: action.payload.nftAlldb,
+          //usuario: action.payload.usuario,
+        };
+      }
+      return {
+        ...state,
+        backUpAllNft: nftAlldb*/
+        // backUpAllNft: action.payload.nftAlldb,
+        //usuario: action.payload.usuario,
+
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
       };
 
     // if (state.allNft.length === state.backUpAllNft.length) {
@@ -278,6 +327,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNft,
         // backUpAllNft,
+<<<<<<< HEAD
+=======
+        //backUpAllNft,
+       // ordenamiento: action.payload
+
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
       };
 
     // case LIKE_NFT:
@@ -344,6 +399,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+<<<<<<< HEAD
+=======
+    case DELETE_OFFER:
+        return {
+          ...state,
+        };
+>>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
     case NOTIFICATION_USER:
       return {
         ...state,

@@ -22,8 +22,8 @@ export default function TopPortfolios({ usuario, screen, ranking }) {
       {limite.length !== 0 ? (
         limite.map((user) => {
           return (
-            <div className="contentTopPortfolios--contendio" key={user._id}>
-              <nav className="navTopPortfolio">
+            <div className="contentTopPortfolios--contendio" key={user.nombre}>
+              <nav key={user.nombre} className="navTopPortfolio">
                 <div className="contImgProfile">
                   <img
                     className="profilePicture"
@@ -43,9 +43,9 @@ export default function TopPortfolios({ usuario, screen, ranking }) {
                   navigation
                 >
                   {user.nfts.length !== 0 ? (
-                    user.nfts?.map((nft) => {
+                    user.nfts?.map((nft, i) => {
                       return (
-                        <SwiperSlide key={nft._id}>
+                        <SwiperSlide key={i}>
                           <ComponenteTopPortf
                             id={nft.id}
                             image={nft.image}

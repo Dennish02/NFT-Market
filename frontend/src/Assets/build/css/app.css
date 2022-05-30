@@ -595,26 +595,29 @@ img {
 @media (min-width: 320px) {
   .contLogin {
     position: relative;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
+    padding: 2rem;
     max-height: fit-content;
-    background-color: #3a3a3a;
+    background-color: #0b0c29;
     color: #e1e1e1;
     border-radius: 0.5rem;
     padding: 1rem 0;
   }
   .contLogin .close {
     position: absolute;
-    right: 18px;
-    top: 10px;
+    right: 10px;
+    top: 2px;
     background: none;
+    color: #c53838;
     border: none;
-    padding: 1rem;
+    padding: 0.5rem;
     border-radius: 0.5rem;
   }
   .contLogin .close:hover {
     cursor: pointer;
-    background-color: #e1e1e1;
+    color: #e1e1e1;
+    background-color: #c53838;
   }
   .contLogin .contLogin-content {
     width: 95%;
@@ -767,6 +770,96 @@ img {
 .contentHome {
   width: 90%;
   margin: 1rem auto;
+}
+.contentHome .contChat {
+  position: fixed;
+  background-color: #0b0c29;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  border-top: solid 1px #e1e1e1;
+  border-left: solid 1px #e1e1e1;
+  border-right: solid 1px #e1e1e1;
+  bottom: 0;
+  right: 5px;
+}
+@media (min-width: 768px) {
+  .contentHome .contChat {
+    width: 400px;
+  }
+}
+
+/**CHAT*/
+.chat {
+  padding: 0 2rem;
+}
+.chat .chat-title {
+  background-color: none;
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 2rem;
+  color: #e1e1e1;
+}
+.chat .chat-title:hover {
+  cursor: pointer;
+}
+.chat .contenidoChat {
+  background-color: #e1e1e1;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  max-height: 400px;
+  padding: 0 0.5rem;
+}
+.chat .contenidoChat .ulChat {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+.chat .contenidoChat .ulChat li:nth-child(odd) {
+  background-color: #bbbbbb;
+}
+.chat .contenidoChat .cadaMnesaje {
+  color: #0b0c29;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 1rem 0;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+}
+.chat .contenidoChat .cadaMnesaje .span {
+  color: #29a237;
+  font-weight: 700;
+}
+.chat .contenidoChat .cadaMnesaje .otro {
+  color: #663a8f;
+}
+.chat .inputChat {
+  padding: 1rem;
+  width: 75%;
+  display: inline-block;
+}
+.chat .buttonChat {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  width: 20%;
+  margin: 0 0 0 1rem;
+  display: inline-block;
+  padding: 1rem;
+}
+.chat .buttonChat:hover {
+  cursor: pointer;
+  background: #1f7929;
 }
 
 .main {
@@ -1297,6 +1390,35 @@ img {
 .buttonMorado:hover {
   cursor: pointer;
   background: #4c2b6b;
+}
+
+.contLogin .contInput {
+  width: 100%;
+  margin: 0 auto;
+}
+.contLogin .contInput input {
+  margin: 2rem auto;
+}
+.contLogin .contButonColection {
+  width: 90%;
+  margin: 0 auto;
+}
+.contLogin .contButonColection .buttonColection {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  width: 100%;
+}
+.contLogin .contButonColection .buttonColection:hover {
+  cursor: pointer;
+  background: #1f7929;
 }
 
 @media (min-width: 320px) {
@@ -2010,6 +2132,19 @@ img {
 .buttonTrade1:hover {
   cursor: pointer;
   background: #1f7929;
+}
+
+.center {
+  text-align: center;
+}
+
+.noDisponible {
+  color: #e1e1e1;
+}
+
+.MensajeVacios {
+  text-align: center;
+  color: #e1e1e1;
 }
 
 .displayNone {
