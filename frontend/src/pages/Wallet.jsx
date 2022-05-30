@@ -316,7 +316,7 @@ function Wallet() {
                   );
                 })
               ) : (
-                <div>there aren't transactions yet</div>
+                <div className="MensajeVacios">there aren't transactions yet</div>
               )}
             </div>
             <div>

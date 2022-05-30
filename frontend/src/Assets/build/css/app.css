@@ -2134,6 +2134,19 @@ img {
   background: #1f7929;
 }
 
+.center {
+  text-align: center;
+}
+
+.noDisponible {
+  color: #e1e1e1;
+}
+
+.MensajeVacios {
+  text-align: center;
+  color: #e1e1e1;
+}
+
 .displayNone {
   display: none;
 }

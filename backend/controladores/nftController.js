@@ -408,6 +408,7 @@ const responseOffer = async (req, res) => {
   try {
     const { usuario } = req;
     const { response, newId } = req.body;
+    console.log(req.body)
 
     // let oferta = usuario.hasTradeOffers.find((value) => value.id === newId);
 
@@ -418,22 +419,25 @@ const responseOffer = async (req, res) => {
     // let oferta = user.hasTradeOffers.find((value) => value.id === newId);
 
     let r = JSON.parse(response);
-
+    console.log(r)
     if (oferta) {
-      if (oferta && oferta.status !== false) {
+      
+      if (oferta && oferta.condition === "pending") {
         const userToGive = await Usuario.findOne({
           nombre: oferta.userA,
         }); //? usuario al que hay que darle el nft - ofertante
-
+        
         if (r) {
           const nftFilter = await usuario.nfts.filter(
             (value) => value.id !== oferta.nftB.id
           ); //? quitamos el nft del arreglo del ex dueño
+            console.log(nftFilter)
+          await usuario.save();
 
           const thenft = await NftCreated.findOne({
             id: oferta.nftB.id,
           }).select("-__v -createdAt -updatedAt"); //? buscamos el nft
-
+          
           thenft.ownerId = userToGive.nombre; //? cambiamos el owner
 
           thenft.avaliable = false;
@@ -593,7 +597,7 @@ const deleteOffer = async (req, res) => {
       (element) => element._id.toString() !== id
     );
     usuario.save();
-
+    await Trade.findByIdAndDelete(id)
     res.json({ msg: `You deleted the offer ${id}` });
   } catch (error) {
     res.status(400).send(error);

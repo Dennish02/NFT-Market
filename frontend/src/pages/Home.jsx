@@ -145,7 +145,7 @@ export default function Home() {
           })
         ) : (
           <div>
-            <h3 className="textGray">There aren't NFTs on sale</h3>
+            <h3 className="MensajeVacios">There aren't NFTs on sale</h3>
           </div>
         )}
       </main>

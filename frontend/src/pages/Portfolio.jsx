@@ -64,7 +64,7 @@ export default function Portfolio() {
             );
           })
         ) : (
-          <h3>There aren't NFTs</h3>
+          <h3 className="MensajeVacios">There aren't NFTs</h3>
         )}
       </div>
     </div>
