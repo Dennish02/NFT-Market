@@ -75,13 +75,12 @@ const crearNft = async (req, res) => {
 };
 
 const editarNft = async (req, res) => {
-  //manejar errores.
 
   const { id } = req.params;
   const { price } = req.body;
   const { usuario } = req;
   const oneNft = await NftCreated.findById(id);
-  console.log(price);
+
   if (oneNft.length === 0) {
     const error = new Error("The NFT don't exist");
     return res.status(401).json({ msg: error.message });
@@ -123,7 +122,7 @@ const obtenerNft = async (req, res) => {
   res.send(nft);
 };
 const regalarNft = async (req, res) => {
-  // hago este comentario para meter el merge
+  
   try {
     const { idnft, iduser, colection } = req.body;
     const { usuario } = req;
@@ -136,7 +135,6 @@ const regalarNft = async (req, res) => {
     await usuario.save();
 
     const giftTo = await Usuario.findById(iduser);
-    // const giftTo = await Usuario.findOne({nombre: iduser});
 
     if (nft) {
       //setear en false ofertas de intercambio
@@ -144,11 +142,9 @@ const regalarNft = async (req, res) => {
         { $or: [{ nftA_id: nft.id }, { nftB_id: nft.id }] },
         { status: false }
       );
-      //...
       nft.ownerId = giftTo.nombre;
       nft.avaliable = false;
       nft.save();
-      //...
 
       //notificación
       const notificacion = new Notificacion({
@@ -313,23 +309,18 @@ const venderNft = async (req, res) => {
 const tradeOffer = async (req, res) => {
   try {
     const { usuario } = req;
-    // const { nftOffered, nftOfferedColection, nftId, owner, nftColection } =
-    //   req.body;
+
     const { nftId, nftOffered, owner } = req.body;
-    // console.log(req.body);
+
     //?nft que se quiere cambiar
-    //console.log(req.body)
+ 
     //?nft que se quiere cambiar
     const nft = await NftCreated.findOne({
-      //ownerId: owner,
-      //colection: nftColection,
       id: nftId,
     }).select("-_id -createdAt -updatedAt -__v -userLikes");
 
     //?nft que se envia para intercambio
     const offer = await NftCreated.findOne({
-      //ownerId: usuario.nombre,
-      //colection: nftOfferedColection,
       id: nftOffered,
     }).select("-_id -createdAt -updatedAt -__v -userLikes");
 
@@ -349,6 +340,7 @@ const tradeOffer = async (req, res) => {
       condition: "pending",
     });
     const oferta = await newOffer.save();
+
     //?se guarda en el usuario que recibe la oferta
     nftOwner.hasTradeOffers.push(oferta);
 
@@ -375,7 +367,6 @@ const tradeOffer = async (req, res) => {
 const seeOffers = async (req, res) => {
   const { usuario } = req;
 
-  //console.log(usuario.nombre);
   const user = await Usuario.findOne({ nombre: usuario.nombre }).populate(
     "hasTradeOffers"
   );
@@ -396,7 +387,7 @@ const responseOffer = async (req, res) => {
 
     let r = JSON.parse(response);
     if (oferta) {
-      
+    
       if (oferta && oferta.condition === "pending") {
         const userToGive = await Usuario.findOne({
           nombre: oferta.userA,
@@ -486,6 +477,7 @@ const responseOffer = async (req, res) => {
           oferta.condition = "rejected";
           oferta.status = false;
           oferta.save();
+
           //notificación
           const notificacion = new Notificacion({
             msg: `${usuario.nombre} has rejected the exchange`,
@@ -512,6 +504,7 @@ const cancelOffer = async (req, res) => {
   const { id } = req.body;
 
   const offer = await Trade.findById(id);
+
   if (offer && offer.userA === usuario.nombre) {
     offer.status = false;
     offer.condition = "rejected";
@@ -522,12 +515,10 @@ const cancelOffer = async (req, res) => {
       (element) => element._id.toString() !== id
     );
     await usuario.save();
-
     //HACEMOS LO MISMO EN EL USUARIO QUE RECIBE
 
     const offerReciver = await Usuario.findOne({ nombre: offer.userB });
 
-    //notificación
     const notificacion = new Notificacion({
       msg: `${usuario.nombre} has canceled the exchange`,
     });
@@ -755,8 +746,6 @@ const selectNft = async (req, res) => {
     console.log(e);
   }
 };
-
-const obtenerVentas = async (req, res) => {};
 
 export {
   obtenerAllNft,

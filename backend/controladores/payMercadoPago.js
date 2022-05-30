@@ -5,11 +5,10 @@ import Usuario from "../models/Usuarios.js";
 mercadopago.configure({
   access_token: process.env.ACCESS_TOKEN_MP,
 });
-// app.post("/process-payment", (req, res) => {
+
 export const payMercadoPago = (req, res) => {
   const { cuantity } = req.body;
-
-  /*  const preferenceId = await payMercadoPago(req.body); */
+  
   try {
     let preference = {
       items: [
@@ -38,8 +37,6 @@ export const payMercadoPago = (req, res) => {
   } catch (err) {
     console.log(err);
   }
-
-  /*   return res.status(200).send(preferenceId); */
 };
 export const setCoins = async (req, res) => {
   const { value } = req.body;

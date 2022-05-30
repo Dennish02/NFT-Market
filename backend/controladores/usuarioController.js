@@ -7,28 +7,19 @@ import fs from "fs-extra";
 import { OAuth2Client } from "google-auth-library";
 import Notificacion from "../models/Notificacion.js";
 
-// const googleValidate = async (req,res) => {
-//   const {email, tokenGoogle} = req.body
-//   const usuario = await Usuario.findOne({ email });
-//   if (!usuario) {
-
-//     const error = new Error("EL USUARIO NO EXISTE");
-//     return res.status(404).json({ msg: error.message });
-//   }
-// }
 const client = new OAuth2Client(
-  "191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com"
+  process.env.CLIENT_ID
 );
 
 const googleLogin = async (req, res) => {
   const { idToken } = req.body;
-  // console.log('soy backend', idToken)
+
   try {
     client
       .verifyIdToken({
         idToken,
         audience:
-          "191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com",
+          process.env.CLIENT_ID,
       })
       .then((response) => {
         const { email_verified, picture, given_name, email } = response.payload;
@@ -45,7 +36,6 @@ const googleLogin = async (req, res) => {
                   nombre: nombre,
                   email: email,
                   token: token,
-                  // { token, _id, nombre,  email}
                 });
               } else {
                 let nuevoUsuario = new Usuario({
@@ -107,8 +97,7 @@ const usuario = async (req, res) => {
 };
 
 const registrar = async (req, res) => {
-  //Evitar registros dupicados
-  //* * Este controlador esta termiando
+
   const { email, nombre } = req.body;
   if (nombre.length > 10) {
     const error = new Error("The username cannot have more than 10 characters");
@@ -125,7 +114,7 @@ const registrar = async (req, res) => {
     return res.status(400).json({ msg: error.message });
   }
   try {
-    // const usuario = new Usuario(req.body)
+
     const usuario = new Usuario({
       ...req.body,
       image: { public_id: "", url: "" },
@@ -133,7 +122,6 @@ const registrar = async (req, res) => {
     usuario.token = generarID(); //id hasheado
     await usuario.save();
 
-    //emil de registro
     emailRegistro({
       email: usuario.email,
       nombre: usuario.nombre,
@@ -149,20 +137,18 @@ const registrar = async (req, res) => {
 };
 
 const autenticar = async (req, res) => {
-  //* * Este controlador esta termiando
   const { email, password } = req.body;
-  //comprobar si existe
+
   const usuario = await Usuario.findOne({ email });
   if (!usuario) {
     const error = new Error("User don't exists");
     return res.status(404).json({ msg: error.message });
   }
-  //comprobar sui esta confirnadi
+
   if (!usuario.confirmado) {
     const error = new Error("Your account hasn't been confirmed");
     return res.status(403).json({ msg: error.message });
   }
-  //consifmar su password
 
   if (await usuario.comprobarPassword(password)) {
     res.json({
@@ -179,7 +165,6 @@ const autenticar = async (req, res) => {
 };
 
 const confimrar = async (req, res) => {
-  //* * Este controlador esta termiando
 
   const { token } = req.params;
   const usuarioConfirmar = await Usuario.findOne({ token }); //buscar el usuario por el token
@@ -191,7 +176,7 @@ const confimrar = async (req, res) => {
   }
   try {
     usuarioConfirmar.confirmado = true; //cambiando estado para que esté confirmado
-    usuarioConfirmar.token = ""; //elimianr token porque se usa una vez
+    usuarioConfirmar.token = ""; //eliminar token porque se usa una vez
     await usuarioConfirmar.save(); //almacenar con los cambios
     res.json({ msg: "User confirmed successfully" });
   } catch (error) {
@@ -199,8 +184,6 @@ const confimrar = async (req, res) => {
   }
 };
 const olvidePassword = async (req, res) => {
-  //* * Este controlador esta termiando
-
   const { email } = req.body;
 
   const usuario = await Usuario.findOne({ email });
@@ -230,7 +213,6 @@ const olvidePassword = async (req, res) => {
 
 //validar token para cambiar su password
 const comporbarToken = async (req, res) => {
-  //* * Este controlador esta termiando
 
   const { token } = req.params;
 
@@ -245,7 +227,6 @@ const comporbarToken = async (req, res) => {
 };
 //resetar constraseña
 const nuevoPassword = async (req, res) => {
-  //todo: dennis teminado
 
   const { token } = req.params;
   const { password } = req.body;
@@ -269,7 +250,6 @@ const nuevoPassword = async (req, res) => {
 };
 
 const perfil = async (req, res) => {
-  // const { usuario } = req; // se lee del server
   const user = await Usuario.findOne({ nombre: req.usuario.nombre }).select(
     "-password -hasTradeOffers -email -transacciones -favoritos -confirmado  -createdAt -updatedAt -__v"
   ); //populate trae la data de la referencia
@@ -297,7 +277,6 @@ const transferirCl = async (req, res) => {
   const coinsA = usuarioA.coins;
 
   const usuarioB = await Usuario.findOne({ nombre: user });
-  // const usuarioB = await Usuario.findById( user );
   if (!usuarioB) {
     return res.status(401).json({ msg: "User doesn't exist" });
   }
