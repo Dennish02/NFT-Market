@@ -71,7 +71,7 @@ io.on("connection", (socket) => {
   socket.on("changelike", () => {
     socket.to(`${process.env.FRONTEND_URL}/home`).emit("changelikeicon");
   });
-
+  
   socket.on("balanceUser", () => {
     socket.to(`${process.env.FRONTEND_URL}/home`).emit("balance");
   });
@@ -89,7 +89,21 @@ io.on("connection", (socket) => {
       .to(`${process.env.FRONTEND_URL}/home/usuario/portfolio`)
       .emit("colectionUser");
   });
+//chat
 
+// socket.on("Chat", (rooms) => {
+//   socket.join(rooms)
+ 
+// });
+socket.on('chat', (mensaje)=>{
+  io.emit("chatmenaje", mensaje);
+})
+
+// socket.on("chat", (mensaje) => {
+//   console.log(mensaje);
+//   //socket.to(`${rooms}`).emit("chatmenaje", mensaje);
+// });
+/*fin chat*/
   socket.on("Settings", (room) => {
     socket.join(room);
   });
@@ -123,5 +137,15 @@ io.on("connection", (socket) => {
     socket
       .to(`${process.env.FRONTEND_URL}/usuario/favoritos`)
       .emit("updatefav");
+  });
+
+  socket.on("Trades", (room) => {
+    socket.join(room);
+  });
+
+  socket.on("updateTrades", () => {
+    socket
+      .to(`${process.env.FRONTEND_URL}/home/usuario/trades`)
+      .emit("update5");
   });
 });

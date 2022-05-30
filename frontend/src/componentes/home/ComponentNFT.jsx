@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {
   comprarNFT,
   AñadirFav,
@@ -8,7 +8,7 @@ import {
 } from "../../../redux/actions/actionNFT";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import pocentajeAumento from "../../middleware/pocentajeAumento";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
 import favOn from "../../img/favOn.png";
 import favOf from "../../img/favOf.png";
@@ -17,34 +17,17 @@ import likeOf from "../../img/likeOff.png";
 import Modal2 from "react-modal";
 import Modal from "react-modal";
 import ComponentNftTrade from "../../componentes/home/ComponentNftTrade";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(11,12,41,0.48)",
   },
-  content: {
-    margin: "0",
-    padding: "0",
-  },
 };
 
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
-  const customStyles = {
-    overlay: {
-      backgroundColor: "rgba(11,12,41,0.48)",
-    },
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      padding: "0",
-      width: "380px",
-    },
-  };
+
   const {
     _id,
     id,
@@ -57,10 +40,9 @@ export default function ComponentNFT(props) {
     ownerId,
     usuario,
     ranking,
+    screen,
   } = props;
   let porcentaje = pocentajeAumento(priceBase, price);
-
-  //const user = useSelector(state => state.usuario)
   if (!usuario) "cargando";
 
   let idFavorito = "";
@@ -69,35 +51,22 @@ export default function ComponentNFT(props) {
   usuario.favoritos ? (idFavorito = usuario.favoritos) : null;
   let extraerId = "";
   idFavorito ? (extraerId = idFavorito.map((el) => el._id)) : null;
-
   let nftfilter;
   let idNftLike = "";
   let validarBoton2 = "";
   usuario.nftLikes ? (validarBoton2 = usuario.nftLikes) : null;
-
   usuario.nftLikes ? (idNftLike = usuario.nftLikes) : null;
   idNftLike.length > 0 ? (nftfilter = idNftLike.map((e) => e)) : null;
-
   const [openModal, setOpenModal] = useState(false);
-
   const [favFlag, setFavFlag] = useState(false);
   const [likeFlag, setLikeFlag] = useState(false);
-
   const [mostrarModal, setMostrarModal] = useState(false);
-  // const User = useSelector(state => state.usuarioActual)
-  // if(!User) ''
-
   const UserFilter = usuario.nfts;
-
-  // console.log(UserFilter);
-
   const [trade, setTrade] = useState({
     owner: "",
     nftId: "",
     nftOffered: "",
   });
-  // console.log(trade)
-
   function showModal() {
     setOpenModal(true);
   }
@@ -131,21 +100,15 @@ export default function ComponentNFT(props) {
     setOpenModal(false);
   }
 
-  // const setnftOffered = (id) => {
-  //   console.log(id);
-  //   setTrade({
-  //     ...trade,
-  //     nftOffered: id,
-  //   });
-  // };
-
-  function MostrarModal(e) {
+  function MostrarModal() {
     setMostrarModal(true);
     setTrade({
       ...trade,
       owner: ownerId,
       nftId: id,
     });
+
+    console.log(trade);
   }
 
   function OcultarModal(id) {
@@ -189,7 +152,7 @@ export default function ComponentNFT(props) {
       </div>
       <div>
         <p className={avaliable ? "verde" : "rojo"}>
-          {avaliable ? "En venta" : "No en venta"}
+          {avaliable ? "On sale" : "Not for sale"}
         </p>
       </div>
       <div className="contButtons">
@@ -209,25 +172,41 @@ export default function ComponentNFT(props) {
             >
               Trade
             </button>
-            <Modal2 style={customStyles} isOpen={mostrarModal}>
-              <div className="padreModal">
+            <Modal2
+              style={customStyles}
+              className="modalTrade"
+              isOpen={mostrarModal}
+            >
+              <div>
                 <div>
                   <button className="close" onClick={() => OcultarModal()}>
                     X
                   </button>
                 </div>
 
-                <div>
-                  <h3>Choose the nft that you want to trade</h3>
-                </div>
+                <h3 className="subtituloTrade">
+                  Choose the nft that you want to trade
+                </h3>
 
                 <div className="contenedorCardTrade">
-                  {UserFilter &&
-                    UserFilter.map((nft) => (
-                      <div key={nft.id}>
-                        {
-                          <div>
-                            <div>
+                  <Swiper
+                    slidesPerView={
+                      screen > 1650
+                        ? 4
+                        : screen > 1300
+                        ? 3
+                        : screen > 920
+                        ? 2
+                        : 1
+                    }
+                    spaceBetween={30}
+                    navigation
+                  >
+                    {UserFilter &&
+                      UserFilter.map((nft, i) => (
+                        <div key={nft.id}>
+                          {
+                            <SwiperSlide key={i}>
                               <ComponentNftTrade
                                 OcultarModal={OcultarModal}
                                 trade={trade}
@@ -244,25 +223,30 @@ export default function ComponentNFT(props) {
                                 ownerId={nft.ownerId}
                                 ranking={nft.ranking}
                               />
-                            </div>
-                          </div>
-                        }
-                      </div>
-                    ))}
+                            </SwiperSlide>
+                          }
+                        </div>
+                      ))}
+                  </Swiper>
                 </div>
               </div>
             </Modal2>
-            <Modal isOpen={openModal} style={customStyles}>
+            <Modal isOpen={openModal} className="modalBuy" style={customStyles}>
               <div className="buyModal">
                 <button className="closeButton" onClick={() => closeModal()}>
                   X
                 </button>
-                <div>
-                  <h3>{`you wanna buy this nft for : ${price}CL?`} </h3>
-                  <img src={image.url} alt="" />
-                  <p>{`your balance is : ${usuario.coins}CL`}</p>
-                  <p>{`your balance after buy : ${usuario.coins - price}CL`}</p>
+
+                <h3 className="subtituloBuy">
+                  {`you wanna buy this nft for ${price}CL?`}{" "}
+                </h3>
+                <div className="contImg">
+                  <img src={image.url} alt="nft image" />
                 </div>
+
+                <p>{`your balance is : ${usuario.coins}CL`}</p>
+                <p>{`your balance after buy : ${usuario.coins - price}CL`}</p>
+
                 <div className="contButtons">
                   <button onClick={() => handleBuy()} className="buttonPrimary">
                     BUY

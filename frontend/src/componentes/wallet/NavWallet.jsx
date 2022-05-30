@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "../../img/logo.png";
 import profile from "../../img/profile.png";
 import Modal from "react-modal";
 import ProfileSettings from "../modalProfile/profileSettings";
-import formateoPrecio from "../../middleware/formateoPrecio";
+
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const customStyls = {
-  overlay :{
-    backgroundColor: 'rgba(11,12,41,0.48)',
+  overlay: {
+    backgroundColor: "rgba(11,12,41,0.48)",
   },
 };
 
@@ -42,7 +42,7 @@ export default function NavBar() {
           />
         ) : null}
 
-        <Modal isOpen={showModal} className='customStyles' style={customStyls}>
+        <Modal isOpen={showModal} className="customStyles" style={customStyls}>
           <ProfileSettings />
         </Modal>
       </div>

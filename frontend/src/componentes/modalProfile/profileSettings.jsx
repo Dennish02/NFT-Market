@@ -10,14 +10,13 @@ import { Link } from "react-router-dom";
 import { userLogout } from "../../../redux/actions/actionUSER";
 import { useDispatch } from "react-redux";
 
-export default function ProfileSettings({ closeModal }) {
+export default function ProfileSettings() {
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   if (!token) {
     navigate("/");
   }
-
   function logOut() {
     dispatch(userLogout);
   }
@@ -26,35 +25,35 @@ export default function ProfileSettings({ closeModal }) {
     <div className="profileModal">
       <div className="divPortfolio">
         <Link to="/home/usuario/portfolio">
-          <h3>portfolio</h3>
+          <h3>Portfolio</h3>
           <MdSource className="icon" />
         </Link>
       </div>
 
       <div className="divPortfolio">
         <Link to="/home/usuario/wallet">
-          <h3>wallet</h3>
+          <h3>Wallet</h3>
           <MdMonetizationOn className="icon" />
         </Link>
       </div>
 
       <div className="divPortfolio">
         <Link to="/home/usuario/trades">
-          <h3>trades</h3>
+          <h3>Trades</h3>
           <MdMonetizationOn className="icon" />
         </Link>
       </div>
 
       <div className="divPortfolio">
         <Link to="/home/usuario/setting">
-          <h3>settings</h3>
+          <h3>Settings</h3>
           <MdSettingsApplications className="icon" />
         </Link>
       </div>
 
       <div onClick={() => logOut()} className="divPortfolio">
         <Link to="/">
-          <h3>logout</h3>
+          <h3>Logout</h3>
           <MdLogout className="icon" />
         </Link>
       </div>

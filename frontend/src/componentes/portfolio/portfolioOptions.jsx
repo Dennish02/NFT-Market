@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { crearColeccion } from "../../../redux/actions/actionColeccion";
 import { toast } from "react-toastify";
 import { filterColection } from "../../../redux/actions/actionNFT";
-import { coleccionesUsuario } from "../../../redux/actions/actionColeccion";
+
 
 const customStyles = {
-  overlay :{
-    backgroundColor: 'rgba(11,12,41,0.48)',
+  overlay: {
+    backgroundColor: "rgba(11,12,41,0.48)",
   },
   content: {
     top: "50%",
@@ -19,9 +19,8 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: "0",
-    margin:'0',
-    width: '90%',
-    backgroundColor: '#3a3a3a'
+    margin: "0",
+    backgroundColor: "#3a3a3a",
   },
 };
 
@@ -53,7 +52,7 @@ export default function PortfoliOptions() {
 
   function crear() {
     if (input.length > 8)
-      return toast.error("el nombre puede tener hasta 8 caracteres");
+      return toast.error("the name can't have more than 8 characters");
     dispatch(crearColeccion(input));
     closeModal();
   }
@@ -100,28 +99,29 @@ export default function PortfoliOptions() {
       </div>
 
       <Modal isOpen={openModal} style={customStyles}>
-        
-          <div className="contLogin">
-            <button className="close" onClick={closeModal}>
-              X
-            </button>
-            <div className="contInput">
-              <span>Create colection</span>
-              <input
-                className="input"
-                type="text"
-                placeholder="insert name"
-                value={input}
-                onChange={(e) => handleInput(e)}
-              />
-            </div>
-            {
-              <button className="buttonPrimary" onClick={() => crear()}>
-                ok
-              </button>
-            }
+        <div className="contLogin">
+          <button className="close" onClick={closeModal}>
+            X
+          </button>
+          <div className="contInput">
+            <span>Create colection</span>
+            <input
+              className="input"
+              type="text"
+              placeholder="insert name"
+              value={input}
+              onChange={(e) => handleInput(e)}
+            />
           </div>
-        
+          {
+            <div className="contButonColection">
+                 <button className="buttonColection" onClick={() => crear()}>
+                 create
+               </button>
+            </div>
+           
+          }
+        </div>
       </Modal>
     </div>
   );
