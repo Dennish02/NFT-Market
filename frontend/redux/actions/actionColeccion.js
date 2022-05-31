@@ -39,14 +39,14 @@ export function crearColeccion(payload) {
     const response = await clienteAxios.get("/coleccion", config);
     const existe = response.data.filter((col) => col.name === payload);
     if (existe.length === 0) {
-     await clienteAxios.post(
+      await clienteAxios.post(
         "/coleccion",
         {
           name: payload,
         },
         config
       );
-      socket.emit("Collections updated");
+      socket.emit("updateCollections");
       toast.success("Collection created");
       return dispatch({
         type: LOAD_COLECCIONES,
