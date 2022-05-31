@@ -1121,6 +1121,22 @@ img {
   background: #621c1c;
 }
 
+.scrollButton {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 20;
+  color: #f28b12;
+  width: 40px;
+  height: 30px;
+  cursor: pointer;
+  border: solid;
+  border-radius: 4rem;
+}
+.scrollButton:hover {
+  color: #e1e1e1;
+}
+
 @media (min-width: 320px) {
   .customStyles {
     position: absolute;
