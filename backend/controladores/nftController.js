@@ -26,6 +26,7 @@ const obtenerAllNft = async (req, res) => {
 
 const crearNft = async (req, res) => {
   const newNft = new NftCreated(req.body); //inatanciar nuevo nft  con la info que llega
+  const formatos = ["png", "jpg", "webp", "gif"];
   newNft.id = makeGeneratorIDRandom(4);
   newNft.creatorId = req.usuario.nombre; //agrego el id del isuario al nft
   newNft.ownerId = req.usuario.nombre; //el creador es el primer poseedor
@@ -53,6 +54,18 @@ const crearNft = async (req, res) => {
       .send({ msg: "The NFT's price must be greater than 0CL" });
   }
 
+  if (
+    !formatos.includes(
+      req.files.image.name.split(".")[
+        req.files.image.name.split(".").length - 1
+      ]
+    )
+  ) {
+    return res
+      .status(400)
+      .send({ msg: "Invalid image format (jpg, png, webp or gif)" });
+  }
+
   try {
     if (req.files.image) {
       const res = await uploadImage(req.files.image.tempFilePath);
@@ -65,6 +78,8 @@ const crearNft = async (req, res) => {
       newNft.image = image;
     }
 
+    console.log(newNft.image);
+
     req.usuario.nfts.push(newNft);
     req.usuario.save();
     const nftSave = await newNft.save();
@@ -75,7 +90,6 @@ const crearNft = async (req, res) => {
 };
 
 const editarNft = async (req, res) => {
-
   const { id } = req.params;
   const { price } = req.body;
   const { usuario } = req;
@@ -122,7 +136,6 @@ const obtenerNft = async (req, res) => {
   res.send(nft);
 };
 const regalarNft = async (req, res) => {
-  
   try {
     const { idnft, iduser, colection } = req.body;
     const { usuario } = req;
@@ -313,7 +326,7 @@ const tradeOffer = async (req, res) => {
     const { nftId, nftOffered, owner } = req.body;
 
     //?nft que se quiere cambiar
- 
+
     //?nft que se quiere cambiar
     const nft = await NftCreated.findOne({
       id: nftId,
@@ -386,7 +399,6 @@ const responseOffer = async (req, res) => {
 
     let r = JSON.parse(response);
     if (oferta) {
-
       if (oferta && oferta.condition === "pending") {
         const userToGive = await Usuario.findOne({
           nombre: oferta.userA,

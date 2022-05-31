@@ -1,0 +1,36 @@
+const url = "https://jsonplaceholder.typicode.com/users";
+// fetch(url)
+//   .then((response) => response.json())
+//   .then((response) => console.log(response));
+
+// fetch(url, {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json", // tipo de contenido
+//     Authorization: "Bearer tokenDeAutorizacion",
+//   },
+//   body: JSON.stringify({
+//     name: "Pedrito",
+//     website: "google.com",
+//   }),
+// })
+//   .then((response) => response.json())
+//   .then((response) => console.log(response));
+
+const fn = async () => {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json", // tipo de contenido
+      Authorization: "Bearer tokenDeAutorizacion",
+    },
+    body: JSON.stringify({
+      name: "Pedrito",
+      website: "google.com",
+    }),
+  });
+  const data = await response.json();
+  console.log(data);
+};
+
+fn();

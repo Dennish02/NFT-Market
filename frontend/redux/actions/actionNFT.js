@@ -117,6 +117,10 @@ export function crearNFT(payload) {
     } catch (error) {
       console.log(error.response.data.msg);
       toast.error(error.response.data.msg);
+      return dispatch({
+        type: CREATE_NFT,
+        payload: true,
+      });
     }
   };
 }
@@ -305,6 +309,7 @@ export function eliminarFav(id) {
       const nft = await authAxios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/nft/select/${id}`
       );
+      socket.emit('Render')
       toast.success(json.data.msg);
       return dispatch({
         type: LIKE_FAVORITE,
@@ -317,12 +322,12 @@ export function eliminarFav(id) {
 }
 
 export function sort(payload) {
-  return async function (dispatch){
+  return async function (dispatch) {
     return dispatch({
       type: SORT,
-      payload
-    })
-  }
+      payload,
+    });
+  };
 }
 
 export function setNewCoin(value) {
@@ -503,32 +508,43 @@ export function cancelOffer({ id }) {
       toast.warning(error.response.msg);
     }
   };
+
 }
 
 
 export function deleteOffer ( id ){
 
+
+export function deleteOffer(id) {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
-    const authAxios = clienteAxios.create ({
+    const authAxios = clienteAxios.create({
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     });
     try {
-      const json = await authAxios.post (`${import.meta.env.VITE_BACKEND_URL}/api/nft/deleteoffer`,  id );
+      const json = await authAxios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/deleteoffer`,
+        id
+      );
       socket.emit("updateTrades");
       socket.emit("update");
       socket.emit("renderHome");
 
-      toast.success("Deleted successfully")
+      toast.success("Deleted successfully");
       return dispatch({
-        type: DELETE_OFFER
-      })
+        type: DELETE_OFFER,
+      });
     } catch (error) {
-      toast.error(error)
+      toast.error(error);
     }
+
   }
 } 
+
+
+  };
+}
 
