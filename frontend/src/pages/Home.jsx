@@ -96,7 +96,7 @@ export default function Home() {
   
   if (!usuarioAct) "cargando";
 
-  }, []);
+ 
 
   if (!usuarioAct) "Loading";
 
@@ -110,7 +110,6 @@ export default function Home() {
           selectedSort={selectedSort}
           setSelectedSort={setSelectedSort}
           paginas={paginas}
-          OrderPop={setOrderPop}
         />
       </div>
       <Paginado

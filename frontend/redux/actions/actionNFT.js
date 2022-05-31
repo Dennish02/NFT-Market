@@ -504,8 +504,7 @@ export function cancelOffer({ id }) {
     }
   };
 }
-<<<<<<< HEAD
-=======
+
 
 export function deleteOffer ( id ){
 
@@ -532,4 +531,4 @@ export function deleteOffer ( id ){
     }
   }
 } 
->>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
+
