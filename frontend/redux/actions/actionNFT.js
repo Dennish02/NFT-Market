@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import clienteAxios from "../../src/config/clienteAxios";
 
 import {
@@ -217,7 +217,7 @@ export function SearchNFT(payload) {
 export function Edit_NFT(_id, payload) {
   return async function () {
     const token = localStorage.getItem("token");
-    const authAxios = axios.create({
+    const authAxios = clienteAxios.create({
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -508,7 +508,7 @@ export function cancelOffer({ id }) {
       toast.warning(error.response.msg);
     }
   };
-
+}
 export function deleteOffer(id) {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
