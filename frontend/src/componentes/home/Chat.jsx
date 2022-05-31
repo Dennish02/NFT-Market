@@ -18,9 +18,14 @@ function handleNone(){
     chat.classList.add("displayNone");
   }
 }
+const regex = /^[0-9a-zA-Z]+$/
+
 function handleSubmit(e){
     e.preventDefault()
     //console.log(mensaje);
+    if(mensaje === "") return null
+    if(mensaje.length > 200)return null
+    if(!regex.exec(mensaje)) return null
     socket.emit('chat',{ usuario: usuario.nombre, msg: mensaje })
     setMensaje('')
 }
