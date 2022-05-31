@@ -191,3 +191,20 @@
   @include m.buttonRojo;
     margin: 0;
 }
+
+.scrollButton{
+  position: fixed;
+  bottom: 61px;
+  left: 40px;
+  z-index: 20;
+  color: v.$naranja;
+  width: 40px;
+  height: 30px;
+  cursor: pointer;
+  &:hover{
+    color: v.$grisclaro;
+  }
+  border: solid;
+  border-radius: 4rem;
+
+}
