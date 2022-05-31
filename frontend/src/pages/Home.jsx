@@ -26,6 +26,7 @@ export default function Home() {
   const ranking = useSelector((state) => state.ranking);
 
   const [selectedSort, setSelectedSort] = useState("sort");
+  const [orderPop, setOrderPop] = useState("");
 
   //Paginado
   const [currentPage, setCurrentPage] = useState(1);
@@ -135,6 +136,7 @@ export default function Home() {
           </div>
         )}
       </main>
+
       {usuario ? (
         <TopPortfolios ranking={ranking} screen={screen} usuario={usuario} />
       ) : (

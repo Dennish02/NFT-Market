@@ -7,9 +7,7 @@ import fs from "fs-extra";
 import { OAuth2Client } from "google-auth-library";
 import Notificacion from "../models/Notificacion.js";
 
-const client = new OAuth2Client(
-  process.env.CLIENT_ID
-);
+const client = new OAuth2Client(process.env.CLIENT_ID);
 
 const googleLogin = async (req, res) => {
   const { idToken } = req.body;
@@ -18,8 +16,7 @@ const googleLogin = async (req, res) => {
     client
       .verifyIdToken({
         idToken,
-        audience:
-          process.env.CLIENT_ID,
+        audience: process.env.CLIENT_ID,
       })
       .then((response) => {
         const { email_verified, picture, given_name, email } = response.payload;
@@ -65,6 +62,18 @@ const googleLogin = async (req, res) => {
 
 const cambiarImage = async (req, res) => {
   const nombre = req.usuario.nombre;
+  const formatos = ["png", "jpg", "webp", "gif"];
+  if (
+    !formatos.includes(
+      req.files.image.name.split(".")[
+        req.files.image.name.split(".").length - 1
+      ]
+    )
+  ) {
+    return res
+      .status(400)
+      .send({ msg: "Invalid image format (jpg, png, webp or gif)" });
+  }
   try {
     if (req.files.image) {
       const user = await Usuario.findOne({ nombre });
@@ -97,7 +106,6 @@ const usuario = async (req, res) => {
 };
 
 const registrar = async (req, res) => {
-
   const { email, nombre } = req.body;
   if (nombre.length > 10) {
     const error = new Error("The username cannot have more than 10 characters");
@@ -114,7 +122,6 @@ const registrar = async (req, res) => {
     return res.status(400).json({ msg: error.message });
   }
   try {
-
     const usuario = new Usuario({
       ...req.body,
       image: { public_id: "", url: "" },
@@ -165,7 +172,6 @@ const autenticar = async (req, res) => {
 };
 
 const confimrar = async (req, res) => {
-
   const { token } = req.params;
   const usuarioConfirmar = await Usuario.findOne({ token }); //buscar el usuario por el token
   if (!usuarioConfirmar) {
@@ -213,7 +219,6 @@ const olvidePassword = async (req, res) => {
 
 //validar token para cambiar su password
 const comporbarToken = async (req, res) => {
-
   const { token } = req.params;
 
   const tokenValido = await Usuario.findOne({ token });
@@ -227,7 +232,6 @@ const comporbarToken = async (req, res) => {
 };
 //resetar constraseña
 const nuevoPassword = async (req, res) => {
-
   const { token } = req.params;
   const { password } = req.body;
 
