@@ -90,7 +90,6 @@ export default function Home() {
           selectedSort={selectedSort}
           setSelectedSort={setSelectedSort}
           paginas={paginas}
-          OrderPop={setOrderPop}
         />
       </div>
       <Paginado

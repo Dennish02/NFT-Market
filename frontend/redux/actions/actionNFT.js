@@ -305,6 +305,7 @@ export function eliminarFav(id) {
       const nft = await authAxios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/nft/select/${id}`
       );
+      socket.emit('Render')
       toast.success(json.data.msg);
       return dispatch({
         type: LIKE_FAVORITE,
@@ -504,8 +505,6 @@ export function cancelOffer({ id }) {
     }
   };
 }
-<<<<<<< HEAD
-=======
 
 export function deleteOffer ( id ){
 
@@ -532,4 +531,4 @@ export function deleteOffer ( id ){
     }
   }
 } 
->>>>>>> 3312580ba3fa9d35b62c5a0b96ef117cb5edd79e
+
