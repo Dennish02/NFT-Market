@@ -179,7 +179,7 @@ export default function ComponentNFT(props) {
             >
               <div>
                 <div>
-                  <button className="close" onClick={() => OcultarModal()}>
+                  <button className="cerrar" onClick={() => OcultarModal()}>
                     X
                   </button>
                 </div>

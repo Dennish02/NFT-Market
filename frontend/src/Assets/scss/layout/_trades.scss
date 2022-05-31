@@ -105,7 +105,7 @@
             color: v.$grisclaro;
             margin: 1rem ;
         }
-        .close{
+        .cerrar{
             position: absolute;
             top: 5px ;
             right: 5px;
@@ -114,6 +114,12 @@
             @include m.borderRadius;
             padding: 0.5rem;
             color: v.$grisclaro;
+            &:hover {
+                cursor: pointer;
+                color: v.$grisclaro;
+                background-color: v.$grisclaro;
+                color: v.$rojo
+              }
         }
     }
 }

@@ -97,7 +97,7 @@ export default function Home() {
   
   if (!usuarioAct) "cargando";
 
-  }, []);
+ 
 
   if (!usuarioAct) "Loading";
 

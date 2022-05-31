@@ -617,7 +617,8 @@ img {
   .contLogin .close:hover {
     cursor: pointer;
     color: #e1e1e1;
-    background-color: #c53838;
+    background-color: #e1e1e1;
+    color: #c53838;
   }
   .contLogin .contLogin-content {
     width: 95%;
@@ -2106,7 +2107,7 @@ img {
     color: #e1e1e1;
     margin: 1rem;
   }
-  .modalTrade .close {
+  .modalTrade .cerrar {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -2115,6 +2116,12 @@ img {
     border-radius: 0.5rem;
     padding: 0.5rem;
     color: #e1e1e1;
+  }
+  .modalTrade .cerrar:hover {
+    cursor: pointer;
+    color: #e1e1e1;
+    background-color: #e1e1e1;
+    color: #c53838;
   }
 }
 @media (min-width: 768px) {

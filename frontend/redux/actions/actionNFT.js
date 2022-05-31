@@ -509,6 +509,12 @@ export function cancelOffer({ id }) {
     }
   };
 
+}
+
+
+export function deleteOffer ( id ){
+
+
 export function deleteOffer(id) {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
@@ -534,5 +540,11 @@ export function deleteOffer(id) {
     } catch (error) {
       toast.error(error);
     }
+
+  }
+} 
+
+
   };
 }
+
