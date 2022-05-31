@@ -36,7 +36,6 @@ export default function CrearNFT() {
     colection: "",
     category: "",
     price: "",
-    image: null,
     id: token,
   });
 
@@ -129,10 +128,11 @@ export default function CrearNFT() {
                   type="file"
                   name="image"
                   className="file"
-                  value=""
-                  onChange={(e) => setFieldValue("image", e.target.files[0])}
+                  value={estado.image}
+                  onChange={(e) => {
+                    setFieldValue("image", e.target.files[0]);
+                  }}
                 />
-                {/* {imageError ? <p className="error">{imageError}</p> : null} */}
                 <p className="error">
                   <ErrorMessage name="image" />
                 </p>
