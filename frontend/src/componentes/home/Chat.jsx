@@ -39,7 +39,17 @@ useEffect(()=>{
   useEffect(() => {
     scrolChat.current.scrollIntoView({ behavior: "smooth" });
   });
+function handleNone() {
+    let chat = document.querySelector("#chat");
 
+    if (chat.className.match(/(?:^|\s)displayNone(?!\S)/)) {
+      chat.classList.remove("displayNone");
+      chat.classList.add("displayBlock");
+    } else {
+      chat.classList.remove("displayBlock");
+      chat.classList.add("displayNone");
+    }
+  }
   return ( 
     <div id='contChat' className='chat'>
         <button onClick={handleNone} className='chat-title'>Chat</button>
