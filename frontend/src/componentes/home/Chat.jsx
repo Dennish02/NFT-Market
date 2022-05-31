@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
-
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Chat({usuario, socket}) {
  const [mensaje, setMensaje] = useState('')
@@ -7,18 +6,15 @@ export default function Chat({usuario, socket}) {
 
 const insultos = ["puto","pUt0","PUTO","PUT0","culia","hijodeputa","puta","negro","mierda","trola","put@","gay","g@ay","bobo","boba","idiota","todxs","todes","tonto","tonta","tont@","hueca","hueco","macaco","nashe","concha","pito","fuck","fucking","brasuca","chileno","culiado","huecudo","pijudo","bugs","bag" ]
 
-function handleNone(){
-  let chat = document.querySelector('#chat')
-  if (chat.className.match(/(?:^|\s)displayNone(?!\S)/)) {
-    chat.classList.remove("displayNone");
-    chat.classList.add("displayBlock");
-  } else {
-    chat.classList.remove("displayBlock");
-    chat.classList.add("displayNone");
-  }
+  useEffect(() => {
+    socket.on("chatmenaje", (msg) => {
+      setMensajes([...mensajes, msg]);
+    });
+    return () => {
+      socket.off();
+    };
+  }, [mensajes]);
 }
-
-
 
 function handleSubmit(e){
     e.preventDefault()
@@ -39,20 +35,16 @@ useEffect(()=>{
   })
 },[mensajes])
 
-const scrolChat = useRef(null)
-useEffect(()=>{
-  scrolChat.current.scrollIntoView({behavior : 'smooth'})
-})
+  const scrolChat = useRef(null);
+  useEffect(() => {
+    scrolChat.current.scrollIntoView({ behavior: "smooth" });
+  });
 
-  return (
- 
+  return ( 
     <div id='contChat' className='chat'>
         <button onClick={handleNone} className='chat-title'>Chat</button>
-        
       <div id='chat' className='displayNone'>
-        
         <div id='chat' className="contenidoChat">
-          
           <ul id='ulChat' className='ulChat'>
             {mensajes.length !== 0 ? 
             mensajes?.map((e, i) => {
@@ -63,21 +55,21 @@ useEffect(()=>{
             }):  <li className='cadaMnesaje'> write the first msg </li>
             }
           </ul>
-
           <div ref={scrolChat}></div>
         </div>
         <form onSubmit={(e) => handleSubmit(e)} action="">
           <input
             value={mensaje}
-            className='inputChat'
+            className="inputChat"
             onChange={(e) => setMensaje(e.target.value)}
             type="text"
             placeholder="write"
           />
-          <button className='buttonChat' type='submit'>send</button>
+          <button className="buttonChat" type="submit">
+            send
+          </button>
         </form>
       </div>
-
     </div>
-  )
+  );
 }
