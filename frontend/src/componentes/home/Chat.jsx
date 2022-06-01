@@ -88,7 +88,10 @@ export default function Chat({ usuario, socket }) {
   useEffect(() => {
     scrolChat.current.scrollIntoView({ behavior: "smooth" });
   });
+function handleNone() {
+    let chat = document.querySelector("#chat");
 
+<<<<<<< HEAD
   return (
     <div id="contChat" className="chat">
       <button onClick={handleNone} className="chat-title">
@@ -113,6 +116,30 @@ export default function Chat({ usuario, socket }) {
             ) : (
               <li className="cadaMnesaje"> write the first msg </li>
             )}
+=======
+    if (chat.className.match(/(?:^|\s)displayNone(?!\S)/)) {
+      chat.classList.remove("displayNone");
+      chat.classList.add("displayBlock");
+    } else {
+      chat.classList.remove("displayBlock");
+      chat.classList.add("displayNone");
+    }
+  }
+  return ( 
+    <div id='contChat' className='chat'>
+        <button onClick={handleNone} className='chat-title'>Chat</button>
+      <div id='chat' className='displayNone'>
+        <div id='chat' className="contenidoChat">
+          <ul id='ulChat' className='ulChat'>
+            {mensajes.length !== 0 ? 
+            mensajes?.map((e, i) => {
+              return (
+                <li className='cadaMnesaje' key={i}><span className={e.usuario === usuario.nombre ? 'span': 'otro'}>{e.usuario}:</span> {e.msg} </li>
+              )
+
+            }):  <li className='cadaMnesaje'> write the first msg </li>
+            }
+>>>>>>> 25c54b1bb49b2c2ec35eacac79bc84646f71adc7
           </ul>
           <div ref={scrolChat}></div>
         </div>
