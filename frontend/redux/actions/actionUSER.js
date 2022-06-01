@@ -321,6 +321,7 @@ export function transferirCL({ cl, user }) {
         { cl, user }
       );
       toast.success(json.data.msg);
+      socket.emit('renderHome')
       socket.emit("Transferencia");
       return dispatch({
         type: TRANSFERIR_CL,

@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import clienteAxios from "../../src/config/clienteAxios";
 
 import {
@@ -25,7 +25,7 @@ import io from "socket.io-client";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
-export function allNftMarket(vriable) {
+export function allNftMarket() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -218,7 +218,7 @@ export function SearchNFT(payload) {
 export function Edit_NFT(_id, payload) {
   return async function () {
     const token = localStorage.getItem("token");
-    const authAxios = axios.create({
+    const authAxios = clienteAxios.create({
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -511,12 +511,6 @@ export function cancelOffer({ id }) {
   };
 }
 
-}
-
-
-export function deleteOffer ( id ){
-
-
 export function deleteOffer(id) {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
@@ -545,8 +539,3 @@ export function deleteOffer(id) {
 
   }
 } 
-
-
-  };
-}
-

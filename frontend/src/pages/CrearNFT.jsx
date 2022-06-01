@@ -113,6 +113,7 @@ export default function CrearNFT() {
                   <option value="savage">Savage</option>
                   <option value="cyber">Cyber</option>
                   <option value="punk">Punk</option>
+                  <option value="+18">+18</option>
                   <option value="other">Other</option>
                 </Field>
                 <p className="error">

@@ -79,13 +79,19 @@ export default function Home() {
       dispatch(topPortfolios());
       dispatch(getValuePortfolio());
       dispatch(searchNotification());
+      return ()=>{
+        socket.of()
+      }
     });
-  }, []);
+
+
+  },[]);
   function scrollUp() {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+
   }
 
   if (!usuarioAct) "Loading";

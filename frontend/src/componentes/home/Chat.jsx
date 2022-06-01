@@ -4,7 +4,7 @@ export default function Chat({usuario, socket}) {
  const [mensaje, setMensaje] = useState('')
  const [mensajes, setMensajes] = useState([])
 
-const insultos = ["puto","pUt0","PUTO","PUT0","culia","hijodeputa","puta","negro","mierda","trola","put@","gay","g@ay","bobo","boba","idiota","todxs","todes","tonto","tonta","tont@","hueca","hueco","macaco","nashe","concha","pito","fuck","fucking","brasuca","chileno","culiado","huecudo","pijudo","bugs","bag" ]
+  const insultos = ["puto","pUt0","PUTO","PUT0","culia","hijodeputa","puta","negro","mierda","trola","put@","gay","g@ay","bobo","boba","idiota","tonto","tonta","tont@","hueca","hueco","macaco","nashe","concha","pito","fuck","fucking","brasuca","chileno","culiado","huecudo","pijudo","bugs","bag" ]
 
   useEffect(() => {
     socket.on("chatmenaje", (msg) => {
@@ -14,42 +14,43 @@ const insultos = ["puto","pUt0","PUTO","PUT0","culia","hijodeputa","puta","negro
       socket.off();
     };
   }, [mensajes]);
-}
 
-function handleSubmit(e){
-    e.preventDefault()
-    if(mensaje === "") return null
-    if(mensaje.length > 200)return null
-    const palabras = mensaje.split(" ").map((e) => (insultos.includes(e.toLowerCase()) ? "****" : e));
 
-    socket.emit('chat',{ usuario: usuario.nombre, msg: palabras.join(" ") })
-    setMensaje('')
-}
+  function handleSubmit(e){
+  e.preventDefault()
+  if (mensaje === "") return null
+  if (mensaje.length > 200) return null
+  const palabras = mensaje.split(" ").map((e) => (insultos.includes(e.toLowerCase()) ? "****" : e));
 
-useEffect(()=>{
-  socket.on('chatmenaje', (msg)=>{
-    setMensajes([...mensajes, msg])
-  })
-  return (()=>{
-    socket.off()  
-  })
-},[mensajes])
+  socket.emit('chat', { usuario: usuario.nombre, msg: palabras.join(" ") })
+  setMensaje('')
+  }
+  function handleNone() {
+  let chat = document.querySelector("#chat");
+
+  if (chat.className.match(/(?:^|\s)displayNone(?!\S)/)) {
+    chat.classList.remove("displayNone");
+    chat.classList.add("displayBlock");
+  } else {
+    chat.classList.remove("displayBlock");
+    chat.classList.add("displayNone");
+  }
+  }                 
+
+  useEffect(() => {
+    socket.on('chatmenaje', (msg) => {
+      setMensajes([...mensajes, msg])
+    })
+    return (() => {
+      socket.off()
+    })
+  }, [mensajes])
 
   const scrolChat = useRef(null);
   useEffect(() => {
     scrolChat.current.scrollIntoView({ behavior: "smooth" });
   });
-function handleNone() {
-    let chat = document.querySelector("#chat");
-
-    if (chat.className.match(/(?:^|\s)displayNone(?!\S)/)) {
-      chat.classList.remove("displayNone");
-      chat.classList.add("displayBlock");
-    } else {
-      chat.classList.remove("displayBlock");
-      chat.classList.add("displayNone");
-    }
-  }
+   
   return ( 
     <div id='contChat' className='chat'>
         <button onClick={handleNone} className='chat-title'>Chat</button>
