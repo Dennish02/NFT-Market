@@ -25,14 +25,14 @@ socket = io(import.meta.env.VITE_BACKEND_URL);
 export function registroGoogle(googleData) {
   return async function (dispatch) {
     const token = googleData.credential;
-    console.log(token);
+    // console.log(token);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/usuario/google`,
         { idToken: token }
       );
       localStorage.setItem("token", response.data.token);
-      console.log("response", response.data);
+      // console.log("response", response.data);
       return dispatch({
         type: GOOGLE_LOGIN,
         payload: response.data,
@@ -321,6 +321,7 @@ export function transferirCL({ cl, user }) {
         { cl, user }
       );
       toast.success(json.data.msg);
+      socket.emit('renderHome')
       socket.emit("Transferencia");
       return dispatch({
         type: TRANSFERIR_CL,

@@ -29,6 +29,7 @@ export default function ComponentNFT(props) {
   const dispatch = useDispatch();
 
   const {
+    category,
     _id,
     id,
     image,
@@ -121,11 +122,14 @@ export default function ComponentNFT(props) {
     }
     setMostrarModal(false);
   }
-
   return (
     <div className="contNFT">
-      <div className="contImg">
-        <img src={image.url} alt="NFT IMAGE" height="280px" />
+      <div  className= 'contImg'>
+        {category === '+18' ? 
+        <button onClick={(e)=>e.target.className = 'oculto'} className="viewSensible">show sensitive content</button>
+         : null}
+      
+        <img id="imgSensitive" src={image.url} alt="NFT IMAGE" height="280px" />
       </div>
 
       <div className="contNFTinfo">
@@ -179,7 +183,7 @@ export default function ComponentNFT(props) {
             >
               <div>
                 <div>
-                  <button className="close" onClick={() => OcultarModal()}>
+                  <button className="cerrar" onClick={() => OcultarModal()}>
                     X
                   </button>
                 </div>

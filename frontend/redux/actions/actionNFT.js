@@ -25,7 +25,7 @@ import io from "socket.io-client";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
-export function allNftMarket(vriable) {
+export function allNftMarket() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -50,6 +50,7 @@ export function allNftMarket(vriable) {
     }
   };
 }
+
 export function allNFTUser() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
@@ -309,7 +310,7 @@ export function eliminarFav(id) {
       const nft = await authAxios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/nft/select/${id}`
       );
-      socket.emit('Render')
+      socket.emit("Render");
       toast.success(json.data.msg);
       return dispatch({
         type: LIKE_FAVORITE,
@@ -509,6 +510,7 @@ export function cancelOffer({ id }) {
     }
   };
 }
+
 export function deleteOffer(id) {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
@@ -534,5 +536,6 @@ export function deleteOffer(id) {
     } catch (error) {
       toast.error(error);
     }
-  };
-}
+
+  }
+} 

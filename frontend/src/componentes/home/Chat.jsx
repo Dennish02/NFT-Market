@@ -1,15 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react'
-
-
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Chat({usuario, socket}) {
  const [mensaje, setMensaje] = useState('')
  const [mensajes, setMensajes] = useState([])
 
+  const insultos = ["puto","pUt0","PUTO","PUT0","culia","hijodeputa","puta","negro","mierda","trola","put@","gay","g@ay","bobo","boba","idiota","tonto","tonta","tont@","hueca","hueco","macaco","nashe","concha","pito","fuck","fucking","brasuca","chileno","culiado","huecudo","pijudo","bugs","bag" ]
+
+  useEffect(() => {
+    socket.on("chatmenaje", (msg) => {
+      setMensajes([...mensajes, msg]);
+    });
+    return () => {
+      socket.off();
+    };
+  }, [mensajes]);
 
 
-function handleNone(){
-  let chat = document.querySelector('#chat')
+  function handleSubmit(e){
+  e.preventDefault()
+  if (mensaje === "") return null
+  if (mensaje.length > 200) return null
+  const palabras = mensaje.split(" ").map((e) => (insultos.includes(e.toLowerCase()) ? "****" : e));
+
+  socket.emit('chat', { usuario: usuario.nombre, msg: palabras.join(" ") })
+  setMensaje('')
+  }
+  function handleNone() {
+  let chat = document.querySelector("#chat");
+
   if (chat.className.match(/(?:^|\s)displayNone(?!\S)/)) {
     chat.classList.remove("displayNone");
     chat.classList.add("displayBlock");
@@ -17,40 +35,26 @@ function handleNone(){
     chat.classList.remove("displayBlock");
     chat.classList.add("displayNone");
   }
-}
-const regex = /^[0-9a-zA-Z]+$/
+  }                 
 
-function handleSubmit(e){
-    e.preventDefault()
-    //console.log(mensaje);
-    if(mensaje === "") return null
-    if(mensaje.length > 200)return null
-    if(!regex.exec(mensaje)) return null
-    socket.emit('chat',{ usuario: usuario.nombre, msg: mensaje })
-    setMensaje('')
-}
+  useEffect(() => {
+    socket.on('chatmenaje', (msg) => {
+      setMensajes([...mensajes, msg])
+    })
+    return (() => {
+      socket.off()
+    })
+  }, [mensajes])
 
-useEffect(()=>{
-  socket.on('chatmenaje', (msg)=>{
-    setMensajes([...mensajes, msg])
-  })
-  return (()=>{
-    socket.off()  
-  })
-},[mensajes])
-
-const scrolChat = useRef(null)
-useEffect(()=>{
-  scrolChat.current.scrollIntoView({behavior : 'smooth'})
-})
-
-  return (
- 
+  const scrolChat = useRef(null);
+  useEffect(() => {
+    scrolChat.current.scrollIntoView({ behavior: "smooth" });
+  });
+   
+  return ( 
     <div id='contChat' className='chat'>
         <button onClick={handleNone} className='chat-title'>Chat</button>
-
       <div id='chat' className='displayNone'>
-      
         <div id='chat' className="contenidoChat">
           <ul id='ulChat' className='ulChat'>
             {mensajes.length !== 0 ? 
@@ -67,15 +71,16 @@ useEffect(()=>{
         <form onSubmit={(e) => handleSubmit(e)} action="">
           <input
             value={mensaje}
-            className='inputChat'
+            className="inputChat"
             onChange={(e) => setMensaje(e.target.value)}
             type="text"
             placeholder="write"
           />
-          <button className='buttonChat' type='submit'>send</button>
+          <button className="buttonChat" type="submit">
+            send
+          </button>
         </form>
       </div>
-
     </div>
-  )
+  );
 }

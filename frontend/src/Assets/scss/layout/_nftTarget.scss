@@ -2,50 +2,81 @@
 @use "../base/mixins" as m;
 
 
-.contNFT{
+.contNFT {
   position: relative;
-    padding: 1rem;
-    width: 280px;
-    height: fit-content;
-    margin: 1rem auto;
-    border: solid v.$naranja 1px ;
-    margin: 0 auto;
-    @include m.borderRadius;
-   .venta {
+  padding: 1rem;
+  width: 280px;
+  height: fit-content;
+  margin: 1rem auto;
+  border: solid v.$naranja 1px;
+  margin: 0 auto;
+  @include m.borderRadius;
+
+  .venta {
     @include m.venta;
   }
+
   .enVenta {
     @include m.enVenta;
   }
-  .verde{
+
+  .verde {
     background-color: v.$verde
   }
-  .rojo{
+
+  .rojo {
     background-color: v.$rojo
   }
+
   .noVenta {
     @include m.noVenta;
   }
- 
-  .textVenta{
+
+  .textVenta {
     color: v.$grisclaro;
     margin-right: 1rem;
   }
-    .contImg{
-        position: relative;
-        height: 260px;
-        width: 100%;
-        background-size: cover;
-        @supports(object-fit: cover){
-             img{
-              height: 100%;
-              object-fit: cover;
-              object-position: center center;
-            }
-        }
 
-    img {
+  .contImg {
+    position: relative;
+    height: 260px;
+    width: 100%;
+    background-size: cover;
+
+    @supports(object-fit: cover) {
+      img {
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+      }
+    }
+        .censurado {
+          filter: brightness(0);
+       
+        }
+        .view{
+          filter: brightness(1);
+        }
+        .oculto{
+          display: none;
+        }
+    .viewSensible{
+      position: absolute;
+      width: 100%;
       height: 100%;
+      bottom: 0%;
+      left: 0%;
+      @include m.borderRadius;
+      z-index: 0;
+      border: none;
+      background: #3a3a3afd;
+      color: v.$grisclaro;
+      padding: 1rem 0;
+      &:hover{
+        cursor: pointer;
+        color: v.$grisoscuro;
+        background-color: #e1e1e165;
+      }
     }
   }
 
@@ -54,76 +85,92 @@
     font-size: 2.9rem;
     margin: 0;
   }
+
   p {
     color: v.$grisclaro;
     font-size: 2rem;
     line-height: 1.2;
     margin: 0;
+
     span {
       color: v.$naranja;
       font-size: 2.3rem;
       font-weight: bold;
     }
   }
+
   .contNFTinfo {
     width: 100%;
+
     .porcentajeMenos {
       color: v.$rojo;
       font-weight: bold;
     }
+
     .porcentajeMas {
       color: v.$verde;
       font-weight: bold;
     }
   }
+
   .contButtons {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
   }
+
   .w-50 {
     width: 50%;
   }
+
   .buttonTrade {
     @include m.buttonTrade;
     width: 50%;
   }
-  .buttonFav{
+
+  .buttonFav {
     width: 30px;
     position: absolute;
     bottom: 190px;
     left: 85%;
-    &:hover{
+
+    &:hover {
       cursor: pointer;
     }
   }
-  .buttonlike{
+
+  .buttonlike {
     width: 30px;
     position: absolute;
-    top:4px;
+    top: 4px;
     left: 5%;
-    &:hover{
+
+    &:hover {
       cursor: pointer;
     }
   }
-  .contLike{
+
+  .contLike {
     height: 35px;
     width: 98%;
     position: absolute;
-    top:3px;
+    top: 3px;
     left: 1%;
-    background-color:v.$grisoscuro;
+    background-color: v.$grisoscuro;
     opacity: 0.8;
   }
-  .cantlike{
+
+  .cantlike {
     width: 30px;
     position: absolute;
-    top:10px;
+    top: 10px;
     left: 17%;
-    &:hover{
+
+    &:hover {
       cursor: pointer;
     }
   }
+  
 }
 
 .contPrice {
@@ -132,6 +179,7 @@
   gap: 3rem;
   align-items: center;
 }
+
 .contIcon {
   display: flex;
   width: 50%;
@@ -139,60 +187,68 @@
   justify-content: center;
   align-content: center;
 }
+
 .iconcl {
   width: 25px;
   display: inline-block;
   margin: 0;
 }
-.input{
+
+.input {
   @include m.inputs;
   margin-top: 2rem;
   display: block;
 }
-.buttonPrimary{
+
+.buttonPrimary {
   display: block;
-  
+
 }
-.contInput{
+
+.contInput {
   width: 100%;
 }
-.heigth{
+
+.heigth {
   height: 100%;
   background: none;
 }
 
-.buyModal{
+.buyModal {
   @extend .contNFT;
   width: 100%;
   background-color: v.$fondo;
-  h1{ 
-    color: v.$naranja; 
-    font-family: v.$fuente_principal; 
-    font-weight: bold;}
 
-  p{ 
-    color: v.$naranja; 
-    font-family: v.$fuente_principal; 
-    font-weight: bold;}
-  
-    
-  
-  
+  h1 {
+    color: v.$naranja;
+    font-family: v.$fuente_principal;
+    font-weight: bold;
+  }
+
+  p {
+    color: v.$naranja;
+    font-family: v.$fuente_principal;
+    font-weight: bold;
+  }
+
+
+
+
 }
 
-.noButton{
+.noButton {
   @include m.buttonRojo;
-    margin: 1rem;
-  
-  
+  margin: 1rem;
+
+
 }
 
-.closeButton{
+.closeButton {
   @include m.buttonRojo;
-    margin: 0;
+  margin: 0;
 }
 
-.scrollButton{
+.scrollButton {
   position: fixed;
   bottom: 61px;
   left: 40px;
@@ -201,9 +257,11 @@
   width: 40px;
   height: 30px;
   cursor: pointer;
-  &:hover{
+
+  &:hover {
     color: v.$grisclaro;
   }
+
   border: solid;
   border-radius: 4rem;
 
