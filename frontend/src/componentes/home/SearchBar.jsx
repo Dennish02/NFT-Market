@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   SearchNFT,
   sort,
-  sortPopularity,
+  filterNftCategory
 } from "../../../redux/actions/actionNFT";
 import { useState } from "react";
 
@@ -12,6 +12,8 @@ export default function SearchBar({
   setSelectedSort,
   paginas,
   OrderPop,
+  filterCategory,
+  setFilterCategory
 }) {
   const dispatch = useDispatch();
   function onChangeValues(e) {
@@ -24,9 +26,11 @@ export default function SearchBar({
     setSelectedSort(e.target.value);
     paginas(1);
   }
-  function sortByPopularity(e) {
-    dispatch(sortPopularity(e.target.value));
-    OrderPop(`wasu wasol ${e.target.value}`);
+
+  function filterByCategory(e){
+   dispatch(filterNftCategory(e.target.value))
+    paginas(1)
+  
   }
 
   return (
@@ -61,6 +65,18 @@ export default function SearchBar({
             <option value="price_asc">Price: low to high</option>
             <option value="ranking_desc">Popularity: high to low</option>
             <option value="ranking_asc">Popularity: low to high</option>
+          </select>
+
+          <select name="categories"  onChange={filterByCategory} value={setFilterCategory}>
+
+            <option value="all">Categories</option>
+            <option value="anime">Anime</option>
+            <option value="gamer">Gamer</option>
+            <option value="savage">Savage</option>
+            <option value="cyber">Cyber</option>
+            <option value="punk">Punk</option>
+            <option value="+18">+18</option>
+            <option value="other">Other</option>
           </select>
         </div>
       </div>
