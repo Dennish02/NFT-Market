@@ -42,6 +42,20 @@ export default function Chat({ usuario, socket }) {
   ];
 
 
+const insultos = ["puto","pUt0","PUTO","PUT0","hijodeperra","perra", "culia","hijodeputa","puta","negro","mierda","trola","put@","gay","g@ay","bobo","boba","idiota","tonto","tonta","tont@","hueca","hueco","macaco","nashe","concha","pito","fuck","fucking","brasuca","culiado","huecudo","pijudo","bugs","bag","trolo","pingo","orto","poronga","culiao","culiau","negros","estupido","estupidos","pelotudito","cachondo","cachonda","mogolico","mogolica","porongo","reconcha","pija","laconcha"]
+
+function handleNone(){
+  let chat = document.querySelector('#chat')
+  if (chat.className.match(/(?:^|\s)displayNone(?!\S)/)) {
+    chat.classList.remove("displayNone");
+    chat.classList.add("displayBlock");
+  } else {
+    chat.classList.remove("displayBlock");
+    chat.classList.add("displayNone");
+  }
+}
+
+
   useEffect(() => {
     socket.on("chatmenaje", (msg) => {
       setMensajes([...mensajes, msg]);
