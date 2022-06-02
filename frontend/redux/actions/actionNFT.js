@@ -17,7 +17,9 @@ import {
   CANCEL_OFFER,
   DELETE_OFFER,
   LIKE_FAVORITE,
+  CAMBIAR_VENTA,
   FILTER_CATEGORY
+
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -169,7 +171,7 @@ export function comprarNFT(payload) {
 
 export function venta(payload) {
   const { _id, avaliable, id } = payload;
-  return async function () {
+  return async function (dispatch) {
     const token = localStorage.getItem("token");
     const config = {
       headers: {
@@ -201,8 +203,12 @@ export function venta(payload) {
           progress: undefined,
         });
       //socket.io
-      socket.emit("Render");
-      socket.emit("update");
+      // socket.emit("Render");
+      // socket.emit("update");
+      return dispatch({
+        type: CAMBIAR_VENTA,
+        payload: _id,
+      });
     } catch (e) {
       toast.error(e.response.data.msg);
     }
@@ -537,10 +543,8 @@ export function deleteOffer(id) {
     } catch (error) {
       toast.error(error);
     }
-
-  }
+  };
 }
-
 
 export function filterNftCategory(payload) {
 

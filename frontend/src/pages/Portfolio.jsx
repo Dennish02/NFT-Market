@@ -31,12 +31,16 @@ export default function Portfolio() {
   useEffect(() => {
     //recibir la respuesta del back
     socket.on("nftUser", () => {
-      dispatch(allNFTUser(nftUser));
+      dispatch(allNFTUser());
     });
     socket.on("colectionUser", () => {
       dispatch(coleccionesUsuario());
     });
   }, []);
+
+  useEffect(() => {
+    // console.log("a");
+  }, [nftUser]);
 
   return (
     <div className="contentHome">
