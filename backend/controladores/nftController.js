@@ -57,7 +57,7 @@ const crearNft = async (req, res) => {
   if (
     !formatos.includes(
       req.files.image.name.split(".")[
-        req.files.image.name.split(".").length - 1
+      req.files.image.name.split(".").length - 1
       ]
     )
   ) {
@@ -731,6 +731,27 @@ const selectNft = async (req, res) => {
   }
 };
 
+const filtroCategoria = async (req, res) => {
+  const { categoria } = req.params
+
+  try {
+    if (categoria === "all") {
+      const json = await NftCreated.find()
+        return res.json(json)
+    } else {
+      const json = await NftCreated.find({ category: categoria })
+      return res.json(json)
+    }
+
+
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
 export {
   obtenerAllNft,
   crearNft,
@@ -752,4 +773,5 @@ export {
   cancelOffer,
   deleteOffer,
   selectNft,
+  filtroCategoria
 };
