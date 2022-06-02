@@ -32,6 +32,7 @@ import {
   CANCEL_OFFER,
   DELETE_OFFER,
   LIKE_FAVORITE,
+  CAMBIAR_VENTA,
 } from "../constantes";
 
 const initialState = {
@@ -83,6 +84,15 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         colecciones: action.payload,
+      };
+
+    case CAMBIAR_VENTA:
+      const newNftUser = state.nftUser.map((e) =>
+        e._id === action.payload ? { ...e, avaliable: !e.avaliable } : e
+      );
+      return {
+        ...state,
+        nftUser: newNftUser,
       };
 
     case LOAD_COLECCIONES:
