@@ -866,9 +866,8 @@ img {
 .main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1fr;
-  align-items: center;
   gap: 2rem;
+  align-items: center;
   width: 90%;
   margin: 5rem auto;
 }
@@ -932,8 +931,32 @@ img {
     object-position: center center;
   }
 }
-.contNFT .contImg img, .buyModal .contImg img {
+.contNFT .contImg .censurado, .buyModal .contImg .censurado {
+  filter: brightness(0);
+}
+.contNFT .contImg .view, .buyModal .contImg .view {
+  filter: brightness(1);
+}
+.contNFT .contImg .oculto, .buyModal .contImg .oculto {
+  display: none;
+}
+.contNFT .contImg .viewSensible, .buyModal .contImg .viewSensible {
+  position: absolute;
+  width: 100%;
   height: 100%;
+  bottom: 0%;
+  left: 0%;
+  border-radius: 0.5rem;
+  z-index: 0;
+  border: none;
+  background: rgba(58, 58, 58, 0.9921568627);
+  color: #e1e1e1;
+  padding: 1rem 0;
+}
+.contNFT .contImg .viewSensible:hover, .buyModal .contImg .viewSensible:hover {
+  cursor: pointer;
+  color: #3a3a3a;
+  background-color: rgba(225, 225, 225, 0.3960784314);
 }
 .contNFT h2, .buyModal h2 {
   color: #f28b12;
@@ -1124,8 +1147,8 @@ img {
 
 .scrollButton {
   position: fixed;
-  bottom: 40px;
-  right: 40px;
+  bottom: 61px;
+  left: 40px;
   z-index: 20;
   color: #f28b12;
   width: 40px;

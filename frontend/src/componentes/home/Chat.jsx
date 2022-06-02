@@ -41,6 +41,7 @@ export default function Chat({ usuario, socket }) {
     "bag",
   ];
 
+
   useEffect(() => {
     socket.on("chatmenaje", (msg) => {
       setMensajes([...mensajes, msg]);

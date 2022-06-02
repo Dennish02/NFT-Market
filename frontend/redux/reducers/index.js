@@ -33,6 +33,7 @@ import {
   DELETE_OFFER,
   LIKE_FAVORITE,
   CAMBIAR_VENTA,
+  FILTER_CATEGORY
 } from "../constantes";
 
 const initialState = {
@@ -278,6 +279,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allNft: newNfts,
+       
       };
 
     case SORT_POP:
@@ -343,6 +345,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+      case FILTER_CATEGORY:
+        
+        return{
+          ...state,
+          allNft : action.payload
+        }
     default:
       return state;
   }

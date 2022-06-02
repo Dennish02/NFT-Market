@@ -39,6 +39,7 @@ export default function Home() {
   );
   let currentNftFilter = currentNft.slice(indexOfFirstNft, indexOfLastNft);
   const [screen, setScreen] = useState(window.innerWidth);
+  const [filterCategory, setFilterCategory] = useState('')
   const paginas = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -79,13 +80,19 @@ export default function Home() {
       dispatch(topPortfolios());
       dispatch(getValuePortfolio());
       dispatch(searchNotification());
+      return ()=>{
+        socket.of()
+      }
     });
-  }, []);
+
+
+  },[]);
   function scrollUp() {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+
   }
 
   if (!usuarioAct) "Loading";
@@ -99,6 +106,7 @@ export default function Home() {
           selectedSort={selectedSort}
           setSelectedSort={setSelectedSort}
           paginas={paginas}
+          filterCategory={setFilterCategory}
         />
       </div>
       <Paginado

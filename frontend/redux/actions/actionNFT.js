@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import clienteAxios from "../../src/config/clienteAxios";
 
 import {
@@ -18,6 +18,8 @@ import {
   DELETE_OFFER,
   LIKE_FAVORITE,
   CAMBIAR_VENTA,
+  FILTER_CATEGORY
+
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -26,7 +28,7 @@ import io from "socket.io-client";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
-export function allNftMarket(vriable) {
+export function allNftMarket() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -183,23 +185,23 @@ export function venta(payload) {
       //alert
       avaliable
         ? toast.info(`Your NFT is no longer for sale ${id} `, {
-            position: "top-center",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "top-center",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
         : toast.info(`You put your ntf for sale ${id}`, {
-            position: "top-center",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          position: "top-center",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       //socket.io
       // socket.emit("Render");
       // socket.emit("update");
@@ -223,7 +225,7 @@ export function SearchNFT(payload) {
 export function Edit_NFT(_id, payload) {
   return async function () {
     const token = localStorage.getItem("token");
-    const authAxios = axios.create({
+    const authAxios = clienteAxios.create({
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -542,4 +544,29 @@ export function deleteOffer(id) {
       toast.error(error);
     }
   };
+}
+
+export function filterNftCategory(payload) {
+
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    try {
+      const json = await authAxios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/filter/${payload}` );
+        return dispatch({
+          type: FILTER_CATEGORY,
+          payload: json.data
+        });
+        
+    } catch (error) {
+      toast.error(error);
+    }
+
+  }
 }
