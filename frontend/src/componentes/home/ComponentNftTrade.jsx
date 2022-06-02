@@ -4,8 +4,7 @@ import likeOf from "../../img/likeOff.png";
 
 
 function ComponentNftTrade({
-
-    _id,
+    category,
     id,
     image,
     colection,

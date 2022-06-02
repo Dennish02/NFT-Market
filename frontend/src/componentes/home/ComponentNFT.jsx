@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {
   comprarNFT,
   AñadirFav,
@@ -8,7 +8,7 @@ import {
 } from "../../../redux/actions/actionNFT";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import pocentajeAumento from "../../middleware/pocentajeAumento";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
 import favOn from "../../img/favOn.png";
 import favOf from "../../img/favOf.png";
@@ -18,33 +18,18 @@ import Modal2 from "react-modal";
 import Modal from "react-modal";
 import ComponentNftTrade from "../../componentes/home/ComponentNftTrade";
 import { Swiper, SwiperSlide } from "swiper/react";
-//import "swiper/css";
-//import "swiper/css/pagination";
 
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(11,12,41,0.48)",
   },
 };
-// const customStyles = {
-//   overlay: {
-//     backgroundColor: "rgba(11,12,41,0.48)",
-//   },
-//   content: {
-//     top: "50%",
-//     left: "50%",
-//     right: "auto",
-//     bottom: "auto",
-//     marginRight: "-50%",
-//     transform: "translate(-50%, -50%)",
-//     padding: "0",
-//     width: "380px",
-//   },
-// };
+
 export default function ComponentNFT(props) {
   const dispatch = useDispatch();
 
   const {
+    category,
     _id,
     id,
     image,
@@ -59,8 +44,6 @@ export default function ComponentNFT(props) {
     screen,
   } = props;
   let porcentaje = pocentajeAumento(priceBase, price);
-
-  //const user = useSelector(state => state.usuario)
   if (!usuario) "cargando";
 
   let idFavorito = "";
@@ -69,35 +52,22 @@ export default function ComponentNFT(props) {
   usuario.favoritos ? (idFavorito = usuario.favoritos) : null;
   let extraerId = "";
   idFavorito ? (extraerId = idFavorito.map((el) => el._id)) : null;
-
   let nftfilter;
   let idNftLike = "";
   let validarBoton2 = "";
   usuario.nftLikes ? (validarBoton2 = usuario.nftLikes) : null;
-
   usuario.nftLikes ? (idNftLike = usuario.nftLikes) : null;
   idNftLike.length > 0 ? (nftfilter = idNftLike.map((e) => e)) : null;
-
   const [openModal, setOpenModal] = useState(false);
-
   const [favFlag, setFavFlag] = useState(false);
   const [likeFlag, setLikeFlag] = useState(false);
-
   const [mostrarModal, setMostrarModal] = useState(false);
-  // const User = useSelector(state => state.usuarioActual)
-  // if(!User) ''
-
   const UserFilter = usuario.nfts;
-
-  // console.log(UserFilter);
-
   const [trade, setTrade] = useState({
     owner: "",
     nftId: "",
     nftOffered: "",
   });
-  // console.log(trade)
-
   function showModal() {
     setOpenModal(true);
   }
@@ -131,7 +101,7 @@ export default function ComponentNFT(props) {
     setOpenModal(false);
   }
 
-  function MostrarModal(e) {
+  function MostrarModal() {
     setMostrarModal(true);
     setTrade({
       ...trade,
@@ -152,11 +122,14 @@ export default function ComponentNFT(props) {
     }
     setMostrarModal(false);
   }
-
   return (
     <div className="contNFT">
-      <div className="contImg">
-        <img src={image.url} alt="NFT IMAGE" height="280px" />
+      <div  className= 'contImg'>
+        {category === '+18' ? 
+        <button onClick={(e)=>e.target.className = 'oculto'} className="viewSensible">show sensitive content</button>
+         : null}
+      
+        <img id="imgSensitive" src={image.url} alt="NFT IMAGE" height="280px" />
       </div>
 
       <div className="contNFTinfo">
@@ -210,7 +183,7 @@ export default function ComponentNFT(props) {
             >
               <div>
                 <div>
-                  <button className="close" onClick={() => OcultarModal()}>
+                  <button className="cerrar" onClick={() => OcultarModal()}>
                     X
                   </button>
                 </div>

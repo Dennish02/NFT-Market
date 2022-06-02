@@ -1,18 +1,11 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { topPortfolios } from "../../../redux/actions/actionUSER";
-import ComponentNFT from "./ComponentNFT";
+import React from "react";
 import perfil from "../../img/profile.png";
-import { Pagination } from "swiper";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import ComponenteTopPortf from "./ComponenteTopPortf";
 
-export default function TopPortfolios({ usuario, screen, ranking }) {
-  // const dispatch = useDispatch()
-
+export default function TopPortfolios({screen, ranking }) {
   const limite = ranking.slice(0, 3);
 
   return (

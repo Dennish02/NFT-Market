@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   seeOffers,
   responseOffer,
   cancelOffer,
-  deleteOffer
+  deleteOffer,
 } from "../../redux/actions/actionNFT";
 import CardTrade from "../componentes/trades/CardTrade";
 import NavBar from "../componentes/home/NavBar";
@@ -16,7 +16,6 @@ let socket;
 
 function Trades() {
   const dispatch = useDispatch();
-
   const AllTrades = useSelector((state) => state.trades);
   const usuarioAct = useSelector((state) => state.usuarioActual);
   const params = window.location.href;
@@ -50,8 +49,8 @@ function Trades() {
   };
 
   const handleDelete = (e) => {
-    dispatch(deleteOffer({ id: e }))
-  }
+    dispatch(deleteOffer({ id: e }));
+  };
 
   if (!usuarioAct) "cargando";
   return (
@@ -108,8 +107,6 @@ function Trades() {
                       <path d="M4 9h8v-3.586a1 1 0 0 1 1.707 -.707l6.586 6.586a1 1 0 0 1 0 1.414l-6.586 6.586a1 1 0 0 1 -1.707 -.707v-3.586h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1z" />
                     </svg>
                   </div>
-
-
                   <div>
                     <CardTrade
                       id={e.nftB.id}
@@ -121,7 +118,6 @@ function Trades() {
                     />
                   </div>
                 </div>
-
                 {e.userB === usuarioAct.nombre ? (
                   <div className="contButtonTrade">
                     <button
@@ -158,7 +154,12 @@ function Trades() {
                     {e.condition === "rejected" && (
                       <div className="center">
                         {" "}
-                        <button onClick={() => handleDelete(e._id)} className="buttonRojos">delete</button>
+                        <button
+                          onClick={() => handleDelete(e._id)}
+                          className="buttonRojos"
+                        >
+                          delete
+                        </button>
                         <p className="noDisponible">This offer was rejected</p>{" "}
                       </div>
                     )}
@@ -173,8 +174,6 @@ function Trades() {
           </div>
         )}
       </div>
-
-
     </div>
   );
 }

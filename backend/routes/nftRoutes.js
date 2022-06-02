@@ -23,6 +23,7 @@ import {
   cancelOffer,
   deleteOffer,
   selectNft,
+  filtroCategoria
 } from "../controladores/nftController.js";
 
 import { crearTransaccion } from "../controladores/transaccionesController.js";
@@ -32,7 +33,7 @@ router.put("/gift", checkOut, regalarNft);
 router.put("/:id", checkOut, editarNft);
 router.get("/select/:id", checkOut, selectNft);
 router.get(checkOut, obtenerNft);
-
+router.get('/filter/:categoria', checkOut, filtroCategoria)
 router.post("/tradeoffer", checkOut, tradeOffer);
 router.get("/seeoffers", checkOut, seeOffers);
 router.post("/responseoffer", checkOut, responseOffer);

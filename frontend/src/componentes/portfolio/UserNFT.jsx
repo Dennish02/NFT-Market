@@ -161,22 +161,6 @@ export default function ComponentNFT(props) {
               >
                 gift
               </button>
-              {/* {idUsuario !== miUser._id ? (
-                <button
-                  className="buttonPrimary"
-                  onClick={() => {
-                    idUsuario
-                      ? gift_nft()
-                      : toast.error("debe seleccionar un usuario");
-                  }}
-                >
-                  OK
-                </button>
-              ) : (
-                <p style={{ color: "red" }}>
-                  no podes regalarte un nft a vos mismo!
-                </p>
-              )} */}
             </div>
           </div>
         </Modal2>

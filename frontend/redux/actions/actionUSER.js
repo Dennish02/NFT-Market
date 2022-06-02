@@ -9,7 +9,6 @@ import {
   AUTH_USER,
   LOGIN_USER,
   LOGOUT_USER,
-  LOGIN_GOOGLE,
   SHOW_USERS_ID,
   ACTUAL,
   TRANSFERIR_CL,
@@ -26,14 +25,14 @@ socket = io(import.meta.env.VITE_BACKEND_URL);
 export function registroGoogle(googleData) {
   return async function (dispatch) {
     const token = googleData.credential;
-    console.log(token);
+    // console.log(token);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/usuario/google`,
         { idToken: token }
       );
       localStorage.setItem("token", response.data.token);
-      console.log("response", response.data);
+      // console.log("response", response.data);
       return dispatch({
         type: GOOGLE_LOGIN,
         payload: response.data,
@@ -43,11 +42,8 @@ export function registroGoogle(googleData) {
     }
   };
 }
-// console.log('data', response.data)
-// toast.success(response.data);
 
 export function registroUsuario({ nombre, email, password1 }) {
-  // const n = Math.floor(Math.random() * 10) % 3;
   return async function () {
     try {
       const body = {
@@ -325,6 +321,7 @@ export function transferirCL({ cl, user }) {
         { cl, user }
       );
       toast.success(json.data.msg);
+      socket.emit('renderHome')
       socket.emit("Transferencia");
       return dispatch({
         type: TRANSFERIR_CL,

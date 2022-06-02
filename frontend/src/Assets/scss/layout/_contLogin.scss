@@ -38,7 +38,8 @@
       &:hover {
         cursor: pointer;
         color: v.$grisclaro;
-        background-color: v.$rojo;
+        background-color: v.$grisclaro;
+        color: v.$rojo
       }
     }
     .contLogin-content {
