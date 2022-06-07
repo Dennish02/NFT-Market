@@ -90,19 +90,11 @@ io.on("connection", (socket) => {
       .emit("colectionUser");
   });
 //chat
-
-// socket.on("Chat", (rooms) => {
-//   socket.join(rooms)
- 
-// });
 socket.on('chat', (mensaje)=>{
   io.emit("chatmenaje", mensaje);
 })
 
-// socket.on("chat", (mensaje) => {
-//   console.log(mensaje);
-//   //socket.to(`${rooms}`).emit("chatmenaje", mensaje);
-// });
+
 /*fin chat*/
   socket.on("Settings", (room) => {
     socket.join(room);

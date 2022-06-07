@@ -188,6 +188,7 @@ function Wallet() {
   };
 
   return (
+    usuario.length !== 0 ? 
     <div className="contentHome">
       <NavWallet />
       <div className="ContenedorGeneralWallet">
@@ -320,7 +321,7 @@ function Wallet() {
           </section>
         ) : null}
       </div>
-    </div>
+    </div> : <p className="MensajeVacios">Loading</p>
   );
 }
 

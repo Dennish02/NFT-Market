@@ -41,7 +41,6 @@ function Trades() {
 
   const handleAccept = (e) => {
     dispatch(responseOffer({ response: true, newId: e }));
-    console.log({ response: true, newId: e });
   };
 
   const handleReject = (e) => {
@@ -52,17 +51,17 @@ function Trades() {
     dispatch(deleteOffer({ id: e }));
   };
 
-  if (!usuarioAct) "cargando";
+
   return (
+    usuarioAct.length !== 0 ?
     <div>
       <NavBar usuario={usuarioAct} />
       <NotificationModal usuario={usuarioAct} />
       <div className="contenedorCard">
         {!AllTrades.msg ? (
-          AllTrades?.map((e) => {
-            console.log(e.condition);
+          AllTrades?.map((e, i) => {
             return (
-              <div className="contTrades">
+              <div key={i} className="contTrades">
                 <h3> This user {e.userA} sent you this offer</h3>
                 <div className="contTrades-cards" key={e.id}>
                   <div>
@@ -174,7 +173,7 @@ function Trades() {
           </div>
         )}
       </div>
-    </div>
+    </div> : <p className="MensajeVacios">Loading</p>
   );
 }
 
