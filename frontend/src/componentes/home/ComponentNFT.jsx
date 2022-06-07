@@ -109,13 +109,10 @@ export default function ComponentNFT(props) {
       nftId: id,
     });
 
-    console.log(trade);
   }
 
   function OcultarModal(id) {
-    console.log(trade);
     if (id) {
-      console.log(id);
       setTimeout(() => {
         dispatch(tradeOffer({ ...trade, nftOffered: id }));
       }, 2000);

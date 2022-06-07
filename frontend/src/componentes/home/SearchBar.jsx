@@ -5,14 +5,11 @@ import {
   sort,
   filterNftCategory
 } from "../../../redux/actions/actionNFT";
-import { useState } from "react";
 
 export default function SearchBar({
   selectedSort,
   setSelectedSort,
   paginas,
-  OrderPop,
-  filterCategory,
   setFilterCategory
 }) {
   const dispatch = useDispatch();
@@ -21,7 +18,6 @@ export default function SearchBar({
   }
 
   function changeSort(e) {
-    //comentario para poder comitear
     dispatch(sort(e.target.value));
     setSelectedSort(e.target.value);
     paginas(1);
@@ -29,8 +25,9 @@ export default function SearchBar({
 
   function filterByCategory(e){
    dispatch(filterNftCategory(e.target.value))
-    paginas(1)
-  
+   setTimeout(()=>{
+     paginas(1)
+   },750)  
   }
 
   return (
@@ -43,15 +40,7 @@ export default function SearchBar({
         />
       </div>
       <div className="contentSearchBar-select">
-        {/* <div>
-          <label htmlFor="popularity">popularity</label>
-          <select onChange={(e)=>sortByPopularity(e)}  id="popularity">
-            <option value="high">high</option>
-            <option value="low">low</option>
-          </select>
-        </div> */}
         <div>
-          {/* <label htmlFor="price">price</label> */}
           <select
             name="price"
             id="price"

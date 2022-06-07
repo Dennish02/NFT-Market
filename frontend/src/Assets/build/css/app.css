@@ -596,6 +596,7 @@ img {
   .contLogin {
     position: relative;
     width: 100%;
+    height: fit-content;
     margin: 0 auto;
     padding: 2rem;
     max-height: fit-content;
@@ -690,7 +691,7 @@ img {
 @media (min-width: 768px) {
   .contLogin {
     width: 600px;
-    max-height: 700px;
+    max-height: fit-content;
     padding: 2rem;
   }
   .contLogin .contLogin-content {

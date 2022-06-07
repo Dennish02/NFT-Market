@@ -4,43 +4,6 @@ export default function Chat({ usuario, socket }) {
   const [mensaje, setMensaje] = useState("");
   const [mensajes, setMensajes] = useState([]);
 
-  const insultos = [
-    "puto",
-    "pUt0",
-    "PUTO",
-    "PUT0",
-    "culia",
-    "hijodeputa",
-    "puta",
-    "negro",
-    "mierda",
-    "trola",
-    "put@",
-    "gay",
-    "g@ay",
-    "bobo",
-    "boba",
-    "idiota",
-    "tonto",
-    "tonta",
-    "tont@",
-    "hueca",
-    "hueco",
-    "macaco",
-    "nashe",
-    "concha",
-    "pito",
-    "fuck",
-    "fucking",
-    "brasuca",
-    "chileno",
-    "culiado",
-    "huecudo",
-    "pijudo",
-    "bugs",
-    "bag",
-  ];
-
 
 const insultos = ["puto","pUt0","PUTO","PUT0","hijodeperra","perra", "culia","hijodeputa","puta","negro","mierda","trola","put@","gay","g@ay","bobo","boba","idiota","tonto","tonta","tont@","hueca","hueco","macaco","nashe","concha","pito","fuck","fucking","brasuca","culiado","huecudo","pijudo","bugs","bag","trolo","pingo","orto","poronga","culiao","culiau","negros","estupido","estupidos","pelotudito","cachondo","cachonda","mogolico","mogolica","porongo","reconcha","pija","laconcha"]
 
@@ -67,7 +30,7 @@ function handleNone(){
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (mensaje === "") return null;
+    if (mensaje === "" || mensaje.trim().length === 0) return null;
     if (mensaje.length > 200) return null;
     const palabras = mensaje
       .split(" ")

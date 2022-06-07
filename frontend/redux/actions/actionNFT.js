@@ -119,7 +119,6 @@ export function crearNFT(payload) {
         payload: true,
       });
     } catch (error) {
-      console.log(error.response.data.msg);
       toast.error(error.response.data.msg);
       return dispatch({
         type: CREATE_NFT,
@@ -159,10 +158,11 @@ export function comprarNFT(payload) {
         {},
         config
       );
-
+      socket.emit('Render');
+      socket.emit("renderHome");
       //socket.io
       toast.success(`You bought this NFT: ${nft.data.NFT_id}`);
-      socket.emit("renderHome");
+     
     } catch (error) {
       toast.error(error.response.data.msg);
     }
@@ -203,8 +203,8 @@ export function venta(payload) {
           progress: undefined,
         });
       //socket.io
-      // socket.emit("Render");
-      // socket.emit("update");
+      socket.emit("Render");
+      socket.emit("renderHome");
       return dispatch({
         type: CAMBIAR_VENTA,
         payload: _id,
@@ -460,7 +460,6 @@ export function seeOffers() {
 }
 
 export function responseOffer({ response, newId }) {
-  console.log(response, newId);
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
@@ -490,7 +489,6 @@ export function responseOffer({ response, newId }) {
 }
 
 export function cancelOffer({ id }) {
-  console.log(id);
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({

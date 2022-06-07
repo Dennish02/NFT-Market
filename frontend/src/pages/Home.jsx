@@ -98,8 +98,12 @@ export default function Home() {
   if (!usuarioAct) "Loading";
 
   return (
+    usuarioAct.length !== 0 ? 
     <div className="contentHome">
-      <NavBar usuario={usuarioAct} />
+  
+             <NavBar usuario={usuarioAct} />
+    
+   
       <NotificationModal usuario={usuarioAct} />
       <div>
         <SearchBar
@@ -166,6 +170,6 @@ export default function Home() {
       ) : (
         ""
       )}
-    </div>
+    </div> : <p  className="MensajeVacios">Loading</p> 
   );
 }
