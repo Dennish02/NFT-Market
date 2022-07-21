@@ -32,7 +32,7 @@ Mongoose, Express,js, Node,js
  Puedes descargar como zip, en cada carpeta, tanto en el back como en en front poner 
  `npm install` y despues para correr el proyecto
  poner en consola de ambas carpetas `npm run dev`
- Debes tener instalado <a href="https://gulpjs.com/"> Gulp</a> para realizar cambios en los estilos
+ 
  
  Sin los archivos
 `.env` no van a correr el back y el front.
